@@ -1,0 +1,4402 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "version": "1.0.3",
+        "title": "Slack",
+        "description": "One way to interact with the Slack platform is its HTTP RPC-based Web API, a collection of methods requiring OAuth 2.0-based user, bot, or workspace tokens blessed with related OAuth scopes.",
+        "termsOfService": ""
+    },
+    "servers": [
+        "httpsslack.com\/api"
+    ],
+    "paths": {
+        "\/chat.delete": {
+            "post": {
+                "summary": "Delete Message",
+                "description": "Deletes a message.",
+                "operationId": "ChatDelete",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "as_user",
+                        "in": "formData",
+                        "description": "Pass true to delete the message as the authed user with `chat:write:user` scope. [Bot users](\/bot-users) in this context are considered authed users. If unused or false, the message will be deleted with `chat:write:bot` scope."
+                    },
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    },
+                    {
+                        "name": "ts",
+                        "in": "formData",
+                        "description": "Timestamp of the message to be deleted."
+                    },
+                    {
+                        "name": "channel",
+                        "in": "formData",
+                        "description": "Channel containing the message to be deleted."
+                    }
+                ]
+            }
+        },
+        "\/files.comments.edit": {
+            "post": {
+                "summary": "Edit File Comments",
+                "description": "Edit an existing file comment.",
+                "operationId": "FilesCommentsEdit",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "comment",
+                        "in": "formData",
+                        "description": "Text of the comment to edit."
+                    },
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    },
+                    {
+                        "name": "id",
+                        "in": "formData",
+                        "description": "The comment to edit."
+                    },
+                    {
+                        "name": "file",
+                        "in": "formData",
+                        "description": "File containing the comment to edit."
+                    }
+                ]
+            }
+        },
+        "\/im.close": {
+            "post": {
+                "summary": "Close Group",
+                "description": "Close a direct message channel.",
+                "operationId": "ImClose",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    },
+                    {
+                        "name": "channel",
+                        "in": "formData",
+                        "description": "Channel containing the message to be deleted."
+                    }
+                ]
+            }
+        },
+        "\/groups.replies": {
+            "get": {
+                "summary": "Get Group Thread",
+                "description": "Retrieve a thread of messages posted to a private channel",
+                "operationId": "GroupsReplies",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "thread_ts",
+                        "in": "query",
+                        "description": "Unique identifier of a thread's parent message"
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Authentication token. Requires scope: `groups:history`"
+                    },
+                    {
+                        "name": "channel",
+                        "in": "query",
+                        "description": "Private channel to fetch thread from"
+                    }
+                ]
+            }
+        },
+        "\/bots.info": {
+            "get": {
+                "summary": "Get Bot Info",
+                "description": "Gets information about a bot user.",
+                "operationId": "BotsInfo",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Authentication token. Requires scope: `groups:history`"
+                    },
+                    {
+                        "name": "bot",
+                        "in": "query",
+                        "description": "Bot user to get info on"
+                    }
+                ]
+            }
+        },
+        "\/groups.rename": {
+            "post": {
+                "summary": "Rename Group",
+                "description": "Renames a private channel.",
+                "operationId": "GroupsRename",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "validate",
+                        "in": "formData",
+                        "description": "Whether to return errors on invalid channel name instead of modifying it to meet the specified criteria."
+                    },
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    },
+                    {
+                        "name": "name",
+                        "in": "formData",
+                        "description": "New name for private channel."
+                    },
+                    {
+                        "name": "channel",
+                        "in": "formData",
+                        "description": "Channel containing the message to be deleted."
+                    }
+                ]
+            }
+        },
+        "\/users.profile.set": {
+            "post": {
+                "summary": "Set User Profile",
+                "description": "Set the profile information for a user.",
+                "operationId": "UsersProfileSet",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "profile",
+                        "in": "formData",
+                        "description": "Collection of key:value pairs presented as a URL-encoded JSON hash."
+                    },
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    },
+                    {
+                        "name": "user",
+                        "in": "formData",
+                        "description": "ID of user to change. This argument may only be specified by team admins on paid teams."
+                    },
+                    {
+                        "name": "value",
+                        "in": "formData",
+                        "description": "Value to set a single key to. Usable only if `profile` is not passed."
+                    },
+                    {
+                        "name": "name",
+                        "in": "formData",
+                        "description": "New name for private channel."
+                    }
+                ]
+            }
+        },
+        "\/users.setPresence": {
+            "post": {
+                "summary": "Set User Presence",
+                "description": "Manually sets user presence.",
+                "operationId": "UsersSetPresence",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    },
+                    {
+                        "name": "presence",
+                        "in": "formData",
+                        "description": "Either `auto` or `away`"
+                    }
+                ]
+            }
+        },
+        "\/conversations.close": {
+            "post": {
+                "summary": "Close Conversation",
+                "description": "Closes a direct message or multi-person direct message.",
+                "operationId": "ConversationsClose",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    },
+                    {
+                        "name": "channel",
+                        "in": "formData",
+                        "description": "Channel containing the message to be deleted."
+                    }
+                ]
+            }
+        },
+        "\/im.open": {
+            "post": {
+                "summary": "Open Messages",
+                "description": "Opens a direct message channel.",
+                "operationId": "ImOpen",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    },
+                    {
+                        "name": "return_im",
+                        "in": "formData",
+                        "description": "Boolean, indicates you want the full IM channel definition in the response."
+                    },
+                    {
+                        "name": "user",
+                        "in": "formData",
+                        "description": "ID of user to change. This argument may only be specified by team admins on paid teams."
+                    },
+                    {
+                        "name": "include_locale",
+                        "in": "formData",
+                        "description": "Set this to `true` to receive the locale for this im. Defaults to `false`"
+                    }
+                ]
+            }
+        },
+        "\/groups.list": {
+            "get": {
+                "summary": "Get Group",
+                "description": "Lists private channels that the calling user has access to.",
+                "operationId": "GroupsList",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "exclude_members",
+                        "in": "query",
+                        "description": "Exclude the `members` from each `group`"
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Authentication token. Requires scope: `groups:history`"
+                    },
+                    {
+                        "name": "exclude_archived",
+                        "in": "query",
+                        "description": "Don't return archived private channels."
+                    }
+                ]
+            }
+        },
+        "\/team.integrationLogs": {
+            "get": {
+                "summary": "Get Team Logs",
+                "description": "Gets the integration logs for the current team.",
+                "operationId": "TeamIntegrationLogs",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "count",
+                        "in": "query",
+                        "description": ""
+                    },
+                    {
+                        "name": "change_type",
+                        "in": "query",
+                        "description": "Filter logs with this change type. Defaults to all logs."
+                    },
+                    {
+                        "name": "app_id",
+                        "in": "query",
+                        "description": "Filter logs to this Slack app. Defaults to all logs."
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Authentication token. Requires scope: `groups:history`"
+                    },
+                    {
+                        "name": "user",
+                        "in": "query",
+                        "description": "Filter logs generated by this user???s actions. Defaults to all logs."
+                    },
+                    {
+                        "name": "service_id",
+                        "in": "query",
+                        "description": "Filter logs to this service. Defaults to all logs."
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": ""
+                    }
+                ]
+            }
+        },
+        "\/groups.kick": {
+            "post": {
+                "summary": "Remove User From Group",
+                "description": "Removes a user from a private channel.",
+                "operationId": "GroupsKick",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    },
+                    {
+                        "name": "user",
+                        "in": "formData",
+                        "description": "ID of user to change. This argument may only be specified by team admins on paid teams."
+                    },
+                    {
+                        "name": "channel",
+                        "in": "formData",
+                        "description": "Channel containing the message to be deleted."
+                    }
+                ]
+            }
+        },
+        "\/dnd.info": {
+            "get": {
+                "summary": "Get Do Not Disturb",
+                "description": "Retrieves a user's current Do Not Disturb status.",
+                "operationId": "DndInfo",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Authentication token. Requires scope: `groups:history`"
+                    },
+                    {
+                        "name": "user",
+                        "in": "query",
+                        "description": "Filter logs generated by this user???s actions. Defaults to all logs."
+                    }
+                ]
+            }
+        },
+        "\/channels.archive": {
+            "post": {
+                "summary": "Archive Channel",
+                "description": "Archives a channel.",
+                "operationId": "ChannelsArchive",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    },
+                    {
+                        "name": "channel",
+                        "in": "formData",
+                        "description": "Channel containing the message to be deleted."
+                    }
+                ]
+            }
+        },
+        "\/reminders.info": {
+            "get": {
+                "summary": "Get Reminder",
+                "description": "Gets information about a reminder.",
+                "operationId": "RemindersInfo",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Authentication token. Requires scope: `groups:history`"
+                    },
+                    {
+                        "name": "reminder",
+                        "in": "query",
+                        "description": "The ID of the reminder"
+                    }
+                ]
+            }
+        },
+        "\/channels.info": {
+            "get": {
+                "summary": "Get Channel",
+                "description": "Gets information about a channel.",
+                "operationId": "ChannelsInfo",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Authentication token. Requires scope: `groups:history`"
+                    },
+                    {
+                        "name": "include_locale",
+                        "in": "query",
+                        "description": "Set this to `true` to receive the locale for this channel. Defaults to `false`"
+                    },
+                    {
+                        "name": "channel",
+                        "in": "query",
+                        "description": "Private channel to fetch thread from"
+                    }
+                ]
+            }
+        },
+        "\/channels.kick": {
+            "post": {
+                "summary": "Remove User From Channel",
+                "description": "Removes a user from a channel.",
+                "operationId": "ChannelsKick",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    },
+                    {
+                        "name": "user",
+                        "in": "formData",
+                        "description": "ID of user to change. This argument may only be specified by team admins on paid teams."
+                    },
+                    {
+                        "name": "channel",
+                        "in": "formData",
+                        "description": "Channel containing the message to be deleted."
+                    }
+                ]
+            }
+        },
+        "\/groups.mark": {
+            "post": {
+                "summary": "Mark Group",
+                "description": "Sets the read cursor in a private channel.",
+                "operationId": "GroupsMark",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    },
+                    {
+                        "name": "ts",
+                        "in": "formData",
+                        "description": "Timestamp of the message to be deleted."
+                    },
+                    {
+                        "name": "channel",
+                        "in": "formData",
+                        "description": "Channel containing the message to be deleted."
+                    }
+                ]
+            }
+        },
+        "\/mpim.close": {
+            "post": {
+                "summary": "Close Multiparty Direct Message",
+                "description": "Closes a multiparty direct message channel.",
+                "operationId": "MpimClose",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    },
+                    {
+                        "name": "channel",
+                        "in": "formData",
+                        "description": "Channel containing the message to be deleted."
+                    }
+                ]
+            }
+        },
+        "\/conversations.join": {
+            "post": {
+                "summary": "Join Conversation",
+                "description": "Joins an existing conversation.",
+                "operationId": "ConversationsJoin",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    },
+                    {
+                        "name": "channel",
+                        "in": "formData",
+                        "description": "Channel containing the message to be deleted."
+                    }
+                ]
+            }
+        },
+        "\/channels.history": {
+            "get": {
+                "summary": "Get Channel History",
+                "description": "Fetches history of messages and events from a channel.",
+                "operationId": "ChannelsHistory",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "count",
+                        "in": "query",
+                        "description": ""
+                    },
+                    {
+                        "name": "unreads",
+                        "in": "query",
+                        "description": "Include `unread_count_display` in the output?"
+                    },
+                    {
+                        "name": "inclusive",
+                        "in": "query",
+                        "description": "Include messages with latest or oldest timestamp in results."
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Authentication token. Requires scope: `groups:history`"
+                    },
+                    {
+                        "name": "oldest",
+                        "in": "query",
+                        "description": "Start of time range of messages to include in results."
+                    },
+                    {
+                        "name": "channel",
+                        "in": "query",
+                        "description": "Private channel to fetch thread from"
+                    },
+                    {
+                        "name": "latest",
+                        "in": "query",
+                        "description": "End of time range of messages to include in results."
+                    }
+                ]
+            }
+        },
+        "\/im.mark": {
+            "post": {
+                "summary": "Mark Messages",
+                "description": "Sets the read cursor in a direct message channel.",
+                "operationId": "ImMark",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    },
+                    {
+                        "name": "ts",
+                        "in": "formData",
+                        "description": "Timestamp of the message to be deleted."
+                    },
+                    {
+                        "name": "channel",
+                        "in": "formData",
+                        "description": "Channel containing the message to be deleted."
+                    }
+                ]
+            }
+        },
+        "\/oauth.token": {
+            "get": {
+                "summary": "Oauth Token",
+                "description": "Exchanges a temporary OAuth verifier code for a workspace token.",
+                "operationId": "OauthToken",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "client_secret",
+                        "in": "query",
+                        "description": "Issued when you created your application."
+                    },
+                    {
+                        "name": "code",
+                        "in": "query",
+                        "description": "The `code` param returned via the OAuth callback."
+                    },
+                    {
+                        "name": "single_channel",
+                        "in": "query",
+                        "description": "Request the user to add your app only to a single channel."
+                    },
+                    {
+                        "name": "client_id",
+                        "in": "query",
+                        "description": "Issued when you created your application."
+                    },
+                    {
+                        "name": "redirect_uri",
+                        "in": "query",
+                        "description": "This must match the originally submitted URI (if one was sent)."
+                    }
+                ]
+            }
+        },
+        "\/files.upload": {
+            "post": {
+                "summary": "Upload File",
+                "description": "Uploads or creates a file.",
+                "operationId": "FilesUpload",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "channels",
+                        "in": "formData",
+                        "description": "Comma-separated list of channel names or IDs where the file will be shared."
+                    },
+                    {
+                        "name": "title",
+                        "in": "formData",
+                        "description": "Title of file."
+                    },
+                    {
+                        "name": "initial_comment",
+                        "in": "formData",
+                        "description": "Initial comment to add to file."
+                    },
+                    {
+                        "name": "filetype",
+                        "in": "formData",
+                        "description": "A [file type](\/types\/file#file_types) identifier."
+                    },
+                    {
+                        "name": "filename",
+                        "in": "formData",
+                        "description": "Filename of file."
+                    },
+                    {
+                        "name": "content",
+                        "in": "formData",
+                        "description": "File contents via a POST variable. If omitting this parameter, you must provide a `file`."
+                    },
+                    {
+                        "name": "token",
+                        "in": "formData",
+                        "description": "Authentication token. Requires scope: `files:write:user`"
+                    },
+                    {
+                        "name": "file",
+                        "in": "formData",
+                        "description": "File containing the comment to edit."
+                    }
+                ]
+            }
+        },
+        "\/usergroups.users.list": {
+            "get": {
+                "summary": "List Group Users",
+                "description": "List all users in a User Group",
+                "operationId": "UsergroupsUsersList",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Authentication token. Requires scope: `groups:history`"
+                    },
+                    {
+                        "name": "include_disabled",
+                        "in": "query",
+                        "description": "Allow results that involve disabled User Groups."
+                    },
+                    {
+                        "name": "usergroup",
+                        "in": "query",
+                        "description": "The encoded ID of the User Group to update."
+                    }
+                ]
+            }
+        },
+        "\/users.info": {
+            "get": {
+                "summary": "Get User Info",
+                "description": "Gets information about a user.",
+                "operationId": "UsersInfo",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "include_locale",
+                        "in": "query",
+                        "description": "Set this to `true` to receive the locale for this channel. Defaults to `false`"
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Authentication token. Requires scope: `groups:history`"
+                    },
+                    {
+                        "name": "user",
+                        "in": "query",
+                        "description": "Filter logs generated by this user???s actions. Defaults to all logs."
+                    }
+                ]
+            }
+        },
+        "\/users.lookupByEmail": {
+            "get": {
+                "summary": "Find User",
+                "description": "Find a user with an email address.",
+                "operationId": "UsersLookupByEmail",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Authentication token. Requires scope: `groups:history`"
+                    },
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "An email address belonging to a user in the workspace"
+                    }
+                ]
+            }
+        },
+        "\/reactions.list": {
+            "get": {
+                "summary": "List Reactions",
+                "description": "Lists reactions made by a user.",
+                "operationId": "ReactionsList",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "count",
+                        "in": "query",
+                        "description": ""
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Authentication token. Requires scope: `groups:history`"
+                    },
+                    {
+                        "name": "full",
+                        "in": "query",
+                        "description": "If true always return the complete reaction list."
+                    },
+                    {
+                        "name": "user",
+                        "in": "query",
+                        "description": "Filter logs generated by this user???s actions. Defaults to all logs."
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": ""
+                    }
+                ]
+            }
+        },
+        "\/conversations.create": {
+            "post": {
+                "summary": "Create Conversation",
+                "description": "Initiates a public or private channel-based conversation",
+                "operationId": "ConversationsCreate",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    },
+                    {
+                        "name": "name",
+                        "in": "formData",
+                        "description": "New name for private channel."
+                    },
+                    {
+                        "name": "is_private",
+                        "in": "formData",
+                        "description": "Create a private channel instead of a public one"
+                    }
+                ]
+            }
+        },
+        "\/team.billableInfo": {
+            "get": {
+                "summary": "Get Billable Info",
+                "description": "Gets billable users information for the current team.",
+                "operationId": "TeamBillableInfo",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Authentication token. Requires scope: `groups:history`"
+                    },
+                    {
+                        "name": "user",
+                        "in": "query",
+                        "description": "Filter logs generated by this user???s actions. Defaults to all logs."
+                    }
+                ]
+            }
+        },
+        "\/dnd.endDnd": {
+            "post": {
+                "summary": "End Do Not Disturb",
+                "description": "Ends the current user's Do Not Disturb session immediately.",
+                "operationId": "DndEndDnd",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    }
+                ]
+            }
+        },
+        "\/search.all": {
+            "get": {
+                "summary": "Search Real Time Messaging",
+                "description": "Searches for messages and files matching a query.",
+                "operationId": "SearchAll",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "sort_dir",
+                        "in": "query",
+                        "description": "Change sort direction to ascending (`asc`) or descending (`desc`)."
+                    },
+                    {
+                        "name": "query",
+                        "in": "query",
+                        "description": "Search query. May contains booleans, etc."
+                    },
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "description": "Return matches sorted by either `score` or `timestamp`."
+                    },
+                    {
+                        "name": "count",
+                        "in": "query",
+                        "description": ""
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Authentication token. Requires scope: `groups:history`"
+                    },
+                    {
+                        "name": "highlight",
+                        "in": "query",
+                        "description": "Pass a value of `true` to enable query highlight markers (see below)."
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": ""
+                    }
+                ]
+            }
+        },
+        "\/files.comments.delete": {
+            "post": {
+                "summary": "Delete File Comments",
+                "description": "Deletes an existing comment on a file.",
+                "operationId": "FilesCommentsDelete",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    },
+                    {
+                        "name": "id",
+                        "in": "formData",
+                        "description": "The comment to edit."
+                    },
+                    {
+                        "name": "file",
+                        "in": "formData",
+                        "description": "File containing the comment to edit."
+                    }
+                ]
+            }
+        },
+        "\/auth.revoke": {
+            "get": {
+                "summary": "Revoke Auth",
+                "description": "Revokes a token.",
+                "operationId": "AuthRevoke",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "test",
+                        "in": "query",
+                        "description": "Setting this parameter to `1` triggers a _testing mode_ where the specified token will not actually be revoked."
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Authentication token. Requires scope: `groups:history`"
+                    }
+                ]
+            }
+        },
+        "\/reactions.add": {
+            "post": {
+                "summary": "Add Reaction",
+                "description": "Adds a reaction to an item.",
+                "operationId": "ReactionsAdd",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "formData",
+                        "description": "New name for private channel."
+                    },
+                    {
+                        "name": "file_comment",
+                        "in": "formData",
+                        "description": "File comment to add reaction to."
+                    },
+                    {
+                        "name": "timestamp",
+                        "in": "formData",
+                        "description": "Timestamp of the message to add reaction to."
+                    },
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    },
+                    {
+                        "name": "file",
+                        "in": "formData",
+                        "description": "File containing the comment to edit."
+                    },
+                    {
+                        "name": "channel",
+                        "in": "formData",
+                        "description": "Channel containing the message to be deleted."
+                    }
+                ]
+            }
+        },
+        "\/stars.add": {
+            "post": {
+                "summary": "Star Item",
+                "description": "Adds a star to an item.",
+                "operationId": "StarsAdd",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "file_comment",
+                        "in": "formData",
+                        "description": "File comment to add reaction to."
+                    },
+                    {
+                        "name": "timestamp",
+                        "in": "formData",
+                        "description": "Timestamp of the message to add reaction to."
+                    },
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    },
+                    {
+                        "name": "channel",
+                        "in": "formData",
+                        "description": "Channel containing the message to be deleted."
+                    },
+                    {
+                        "name": "file",
+                        "in": "formData",
+                        "description": "File containing the comment to edit."
+                    }
+                ]
+            }
+        },
+        "\/reminders.complete": {
+            "post": {
+                "summary": "Mark Reminders Complete",
+                "description": "Marks a reminder as complete.",
+                "operationId": "RemindersComplete",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    },
+                    {
+                        "name": "reminder",
+                        "in": "formData",
+                        "description": "The ID of the reminder to be marked as complete"
+                    }
+                ]
+            }
+        },
+        "\/chat.unfurl": {
+            "post": {
+                "summary": "Unfurl Message",
+                "description": "Provide custom unfurl behavior for user-posted URLs",
+                "operationId": "ChatUnfurl",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "user_auth_message",
+                        "in": "formData",
+                        "description": "Provide a simply-formatted string to send as an ephemeral message to the user as invitation to authenticate further and enable full unfurling behavior"
+                    },
+                    {
+                        "name": "user_auth_required",
+                        "in": "formData",
+                        "description": "Set to `true` or `1` to indicate the user must install your Slack app to trigger unfurls for this domain"
+                    },
+                    {
+                        "name": "unfurls",
+                        "in": "formData",
+                        "description": "URL-encoded JSON map with keys set to URLs featured in the the message, pointing to their unfurl message attachments."
+                    },
+                    {
+                        "name": "ts",
+                        "in": "formData",
+                        "description": "Timestamp of the message to be deleted."
+                    },
+                    {
+                        "name": "user_auth_url",
+                        "in": "formData",
+                        "description": "Send users to this custom URL where they will complete authentication in your app to fully trigger unfurling. Value should be properly URL-encoded."
+                    },
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    },
+                    {
+                        "name": "channel",
+                        "in": "formData",
+                        "description": "Channel containing the message to be deleted."
+                    }
+                ]
+            }
+        },
+        "\/conversations.unarchive": {
+            "post": {
+                "summary": "Unarchve Conversation",
+                "description": "Reverses conversation archival.",
+                "operationId": "ConversationsUnarchive",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    },
+                    {
+                        "name": "channel",
+                        "in": "formData",
+                        "description": "Channel containing the message to be deleted."
+                    }
+                ]
+            }
+        },
+        "\/groups.info": {
+            "get": {
+                "summary": "Get Group",
+                "description": "Gets information about a private channel.",
+                "operationId": "GroupsInfo",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Authentication token. Requires scope: `groups:history`"
+                    },
+                    {
+                        "name": "include_locale",
+                        "in": "query",
+                        "description": "Set this to `true` to receive the locale for this channel. Defaults to `false`"
+                    },
+                    {
+                        "name": "channel",
+                        "in": "query",
+                        "description": "Private channel to fetch thread from"
+                    }
+                ]
+            }
+        },
+        "\/files.revokePublicURL": {
+            "post": {
+                "summary": "Revoke Public URL",
+                "description": "Revokes public\/external sharing access for a file",
+                "operationId": "FilesRevokePublicURL",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    },
+                    {
+                        "name": "file",
+                        "in": "formData",
+                        "description": "File containing the comment to edit."
+                    }
+                ]
+            }
+        },
+        "\/conversations.list": {
+            "get": {
+                "summary": "List Conversations",
+                "description": "Lists all channels in a Slack team.",
+                "operationId": "ConversationsList",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "cursor",
+                        "in": "query",
+                        "description": "Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute returned by a previous request's `response_metadata`. Default value fetches the first \"page\" of the collection. See [pagination](\/docs\/pagination) for more detail."
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Authentication token. Requires scope: `groups:history`"
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the list hasn't been reached. Must be an integer no larger than 1000."
+                    },
+                    {
+                        "name": "exclude_archived",
+                        "in": "query",
+                        "description": "Don't return archived private channels."
+                    },
+                    {
+                        "name": "types",
+                        "in": "query",
+                        "description": "Mix and match channel types by providing a comma-separated list of any combination of `public_channel`, `private_channel`, `mpim`, `im`"
+                    }
+                ]
+            }
+        },
+        "\/stars.list": {
+            "get": {
+                "summary": "List Stars",
+                "description": "Lists stars for a user.",
+                "operationId": "StarsList",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "count",
+                        "in": "query",
+                        "description": ""
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Authentication token. Requires scope: `groups:history`"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": ""
+                    }
+                ]
+            }
+        },
+        "\/reactions.get": {
+            "get": {
+                "summary": "Get Reaction",
+                "description": "Gets reactions for an item.",
+                "operationId": "ReactionsGet",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "full",
+                        "in": "query",
+                        "description": "If true always return the complete reaction list."
+                    },
+                    {
+                        "name": "file_comment",
+                        "in": "query",
+                        "description": "File comment to get reactions for."
+                    },
+                    {
+                        "name": "timestamp",
+                        "in": "query",
+                        "description": "Timestamp of the message to get reactions for."
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Authentication token. Requires scope: `groups:history`"
+                    },
+                    {
+                        "name": "file",
+                        "in": "query",
+                        "description": "File to get reactions for."
+                    },
+                    {
+                        "name": "channel",
+                        "in": "query",
+                        "description": "Private channel to fetch thread from"
+                    }
+                ]
+            }
+        },
+        "\/im.history": {
+            "get": {
+                "summary": "Get Messages History",
+                "description": "Fetches history of messages and events from direct message channel.",
+                "operationId": "ImHistory",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "count",
+                        "in": "query",
+                        "description": ""
+                    },
+                    {
+                        "name": "unreads",
+                        "in": "query",
+                        "description": "Include `unread_count_display` in the output?"
+                    },
+                    {
+                        "name": "inclusive",
+                        "in": "query",
+                        "description": "Include messages with latest or oldest timestamp in results."
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Authentication token. Requires scope: `groups:history`"
+                    },
+                    {
+                        "name": "oldest",
+                        "in": "query",
+                        "description": "Start of time range of messages to include in results."
+                    },
+                    {
+                        "name": "channel",
+                        "in": "query",
+                        "description": "Private channel to fetch thread from"
+                    },
+                    {
+                        "name": "latest",
+                        "in": "query",
+                        "description": "End of time range of messages to include in results."
+                    }
+                ]
+            }
+        },
+        "\/pins.add": {
+            "post": {
+                "summary": "Pin Item",
+                "description": "Pins an item to a channel.",
+                "operationId": "PinsAdd",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "file_comment",
+                        "in": "formData",
+                        "description": "File comment to add reaction to."
+                    },
+                    {
+                        "name": "timestamp",
+                        "in": "formData",
+                        "description": "Timestamp of the message to add reaction to."
+                    },
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    },
+                    {
+                        "name": "file",
+                        "in": "formData",
+                        "description": "File containing the comment to edit."
+                    },
+                    {
+                        "name": "channel",
+                        "in": "formData",
+                        "description": "Channel containing the message to be deleted."
+                    }
+                ]
+            }
+        },
+        "\/channels.leave": {
+            "post": {
+                "summary": "Leave Channel",
+                "description": "Leaves a channel.",
+                "operationId": "ChannelsLeave",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    },
+                    {
+                        "name": "channel",
+                        "in": "formData",
+                        "description": "Channel containing the message to be deleted."
+                    }
+                ]
+            }
+        },
+        "\/chat.getPermalink": {
+            "get": {
+                "summary": "Get Permalink",
+                "description": "Retrieve a permalink URL for a specific extant message",
+                "operationId": "ChatGetPermalink",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Authentication token. Requires scope: `groups:history`"
+                    },
+                    {
+                        "name": "message_ts",
+                        "in": "query",
+                        "description": "A message's `ts` value, uniquely identifying it within a channel"
+                    },
+                    {
+                        "name": "channel",
+                        "in": "query",
+                        "description": "Private channel to fetch thread from"
+                    }
+                ]
+            }
+        },
+        "\/channels.rename": {
+            "post": {
+                "summary": "Rename Channel",
+                "description": "Renames a channel.",
+                "operationId": "ChannelsRename",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "validate",
+                        "in": "formData",
+                        "description": "Whether to return errors on invalid channel name instead of modifying it to meet the specified criteria."
+                    },
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    },
+                    {
+                        "name": "name",
+                        "in": "formData",
+                        "description": "New name for private channel."
+                    },
+                    {
+                        "name": "channel",
+                        "in": "formData",
+                        "description": "Channel containing the message to be deleted."
+                    }
+                ]
+            }
+        },
+        "\/files.list": {
+            "get": {
+                "summary": "List Files",
+                "description": "Lists & filters team files.",
+                "operationId": "FilesList",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "count",
+                        "in": "query",
+                        "description": ""
+                    },
+                    {
+                        "name": "channel",
+                        "in": "query",
+                        "description": "Private channel to fetch thread from"
+                    },
+                    {
+                        "name": "ts_to",
+                        "in": "query",
+                        "description": "Filter files created before this timestamp (inclusive)."
+                    },
+                    {
+                        "name": "ts_from",
+                        "in": "query",
+                        "description": "Filter files created after this timestamp (inclusive)."
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Authentication token. Requires scope: `groups:history`"
+                    },
+                    {
+                        "name": "user",
+                        "in": "query",
+                        "description": "Filter logs generated by this user???s actions. Defaults to all logs."
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": ""
+                    },
+                    {
+                        "name": "types",
+                        "in": "query",
+                        "description": "Mix and match channel types by providing a comma-separated list of any combination of `public_channel`, `private_channel`, `mpim`, `im`"
+                    }
+                ]
+            }
+        },
+        "\/mpim.mark": {
+            "post": {
+                "summary": "Mark Multiparty Direct Messages",
+                "description": "Sets the read cursor in a multiparty direct message channel.",
+                "operationId": "MpimMark",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    },
+                    {
+                        "name": "ts",
+                        "in": "formData",
+                        "description": "Timestamp of the message to be deleted."
+                    },
+                    {
+                        "name": "channel",
+                        "in": "formData",
+                        "description": "Channel containing the message to be deleted."
+                    }
+                ]
+            }
+        },
+        "\/usergroups.users.update": {
+            "post": {
+                "summary": "Update Group Users",
+                "description": "Update the list of users for a User Group",
+                "operationId": "UsergroupsUsersUpdate",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "include_count",
+                        "in": "formData",
+                        "description": "Include the number of users in the User Group."
+                    },
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    },
+                    {
+                        "name": "users",
+                        "in": "formData",
+                        "description": "A comma separated string of encoded user IDs that represent the entire list of users for the User Group."
+                    },
+                    {
+                        "name": "usergroup",
+                        "in": "formData",
+                        "description": "The encoded ID of the User Group to update."
+                    }
+                ]
+            }
+        },
+        "\/conversations.setTopic": {
+            "post": {
+                "summary": "Set Conversation Topic",
+                "description": "Sets the topic for a conversation.",
+                "operationId": "ConversationsSetTopic",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "topic",
+                        "in": "formData",
+                        "description": "The new topic string. Does not support formatting or linkification."
+                    },
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    },
+                    {
+                        "name": "channel",
+                        "in": "formData",
+                        "description": "Channel containing the message to be deleted."
+                    }
+                ]
+            }
+        },
+        "\/conversations.members": {
+            "get": {
+                "summary": "Get Conversation Members",
+                "description": "Retrieve members of a conversation.",
+                "operationId": "ConversationsMembers",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "cursor",
+                        "in": "query",
+                        "description": "Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute returned by a previous request's `response_metadata`. Default value fetches the first \"page\" of the collection. See [pagination](\/docs\/pagination) for more detail."
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Authentication token. Requires scope: `groups:history`"
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the list hasn't been reached. Must be an integer no larger than 1000."
+                    },
+                    {
+                        "name": "channel",
+                        "in": "query",
+                        "description": "Private channel to fetch thread from"
+                    }
+                ]
+            }
+        },
+        "\/conversations.open": {
+            "post": {
+                "summary": "Open Conversation",
+                "description": "Opens or resumes a direct message or multi-person direct message.",
+                "operationId": "ConversationsOpen",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    },
+                    {
+                        "name": "return_im",
+                        "in": "formData",
+                        "description": "Boolean, indicates you want the full IM channel definition in the response."
+                    },
+                    {
+                        "name": "users",
+                        "in": "formData",
+                        "description": "A comma separated string of encoded user IDs that represent the entire list of users for the User Group."
+                    },
+                    {
+                        "name": "channel",
+                        "in": "formData",
+                        "description": "Channel containing the message to be deleted."
+                    }
+                ]
+            }
+        },
+        "\/pins.remove": {
+            "post": {
+                "summary": "Unpin Item",
+                "description": "Un-pins an item from a channel.",
+                "operationId": "PinsRemove",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "file_comment",
+                        "in": "formData",
+                        "description": "File comment to add reaction to."
+                    },
+                    {
+                        "name": "timestamp",
+                        "in": "formData",
+                        "description": "Timestamp of the message to add reaction to."
+                    },
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    },
+                    {
+                        "name": "file",
+                        "in": "formData",
+                        "description": "File containing the comment to edit."
+                    },
+                    {
+                        "name": "channel",
+                        "in": "formData",
+                        "description": "Channel containing the message to be deleted."
+                    }
+                ]
+            }
+        },
+        "\/files.delete": {
+            "post": {
+                "summary": "Delete File",
+                "description": "Deletes a file.",
+                "operationId": "FilesDelete",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    },
+                    {
+                        "name": "file",
+                        "in": "formData",
+                        "description": "File containing the comment to edit."
+                    }
+                ]
+            }
+        },
+        "\/pins.list": {
+            "get": {
+                "summary": "List Pins",
+                "description": "Lists items pinned to a channel.",
+                "operationId": "PinsList",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Authentication token. Requires scope: `groups:history`"
+                    },
+                    {
+                        "name": "channel",
+                        "in": "query",
+                        "description": "Private channel to fetch thread from"
+                    }
+                ]
+            }
+        },
+        "\/api.test": {
+            "get": {
+                "summary": "Test API",
+                "description": "Checks API calling code.",
+                "operationId": "ApiTest",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "foo",
+                        "in": "query",
+                        "description": "example property to return"
+                    },
+                    {
+                        "name": "error",
+                        "in": "query",
+                        "description": "Error response to return"
+                    }
+                ]
+            }
+        },
+        "\/reminders.list": {
+            "get": {
+                "summary": "List Reminders",
+                "description": "Lists all reminders created by or for a given user.",
+                "operationId": "RemindersList",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Authentication token. Requires scope: `groups:history`"
+                    }
+                ]
+            }
+        },
+        "\/users.getPresence": {
+            "get": {
+                "summary": "Get Presence",
+                "description": "Gets user presence information.",
+                "operationId": "UsersGetPresence",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Authentication token. Requires scope: `groups:history`"
+                    },
+                    {
+                        "name": "user",
+                        "in": "query",
+                        "description": "Filter logs generated by this user???s actions. Defaults to all logs."
+                    }
+                ]
+            }
+        },
+        "\/usergroups.update": {
+            "post": {
+                "summary": "Update Group",
+                "description": "Update an existing User Group",
+                "operationId": "UsergroupsUpdate",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "handle",
+                        "in": "formData",
+                        "description": "A mention handle. Must be unique among channels, users and User Groups."
+                    },
+                    {
+                        "name": "description",
+                        "in": "formData",
+                        "description": "A short description of the User Group."
+                    },
+                    {
+                        "name": "channels",
+                        "in": "formData",
+                        "description": "Comma-separated list of channel names or IDs where the file will be shared."
+                    },
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    },
+                    {
+                        "name": "include_count",
+                        "in": "formData",
+                        "description": "Include the number of users in the User Group."
+                    },
+                    {
+                        "name": "usergroup",
+                        "in": "formData",
+                        "description": "The encoded ID of the User Group to update."
+                    },
+                    {
+                        "name": "name",
+                        "in": "formData",
+                        "description": "New name for private channel."
+                    }
+                ]
+            }
+        },
+        "\/conversations.leave": {
+            "post": {
+                "summary": "Leave Conversation",
+                "description": "Leaves a conversation.",
+                "operationId": "ConversationsLeave",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    },
+                    {
+                        "name": "channel",
+                        "in": "formData",
+                        "description": "Channel containing the message to be deleted."
+                    }
+                ]
+            }
+        },
+        "\/files.info": {
+            "get": {
+                "summary": "Get File",
+                "description": "Gets information about a team file.",
+                "operationId": "FilesInfo",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "count",
+                        "in": "query",
+                        "description": ""
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Authentication token. Requires scope: `groups:history`"
+                    },
+                    {
+                        "name": "file",
+                        "in": "query",
+                        "description": "File to get reactions for."
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": ""
+                    }
+                ]
+            }
+        },
+        "\/groups.leave": {
+            "post": {
+                "summary": "Leave Group",
+                "description": "Leaves a private channel.",
+                "operationId": "GroupsLeave",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    },
+                    {
+                        "name": "channel",
+                        "in": "formData",
+                        "description": "Channel containing the message to be deleted."
+                    }
+                ]
+            }
+        },
+        "\/apps.permissions.info": {
+            "get": {
+                "summary": "App Permissions",
+                "description": "Returns list of permissions this app has on a team.",
+                "operationId": "AppsPermissionsInfo",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Authentication token. Requires scope: `groups:history`"
+                    }
+                ]
+            }
+        },
+        "\/usergroups.create": {
+            "post": {
+                "summary": "Create Group",
+                "description": "Create a User Group",
+                "operationId": "UsergroupsCreate",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "handle",
+                        "in": "formData",
+                        "description": "A mention handle. Must be unique among channels, users and User Groups."
+                    },
+                    {
+                        "name": "name",
+                        "in": "formData",
+                        "description": "New name for private channel."
+                    },
+                    {
+                        "name": "channels",
+                        "in": "formData",
+                        "description": "Comma-separated list of channel names or IDs where the file will be shared."
+                    },
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    },
+                    {
+                        "name": "include_count",
+                        "in": "formData",
+                        "description": "Include the number of users in the User Group."
+                    },
+                    {
+                        "name": "description",
+                        "in": "formData",
+                        "description": "A short description of the User Group."
+                    }
+                ]
+            }
+        },
+        "\/groups.createChild": {
+            "post": {
+                "summary": "Create Child Group",
+                "description": "Clones and archives a private channel.",
+                "operationId": "GroupsCreateChild",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "formData",
+                        "description": "Authentication token. Requires scope: `files:write:user`"
+                    },
+                    {
+                        "name": "channel",
+                        "in": "formData",
+                        "description": "Channel containing the message to be deleted."
+                    }
+                ]
+            }
+        },
+        "\/channels.mark": {
+            "post": {
+                "summary": "Mark Channel",
+                "description": "Sets the read cursor in a channel.",
+                "operationId": "ChannelsMark",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    },
+                    {
+                        "name": "ts",
+                        "in": "formData",
+                        "description": "Timestamp of the message to be deleted."
+                    },
+                    {
+                        "name": "channel",
+                        "in": "formData",
+                        "description": "Channel containing the message to be deleted."
+                    }
+                ]
+            }
+        },
+        "\/users.deletePhoto": {
+            "post": {
+                "summary": "Delete Photo",
+                "description": "Delete the user profile photo",
+                "operationId": "UsersDeletePhoto",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "formData",
+                        "description": "Authentication token. Requires scope: `files:write:user`"
+                    }
+                ]
+            }
+        },
+        "\/users.setPhoto": {
+            "post": {
+                "summary": "Set User Profile Photo",
+                "description": "Set the user profile photo",
+                "operationId": "UsersSetPhoto",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "image",
+                        "in": "formData",
+                        "description": "File contents via `multipart\/form-data`."
+                    },
+                    {
+                        "name": "crop_w",
+                        "in": "formData",
+                        "description": "Width\/height of crop box (always square)"
+                    },
+                    {
+                        "name": "token",
+                        "in": "formData",
+                        "description": "Authentication token. Requires scope: `files:write:user`"
+                    },
+                    {
+                        "name": "crop_y",
+                        "in": "formData",
+                        "description": "Y coordinate of top-left corner of crop box"
+                    },
+                    {
+                        "name": "crop_x",
+                        "in": "formData",
+                        "description": "X coordinate of top-left corner of crop box"
+                    }
+                ]
+            }
+        },
+        "\/files.sharedPublicURL": {
+            "post": {
+                "summary": "Share Public URL",
+                "description": "Enables a file for public\/external sharing.",
+                "operationId": "FilesSharedPublicURL",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    },
+                    {
+                        "name": "file",
+                        "in": "formData",
+                        "description": "File containing the comment to edit."
+                    }
+                ]
+            }
+        },
+        "\/conversations.kick": {
+            "post": {
+                "summary": "Remove User From Conversation",
+                "description": "Removes a user from a conversation.",
+                "operationId": "ConversationsKick",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    },
+                    {
+                        "name": "user",
+                        "in": "formData",
+                        "description": "ID of user to change. This argument may only be specified by team admins on paid teams."
+                    },
+                    {
+                        "name": "channel",
+                        "in": "formData",
+                        "description": "Channel containing the message to be deleted."
+                    }
+                ]
+            }
+        },
+        "\/chat.postEphemeral": {
+            "post": {
+                "summary": "Sent Ephemeral lMessage",
+                "description": "Sends an ephemeral message to a user in a channel.",
+                "operationId": "ChatPostEphemeral",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "attachments",
+                        "in": "formData",
+                        "description": "A JSON-based array of structured attachments, presented as a URL-encoded string."
+                    },
+                    {
+                        "name": "text",
+                        "in": "formData",
+                        "description": "Text of the message to send. See below for an explanation of [formatting](#formatting). This field is usually required, unless you're providing only `attachments` instead."
+                    },
+                    {
+                        "name": "link_names",
+                        "in": "formData",
+                        "description": "Find and link channel names and usernames."
+                    },
+                    {
+                        "name": "parse",
+                        "in": "formData",
+                        "description": "Change how messages are treated. Defaults to `none`. See [below](#formatting)."
+                    },
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    },
+                    {
+                        "name": "user",
+                        "in": "formData",
+                        "description": "ID of user to change. This argument may only be specified by team admins on paid teams."
+                    },
+                    {
+                        "name": "as_user",
+                        "in": "formData",
+                        "description": "Pass true to delete the message as the authed user with `chat:write:user` scope. [Bot users](\/bot-users) in this context are considered authed users. If unused or false, the message will be deleted with `chat:write:bot` scope."
+                    },
+                    {
+                        "name": "channel",
+                        "in": "formData",
+                        "description": "Channel containing the message to be deleted."
+                    }
+                ]
+            }
+        },
+        "\/conversations.rename": {
+            "post": {
+                "summary": "Rename Conversation",
+                "description": "Renames a conversation.",
+                "operationId": "ConversationsRename",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    },
+                    {
+                        "name": "name",
+                        "in": "formData",
+                        "description": "New name for private channel."
+                    },
+                    {
+                        "name": "channel",
+                        "in": "formData",
+                        "description": "Channel containing the message to be deleted."
+                    }
+                ]
+            }
+        },
+        "\/migration.exchange": {
+            "get": {
+                "summary": "Migration Exchange",
+                "description": "For Enterprise Grid workspaces, map local user IDs to global user IDs",
+                "operationId": "MigrationExchange",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Authentication token. Requires scope: `groups:history`"
+                    },
+                    {
+                        "name": "to_old",
+                        "in": "query",
+                        "description": "Specify `true` to convert `W` global user IDs to workspace-specific `U` IDs. Defaults to `false`."
+                    },
+                    {
+                        "name": "users",
+                        "in": "query",
+                        "description": "A comma-separated list of user ids, up to 400 per request"
+                    }
+                ]
+            }
+        },
+        "\/usergroups.enable": {
+            "post": {
+                "summary": "Enable Group",
+                "description": "Enable a User Group",
+                "operationId": "UsergroupsEnable",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    },
+                    {
+                        "name": "include_count",
+                        "in": "formData",
+                        "description": "Include the number of users in the User Group."
+                    },
+                    {
+                        "name": "usergroup",
+                        "in": "formData",
+                        "description": "The encoded ID of the User Group to update."
+                    }
+                ]
+            }
+        },
+        "\/dnd.setSnooze": {
+            "post": {
+                "summary": "End Do Not Disturb Snooze",
+                "description": "Turns on Do Not Disturb mode for the current user, or changes its duration.",
+                "operationId": "DndSetSnooze",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "num_minutes",
+                        "in": "formData",
+                        "description": "Number of minutes, from now, to snooze until."
+                    },
+                    {
+                        "name": "token",
+                        "in": "formData",
+                        "description": "Authentication token. Requires scope: `files:write:user`"
+                    }
+                ]
+            }
+        },
+        "\/chat.update": {
+            "post": {
+                "summary": "Update Message",
+                "description": "Updates a message.",
+                "operationId": "ChatUpdate",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "attachments",
+                        "in": "formData",
+                        "description": "A JSON-based array of structured attachments, presented as a URL-encoded string."
+                    },
+                    {
+                        "name": "text",
+                        "in": "formData",
+                        "description": "Text of the message to send. See below for an explanation of [formatting](#formatting). This field is usually required, unless you're providing only `attachments` instead."
+                    },
+                    {
+                        "name": "ts",
+                        "in": "formData",
+                        "description": "Timestamp of the message to be deleted."
+                    },
+                    {
+                        "name": "parse",
+                        "in": "formData",
+                        "description": "Change how messages are treated. Defaults to `none`. See [below](#formatting)."
+                    },
+                    {
+                        "name": "as_user",
+                        "in": "formData",
+                        "description": "Pass true to delete the message as the authed user with `chat:write:user` scope. [Bot users](\/bot-users) in this context are considered authed users. If unused or false, the message will be deleted with `chat:write:bot` scope."
+                    },
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    },
+                    {
+                        "name": "link_names",
+                        "in": "formData",
+                        "description": "Find and link channel names and usernames."
+                    },
+                    {
+                        "name": "channel",
+                        "in": "formData",
+                        "description": "Channel containing the message to be deleted."
+                    }
+                ]
+            }
+        },
+        "\/mpim.history": {
+            "get": {
+                "summary": "Get Multiparty Direct Message History",
+                "description": "Fetches history of messages and events from a multiparty direct message.",
+                "operationId": "MpimHistory",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "count",
+                        "in": "query",
+                        "description": ""
+                    },
+                    {
+                        "name": "unreads",
+                        "in": "query",
+                        "description": "Include `unread_count_display` in the output?"
+                    },
+                    {
+                        "name": "inclusive",
+                        "in": "query",
+                        "description": "Include messages with latest or oldest timestamp in results."
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Authentication token. Requires scope: `groups:history`"
+                    },
+                    {
+                        "name": "oldest",
+                        "in": "query",
+                        "description": "Start of time range of messages to include in results."
+                    },
+                    {
+                        "name": "channel",
+                        "in": "query",
+                        "description": "Private channel to fetch thread from"
+                    },
+                    {
+                        "name": "latest",
+                        "in": "query",
+                        "description": "End of time range of messages to include in results."
+                    }
+                ]
+            }
+        },
+        "\/apps.permissions.request": {
+            "get": {
+                "summary": "Request App Permissions",
+                "description": "Allows an app to request additional scopes",
+                "operationId": "AppsPermissionsRequest",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "scopes",
+                        "in": "query",
+                        "description": "A comma separated list of scopes to request for"
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Authentication token. Requires scope: `groups:history`"
+                    },
+                    {
+                        "name": "trigger_id",
+                        "in": "query",
+                        "description": "Token used to trigger the permissions API"
+                    }
+                ]
+            }
+        },
+        "\/search.files": {
+            "get": {
+                "summary": "Start Real Time Messaging Files",
+                "description": "Searches for files matching a query.",
+                "operationId": "SearchFiles",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "sort_dir",
+                        "in": "query",
+                        "description": "Change sort direction to ascending (`asc`) or descending (`desc`)."
+                    },
+                    {
+                        "name": "query",
+                        "in": "query",
+                        "description": "Search query. May contains booleans, etc."
+                    },
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "description": "Return matches sorted by either `score` or `timestamp`."
+                    },
+                    {
+                        "name": "highlight",
+                        "in": "query",
+                        "description": "Pass a value of `true` to enable query highlight markers (see below)."
+                    },
+                    {
+                        "name": "count",
+                        "in": "query",
+                        "description": ""
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Authentication token. Requires scope: `groups:history`"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": ""
+                    }
+                ]
+            }
+        },
+        "\/users.identity": {
+            "get": {
+                "summary": "Get User Identity",
+                "description": "Get a user's identity.",
+                "operationId": "UsersIdentity",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Authentication token. Requires scope: `groups:history`"
+                    }
+                ]
+            }
+        },
+        "\/team.accessLogs": {
+            "get": {
+                "summary": "Get Logs",
+                "description": "Gets the access logs for the current team.",
+                "operationId": "TeamAccessLogs",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "count",
+                        "in": "query",
+                        "description": ""
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Authentication token. Requires scope: `groups:history`"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": ""
+                    },
+                    {
+                        "name": "before",
+                        "in": "query",
+                        "description": "End of time range of logs to include in results (inclusive)."
+                    }
+                ]
+            }
+        },
+        "\/groups.invite": {
+            "post": {
+                "summary": "Invite User To Group",
+                "description": "Invites a user to a private channel.",
+                "operationId": "GroupsInvite",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    },
+                    {
+                        "name": "user",
+                        "in": "formData",
+                        "description": "ID of user to change. This argument may only be specified by team admins on paid teams."
+                    },
+                    {
+                        "name": "channel",
+                        "in": "formData",
+                        "description": "Channel containing the message to be deleted."
+                    }
+                ]
+            }
+        },
+        "\/channels.unarchive": {
+            "post": {
+                "summary": "Unarchive Channel",
+                "description": "Unarchives a channel.",
+                "operationId": "ChannelsUnarchive",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    },
+                    {
+                        "name": "channel",
+                        "in": "formData",
+                        "description": "Channel containing the message to be deleted."
+                    }
+                ]
+            }
+        },
+        "\/rtm.connect": {
+            "get": {
+                "summary": "Connect Real Time Messaging",
+                "description": "Starts a Real Time Messaging session.",
+                "operationId": "RtmConnect",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Authentication token. Requires scope: `groups:history`"
+                    },
+                    {
+                        "name": "batch_presence_aware",
+                        "in": "query",
+                        "description": "Only deliver presence events when requested by subscription. See [presence subscriptions](\/docs\/presence-and-status#subscriptions)."
+                    }
+                ]
+            }
+        },
+        "\/team.info": {
+            "get": {
+                "summary": "Get Team",
+                "description": "Gets information about the current team.",
+                "operationId": "TeamInfo",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Authentication token. Requires scope: `groups:history`"
+                    }
+                ]
+            }
+        },
+        "\/conversations.history": {
+            "get": {
+                "summary": "Get Conversation History",
+                "description": "Fetches a conversation's history of messages and events.",
+                "operationId": "ConversationsHistory",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "inclusive",
+                        "in": "query",
+                        "description": "Include messages with latest or oldest timestamp in results."
+                    },
+                    {
+                        "name": "cursor",
+                        "in": "query",
+                        "description": "Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute returned by a previous request's `response_metadata`. Default value fetches the first \"page\" of the collection. See [pagination](\/docs\/pagination) for more detail."
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Authentication token. Requires scope: `groups:history`"
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the list hasn't been reached. Must be an integer no larger than 1000."
+                    },
+                    {
+                        "name": "oldest",
+                        "in": "query",
+                        "description": "Start of time range of messages to include in results."
+                    },
+                    {
+                        "name": "channel",
+                        "in": "query",
+                        "description": "Private channel to fetch thread from"
+                    },
+                    {
+                        "name": "latest",
+                        "in": "query",
+                        "description": "End of time range of messages to include in results."
+                    }
+                ]
+            }
+        },
+        "\/channels.create": {
+            "post": {
+                "summary": "Create Channel",
+                "description": "Creates a channel.",
+                "operationId": "ChannelsCreate",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "validate",
+                        "in": "formData",
+                        "description": "Whether to return errors on invalid channel name instead of modifying it to meet the specified criteria."
+                    },
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    },
+                    {
+                        "name": "name",
+                        "in": "formData",
+                        "description": "New name for private channel."
+                    }
+                ]
+            }
+        },
+        "\/im.replies": {
+            "get": {
+                "summary": "Reply to Messages",
+                "description": "Retrieve a thread of messages posted to a direct message conversation",
+                "operationId": "ImReplies",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "thread_ts",
+                        "in": "query",
+                        "description": "Unique identifier of a thread's parent message"
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Authentication token. Requires scope: `groups:history`"
+                    },
+                    {
+                        "name": "channel",
+                        "in": "query",
+                        "description": "Private channel to fetch thread from"
+                    }
+                ]
+            }
+        },
+        "\/groups.create": {
+            "post": {
+                "summary": "Create Group",
+                "description": "Creates a private channel.",
+                "operationId": "GroupsCreate",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "validate",
+                        "in": "formData",
+                        "description": "Whether to return errors on invalid channel name instead of modifying it to meet the specified criteria."
+                    },
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    },
+                    {
+                        "name": "name",
+                        "in": "formData",
+                        "description": "New name for private channel."
+                    }
+                ]
+            }
+        },
+        "\/reminders.add": {
+            "post": {
+                "summary": "Add Reminders",
+                "description": "Creates a reminder.",
+                "operationId": "RemindersAdd",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "text",
+                        "in": "formData",
+                        "description": "Text of the message to send. See below for an explanation of [formatting](#formatting). This field is usually required, unless you're providing only `attachments` instead."
+                    },
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    },
+                    {
+                        "name": "user",
+                        "in": "formData",
+                        "description": "ID of user to change. This argument may only be specified by team admins on paid teams."
+                    },
+                    {
+                        "name": "time",
+                        "in": "formData",
+                        "description": "When this reminder should happen: the Unix timestamp (up to five years from now), the number of seconds until the reminder (if within 24 hours), or a natural language description (Ex. \"in 15 minutes,\" or \"every Thursday\")"
+                    }
+                ]
+            }
+        },
+        "\/conversations.setPurpose": {
+            "post": {
+                "summary": "Set Conversation Purpose",
+                "description": "Sets the purpose for a conversation.",
+                "operationId": "ConversationsSetPurpose",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    },
+                    {
+                        "name": "purpose",
+                        "in": "formData",
+                        "description": "A new, specialer purpose"
+                    },
+                    {
+                        "name": "channel",
+                        "in": "formData",
+                        "description": "Channel containing the message to be deleted."
+                    }
+                ]
+            }
+        },
+        "\/channels.join": {
+            "post": {
+                "summary": "Join Channel",
+                "description": "Joins a channel, creating it if needed.",
+                "operationId": "ChannelsJoin",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "validate",
+                        "in": "formData",
+                        "description": "Whether to return errors on invalid channel name instead of modifying it to meet the specified criteria."
+                    },
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    },
+                    {
+                        "name": "name",
+                        "in": "formData",
+                        "description": "New name for private channel."
+                    }
+                ]
+            }
+        },
+        "\/usergroups.list": {
+            "get": {
+                "summary": "List Groups",
+                "description": "List all User Groups for a team",
+                "operationId": "UsergroupsList",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "include_users",
+                        "in": "query",
+                        "description": "Include the list of users for each User Group."
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Authentication token. Requires scope: `groups:history`"
+                    },
+                    {
+                        "name": "include_count",
+                        "in": "query",
+                        "description": "Include the number of users in each User Group."
+                    },
+                    {
+                        "name": "include_disabled",
+                        "in": "query",
+                        "description": "Allow results that involve disabled User Groups."
+                    }
+                ]
+            }
+        },
+        "\/users.profile.get": {
+            "get": {
+                "summary": "Get User Profile",
+                "description": "Retrieves a user's profile information.",
+                "operationId": "UsersProfileGet",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Authentication token. Requires scope: `groups:history`"
+                    },
+                    {
+                        "name": "include_labels",
+                        "in": "query",
+                        "description": "Include labels for each ID in custom profile fields"
+                    },
+                    {
+                        "name": "user",
+                        "in": "query",
+                        "description": "Filter logs generated by this user???s actions. Defaults to all logs."
+                    }
+                ]
+            }
+        },
+        "\/groups.open": {
+            "post": {
+                "summary": "Open Group",
+                "description": "Opens a private channel.",
+                "operationId": "GroupsOpen",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    },
+                    {
+                        "name": "channel",
+                        "in": "formData",
+                        "description": "Channel containing the message to be deleted."
+                    }
+                ]
+            }
+        },
+        "\/emoji.list": {
+            "get": {
+                "summary": "List Emojis",
+                "description": "Lists custom emoji for a team.",
+                "operationId": "EmojiList",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Authentication token. Requires scope: `groups:history`"
+                    }
+                ]
+            }
+        },
+        "\/conversations.info": {
+            "get": {
+                "summary": "Get Conversation",
+                "description": "Retrieve information about a conversation.",
+                "operationId": "ConversationsInfo",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Authentication token. Requires scope: `groups:history`"
+                    },
+                    {
+                        "name": "channel",
+                        "in": "query",
+                        "description": "Private channel to fetch thread from"
+                    },
+                    {
+                        "name": "include_locale",
+                        "in": "query",
+                        "description": "Set this to `true` to receive the locale for this channel. Defaults to `false`"
+                    }
+                ]
+            }
+        },
+        "\/chat.meMessage": {
+            "post": {
+                "summary": "Share Message",
+                "description": "Share a me message into a channel.",
+                "operationId": "ChatMeMessage",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "text",
+                        "in": "formData",
+                        "description": "Text of the message to send. See below for an explanation of [formatting](#formatting). This field is usually required, unless you're providing only `attachments` instead."
+                    },
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    },
+                    {
+                        "name": "channel",
+                        "in": "formData",
+                        "description": "Channel containing the message to be deleted."
+                    }
+                ]
+            }
+        },
+        "\/dnd.endSnooze": {
+            "post": {
+                "summary": "End Do Not Disturb Snooze",
+                "description": "Ends the current user's snooze mode immediately.",
+                "operationId": "DndEndSnooze",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    }
+                ]
+            }
+        },
+        "\/groups.history": {
+            "get": {
+                "summary": "Group History",
+                "description": "Fetches history of messages and events from a private channel.",
+                "operationId": "GroupsHistory",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "count",
+                        "in": "query",
+                        "description": ""
+                    },
+                    {
+                        "name": "unreads",
+                        "in": "query",
+                        "description": "Include `unread_count_display` in the output?"
+                    },
+                    {
+                        "name": "inclusive",
+                        "in": "query",
+                        "description": "Include messages with latest or oldest timestamp in results."
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Authentication token. Requires scope: `groups:history`"
+                    },
+                    {
+                        "name": "oldest",
+                        "in": "query",
+                        "description": "Start of time range of messages to include in results."
+                    },
+                    {
+                        "name": "channel",
+                        "in": "query",
+                        "description": "Private channel to fetch thread from"
+                    },
+                    {
+                        "name": "latest",
+                        "in": "query",
+                        "description": "End of time range of messages to include in results."
+                    }
+                ]
+            }
+        },
+        "\/search.messages": {
+            "get": {
+                "summary": "Search Real Time Messaging",
+                "description": "Searches for messages matching a query.",
+                "operationId": "SearchMessages",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "sort_dir",
+                        "in": "query",
+                        "description": "Change sort direction to ascending (`asc`) or descending (`desc`)."
+                    },
+                    {
+                        "name": "query",
+                        "in": "query",
+                        "description": "Search query. May contains booleans, etc."
+                    },
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "description": "Return matches sorted by either `score` or `timestamp`."
+                    },
+                    {
+                        "name": "count",
+                        "in": "query",
+                        "description": ""
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Authentication token. Requires scope: `groups:history`"
+                    },
+                    {
+                        "name": "highlight",
+                        "in": "query",
+                        "description": "Pass a value of `true` to enable query highlight markers (see below)."
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": ""
+                    }
+                ]
+            }
+        },
+        "\/rtm.start": {
+            "get": {
+                "summary": "Start Real Time Messaging",
+                "description": "Starts a Real Time Messaging session.",
+                "operationId": "RtmStart",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "no_latest",
+                        "in": "query",
+                        "description": "Exclude latest timestamps for channels, groups, mpims, and ims. Automatically sets `no_unreads` to `1`"
+                    },
+                    {
+                        "name": "simple_latest",
+                        "in": "query",
+                        "description": "Return timestamp only for latest message object of each channel (improves performance)."
+                    },
+                    {
+                        "name": "include_locale",
+                        "in": "query",
+                        "description": "Set this to `true` to receive the locale for this channel. Defaults to `false`"
+                    },
+                    {
+                        "name": "no_unreads",
+                        "in": "query",
+                        "description": "Skip unread counts for each channel (improves performance)."
+                    },
+                    {
+                        "name": "batch_presence_aware",
+                        "in": "query",
+                        "description": "Only deliver presence events when requested by subscription. See [presence subscriptions](\/docs\/presence-and-status#subscriptions)."
+                    },
+                    {
+                        "name": "mpim_aware",
+                        "in": "query",
+                        "description": "Returns MPIMs to the client in the API response."
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Authentication token. Requires scope: `groups:history`"
+                    }
+                ]
+            }
+        },
+        "\/channels.setTopic": {
+            "post": {
+                "summary": "Set Channel Topic",
+                "description": "Sets the topic for a channel.",
+                "operationId": "ChannelsSetTopic",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "topic",
+                        "in": "formData",
+                        "description": "The new topic string. Does not support formatting or linkification."
+                    },
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    },
+                    {
+                        "name": "channel",
+                        "in": "formData",
+                        "description": "Channel containing the message to be deleted."
+                    }
+                ]
+            }
+        },
+        "\/groups.setTopic": {
+            "post": {
+                "summary": "Set Group Topic",
+                "description": "Sets the topic for a private channel.",
+                "operationId": "GroupsSetTopic",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "topic",
+                        "in": "formData",
+                        "description": "The new topic string. Does not support formatting or linkification."
+                    },
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    },
+                    {
+                        "name": "channel",
+                        "in": "formData",
+                        "description": "Channel containing the message to be deleted."
+                    }
+                ]
+            }
+        },
+        "\/mpim.open": {
+            "post": {
+                "summary": "Open Multiparty Direct Messages",
+                "description": "This method opens a multiparty direct message.",
+                "operationId": "MpimOpen",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    },
+                    {
+                        "name": "users",
+                        "in": "formData",
+                        "description": "A comma separated string of encoded user IDs that represent the entire list of users for the User Group."
+                    }
+                ]
+            }
+        },
+        "\/reactions.remove": {
+            "post": {
+                "summary": "Remove Reaction",
+                "description": "Removes a reaction from an item.",
+                "operationId": "ReactionsRemove",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "formData",
+                        "description": "New name for private channel."
+                    },
+                    {
+                        "name": "file_comment",
+                        "in": "formData",
+                        "description": "File comment to add reaction to."
+                    },
+                    {
+                        "name": "timestamp",
+                        "in": "formData",
+                        "description": "Timestamp of the message to add reaction to."
+                    },
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    },
+                    {
+                        "name": "file",
+                        "in": "formData",
+                        "description": "File containing the comment to edit."
+                    },
+                    {
+                        "name": "channel",
+                        "in": "formData",
+                        "description": "Channel containing the message to be deleted."
+                    }
+                ]
+            }
+        },
+        "\/reminders.delete": {
+            "post": {
+                "summary": "Delete Reminders",
+                "description": "Deletes a reminder.",
+                "operationId": "RemindersDelete",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    },
+                    {
+                        "name": "reminder",
+                        "in": "formData",
+                        "description": "The ID of the reminder to be marked as complete"
+                    }
+                ]
+            }
+        },
+        "\/usergroups.disable": {
+            "post": {
+                "summary": "Disable Group",
+                "description": "Disable an existing User Group",
+                "operationId": "UsergroupsDisable",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    },
+                    {
+                        "name": "include_count",
+                        "in": "formData",
+                        "description": "Include the number of users in the User Group."
+                    },
+                    {
+                        "name": "usergroup",
+                        "in": "formData",
+                        "description": "The encoded ID of the User Group to update."
+                    }
+                ]
+            }
+        },
+        "\/files.comments.add": {
+            "post": {
+                "summary": "Add File Comments",
+                "description": "Add a comment to an existing file.",
+                "operationId": "FilesCommentsAdd",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "comment",
+                        "in": "formData",
+                        "description": "Text of the comment to edit."
+                    },
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    },
+                    {
+                        "name": "file",
+                        "in": "formData",
+                        "description": "File containing the comment to edit."
+                    }
+                ]
+            }
+        },
+        "\/im.list": {
+            "get": {
+                "summary": "List Messages",
+                "description": "Lists direct message channels for the calling user.",
+                "operationId": "ImList",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "cursor",
+                        "in": "query",
+                        "description": "Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute returned by a previous request's `response_metadata`. Default value fetches the first \"page\" of the collection. See [pagination](\/docs\/pagination) for more detail."
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Authentication token. Requires scope: `groups:history`"
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the list hasn't been reached. Must be an integer no larger than 1000."
+                    }
+                ]
+            }
+        },
+        "\/channels.setPurpose": {
+            "post": {
+                "summary": "Set Channel Purpose",
+                "description": "Sets the purpose for a channel.",
+                "operationId": "ChannelsSetPurpose",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    },
+                    {
+                        "name": "purpose",
+                        "in": "formData",
+                        "description": "A new, specialer purpose"
+                    },
+                    {
+                        "name": "channel",
+                        "in": "formData",
+                        "description": "Channel containing the message to be deleted."
+                    }
+                ]
+            }
+        },
+        "\/mpim.replies": {
+            "get": {
+                "summary": "Reply to Multiparty Direct Messages",
+                "description": "Retrieve a thread of messages posted to a direct message conversation from a multiparty direct message.",
+                "operationId": "MpimReplies",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "thread_ts",
+                        "in": "query",
+                        "description": "Unique identifier of a thread's parent message"
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Authentication token. Requires scope: `groups:history`"
+                    },
+                    {
+                        "name": "channel",
+                        "in": "query",
+                        "description": "Private channel to fetch thread from"
+                    }
+                ]
+            }
+        },
+        "\/dialog.open": {
+            "get": {
+                "summary": "Open Dialog",
+                "description": "Open a dialog with a user",
+                "operationId": "DialogOpen",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    },
+                    {
+                        "name": "dialog",
+                        "in": "query",
+                        "description": "The dialog definition. This must be a JSON-encoded string."
+                    },
+                    {
+                        "name": "trigger_id",
+                        "in": "query",
+                        "description": "Token used to trigger the permissions API"
+                    }
+                ]
+            }
+        },
+        "\/dnd.teamInfo": {
+            "get": {
+                "summary": "Get Do Not Disturb Status",
+                "description": "Retrieves the Do Not Disturb status for users on a team.",
+                "operationId": "DndTeamInfo",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Authentication token. Requires scope: `groups:history`"
+                    },
+                    {
+                        "name": "users",
+                        "in": "query",
+                        "description": "A comma-separated list of user ids, up to 400 per request"
+                    }
+                ]
+            }
+        },
+        "\/users.list": {
+            "get": {
+                "summary": "List Team Users",
+                "description": "Lists all users in a Slack team.",
+                "operationId": "UsersList",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "presence",
+                        "in": "query",
+                        "description": "Whether to include presence data in the output. Setting this to `false` improves performance, especially with large teams."
+                    },
+                    {
+                        "name": "cursor",
+                        "in": "query",
+                        "description": "Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute returned by a previous request's `response_metadata`. Default value fetches the first \"page\" of the collection. See [pagination](\/docs\/pagination) for more detail."
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Authentication token. Requires scope: `groups:history`"
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the list hasn't been reached. Must be an integer no larger than 1000."
+                    },
+                    {
+                        "name": "include_locale",
+                        "in": "query",
+                        "description": "Set this to `true` to receive the locale for this channel. Defaults to `false`"
+                    }
+                ]
+            }
+        },
+        "\/conversations.invite": {
+            "post": {
+                "summary": "Invite User To Conversation",
+                "description": "Invites users to a channel.",
+                "operationId": "ConversationsInvite",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    },
+                    {
+                        "name": "users",
+                        "in": "formData",
+                        "description": "A comma separated string of encoded user IDs that represent the entire list of users for the User Group."
+                    },
+                    {
+                        "name": "channel",
+                        "in": "formData",
+                        "description": "Channel containing the message to be deleted."
+                    }
+                ]
+            }
+        },
+        "\/auth.test": {
+            "get": {
+                "summary": "Test Auth",
+                "description": "Checks authentication & identity.",
+                "operationId": "AuthTest",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    }
+                ]
+            }
+        },
+        "\/channels.list": {
+            "get": {
+                "summary": "List Channels",
+                "description": "Lists all channels in a Slack team.",
+                "operationId": "ChannelsList",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "exclude_members",
+                        "in": "query",
+                        "description": "Exclude the `members` from each `group`"
+                    },
+                    {
+                        "name": "cursor",
+                        "in": "query",
+                        "description": "Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute returned by a previous request's `response_metadata`. Default value fetches the first \"page\" of the collection. See [pagination](\/docs\/pagination) for more detail."
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Authentication token. Requires scope: `groups:history`"
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the list hasn't been reached. Must be an integer no larger than 1000."
+                    },
+                    {
+                        "name": "exclude_archived",
+                        "in": "query",
+                        "description": "Don't return archived private channels."
+                    }
+                ]
+            }
+        },
+        "\/groups.setPurpose": {
+            "post": {
+                "summary": "Set Group Purpose",
+                "description": "Sets the purpose for a private channel.",
+                "operationId": "GroupsSetPurpose",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    },
+                    {
+                        "name": "purpose",
+                        "in": "formData",
+                        "description": "A new, specialer purpose"
+                    },
+                    {
+                        "name": "channel",
+                        "in": "formData",
+                        "description": "Channel containing the message to be deleted."
+                    }
+                ]
+            }
+        },
+        "\/channels.invite": {
+            "post": {
+                "summary": "Invite Channel User",
+                "description": "Invites a user to a channel.",
+                "operationId": "ChannelsInvite",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    },
+                    {
+                        "name": "user",
+                        "in": "formData",
+                        "description": "ID of user to change. This argument may only be specified by team admins on paid teams."
+                    },
+                    {
+                        "name": "channel",
+                        "in": "formData",
+                        "description": "Channel containing the message to be deleted."
+                    }
+                ]
+            }
+        },
+        "\/oauth.access": {
+            "get": {
+                "summary": "Oauth Access",
+                "description": "Exchanges a temporary OAuth code for an API token.",
+                "operationId": "OauthAccess",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "client_secret",
+                        "in": "query",
+                        "description": "Issued when you created your application."
+                    },
+                    {
+                        "name": "code",
+                        "in": "query",
+                        "description": "The `code` param returned via the OAuth callback."
+                    },
+                    {
+                        "name": "client_id",
+                        "in": "query",
+                        "description": "Issued when you created your application."
+                    },
+                    {
+                        "name": "redirect_uri",
+                        "in": "query",
+                        "description": "This must match the originally submitted URI (if one was sent)."
+                    }
+                ]
+            }
+        },
+        "\/mpim.list": {
+            "get": {
+                "summary": "List Multiparty Direct Messages",
+                "description": "Lists multiparty direct message channels for the calling user.",
+                "operationId": "MpimList",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Authentication token. Requires scope: `groups:history`"
+                    }
+                ]
+            }
+        },
+        "\/groups.unarchive": {
+            "post": {
+                "summary": "Unarchive Group",
+                "description": "Unarchives a private channel.",
+                "operationId": "GroupsUnarchive",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    },
+                    {
+                        "name": "channel",
+                        "in": "formData",
+                        "description": "Channel containing the message to be deleted."
+                    }
+                ]
+            }
+        },
+        "\/channels.replies": {
+            "get": {
+                "summary": "Get Channel Thread",
+                "description": "Retrieve a thread of messages posted to a channel",
+                "operationId": "ChannelsReplies",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "thread_ts",
+                        "in": "query",
+                        "description": "Unique identifier of a thread's parent message"
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Authentication token. Requires scope: `groups:history`"
+                    },
+                    {
+                        "name": "channel",
+                        "in": "query",
+                        "description": "Private channel to fetch thread from"
+                    }
+                ]
+            }
+        },
+        "\/chat.postMessage": {
+            "post": {
+                "summary": "Send Channel Message",
+                "description": "Sends a message to a channel.",
+                "operationId": "ChatPostMessage",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "username",
+                        "in": "formData",
+                        "description": "Set your bot's user name. Must be used in conjunction with `as_user` set to false, otherwise ignored. See [authorship](#authorship) below."
+                    },
+                    {
+                        "name": "thread_ts",
+                        "in": "formData",
+                        "description": "Provide another message's `ts` value to make this message a reply. Avoid using a reply's `ts` value; use its parent instead."
+                    },
+                    {
+                        "name": "attachments",
+                        "in": "formData",
+                        "description": "A JSON-based array of structured attachments, presented as a URL-encoded string."
+                    },
+                    {
+                        "name": "unfurl_links",
+                        "in": "formData",
+                        "description": "Pass true to enable unfurling of primarily text-based content."
+                    },
+                    {
+                        "name": "text",
+                        "in": "formData",
+                        "description": "Text of the message to send. See below for an explanation of [formatting](#formatting). This field is usually required, unless you're providing only `attachments` instead."
+                    },
+                    {
+                        "name": "unfurl_media",
+                        "in": "formData",
+                        "description": "Pass false to disable unfurling of media content."
+                    },
+                    {
+                        "name": "parse",
+                        "in": "formData",
+                        "description": "Change how messages are treated. Defaults to `none`. See [below](#formatting)."
+                    },
+                    {
+                        "name": "as_user",
+                        "in": "formData",
+                        "description": "Pass true to delete the message as the authed user with `chat:write:user` scope. [Bot users](\/bot-users) in this context are considered authed users. If unused or false, the message will be deleted with `chat:write:bot` scope."
+                    },
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    },
+                    {
+                        "name": "icon_emoji",
+                        "in": "formData",
+                        "description": "Emoji to use as the icon for this message. Overrides `icon_url`. Must be used in conjunction with `as_user` set to `false`, otherwise ignored. See [authorship](#authorship) below."
+                    },
+                    {
+                        "name": "link_names",
+                        "in": "formData",
+                        "description": "Find and link channel names and usernames."
+                    },
+                    {
+                        "name": "icon_url",
+                        "in": "formData",
+                        "description": "URL to an image to use as the icon for this message. Must be used in conjunction with `as_user` set to false, otherwise ignored. See [authorship](#authorship) below."
+                    },
+                    {
+                        "name": "channel",
+                        "in": "formData",
+                        "description": "Channel containing the message to be deleted."
+                    },
+                    {
+                        "name": "reply_broadcast",
+                        "in": "formData",
+                        "description": "Used in conjunction with `thread_ts` and indicates whether reply should be made visible to everyone in the channel or conversation. Defaults to `false`."
+                    }
+                ]
+            }
+        },
+        "\/users.setActive": {
+            "post": {
+                "summary": "Make User Inactive",
+                "description": "Marks a user as active.",
+                "operationId": "UsersSetActive",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    }
+                ]
+            }
+        },
+        "\/conversations.archive": {
+            "post": {
+                "summary": "Archive Conversation",
+                "description": "Archives a conversation.",
+                "operationId": "ConversationsArchive",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    },
+                    {
+                        "name": "channel",
+                        "in": "formData",
+                        "description": "Channel containing the message to be deleted."
+                    }
+                ]
+            }
+        },
+        "\/team.profile.get": {
+            "get": {
+                "summary": "Get Team Profile",
+                "description": "Retrieve a team's profile.",
+                "operationId": "TeamProfileGet",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Authentication token. Requires scope: `groups:history`"
+                    },
+                    {
+                        "name": "visibility",
+                        "in": "query",
+                        "description": "Filter by visibility."
+                    }
+                ]
+            }
+        },
+        "\/groups.archive": {
+            "post": {
+                "summary": "Archive Group",
+                "description": "Archives a private channel.",
+                "operationId": "GroupsArchive",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    },
+                    {
+                        "name": "channel",
+                        "in": "formData",
+                        "description": "Channel containing the message to be deleted."
+                    }
+                ]
+            }
+        },
+        "\/conversations.replies": {
+            "get": {
+                "summary": "Reply Conversation",
+                "description": "Retrieve a thread of messages posted to a conversation",
+                "operationId": "ConversationsReplies",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "inclusive",
+                        "in": "query",
+                        "description": "Include messages with latest or oldest timestamp in results."
+                    },
+                    {
+                        "name": "ts",
+                        "in": "query",
+                        "description": "Unique identifier of a thread's parent message."
+                    },
+                    {
+                        "name": "cursor",
+                        "in": "query",
+                        "description": "Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute returned by a previous request's `response_metadata`. Default value fetches the first \"page\" of the collection. See [pagination](\/docs\/pagination) for more detail."
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Authentication token. Requires scope: `groups:history`"
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the list hasn't been reached. Must be an integer no larger than 1000."
+                    },
+                    {
+                        "name": "oldest",
+                        "in": "query",
+                        "description": "Start of time range of messages to include in results."
+                    },
+                    {
+                        "name": "channel",
+                        "in": "query",
+                        "description": "Private channel to fetch thread from"
+                    },
+                    {
+                        "name": "latest",
+                        "in": "query",
+                        "description": "End of time range of messages to include in results."
+                    }
+                ]
+            }
+        },
+        "\/stars.remove": {
+            "post": {
+                "summary": "Remove Star from Item",
+                "description": "Removes a star from an item.",
+                "operationId": "StarsRemove",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "file_comment",
+                        "in": "formData",
+                        "description": "File comment to add reaction to."
+                    },
+                    {
+                        "name": "timestamp",
+                        "in": "formData",
+                        "description": "Timestamp of the message to add reaction to."
+                    },
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token. Requires scope: `chat:write`"
+                    },
+                    {
+                        "name": "channel",
+                        "in": "formData",
+                        "description": "Channel containing the message to be deleted."
+                    },
+                    {
+                        "name": "file",
+                        "in": "formData",
+                        "description": "File containing the comment to edit."
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "objs_im": {
+                "type": "object",
+                "properties": {
+                    "is_org_shared": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "created": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "is_user_deleted": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "priority": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "is_im": {
+                        "description": "",
+                        "type": "post"
+                    }
+                }
+            },
+            "objs_paging": {
+                "type": "object",
+                "properties": {
+                    "count": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "total": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "page": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "pages": {
+                        "description": "",
+                        "type": "post"
+                    }
+                }
+            },
+            "objs_file": {
+                "type": "object",
+                "properties": {
+                    "image_exif_rotation": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "filetype": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "channels": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "display_as_bot": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "thumb_64": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "size": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "original_h": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "thumb_360_w": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "title": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "url_private": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "thumb_360": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "ims": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "thumb_80": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "thumb_360_h": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "original_w": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "username": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "timestamp": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "public_url_shared": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "editable": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "thumb_160": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "url_private_download": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "user": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "groups": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "is_public": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "pretty_type": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "name": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "mimetype": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "permalink_public": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "permalink": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "is_external": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "created": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "external_type": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "comments_count": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "mode": {
+                        "description": "",
+                        "type": "post"
+                    }
+                }
+            },
+            "objs_user_profile": {
+                "type": "object",
+                "properties": {
+                    "last_name": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "status_emoji": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "display_name_normalized": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "image_32": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "skype": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "image_72": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "image_192": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "first_name": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "display_name": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "title": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "real_name_normalized": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "email": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "image_24": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "image_original": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "image_48": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "guest_channels": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "phone": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "fields": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "real_name": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "image_512": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "avatar_hash": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "status_text": {
+                        "description": "",
+                        "type": "post"
+                    }
+                }
+            },
+            "objs_team_profile_field": {
+                "type": "object",
+                "properties": {
+                    "hint": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "ordering": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "type": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "possible_values": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "label": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "id": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "is_hidden": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "field_name": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "options": {
+                        "description": "",
+                        "type": "post"
+                    }
+                }
+            },
+            "objs_comment": {
+                "type": "object",
+                "properties": {
+                    "comment": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "created": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "timestamp": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "is_intro": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "user": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "id": {
+                        "description": "",
+                        "type": "post"
+                    }
+                }
+            },
+            "objs_channel": {
+                "type": "object",
+                "properties": {
+                    "is_general": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "name_normalized": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "is_member": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "is_archived": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "topic": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "unread_count_display": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "is_org_shared": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "is_channel": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "name": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "priority": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "is_moved": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "is_pending_ext_shared": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "is_mpim": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "is_read_only": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "purpose": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "members": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "is_private": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "previous_names": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "num_members": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "is_shared": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "created": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "pending_shared": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "unread_count": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "unlinked": {
+                        "description": "",
+                        "type": "post"
+                    }
+                }
+            },
+            "objs_group": {
+                "type": "object",
+                "properties": {
+                    "is_pending_ext_shared": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "name_normalized": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "name": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "is_moved": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "is_mpim": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "is_archived": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "created": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "is_group": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "topic": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "unread_count": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "is_open": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "purpose": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "members": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "priority": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "unread_count_display": {
+                        "description": "",
+                        "type": "post"
+                    }
+                }
+            },
+            "objs_user_profile_short": {
+                "type": "object",
+                "properties": {
+                    "first_name": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "display_name": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "name": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "real_name": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "avatar_hash": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "is_ultra_restricted": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "is_restricted": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "image_72": {
+                        "description": "",
+                        "type": "post"
+                    }
+                }
+            },
+            "objs_team": {
+                "type": "object",
+                "properties": {
+                    "domain": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "name": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "email_domain": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "has_compliance_export": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "icon": {
+                        "description": "",
+                        "type": "post"
+                    }
+                }
+            },
+            "objs_message": {
+                "type": "object",
+                "properties": {
+                    "attachments": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "text": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "topic": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "reply_count": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "replies": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "subscribed": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "icons": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "purpose": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "subtype": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "type": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "username": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "old_name": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "name": {
+                        "description": "",
+                        "type": "post"
+                    },
+                    "unread_count": {
+                        "description": "",
+                        "type": "post"
+                    }
+                }
+            }
+        }
+    }
+}
