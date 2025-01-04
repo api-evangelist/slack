@@ -35,6 +35,20 @@ The Slack Web API is an interface for querying information from and enacting cha
 - [Documentation](https://api.slack.com/web)
 - [OpenAPI](openapi/slack-web-openapi-original.yml)
 
+## Common Properties
+
+- [Status](https://slack-status.com/)
+- [Portal](https://api.slack.com/)
+- [GettingStarted](https://api.slack.com/automation/quickstart)
+- [Templates](https://api.slack.com/samples)
+- [Sandbox](https://api.slack.com/docs/developer-sandbox)
+- [Authentication](https://api.slack.com/authentication)
+- [Tutorials](https://api.slack.com/tutorials)
+- [TermsOfService](https://api.slack.com/developer-policy)
+- [TermsOfService](https://slack.com/intl/en-gb/terms-of-service/api-updated?_gl=1*1yvqubm*_gcl_au*ODQ0OTgxOTg3LjE3MzU5NDg2ODY.*_ga*MTk4NzA1NTA3Ny4xNzM1OTQ4Njg3*_ga_QTJQME5M5D*MTczNTk0ODY4NS4xLjEuMTczNTk0ODk4My41LjAuMA..)
+- [Blog](https://slack.com/intl/en-gb/blog)
+- [Pricing](https://slack.com/intl/en-gb/pricing)
+
 ## Maintainers
 
 **FN:** API Evangelist
