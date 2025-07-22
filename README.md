@@ -16,7 +16,7 @@ Slack is a cloud-based freemium cross-platform instant messaging service created
 ## Timestamps
 
 - **Created:** 2024/04/14 
-- **Modified:** 2025-01-03 
+- **Modified:** 2025-07-22 
 
 ## APIs
 
@@ -47,7 +47,7 @@ The Slack Web API is an interface for querying information from and enacting cha
 - [TermsOfService](https://api.slack.com/developer-policy)
 - [TermsOfService](https://slack.com/intl/en-gb/terms-of-service/api-updated?_gl=1*1yvqubm*_gcl_au*ODQ0OTgxOTg3LjE3MzU5NDg2ODY.*_ga*MTk4NzA1NTA3Ny4xNzM1OTQ4Njg3*_ga_QTJQME5M5D*MTczNTk0ODY4NS4xLjEuMTczNTk0ODk4My41LjAuMA..)
 - [Blog](https://slack.com/intl/en-gb/blog)
-- [Pricing](https://slack.com/intl/en-gb/pricing)
+- [Plans](https://slack.com/pricing)
 
 ## Maintainers
 
