@@ -1,0 +1,329 @@
+openapi: 3.1.0
+info:
+  title: Pins
+  description: Needs a description.
+paths:
+  /pins.add:
+    post:
+      tags:
+        - pins
+      description: Pins an item to a channel.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/pins.add
+      operationId: pins_add
+      parameters:
+        - name: token
+          in: header
+          description: 'Authentication token. Requires scope: `pins:write`'
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+                - channel
+              type: object
+              properties:
+                channel:
+                  type: string
+                  description: Channel to pin the item in.
+                timestamp:
+                  type: string
+                  description: Timestamp of the message to pin.
+          application/json:
+            schema:
+              required:
+                - channel
+              type: object
+              properties:
+                channel:
+                  type: string
+                  description: Channel to pin the item in.
+                timestamp:
+                  type: string
+                  description: Timestamp of the message to pin.
+        required: true
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: pins.add schema
+                required:
+                  - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: false
+                description: Schema for successful response from pins.add method
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: pins.add error schema
+                required:
+                  - error
+                  - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                      - bad_timestamp
+                      - message_not_found
+                      - channel_not_found
+                      - no_item_specified
+                      - already_pinned
+                      - permission_denied
+                      - file_not_shared
+                      - not_pinnable
+                      - not_authed
+                      - invalid_auth
+                      - account_inactive
+                      - no_permission
+                      - invalid_arg_name
+                      - invalid_array_arg
+                      - invalid_charset
+                      - invalid_form_data
+                      - invalid_post_type
+                      - missing_post_type
+                      - team_added_to_org
+                      - invalid_json
+                      - json_not_object
+                      - request_timeout
+                      - upgrade_required
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from pins.add method
+              example:
+                error: channel_not_found
+                ok: false
+      security:
+        - slackAuth:
+            - pins:write
+  /pins.list:
+    get:
+      tags:
+        - pins
+      description: Lists items pinned to a channel.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/pins.list
+      operationId: pins_list
+      parameters:
+        - name: token
+          in: query
+          description: 'Authentication token. Requires scope: `pins:read`'
+          required: true
+          schema:
+            type: string
+        - name: channel
+          in: query
+          description: Channel to get pinned items for.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: pins.list success schema
+                type: array
+                description: Schema for successful response from pins.list method
+              example:
+                items:
+                  - channel: C2U86NC6H
+                    created: 1508881078
+                    created_by: U2U85N1RZ
+                    message:
+                      permalink: >-
+                        https://hitchhikers.slack.com/archives/C2U86NC6H/p1508197641000151
+                      pinned_to:
+                        - C2U86NC6H
+                      text: What is the meaning of life?
+                      ts: '1508197641.000151'
+                      type: message
+                      user: U2U85N1RZ
+                    type: message
+                  - channel: C2U86NC6H
+                    created: 1508880991
+                    created_by: U2U85N1RZ
+                    message:
+                      permalink: >-
+                        https://hitchhikers.slack.com/archives/C2U86NC6H/p1508284197000015
+                      pinned_to:
+                        - C2U86NC6H
+                      text: The meaning of life, the universe, and everything is 42.
+                      ts: '1503289197.000015'
+                      type: message
+                      user: U2U85N1RZ
+                    type: message
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: pins.list error schema
+                required:
+                  - error
+                  - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                      - channel_not_found
+                      - not_authed
+                      - invalid_auth
+                      - account_inactive
+                      - no_permission
+                      - invalid_arg_name
+                      - invalid_array_arg
+                      - invalid_charset
+                      - invalid_form_data
+                      - invalid_post_type
+                      - missing_post_type
+                      - team_added_to_org
+                      - invalid_json
+                      - json_not_object
+                      - request_timeout
+                      - upgrade_required
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from pins.list method
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+        - slackAuth:
+            - pins:read
+  /pins.remove:
+    post:
+      tags:
+        - pins
+      description: Un-pins an item from a channel.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/pins.remove
+      operationId: pins_remove
+      parameters:
+        - name: token
+          in: header
+          description: 'Authentication token. Requires scope: `pins:write`'
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+                - channel
+              type: object
+              properties:
+                channel:
+                  type: string
+                  description: Channel where the item is pinned to.
+                timestamp:
+                  type: string
+                  description: Timestamp of the message to un-pin.
+          application/json:
+            schema:
+              required:
+                - channel
+              type: object
+              properties:
+                channel:
+                  type: string
+                  description: Channel where the item is pinned to.
+                timestamp:
+                  type: string
+                  description: Timestamp of the message to un-pin.
+        required: true
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: pins.remove schema
+                required:
+                  - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: false
+                description: Schema for successful response from pins.remove method
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: pins.remove error schema
+                required:
+                  - error
+                  - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                      - bad_timestamp
+                      - file_not_found
+                      - file_comment_not_found
+                      - message_not_found
+                      - no_item_specified
+                      - not_pinned
+                      - permission_denied
+                      - not_authed
+                      - invalid_auth
+                      - account_inactive
+                      - no_permission
+                      - invalid_arg_name
+                      - invalid_array_arg
+                      - invalid_charset
+                      - invalid_form_data
+                      - invalid_post_typ
+                      - missing_post_typ
+                      - team_added_to_org
+                      - invalid_json
+                      - json_not_object
+                      - request_timeou
+                      - upgrade_required
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from pins.remove method
+              example:
+                error: no_pin
+                ok: false
+      security:
+        - slackAuth:
+            - pins:write
+components:
+  schemas: {}

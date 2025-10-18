@@ -1,0 +1,576 @@
+openapi: 3.1.0
+info:
+  title: Team
+  description: Needs a description.
+paths:
+  /team.accessLogs:
+    get:
+      tags:
+        - team
+      description: Gets the access logs for the current team.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/team.accessLogs
+      operationId: team_accessLogs
+      parameters:
+        - name: token
+          in: query
+          description: 'Authentication token. Requires scope: `admin`'
+          required: true
+          schema:
+            type: string
+        - name: before
+          in: query
+          description: End of time range of logs to include in results (inclusive).
+          schema:
+            type: string
+        - name: count
+          in: query
+          schema:
+            type: string
+        - name: page
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: This response demonstrates pagination and two access log entries.
+          content:
+            application/json:
+              schema:
+                title: team.accessLogs schema
+                required:
+                  - logins
+                  - ok
+                  - paging
+                type: object
+                properties:
+                  logins:
+                    minItems: 1
+                    uniqueItems: true
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties: false
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                  paging:
+                    $ref: '#/components/schemas/objs_paging'
+                additionalProperties: false
+                description: Schema for successful response from team.accessLogs method
+              example:
+                logins:
+                  - count: 1
+                    country: US
+                    date_first: 1422922864
+                    date_last: 1422922864
+                    ip: 127.0.0.1
+                    isp: BigCo ISP
+                    region: CA
+                    user_agent: >-
+                      SlackWeb Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2)
+                      AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.35
+                      Safari/537.36
+                    user_id: U45678
+                    username: alice
+                  - count: 1
+                    country: US
+                    date_first: 1422922493
+                    date_last: 1422922493
+                    ip: 127.0.0.1
+                    isp: BigCo ISP
+                    region: CA
+                    user_agent: >-
+                      SlackWeb Mozilla/5.0 (iPhone; CPU iPhone OS 8_1_3 like Mac
+                      OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0
+                      Mobile/12B466 Safari/600.1.4
+                    user_id: U12345
+                    username: white_rabbit
+                ok: true
+                paging:
+                  count: 100
+                  page: 1
+                  pages: 1
+                  total: 2
+        default:
+          description: >-
+            A workspace must be on a paid plan to use this method, otherwise the
+            `paid_only` error is thrown:
+          content:
+            application/json:
+              schema:
+                title: team.accessLogs error schema
+                required:
+                  - error
+                  - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                      - paid_only
+                      - over_pagination_limit
+                      - not_authed
+                      - invalid_auth
+                      - account_inactive
+                      - token_revoked
+                      - no_permission
+                      - org_login_required
+                      - user_is_bot
+                      - invalid_arg_name
+                      - invalid_array_arg
+                      - invalid_charset
+                      - invalid_form_data
+                      - invalid_post_type
+                      - missing_post_type
+                      - team_added_to_org
+                      - invalid_json
+                      - json_not_object
+                      - request_timeout
+                      - upgrade_required
+                      - fatal_error
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from team.accessLogs method
+              example:
+                error: paid_only
+                ok: false
+      security:
+        - slackAuth:
+            - admin
+  /team.billableInfo:
+    get:
+      tags:
+        - team
+      description: Gets billable users information for the current team.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/team.billableInfo
+      operationId: team_billableInfo
+      parameters:
+        - name: token
+          in: query
+          description: 'Authentication token. Requires scope: `admin`'
+          required: true
+          schema:
+            type: string
+        - name: user
+          in: query
+          description: >-
+            A user to retrieve the billable information for. Defaults to all
+            users.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: Default success template
+                required:
+                  - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: true
+                description: >-
+                  This method either only returns a brief _OK_ response or a
+                  verbose schema is not available for this method.
+              example:
+                billable_info:
+                  U02UCPE1R:
+                    billing_active: true
+                  U02UEBSD2:
+                    billing_active: true
+                  U0632EWRW:
+                    billing_active: false
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: Default error template
+                required:
+                  - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: true
+                description: >-
+                  This method either only returns a brief _not OK_ response or a
+                  verbose schema is not available for this method.
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+        - slackAuth:
+            - admin
+  /team.info:
+    get:
+      tags:
+        - team
+      description: Gets information about the current team.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/team.info
+      operationId: team_info
+      parameters:
+        - name: token
+          in: query
+          description: 'Authentication token. Requires scope: `team:read`'
+          required: true
+          schema:
+            type: string
+        - name: team
+          in: query
+          description: >-
+            Team to get info on, if omitted, will return information about the
+            current team. Will only return team that the authenticated token is
+            allowed to see through external shared channels
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: team.info schema
+                required:
+                  - ok
+                  - team
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                  team:
+                    $ref: '#/components/schemas/objs_team'
+                additionalProperties: false
+                description: Schema for successful response from team.info method
+              example:
+                ok: true
+                team:
+                  domain: example
+                  email_domain: example.com
+                  enterprise_id: E1234A12AB
+                  enterprise_name: Umbrella Corporation
+                  icon:
+                    image_102: https://...
+                    image_132: https://...
+                    image_34: https://...
+                    image_44: https://...
+                    image_68: https://...
+                    image_88: https://...
+                    image_default: true
+                  id: T12345
+                  name: My Team
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: team.info error schema
+                required:
+                  - error
+                  - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                      - not_authed
+                      - invalid_auth
+                      - account_inactive
+                      - token_revoked
+                      - no_permission
+                      - invalid_arg_name
+                      - invalid_array_arg
+                      - invalid_charset
+                      - invalid_form_data
+                      - invalid_post_type
+                      - missing_post_type
+                      - team_added_to_org
+                      - invalid_json
+                      - json_not_object
+                      - request_timeout
+                      - upgrade_required
+                      - fatal_error
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from team.info method
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+        - slackAuth:
+            - team:read
+  /team.integrationLogs:
+    get:
+      tags:
+        - team
+      description: Gets the integration logs for the current team.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/team.integrationLogs
+      operationId: team_integrationLogs
+      parameters:
+        - name: token
+          in: query
+          description: 'Authentication token. Requires scope: `admin`'
+          required: true
+          schema:
+            type: string
+        - name: app_id
+          in: query
+          description: Filter logs to this Slack app. Defaults to all logs.
+          schema:
+            type: string
+        - name: change_type
+          in: query
+          description: Filter logs with this change type. Defaults to all logs.
+          schema:
+            type: string
+        - name: count
+          in: query
+          schema:
+            type: string
+        - name: page
+          in: query
+          schema:
+            type: string
+        - name: service_id
+          in: query
+          description: Filter logs to this service. Defaults to all logs.
+          schema:
+            type: string
+        - name: user
+          in: query
+          description: Filter logs generated by this users actions. Defaults to all logs.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: team.integrationLogs schema
+                required:
+                  - logs
+                  - ok
+                  - paging
+                type: object
+                properties:
+                  logs:
+                    minItems: 1
+                    uniqueItems: true
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties: false
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                  paging:
+                    $ref: '#/components/schemas/objs_paging'
+                additionalProperties: false
+                description: >-
+                  Schema for successful response from team.integrationLogs
+                  method
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: team.integrationLogs error schema
+                required:
+                  - error
+                  - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                      - not_authed
+                      - invalid_auth
+                      - account_inactive
+                      - token_revoked
+                      - no_permission
+                      - org_login_required
+                      - user_is_bot
+                      - invalid_arg_name
+                      - invalid_array_arg
+                      - invalid_charset
+                      - invalid_form_data
+                      - invalid_post_type
+                      - missing_post_type
+                      - team_added_to_org
+                      - invalid_json
+                      - json_not_object
+                      - request_timeout
+                      - upgrade_required
+                      - fatal_error
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from team.integrationLogs method
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+        - slackAuth:
+            - admin
+  /team.profile.get:
+    get:
+      tags:
+        - team.profile
+        - team
+      description: Retrieve a team's profile.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/team.profile.get
+      operationId: team_profile_get
+      parameters:
+        - name: token
+          in: query
+          description: 'Authentication token. Requires scope: `users.profile:read`'
+          required: true
+          schema:
+            type: string
+        - name: visibility
+          in: query
+          description: Filter by visibility.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: team.profile.get success schema
+                required:
+                  - ok
+                  - profile
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                  profile:
+                    type: object
+                    additionalProperties: false
+                additionalProperties: false
+                description: Schema for successful response from team.profile.get method
+              example:
+                ok: true
+                profile:
+                  fields:
+                    - hint: Enter the extension to reach your desk
+                      id: Xf06054AAA
+                      is_hidden: 1
+                      label: Phone extension
+                      options: null
+                      ordering: 0
+                      possible_values: null
+                      type: text
+                    - hint: When you were born
+                      id: Xf06054BBB
+                      label: Date of birth
+                      options: null
+                      ordering: 1
+                      possible_values: null
+                      type: date
+                    - hint: Enter a link to your Facebook profile
+                      id: Xf06054CCC
+                      label: Facebook
+                      options: null
+                      ordering: 2
+                      possible_values: null
+                      type: link
+                    - hint: Hogwarts, obviously
+                      id: Xf06054DDD
+                      label: House
+                      options: null
+                      ordering: 3
+                      possible_values:
+                        - Gryffindor
+                        - Hufflepuff
+                        - Ravenclaw
+                        - Slytherin
+                      type: options_list
+                    - hint: Office location (LDAP)
+                      id: Xf06054EEE
+                      label: Location
+                      options:
+                        is_protected: 1
+                      ordering: 4
+                      possible_values: null
+                      type: text
+                    - hint: The boss
+                      id: Xf06054FFF
+                      label: Manager
+                      options: null
+                      ordering: 5
+                      possible_values: null
+                      type: user
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: team.profile.get error schema
+                required:
+                  - error
+                  - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                      - not_authed
+                      - invalid_auth
+                      - account_inactive
+                      - no_permission
+                      - user_is_bot
+                      - invalid_arg_name
+                      - invalid_array_arg
+                      - invalid_charset
+                      - invalid_form_data
+                      - invalid_post_typ
+                      - missing_post_type
+                      - team_added_to_org
+                      - invalid_json
+                      - json_not_object
+                      - request_timeou
+                      - upgrade_required
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from team.profile.get method
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+        - slackAuth:
+            - users.profile:read
+components:
+  schemas: {}

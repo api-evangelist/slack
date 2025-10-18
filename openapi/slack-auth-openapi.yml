@@ -1,0 +1,194 @@
+openapi: 3.1.0
+info:
+  title: Auth
+  description: Needs a description.
+paths:
+  /auth.revoke:
+    get:
+      tags:
+        - auth
+      description: Revokes a token.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/auth.revoke
+      operationId: auth_revoke
+      parameters:
+        - name: token
+          in: query
+          description: 'Authentication token. Requires scope: `none`'
+          required: true
+          schema:
+            type: string
+        - name: test
+          in: query
+          description: >-
+            Setting this parameter to `1` triggers a _testing mode_ where the
+            specified token will not actually be revoked.
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: auth.revoke schema
+                required:
+                  - ok
+                  - revoked
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                  revoked:
+                    type: boolean
+                additionalProperties: false
+                description: Schema for successful response from auth.revoke method
+              example:
+                ok: true
+                revoked: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: auth.revoke error schema
+                required:
+                  - error
+                  - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                      - not_authed
+                      - invalid_auth
+                      - account_inactive
+                      - token_revoked
+                      - no_permission
+                      - org_login_required
+                      - invalid_arg_name
+                      - invalid_array_arg
+                      - invalid_charset
+                      - invalid_form_data
+                      - invalid_post_type
+                      - missing_post_type
+                      - team_added_to_org
+                      - invalid_json
+                      - json_not_object
+                      - request_timeout
+                      - upgrade_required
+                      - fatal_error
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from auth.revoke method
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+        - slackAuth:
+            - none
+  /auth.test:
+    get:
+      tags:
+        - auth
+      description: Checks authentication & identity.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/auth.test
+      operationId: auth_test
+      parameters:
+        - name: token
+          in: header
+          description: 'Authentication token. Requires scope: `none`'
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Standard success response when used with a user token
+          content:
+            application/json:
+              schema:
+                title: auth.test success schema
+                required:
+                  - ok
+                  - team
+                  - team_id
+                  - url
+                  - user
+                  - user_id
+                type: object
+                properties:
+                  bot_id:
+                    $ref: '#/components/schemas/defs_bot_id'
+                  is_enterprise_install:
+                    type: boolean
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                  team:
+                    type: string
+                  team_id:
+                    $ref: '#/components/schemas/defs_team'
+                  url:
+                    type: string
+                  user:
+                    type: string
+                  user_id:
+                    $ref: '#/components/schemas/defs_user_id'
+                additionalProperties: false
+                description: Schema for successful response auth.test method
+              example:
+                ok: true
+                team: Subarachnoid Workspace
+                team_id: T12345678
+                url: https://subarachnoid.slack.com/
+                user: grace
+                user_id: W12345678
+        default:
+          description: Standard failure response when used with an invalid token
+          content:
+            application/json:
+              schema:
+                title: auth.test error schema
+                required:
+                  - error
+                  - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                      - not_authed
+                      - invalid_auth
+                      - token_revoked
+                      - account_inactive
+                      - invalid_arg_name
+                      - invalid_array_arg
+                      - invalid_charset
+                      - invalid_form_data
+                      - invalid_post_type
+                      - missing_post_type
+                      - invalid_json
+                      - json_not_object
+                      - request_timeout
+                      - upgrade_required
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response auth.test method
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+        - slackAuth:
+            - none
+components:
+  schemas: {}

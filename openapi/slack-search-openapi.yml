@@ -1,0 +1,152 @@
+openapi: 3.1.0
+info:
+  title: Search
+  description: Needs a description.
+paths:
+  /search.messages:
+    get:
+      tags:
+        - search
+      description: Searches for messages matching a query.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/search.messages
+      operationId: search_messages
+      parameters:
+        - name: token
+          in: query
+          description: 'Authentication token. Requires scope: `search:read`'
+          required: true
+          schema:
+            type: string
+        - name: count
+          in: query
+          description: Pass the number of results you want per "page". Maximum of `100`.
+          schema:
+            type: integer
+        - name: highlight
+          in: query
+          description: >-
+            Pass a value of `true` to enable query highlight markers (see
+            below).
+          schema:
+            type: boolean
+        - name: page
+          in: query
+          schema:
+            type: integer
+        - name: query
+          in: query
+          description: Search query.
+          required: true
+          schema:
+            type: string
+        - name: sort
+          in: query
+          description: Return matches sorted by either `score` or `timestamp`.
+          schema:
+            type: string
+        - name: sort_dir
+          in: query
+          description: Change sort direction to ascending (`asc`) or descending (`desc`).
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: Default success template
+                required:
+                  - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: true
+                description: >-
+                  This method either only returns a brief _OK_ response or a
+                  verbose schema is not available for this method.
+              example:
+                messages:
+                  matches:
+                    - channel:
+                        id: C12345678
+                        is_ext_shared: false
+                        is_mpim: false
+                        is_org_shared: false
+                        is_pending_ext_shared: false
+                        is_private: false
+                        is_shared: false
+                        name: general
+                        pending_shared: []
+                      iid: cb64bdaa-c1e8-4631-8a91-0f78080113e9
+                      permalink: >-
+                        https://hitchhikers.slack.com/archives/C12345678/p1508284197000015
+                      team: T12345678
+                      text: The meaning of life the universe and everything is 42.
+                      ts: '1508284197.000015'
+                      type: message
+                      user: U2U85N1RV
+                      username: roach
+                    - channel:
+                        id: C12345678
+                        is_ext_shared: false
+                        is_mpim: false
+                        is_org_shared: false
+                        is_pending_ext_shared: false
+                        is_private: false
+                        is_shared: false
+                        name: random
+                        pending_shared: []
+                      iid: 9a00d3c9-bd2d-45b0-988b-6cff99ae2a90
+                      permalink: >-
+                        https://hitchhikers.slack.com/archives/C12345678/p1508795665000236
+                      team: T12345678
+                      text: >-
+                        The meaning of life the universe and everything is
+                        101010
+                      ts: '1508795665.000236'
+                      type: message
+                      user: ''
+                      username: robot overlord
+                  pagination:
+                    first: 1
+                    last: 2
+                    page: 1
+                    page_count: 1
+                    per_page: 20
+                    total_count: 2
+                  paging:
+                    count: 20
+                    page: 1
+                    pages: 1
+                    total: 2
+                  total: 2
+                ok: true
+                query: The meaning of life the universe and everything
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: Default error template
+                required:
+                  - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: true
+                description: >-
+                  This method either only returns a brief _not OK_ response or a
+                  verbose schema is not available for this method.
+              example:
+                error: No query passed
+                ok: false
+      security:
+        - slackAuth:
+            - search:read
+components:
+  schemas: {}
