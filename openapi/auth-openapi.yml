@@ -1,12 +1,13 @@
 openapi: 3.1.0
 info:
-  title: Auth
-  description: Needs a description.
+  title: Slack Auth API
+  description: "Slack\x19s Auth API covers the authentication and authorization pieces that let apps securely identify users and workspaces and manage access. It includes OAuth 2.0 endpoints used during app installation to request scopes and exchange authorization codes for tokens (with optional token rotation), plus OpenID Connect for \x1CSign in with Slack\x1D so you can authenticate users and retrieve standard identity claims. Within the Web API, methods like auth.test let you verify a token and learn which user and workspace it belongs to, auth.revoke allows you to invalidate tokens, and auth.teams.list helps enumerate the workspaces a user can use with your app (useful for multi-workspace and Enterprise Grid scenarios). Together, these capabilities ensure your app knows who is calling, what it\x19s allowed to do, and where, before invoking other Slack APIs."
 paths:
   /auth.revoke:
     get:
       tags:
-        - auth
+        - Get
+        - Revoke
       description: Revokes a token.
       externalDocs:
         description: API method documentation
@@ -97,10 +98,12 @@ paths:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
+        ChooseTags: true
   /auth.test:
     get:
       tags:
-        - auth
+        - Get
+        - Tests
       description: Checks authentication & identity.
       externalDocs:
         description: API method documentation
@@ -200,5 +203,6 @@ paths:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
+        ChooseTags: true
 components:
   schemas: {}
