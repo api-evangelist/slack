@@ -1,0 +1,980 @@
+openapi: 3.1.0
+info:
+  title: Usergroups
+  description: Needs a description.
+paths:
+  /usergroups.create:
+    post:
+      tags:
+        - usergroups
+      description: Create a User Group
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/usergroups.create
+      operationId: postUsergroupsCreate
+      parameters:
+        - name: token
+          in: header
+          description: 'Authentication token. Requires scope: `usergroups:write`'
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+                - name
+              type: object
+              properties:
+                channels:
+                  type: string
+                  description: >-
+                    A comma separated string of encoded channel IDs for which
+                    the User Group uses as a default.
+                description:
+                  type: string
+                  description: A short description of the User Group.
+                handle:
+                  type: string
+                  description: >-
+                    A mention handle. Must be unique among channels, users and
+                    User Groups.
+                include_count:
+                  type: boolean
+                  description: Include the number of users in each User Group.
+                name:
+                  type: string
+                  description: A name for the User Group. Must be unique among User Groups.
+          application/json:
+            schema:
+              required:
+                - name
+              type: object
+              properties:
+                channels:
+                  type: string
+                  description: >-
+                    A comma separated string of encoded channel IDs for which
+                    the User Group uses as a default.
+                description:
+                  type: string
+                  description: A short description of the User Group.
+                handle:
+                  type: string
+                  description: >-
+                    A mention handle. Must be unique among channels, users and
+                    User Groups.
+                include_count:
+                  type: boolean
+                  description: Include the number of users in each User Group.
+                name:
+                  type: string
+                  description: A name for the User Group. Must be unique among User Groups.
+        required: true
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: usergroups.create schema
+                required:
+                  - ok
+                  - usergroup
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                  usergroup:
+                    $ref: '#/components/schemas/objs_subteam'
+                additionalProperties: false
+                description: Schema for successful response from usergroups.create method
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: usergroups.create error schema
+                required:
+                  - error
+                  - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                      - permission_denied
+                      - not_authed
+                      - invalid_auth
+                      - account_inactive
+                      - token_revoked
+                      - no_permission
+                      - org_login_required
+                      - user_is_bot
+                      - user_is_restricted
+                      - invalid_arg_name
+                      - invalid_array_arg
+                      - invalid_charset
+                      - invalid_form_data
+                      - invalid_post_type
+                      - missing_post_type
+                      - team_added_to_org
+                      - invalid_json
+                      - json_not_object
+                      - request_timeout
+                      - upgrade_required
+                      - fatal_error
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from usergroups.create method
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+        - slackAuth:
+            - usergroups:write
+      summary: Post  Usergroups Create
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+  /usergroups.disable:
+    post:
+      tags:
+        - usergroups
+      description: Disable an existing User Group
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/usergroups.disable
+      operationId: postUsergroupsDisable
+      parameters:
+        - name: token
+          in: header
+          description: 'Authentication token. Requires scope: `usergroups:write`'
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+                - usergroup
+              type: object
+              properties:
+                include_count:
+                  type: boolean
+                  description: Include the number of users in the User Group.
+                usergroup:
+                  type: string
+                  description: The encoded ID of the User Group to disable.
+          application/json:
+            schema:
+              required:
+                - usergroup
+              type: object
+              properties:
+                include_count:
+                  type: boolean
+                  description: Include the number of users in the User Group.
+                usergroup:
+                  type: string
+                  description: The encoded ID of the User Group to disable.
+        required: true
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: usergroups.disable schema
+                required:
+                  - ok
+                  - usergroup
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                  usergroup:
+                    $ref: '#/components/schemas/objs_subteam'
+                additionalProperties: false
+                description: Schema for successful response from usergroups.disable method
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: usergroups.disable error schema
+                required:
+                  - error
+                  - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                      - permission_denied
+                      - not_authed
+                      - invalid_auth
+                      - account_inactive
+                      - token_revoked
+                      - no_permission
+                      - org_login_required
+                      - user_is_bot
+                      - user_is_restricted
+                      - invalid_arg_name
+                      - invalid_array_arg
+                      - invalid_charset
+                      - invalid_form_data
+                      - invalid_post_type
+                      - missing_post_type
+                      - team_added_to_org
+                      - invalid_json
+                      - json_not_object
+                      - request_timeout
+                      - upgrade_required
+                      - fatal_error
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from usergroups.disable method
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+        - slackAuth:
+            - usergroups:write
+      summary: Post  Usergroups Disable
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+  /usergroups.enable:
+    post:
+      tags:
+        - usergroups
+      description: Enable a User Group
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/usergroups.enable
+      operationId: postUsergroupsEnable
+      parameters:
+        - name: token
+          in: header
+          description: 'Authentication token. Requires scope: `usergroups:write`'
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+                - usergroup
+              type: object
+              properties:
+                include_count:
+                  type: boolean
+                  description: Include the number of users in the User Group.
+                usergroup:
+                  type: string
+                  description: The encoded ID of the User Group to enable.
+          application/json:
+            schema:
+              required:
+                - usergroup
+              type: object
+              properties:
+                include_count:
+                  type: boolean
+                  description: Include the number of users in the User Group.
+                usergroup:
+                  type: string
+                  description: The encoded ID of the User Group to enable.
+        required: true
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: usergroups.enable schema
+                required:
+                  - ok
+                  - usergroup
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                  usergroup:
+                    $ref: '#/components/schemas/objs_subteam'
+                additionalProperties: false
+                description: Schema for successful response from usergroups.enable method
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: usergroups.enable error schema
+                required:
+                  - error
+                  - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                      - not_authed
+                      - invalid_auth
+                      - account_inactive
+                      - token_revoked
+                      - no_permission
+                      - org_login_required
+                      - user_is_bot
+                      - user_is_restricted
+                      - invalid_arg_name
+                      - invalid_array_arg
+                      - invalid_charset
+                      - invalid_form_data
+                      - invalid_post_type
+                      - missing_post_type
+                      - team_added_to_org
+                      - invalid_json
+                      - json_not_object
+                      - request_timeout
+                      - upgrade_require
+                      - fatal_error
+                      - missing_charset
+                      - superfluous_charset
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from usergroups.enable method
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+        - slackAuth:
+            - usergroups:write
+      summary: Post  Usergroups Enable
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+  /usergroups.list:
+    get:
+      tags:
+        - usergroups
+      description: List all User Groups for a team
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/usergroups.list
+      operationId: getUsergroupsList
+      parameters:
+        - name: include_users
+          in: query
+          description: Include the list of users for each User Group.
+          schema:
+            type: boolean
+        - name: token
+          in: query
+          description: 'Authentication token. Requires scope: `usergroups:read`'
+          required: true
+          schema:
+            type: string
+        - name: include_count
+          in: query
+          description: Include the number of users in each User Group.
+          schema:
+            type: boolean
+        - name: include_disabled
+          in: query
+          description: Include disabled User Groups.
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: usergroups.list schema
+                required:
+                  - ok
+                  - usergroups
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                  usergroups:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/objs_subteam'
+                additionalProperties: false
+                description: Schema for successful response from usergroups.list method
+              example:
+                ok: true
+                usergroups:
+                  - auto_type: admin
+                    created_by: USLACKBOT
+                    date_create: 1446598059
+                    date_delete: 0
+                    date_update: 1446670362
+                    deleted_by: null
+                    description: A group of all Administrators on your team.
+                    handle: admins
+                    id: S0614TZR7
+                    is_external: false
+                    is_usergroup: true
+                    name: Team Admins
+                    prefs:
+                      channels: []
+                      groups: []
+                    team_id: T060RNRCH
+                    updated_by: U060RNRCZ
+                    user_count: '2'
+                  - auto_type: owner
+                    created_by: USLACKBOT
+                    date_create: 1446678371
+                    date_delete: 0
+                    date_update: 1446678371
+                    deleted_by: null
+                    description: A group of all Owners on your team.
+                    handle: owners
+                    id: S06158AV7
+                    is_external: false
+                    is_usergroup: true
+                    name: Team Owners
+                    prefs:
+                      channels: []
+                      groups: []
+                    team_id: T060RNRCH
+                    updated_by: USLACKBOT
+                    user_count: '1'
+                  - auto_type: null
+                    created_by: U060RNRCZ
+                    date_create: 1446746793
+                    date_delete: 1446748865
+                    date_update: 1446747767
+                    deleted_by: null
+                    description: Marketing gurus, PR experts and product advocates.
+                    handle: marketing-team
+                    id: S0615G0KT
+                    is_external: false
+                    is_usergroup: true
+                    name: Marketing Team
+                    prefs:
+                      channels: []
+                      groups: []
+                    team_id: T060RNRCH
+                    updated_by: U060RNRCZ
+                    user_count: '0'
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: usergroups.list error schema
+                required:
+                  - error
+                  - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                      - not_authed
+                      - invalid_auth
+                      - account_inactive
+                      - token_revoked
+                      - no_permission
+                      - org_login_required
+                      - user_is_bot
+                      - user_is_restricted
+                      - invalid_arg_name
+                      - invalid_array_arg
+                      - invalid_charset
+                      - invalid_form_data
+                      - invalid_post_type
+                      - missing_post_type
+                      - team_added_to_org
+                      - invalid_json
+                      - json_not_object
+                      - request_timeout
+                      - upgrade_require
+                      - fatal_error
+                      - missing_charset
+                      - superfluous_charset
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from usergroups.list method
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+        - slackAuth:
+            - usergroups:read
+      summary: Get  Usergroups List
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+  /usergroups.update:
+    post:
+      tags:
+        - usergroups
+      description: Update an existing User Group
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/usergroups.update
+      operationId: postUsergroupsUpdate
+      parameters:
+        - name: token
+          in: header
+          description: 'Authentication token. Requires scope: `usergroups:write`'
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+                - usergroup
+              type: object
+              properties:
+                handle:
+                  type: string
+                  description: >-
+                    A mention handle. Must be unique among channels, users and
+                    User Groups.
+                description:
+                  type: string
+                  description: A short description of the User Group.
+                channels:
+                  type: string
+                  description: >-
+                    A comma separated string of encoded channel IDs for which
+                    the User Group uses as a default.
+                include_count:
+                  type: boolean
+                  description: Include the number of users in the User Group.
+                usergroup:
+                  type: string
+                  description: The encoded ID of the User Group to update.
+                name:
+                  type: string
+                  description: A name for the User Group. Must be unique among User Groups.
+          application/json:
+            schema:
+              required:
+                - usergroup
+              type: object
+              properties:
+                handle:
+                  type: string
+                  description: >-
+                    A mention handle. Must be unique among channels, users and
+                    User Groups.
+                description:
+                  type: string
+                  description: A short description of the User Group.
+                channels:
+                  type: string
+                  description: >-
+                    A comma separated string of encoded channel IDs for which
+                    the User Group uses as a default.
+                include_count:
+                  type: boolean
+                  description: Include the number of users in the User Group.
+                usergroup:
+                  type: string
+                  description: The encoded ID of the User Group to update.
+                name:
+                  type: string
+                  description: A name for the User Group. Must be unique among User Groups.
+        required: true
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: usergroups.update schema
+                required:
+                  - ok
+                  - usergroup
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                  usergroup:
+                    $ref: '#/components/schemas/objs_subteam'
+                additionalProperties: false
+                description: Schema for successful response from usergroups.update method
+              example:
+                ok: true
+                usergroup:
+                  auto_type: null
+                  created_by: U060R4BJ4
+                  date_create: 1447096577
+                  date_delete: 0
+                  date_update: 1447102109
+                  deleted_by: null
+                  description: Marketing gurus, PR experts and product advocates.
+                  handle: marketing-team
+                  id: S0616NG6M
+                  is_external: false
+                  is_usergroup: true
+                  name: Marketing Team
+                  prefs:
+                    channels: []
+                    groups: []
+                  team_id: T060R4BHN
+                  updated_by: U060R4BJ4
+                  user_count: 1
+                  users:
+                    - U060R4BJ4
+                    - U060RNRCZ
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: usergroups.update error schema
+                required:
+                  - error
+                  - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                      - permission_denied
+                      - not_authed
+                      - invalid_auth
+                      - account_inactive
+                      - token_revoked
+                      - no_permission
+                      - org_login_required
+                      - user_is_bot
+                      - user_is_restricted
+                      - invalid_arg_name
+                      - invalid_array_arg
+                      - invalid_charset
+                      - invalid_form_data
+                      - invalid_post_type
+                      - missing_post_type
+                      - team_added_to_org
+                      - invalid_json
+                      - json_not_object
+                      - request_timeout
+                      - upgrade_require
+                      - fatal_error
+                      - missing_charset
+                      - superfluous_charset
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from usergroups.update method
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+        - slackAuth:
+            - usergroups:write
+      summary: Post  Usergroups Update
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+  /usergroups.users.list:
+    get:
+      tags:
+        - usergroups.users
+        - usergroups
+      description: List all users in a User Group
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/usergroups.users.list
+      operationId: getUsergroupsUsersList
+      parameters:
+        - name: token
+          in: query
+          description: 'Authentication token. Requires scope: `usergroups:read`'
+          required: true
+          schema:
+            type: string
+        - name: include_disabled
+          in: query
+          description: Allow results that involve disabled User Groups.
+          schema:
+            type: boolean
+        - name: usergroup
+          in: query
+          description: The encoded ID of the User Group to update.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Standard success response when used with a user token
+          content:
+            application/json:
+              schema:
+                title: usergroups.users.list schema
+                required:
+                  - ok
+                  - users
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                  users:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/defs_user_id'
+                additionalProperties: false
+                description: >-
+                  Schema for successful response from usergroups.users.list
+                  method
+              example:
+                ok: true
+                users:
+                  - U060R4BJ4
+                  - W123A4BC5
+        default:
+          description: Standard failure response when used with an invalid token
+          content:
+            application/json:
+              schema:
+                title: usergroups.users.list error schema
+                required:
+                  - error
+                  - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                      - not_authed
+                      - invalid_auth
+                      - account_inactive
+                      - token_revoked
+                      - no_permission
+                      - org_login_required
+                      - user_is_bot
+                      - user_is_restricted
+                      - invalid_arg_name
+                      - invalid_array_arg
+                      - invalid_charset
+                      - invalid_form_data
+                      - invalid_post_type
+                      - missing_post_type
+                      - team_added_to_org
+                      - invalid_json
+                      - json_not_object
+                      - request_timeout
+                      - upgrade_require
+                      - fatal_error
+                      - missing_charset
+                      - superfluous_charset
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from usergroups.users.list method
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+        - slackAuth:
+            - usergroups:read
+      summary: Get  Usergroups Users List
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+  /usergroups.users.update:
+    post:
+      tags:
+        - usergroups.users
+        - usergroups
+      description: Update the list of users for a User Group
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/usergroups.users.update
+      operationId: postUsergroupsUsersUpdate
+      parameters:
+        - name: token
+          in: header
+          description: 'Authentication token. Requires scope: `usergroups:write`'
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+                - usergroup
+                - users
+              type: object
+              properties:
+                include_count:
+                  type: boolean
+                  description: Include the number of users in the User Group.
+                usergroup:
+                  type: string
+                  description: The encoded ID of the User Group to update.
+                users:
+                  type: string
+                  description: >-
+                    A comma separated string of encoded user IDs that represent
+                    the entire list of users for the User Group.
+          application/json:
+            schema:
+              required:
+                - usergroup
+                - users
+              type: object
+              properties:
+                include_count:
+                  type: boolean
+                  description: Include the number of users in the User Group.
+                usergroup:
+                  type: string
+                  description: The encoded ID of the User Group to update.
+                users:
+                  type: string
+                  description: >-
+                    A comma separated string of encoded user IDs that represent
+                    the entire list of users for the User Group.
+        required: true
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: usergroups.users.update schema
+                required:
+                  - ok
+                  - usergroup
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                  usergroup:
+                    $ref: '#/components/schemas/objs_subteam'
+                additionalProperties: false
+                description: >-
+                  Schema for successful response from usergroups.users.update
+                  method
+              example:
+                ok: true
+                usergroup:
+                  auto_type: null
+                  created_by: U060R4BJ4
+                  date_create: 1447096577
+                  date_delete: 0
+                  date_update: 1447102109
+                  deleted_by: null
+                  description: Marketing gurus, PR experts and product advocates.
+                  handle: marketing-team
+                  id: S0616NG6M
+                  is_external: false
+                  is_usergroup: true
+                  name: Marketing Team
+                  prefs:
+                    channels: []
+                    groups: []
+                  team_id: T060R4BHN
+                  updated_by: U060R4BJ4
+                  user_count: 1
+                  users:
+                    - U060R4BJ4
+                    - U060RNRCZ
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: usergroups.users.update error schema
+                required:
+                  - error
+                  - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                      - permission_denied
+                      - not_authed
+                      - invalid_auth
+                      - account_inactive
+                      - token_revoked
+                      - no_permission
+                      - org_login_required
+                      - user_is_bot
+                      - user_is_restricted
+                      - invalid_arg_name
+                      - invalid_array_arg
+                      - invalid_charset
+                      - invalid_form_data
+                      - invalid_post_type
+                      - missing_post_type
+                      - team_added_to_org
+                      - invalid_json
+                      - json_not_object
+                      - request_timeout
+                      - upgrade_require
+                      - fatal_error
+                      - missing_charset
+                      - superfluous_charset
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from usergroups.users.update method
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+        - slackAuth:
+            - usergroups:write
+      summary: Post  Usergroups Users Update
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+components:
+  schemas: {}
