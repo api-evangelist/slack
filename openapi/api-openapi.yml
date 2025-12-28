@@ -1,0 +1,78 @@
+openapi: 3.1.0
+info:
+  title: Api
+  description: Needs a description.
+paths:
+  /api.test:
+    get:
+      tags:
+        - api
+      description: Checks API calling code.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/api.test
+      operationId: getApiTest
+      parameters:
+        - name: error
+          in: query
+          description: Error response to return
+          schema:
+            type: string
+        - name: foo
+          in: query
+          description: example property to return
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Standard success response
+          content:
+            application/json:
+              schema:
+                title: api.test success schema
+                required:
+                  - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties:
+                  type: object
+                  properties: {}
+                description: Schema for successful response api.test method
+              example:
+                ok: true
+        default:
+          description: Artificial error response
+          content:
+            application/json:
+              schema:
+                title: api.test error schema
+                required:
+                  - error
+                  - ok
+                type: object
+                properties:
+                  error:
+                    type: string
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties:
+                  type: object
+                  properties: {}
+                description: Schema for error response api.test method
+              example:
+                args:
+                  error: my_error
+                error: my_error
+                ok: false
+      security:
+        - slackAuth:
+            - none
+      summary: Get  Api Test
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+components:
+  schemas: {}
