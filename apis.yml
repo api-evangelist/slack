@@ -79,7 +79,20 @@ apis:
         type: Documentation
       - url: openapi/slack-bots-openapi.yml
         type: OpenAPI
-    description: "Slack's bot APIs let you build apps that live in Slack and automate work by listening for events and taking actions in conversations. Using the Web API, your bot can post and schedule messages, reply in threads, manage channels, look up users, and access files or reactions; the Events API delivers message, reaction, and workflow events to your server so you can respond in real time. Bots can power slash commands, message shortcuts, and interactive UI elements (buttons, menus, modals built with Block Kit), and they can open modals or update messages dynamically. Installation and access are controlled via OAuth 2.0 scopes, with bot tokens used to authenticate API calls; you can receive events over HTTPS or via Socket Mode if you don't host a public endpoint. Together, these capabilities let you create assistants that answer questions, route approvals, connect external services, and streamline team processes directly inside Slack."
+    description: >-
+      Slack's bot APIs let you build apps that live in Slack and automate work
+      by listening for events and taking actions in conversations. Using the Web
+      API, your bot can post and schedule messages, reply in threads, manage
+      channels, look up users, and access files or reactions; the Events API
+      delivers message, reaction, and workflow events to your server so you can
+      respond in real time. Bots can power slash commands, message shortcuts,
+      and interactive UI elements (buttons, menus, modals built with Block Kit),
+      and they can open modals or update messages dynamically. Installation and
+      access are controlled via OAuth 2.0 scopes, with bot tokens used to
+      authenticate API calls; you can receive events over HTTPS or via Socket
+      Mode if you don't host a public endpoint. Together, these capabilities let
+      you create assistants that answer questions, route approvals, connect
+      external services, and streamline team processes directly inside Slack.
   - aid: slack:slack-calls-api
     name: Slack Calls API
     tags:
@@ -142,7 +155,18 @@ apis:
         type: Documentation
       - url: openapi/slack-dialog-openapi.yml
         type: OpenAPI
-    description: "Slack's Dialog API lets apps open form-like popups inside Slack to collect structured input from users. Apps trigger a dialog (often from a slash command, message action, or interactive message) by calling dialog.open with a short-lived trigger_id, then present fields like text inputs, textareas, and select menus (including dynamic, server-powered options). When users submit or cancel, Slack sends a dialog_submission or dialog_cancellation payload to the app, which can validate inputs and send dialog_errors for inline feedback before completing the workflow. Dialogs are ephemeral to the user and well-suited for tasks like creating tickets, requesting PTO, or gathering parameters. Note: Slack now recommends using Block Kit modals via the Views API, which supersede legacy dialogs."
+    description: >-
+      Slack's Dialog API lets apps open form-like popups inside Slack to collect
+      structured input from users. Apps trigger a dialog (often from a slash
+      command, message action, or interactive message) by calling dialog.open
+      with a short-lived trigger_id, then present fields like text inputs,
+      textareas, and select menus (including dynamic, server-powered options).
+      When users submit or cancel, Slack sends a dialog_submission or
+      dialog_cancellation payload to the app, which can validate inputs and send
+      dialog_errors for inline feedback before completing the workflow. Dialogs
+      are ephemeral to the user and well-suited for tasks like creating tickets,
+      requesting PTO, or gathering parameters. Note: Slack now recommends using
+      Block Kit modals via the Views API, which supersede legacy dialogs.
   - aid: slack:slack-dnd-api
     name: Slack DND API
     tags:
@@ -155,7 +179,20 @@ apis:
         type: Documentation
       - url: openapi/slack-dnd-openapi.yml
         type: OpenAPI
-    description: "Slack's Do Not Disturb (DND) API lets apps read and manage users' notification quiet time so they don't get pinged when they've paused alerts. With the dnd:read and dnd:write scopes, an app can check a user's current DND state and scheduled quiet hours, retrieve team-wide DND summaries (where permitted), start or extend a snooze for a specified duration, and end snooze or active DND. Key methods include dnd.info, dnd.teamInfo, dnd.setSnooze, dnd.endSnooze, and dnd.endDnd. Responses provide whether DND is enabled and timestamps for when it starts and ends, enabling apps to defer messages, schedule work, or adjust notification behavior. The API is designed to respect user preferences and workspace policies; apps should handle rate limits and note that they can set temporary snoozes but cannot programmatically change a user's full DND schedule."
+    description: >-
+      Slack's Do Not Disturb (DND) API lets apps read and manage users'
+      notification quiet time so they don't get pinged when they've paused
+      alerts. With the dnd:read and dnd:write scopes, an app can check a user's
+      current DND state and scheduled quiet hours, retrieve team-wide DND
+      summaries (where permitted), start or extend a snooze for a specified
+      duration, and end snooze or active DND. Key methods include dnd.info,
+      dnd.teamInfo, dnd.setSnooze, dnd.endSnooze, and dnd.endDnd. Responses
+      provide whether DND is enabled and timestamps for when it starts and ends,
+      enabling apps to defer messages, schedule work, or adjust notification
+      behavior. The API is designed to respect user preferences and workspace
+      policies; apps should handle rate limits and note that they can set
+      temporary snoozes but cannot programmatically change a user's full DND
+      schedule.
   - aid: slack:slack-emoji-api
     name: Slack Emoji API
     tags:
@@ -168,7 +205,18 @@ apis:
         type: Documentation
       - url: openapi/slack-emoji-openapi.yml
         type: OpenAPI
-    description: "Slack's Emoji API lets apps discover and manage a workspace's custom emoji. The core method, emoji.list (requires the emoji:read scope), returns a name-to-URL map of all custom emoji along with aliases (noted as alias:other_name) and a cache timestamp to help clients sync efficiently. Apps can also subscribe to the emoji_changed event to stay up to date when emoji are added, renamed, or removed. On Enterprise Grid, org admins get additional admin.emoji.* methods to programmatically add, rename, alias, or remove custom emoji with appropriate admin scopes. The API focuses on metadata and management of custom emoji (not standard Unicode emoji) and is separate from reactions APIs, which use emoji but are managed through different endpoints."
+    description: >-
+      Slack's Emoji API lets apps discover and manage a workspace's custom
+      emoji. The core method, emoji.list (requires the emoji:read scope),
+      returns a name-to-URL map of all custom emoji along with aliases (noted as
+      alias:other_name) and a cache timestamp to help clients sync efficiently.
+      Apps can also subscribe to the emoji_changed event to stay up to date when
+      emoji are added, renamed, or removed. On Enterprise Grid, org admins get
+      additional admin.emoji.* methods to programmatically add, rename, alias,
+      or remove custom emoji with appropriate admin scopes. The API focuses on
+      metadata and management of custom emoji (not standard Unicode emoji) and
+      is separate from reactions APIs, which use emoji but are managed through
+      different endpoints.
   - aid: slack:slack-files-api
     name: Slack Files API
     tags:
@@ -181,7 +229,18 @@ apis:
         type: Documentation
       - url: openapi/slack-files-openapi.yml
         type: OpenAPI
-    description: "Slack's Files API lets apps programmatically upload, share, and manage files in Slack. Apps can upload binaries (images, docs, code snippets) or register links to external files, then attach them to channels, DMs, or threads with optional captions. The API supports retrieving file metadata and content, listing and filtering files, generating or revoking public share links, and deleting files, with access controlled by app scopes and channel membership. For large uploads, a two-step flow provides an upload URL before finalizing the file, and related Events API notifications (for example, file_created and file_shared) let apps react to changes. Common uses include import/export pipelines, compliance and archiving tools, and integrations with cloud storage."
+    description: >-
+      Slack's Files API lets apps programmatically upload, share, and manage
+      files in Slack. Apps can upload binaries (images, docs, code snippets) or
+      register links to external files, then attach them to channels, DMs, or
+      threads with optional captions. The API supports retrieving file metadata
+      and content, listing and filtering files, generating or revoking public
+      share links, and deleting files, with access controlled by app scopes and
+      channel membership. For large uploads, a two-step flow provides an upload
+      URL before finalizing the file, and related Events API notifications (for
+      example, file_created and file_shared) let apps react to changes. Common
+      uses include import/export pipelines, compliance and archiving tools, and
+      integrations with cloud storage.
   - aid: slack:slack-migration-api
     name: Slack Migration API
     tags:
@@ -222,7 +281,17 @@ apis:
         type: Documentation
       - url: openapi/slack-pins-openapi.yml
         type: OpenAPI
-    description: "The Slack Pins API is a set of Web API methods that let your app manage pinned items in conversations so important content is easy to find. With pins.add, pins.list, and pins.remove, you can programmatically pin or unpin messages, files, and file comments in channels, private channels, and DMs by providing the conversation ID and the message timestamp or file/comment ID. Pinned items surface in the conversation's details panel in the Slack client, and pins.list returns the same set so your app can mirror or analyze it. These methods require your app to be a member of the conversation and have appropriate permissions, and they observe Slack's standard rate limits."
+    description: >-
+      The Slack Pins API is a set of Web API methods that let your app manage
+      pinned items in conversations so important content is easy to find. With
+      pins.add, pins.list, and pins.remove, you can programmatically pin or
+      unpin messages, files, and file comments in channels, private channels,
+      and DMs by providing the conversation ID and the message timestamp or
+      file/comment ID. Pinned items surface in the conversation's details panel
+      in the Slack client, and pins.list returns the same set so your app can
+      mirror or analyze it. These methods require your app to be a member of the
+      conversation and have appropriate permissions, and they observe Slack's
+      standard rate limits.
   - aid: slack:slack-reactions-api
     name: Slack Reactions API
     tags:
@@ -235,7 +304,20 @@ apis:
         type: Documentation
       - url: openapi/slack-reactions-openapi.yml
         type: OpenAPI
-    description: "Slack's Reactions API lets apps programmatically manage emoji reactions on messages and files, making it easy to capture lightweight feedback like approvals, acknowledgments, or votes. Through Web API methods (reactions.add, reactions.remove, reactions.get, reactions.list) and the Events API (reaction_added and reaction_removed), apps can add or delete reactions, read which reactions are on an item, and monitor reaction activity in real time. It works with messages (including threads), files, and file comments in channels, DMs, and group DMs where the app has access. Responses include reaction names, counts, and user IDs, and support both standard and custom emoji. Proper scopes (reactions:read and reactions:write, plus relevant conversation/file scopes) and channel visibility rules apply, rate limits are enforced, and each user can apply at most one instance of a given emoji per item."
+    description: >-
+      Slack's Reactions API lets apps programmatically manage emoji reactions on
+      messages and files, making it easy to capture lightweight feedback like
+      approvals, acknowledgments, or votes. Through Web API methods
+      (reactions.add, reactions.remove, reactions.get, reactions.list) and the
+      Events API (reaction_added and reaction_removed), apps can add or delete
+      reactions, read which reactions are on an item, and monitor reaction
+      activity in real time. It works with messages (including threads), files,
+      and file comments in channels, DMs, and group DMs where the app has
+      access. Responses include reaction names, counts, and user IDs, and
+      support both standard and custom emoji. Proper scopes (reactions:read and
+      reactions:write, plus relevant conversation/file scopes) and channel
+      visibility rules apply, rate limits are enforced, and each user can apply
+      at most one instance of a given emoji per item.
   - aid: slack:slack-reminders-api
     name: Slack Reminders API
     tags:
@@ -274,7 +356,18 @@ apis:
         type: Documentation
       - url: openapi/slack-search-openapi.yml
         type: OpenAPI
-    description: "Slack's Search API lets apps programmatically find messages and files in a workspace using the same query syntax users have in Slack (e.g., in:, from:, has:, before:/after:, is:thread). Through endpoints like search.messages and search.files, it returns ranked matches with snippets and optional highlighting, plus rich metadata such as channel, timestamps, user, thread context, permalinks, and file details. You can sort by relevance or time, filter with operators, and page through results. All results respect the app's scopes and the workspace's permissions, retention, and data controls, and the methods are subject to rate limits. Teams use it to power features like knowledge lookup, linking related conversations, and enabling bots to retrieve relevant historical context."
+    description: >-
+      Slack's Search API lets apps programmatically find messages and files in a
+      workspace using the same query syntax users have in Slack (e.g., in:,
+      from:, has:, before:/after:, is:thread). Through endpoints like
+      search.messages and search.files, it returns ranked matches with snippets
+      and optional highlighting, plus rich metadata such as channel, timestamps,
+      user, thread context, permalinks, and file details. You can sort by
+      relevance or time, filter with operators, and page through results. All
+      results respect the app's scopes and the workspace's permissions,
+      retention, and data controls, and the methods are subject to rate limits.
+      Teams use it to power features like knowledge lookup, linking related
+      conversations, and enabling bots to retrieve relevant historical context.
   - aid: slack:slack-stars-api
     name: Slack Stars API
     tags:
@@ -300,7 +393,18 @@ apis:
         type: Documentation
       - url: openapi/slack-team-openapi.yml
         type: OpenAPI
-    description: "Slack's Team API is the part of the Slack Web API that lets apps read workspace-level (team) information and, for admins, certain audit and billing data. With it, apps can fetch basic workspace identity and metadata (name, domain, icon, enterprise association), discover team preferences and custom profile fields, and, where permitted, retrieve billable info plus access and integration logs for auditing and compliance use cases. This helps apps tailor behavior to a workspace's settings, build admin dashboards, or automate governance. Access is gated by OAuth scopes (for example, team:read and various admin scopes), and many methods are limited to workspace or org admins; it doesn't handle messages or individual user data beyond what's needed to describe the workspace."
+    description: >-
+      Slack's Team API is the part of the Slack Web API that lets apps read
+      workspace-level (team) information and, for admins, certain audit and
+      billing data. With it, apps can fetch basic workspace identity and
+      metadata (name, domain, icon, enterprise association), discover team
+      preferences and custom profile fields, and, where permitted, retrieve
+      billable info plus access and integration logs for auditing and compliance
+      use cases. This helps apps tailor behavior to a workspace's settings,
+      build admin dashboards, or automate governance. Access is gated by OAuth
+      scopes (for example, team:read and various admin scopes), and many methods
+      are limited to workspace or org admins; it doesn't handle messages or
+      individual user data beyond what's needed to describe the workspace.
   - aid: slack:slack-user-groups-api
     name: Slack User Groups API
     tags:
@@ -314,7 +418,19 @@ apis:
         type: Documentation
       - url: openapi/slack-usergroups-openapi.yml
         type: OpenAPI
-    description: "Slack's User Groups API lets apps programmatically create and manage user groups (mentionable aliases like @eng or @oncall) in a workspace. It supports creating, renaming, and updating groups and their handles and descriptions; setting default channels; enabling or disabling groups; listing groups; and adding or removing members in bulk. User groups make it easy to notify the right people with a single mention and to auto-add members to specific channels via default channel settings. Teams use the API to automate org changes, sync groups from an identity provider, manage on-call rotations, and streamline onboarding/offboarding. It's exposed via usergroups.* and usergroups.users.* Web API methods and typically requires the usergroups:read and usergroups:write scopes, with appropriate admin permissions and a paid Slack plan."
+    description: >-
+      Slack's User Groups API lets apps programmatically create and manage user
+      groups (mentionable aliases like @eng or @oncall) in a workspace. It
+      supports creating, renaming, and updating groups and their handles and
+      descriptions; setting default channels; enabling or disabling groups;
+      listing groups; and adding or removing members in bulk. User groups make
+      it easy to notify the right people with a single mention and to auto-add
+      members to specific channels via default channel settings. Teams use the
+      API to automate org changes, sync groups from an identity provider, manage
+      on-call rotations, and streamline onboarding/offboarding. It's exposed via
+      usergroups.* and usergroups.users.* Web API methods and typically requires
+      the usergroups:read and usergroups:write scopes, with appropriate admin
+      permissions and a paid Slack plan.
   - aid: slack:slack-users-api
     name: Slack Users API
     tags:
@@ -327,7 +443,19 @@ apis:
         type: Documentation
       - url: openapi/slack-users-openapi.yml
         type: OpenAPI
-    description: "Slack's Users API is a set of Web API methods that let your app discover and work with people in a Slack workspace. It can list members, fetch details for a specific user, look up users by email, and retrieve profile data such as names, photos, status, time zones, and custom fields. Where permitted, it can also read presence and update a user's profile or photo with the proper user-level authorization. Developers use it to map real identities to Slack user IDs, personalize experiences, resolve mentions and DMs, and distinguish between human, bot, and app users. Access to specific data and actions depends on scopes (for example, users:read, users:read.email, users.profile:read/write), and certain capabilities like presence have additional restrictions. For provisioning and enterprise directory management, Slack's SCIM API is used instead."
+    description: >-
+      Slack's Users API is a set of Web API methods that let your app discover
+      and work with people in a Slack workspace. It can list members, fetch
+      details for a specific user, look up users by email, and retrieve profile
+      data such as names, photos, status, time zones, and custom fields. Where
+      permitted, it can also read presence and update a user's profile or photo
+      with the proper user-level authorization. Developers use it to map real
+      identities to Slack user IDs, personalize experiences, resolve mentions
+      and DMs, and distinguish between human, bot, and app users. Access to
+      specific data and actions depends on scopes (for example, users:read,
+      users:read.email, users.profile:read/write), and certain capabilities like
+      presence have additional restrictions. For provisioning and enterprise
+      directory management, Slack's SCIM API is used instead.
   - aid: slack:slack-views-api
     name: Slack Views API
     tags:
