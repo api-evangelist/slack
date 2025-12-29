@@ -1,17 +1,19 @@
 openapi: 3.1.0
 info:
-  title: Search
-  description: Needs a description.
+  title: Slack Search API
+  description: "Slack\x19s Search API lets apps programmatically find messages and files in a workspace using the same query syntax users have in Slack (e.g., in:, from:, has:, before:/after:, is:thread). Through endpoints like search.messages and search.files, it returns ranked matches with snippets and optional highlighting, plus rich metadata such as channel, timestamps, user, thread context, permalinks, and file details. You can sort by relevance or time, filter with operators, and page through results. All results respect the app\x19s scopes and the workspace\x19s permissions, retention, and data controls, and the methods are subject to rate limits. Teams use it to power features like knowledge lookup, linking related conversations, and enabling bots to retrieve relevant historical context."
 paths:
   /search.messages:
     get:
       tags:
-        - search
+        - Get
+        - Search
+        - Messages
       description: Searches for messages matching a query.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/search.messages
-      operationId: search_messages
+      operationId: getSearchMessages
       parameters:
         - name: token
           in: query
@@ -148,5 +150,11 @@ paths:
       security:
         - slackAuth:
             - search:read
+      summary: Get  Search Messages
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
 components:
   schemas: {}

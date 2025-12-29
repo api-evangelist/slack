@@ -1,17 +1,18 @@
 openapi: 3.1.0
 info:
-  title: Rtm
-  description: Needs a description.
+  title: Slack RTM API
+  description: "The Slack Real Time Messaging (RTM) API lets an app open a WebSocket connection to Slack and receive a live stream of JSON events from a workspace\x14such as new messages, edits, reactions, user presence and typing indicators, channel joins, and more\x14so you can build low\x11latency, interactive bots and clients. Apps typically use the RTM stream for listening and the Web API for performing actions like posting or updating messages. You start by calling rtm.connect (or rtm.start, historically) to obtain a WebSocket URL, then maintain the socket to process events as they happen. RTM is now considered legacy; for new apps Slack recommends using the Events API with the Web API, or Socket Mode if you can\x19t expose a public HTTP endpoint."
 paths:
   /rtm.connect:
     get:
       tags:
-        - rtm
+        - Get
+        - Connect
       description: Starts a Real Time Messaging session.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/rtm.connect
-      operationId: rtm_connect
+      operationId: getRtmConnect
       parameters:
         - name: token
           in: query
@@ -115,5 +116,11 @@ paths:
       security:
         - slackAuth:
             - rtm:stream
+      summary: Get  Rtm Connect
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
 components:
   schemas: {}

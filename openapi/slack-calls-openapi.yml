@@ -1,12 +1,14 @@
 openapi: 3.1.0
 info:
-  title: Calls
-  description: Needs a description.
+  title: Slack Calls API
+  description: "Slack\x19s Calls API lets apps represent third\x11party voice or video calls inside Slack by creating a \x1Ccall\x1D object with a join URL and metadata, so users see a rich call message with a Join button, status, and participant list in channels or DMs. Through endpoints to create, update, and end calls\x14and to add or remove participants\x14an app can keep that call message in sync as people join or leave and as the call progresses. The API doesn\x19t handle the media itself; it\x19s for coordinating and rendering the Slack UI around calls hosted by services like Zoom or Webex, making it easy to start, find, and join those calls from Slack."
 paths:
   /calls.add:
     post:
       tags:
-        - calls
+        - Post
+        - Calls
+        - Add
       description: Registers a new Call.
       externalDocs:
         description: API method documentation
@@ -153,10 +155,18 @@ paths:
       security:
         - slackAuth:
             - calls:write
+      summary: Post  Calls Add
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        PascalCaseOperationTags: true
+        ChooseTags: true
   /calls.end:
     post:
       tags:
-        - calls
+        - Post
+        - Calls
+        - End
       description: Ends a Call.
       externalDocs:
         description: API method documentation
@@ -243,10 +253,18 @@ paths:
       security:
         - slackAuth:
             - calls:write
+      summary: Post  Calls End
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        PascalCaseOperationTags: true
+        ChooseTags: true
   /calls.info:
     get:
       tags:
-        - calls
+        - Get
+        - Calls
+        - Info
       description: Returns information about a Call.
       externalDocs:
         description: API method documentation
@@ -308,11 +326,19 @@ paths:
       security:
         - slackAuth:
             - calls:read
+      summary: Get  Calls Info
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        PascalCaseOperationTags: true
+        ChooseTags: true
   /calls.participants.add:
     post:
       tags:
-        - calls.participants
-        - calls
+        - Post
+        - Calls
+        - Participants
+        - Add
       description: Registers new participants added to a Call.
       externalDocs:
         description: API method documentation
@@ -403,11 +429,19 @@ paths:
       security:
         - slackAuth:
             - calls:write
+      summary: Post  Calls Participants Add
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        PascalCaseOperationTags: true
+        ChooseTags: true
   /calls.participants.remove:
     post:
       tags:
-        - calls.participants
-        - calls
+        - Post
+        - Calls
+        - Participants
+        - Remove
       description: Registers participants removed from a Call.
       externalDocs:
         description: API method documentation
@@ -498,10 +532,18 @@ paths:
       security:
         - slackAuth:
             - calls:write
+      summary: Post  Calls Participants Remove
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        PascalCaseOperationTags: true
+        ChooseTags: true
   /calls.update:
     post:
       tags:
-        - calls
+        - Post
+        - Calls
+        - Update
       description: Updates information about a Call.
       externalDocs:
         description: API method documentation
@@ -602,5 +644,11 @@ paths:
       security:
         - slackAuth:
             - calls:write
+      summary: Post  Calls Update
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        PascalCaseOperationTags: true
+        ChooseTags: true
 components:
   schemas: {}

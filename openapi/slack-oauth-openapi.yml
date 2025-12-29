@@ -1,17 +1,19 @@
 openapi: 3.1.0
 info:
-  title: Oauth
-  description: Needs a description.
+  title: Slack OAuth API
+  description: "The Slack OAuth API implements the OAuth 2.0 flow that lets developers securely install Slack apps to workspaces and obtain access tokens with specific, granular scopes. An app redirects a user to Slack for consent; after approval, Slack returns an authorization code that the app exchanges for tokens (typically a bot token, and optionally a user token) to call the Web API within the granted permissions. The OAuth system manages scopes, workspace and enterprise installations, admin approvals, reauthorization when scopes change, token rotation with refresh tokens, and revocation when apps are uninstalled or access is removed. For user sign-in, Slack also offers an OpenID Connect\x13based flow. In short, it provides consent-driven installation, permissioning, and token lifecycle management for Slack apps."
 paths:
   /oauth.access:
     get:
       tags:
-        - oauth
+        - Get
+        - Oauth
+        - Access
       description: Exchanges a temporary OAuth verifier code for an access token.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/oauth.access
-      operationId: oauth_access
+      operationId: getOauthAccess
       parameters:
         - name: client_id
           in: query
@@ -87,15 +89,23 @@ paths:
       security:
         - slackAuth:
             - none
+      summary: Get  Oauth Access
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
   /oauth.token:
     get:
       tags:
-        - oauth
+        - Get
+        - Oauth
+        - Tokens
       description: Exchanges a temporary OAuth verifier code for a workspace token.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/oauth.token
-      operationId: oauth_token
+      operationId: getOauthToken
       parameters:
         - name: client_id
           in: query
@@ -181,16 +191,23 @@ paths:
       security:
         - slackAuth:
             - none
+      summary: Get  Oauth Token
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
   /oauth.v2.access:
     get:
       tags:
-        - oauth.v2
-        - oauth
+        - Get
+        - Oauth
+        - Access
       description: Exchanges a temporary OAuth verifier code for an access token.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/oauth.v2.access
-      operationId: oauth_v2_access
+      operationId: getOauthAccess
       parameters:
         - name: client_id
           in: query
@@ -274,5 +291,11 @@ paths:
       security:
         - slackAuth:
             - none
+      summary: Get  Oauth  Access
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
 components:
   schemas: {}

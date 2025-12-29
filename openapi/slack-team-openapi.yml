@@ -1,17 +1,18 @@
 openapi: 3.1.0
 info:
-  title: Team
-  description: Needs a description.
+  title: Slack Team API
+  description: "Slack\x19s Team API is the part of the Slack Web API that lets apps read workspace-level (team) information and, for admins, certain audit and billing data. With it, apps can fetch basic workspace identity and metadata (name, domain, icon, enterprise association), discover team preferences and custom profile fields, and, where permitted, retrieve billable info plus access and integration logs for auditing and compliance use cases. This helps apps tailor behavior to a workspace\x19s settings, build admin dashboards, or automate governance. Access is gated by OAuth scopes (for example, team:read and various admin scopes), and many methods are limited to workspace or org admins; it doesn\x19t handle messages or individual user data beyond what\x19s needed to describe the workspace."
 paths:
   /team.accessLogs:
     get:
       tags:
-        - team
+        - Get
+        - Teams
       description: Gets the access logs for the current team.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/team.accessLogs
-      operationId: team_accessLogs
+      operationId: getTeamAccesslogs
       parameters:
         - name: token
           in: query
@@ -142,15 +143,22 @@ paths:
       security:
         - slackAuth:
             - admin
+      summary: Get  Team Accesslogs
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
   /team.billableInfo:
     get:
       tags:
-        - team
+        - Get
+        - Teams
       description: Gets billable users information for the current team.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/team.billableInfo
-      operationId: team_billableInfo
+      operationId: getTeamBillableinfo
       parameters:
         - name: token
           in: query
@@ -213,15 +221,23 @@ paths:
       security:
         - slackAuth:
             - admin
+      summary: Get  Team Billableinfo
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
   /team.info:
     get:
       tags:
-        - team
+        - Get
+        - Teams
+        - Info
       description: Gets information about the current team.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/team.info
-      operationId: team_info
+      operationId: getTeamInfo
       parameters:
         - name: token
           in: query
@@ -316,15 +332,22 @@ paths:
       security:
         - slackAuth:
             - team:read
+      summary: Get  Team Info
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
   /team.integrationLogs:
     get:
       tags:
-        - team
+        - Get
+        - Teams
       description: Gets the integration logs for the current team.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/team.integrationLogs
-      operationId: team_integrationLogs
+      operationId: getTeamIntegrationlogs
       parameters:
         - name: token
           in: query
@@ -436,16 +459,23 @@ paths:
       security:
         - slackAuth:
             - admin
+      summary: Get  Team Integrationlogs
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
   /team.profile.get:
     get:
       tags:
-        - team.profile
-        - team
+        - Get
+        - Teams
+        - Profile
       description: Retrieve a team's profile.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/team.profile.get
-      operationId: team_profile_get
+      operationId: getTeamProfileGet
       parameters:
         - name: token
           in: query
@@ -572,5 +602,11 @@ paths:
       security:
         - slackAuth:
             - users.profile:read
+      summary: Get  Team Profile Get
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
 components:
   schemas: {}

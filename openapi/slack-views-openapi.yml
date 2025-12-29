@@ -1,17 +1,19 @@
 openapi: 3.1.0
 info:
-  title: Views
-  description: Needs a description.
+  title: Slack Views API
+  description: "The Slack Views API lets your app build and control Block Kit interfaces inside Slack\x14primarily modals and the App Home tab. With methods like views.open, views.update, and views.push, your app can launch multi-step modal flows in response to interactive triggers (slash commands, shortcuts, or message actions), update them in place, or push new steps onto the stack. Using views.publish, you can render a personalized, dynamic Home tab for each user. Submissions and closes generate interactivity payloads (view_submission and view_closed) that let you validate inputs, return per-field errors, and persist state; you can also pass callback_id and private_metadata to track context. Concurrency is handled via a view hash to avoid overwriting stale content. In short, the Views API provides the lifecycle and plumbing for rich, interactive app experiences directly in Slack."
 paths:
   /views.open:
     get:
       tags:
-        - views
+        - Get
+        - Views
+        - Open
       description: Open a view for a user.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/views.open
-      operationId: views_open
+      operationId: getViewsOpen
       parameters:
         - name: token
           in: header
@@ -111,15 +113,23 @@ paths:
       security:
         - slackAuth:
             - none
+      summary: Get  Views Open
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
   /views.publish:
     get:
       tags:
-        - views
+        - Get
+        - Views
+        - Publish
       description: Publish a static view for a User.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/views.publish
-      operationId: views_publish
+      operationId: getViewsPublish
       parameters:
         - name: token
           in: header
@@ -219,15 +229,23 @@ paths:
       security:
         - slackAuth:
             - none
+      summary: Get  Views Publish
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
   /views.push:
     get:
       tags:
-        - views
+        - Get
+        - Views
+        - Push
       description: Push a view onto the stack of a root view.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/views.push
-      operationId: views_push
+      operationId: getViewsPush
       parameters:
         - name: token
           in: header
@@ -330,15 +348,23 @@ paths:
       security:
         - slackAuth:
             - none
+      summary: Get  Views Push
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
   /views.update:
     get:
       tags:
-        - views
+        - Get
+        - Views
+        - Update
       description: Update an existing view.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/views.update
-      operationId: views_update
+      operationId: getViewsUpdate
       parameters:
         - name: token
           in: header
@@ -454,5 +480,11 @@ paths:
       security:
         - slackAuth:
             - none
+      summary: Get  Views Update
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
 components:
   schemas: {}

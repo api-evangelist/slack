@@ -1,17 +1,20 @@
 openapi: 3.1.0
 info:
-  title: Usergroups
-  description: Needs a description.
+  title: Slack User Groups API
+  description: "Slack\x19s User Groups API lets apps programmatically create and manage user groups (mentionable aliases like @eng or @oncall) in a workspace. It supports creating, renaming, and updating groups and their handles and descriptions; setting default channels; enabling or disabling groups; listing groups; and adding or removing members in bulk. User groups make it easy to notify the right people with a single mention and to auto-add members to specific channels via default channel settings. Teams use the API to automate org changes, sync groups from an identity provider, manage on-call rotations, and streamline onboarding/offboarding. It\x19s exposed via usergroups.* and usergroups.users.* Web API methods and typically requires the usergroups:read and usergroups:write scopes, with appropriate admin permissions and a paid Slack plan."
 paths:
   /usergroups.create:
     post:
       tags:
-        - usergroups
+        - Post
+        - Users
+        - Groups
+        - Create
       description: Create a User Group
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/usergroups.create
-      operationId: usergroups_create
+      operationId: postUsergroupsCreate
       parameters:
         - name: token
           in: header
@@ -140,15 +143,24 @@ paths:
       security:
         - slackAuth:
             - usergroups:write
+      summary: Post  User Groups Create
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
   /usergroups.disable:
     post:
       tags:
-        - usergroups
+        - Post
+        - Users
+        - Groups
+        - Disables
       description: Disable an existing User Group
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/usergroups.disable
-      operationId: usergroups_disable
+      operationId: postUsergroupsDisable
       parameters:
         - name: token
           in: header
@@ -251,15 +263,24 @@ paths:
       security:
         - slackAuth:
             - usergroups:write
+      summary: Post  User Groups Disable
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
   /usergroups.enable:
     post:
       tags:
-        - usergroups
+        - Post
+        - Users
+        - Groups
+        - Enables
       description: Enable a User Group
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/usergroups.enable
-      operationId: usergroups_enable
+      operationId: postUsergroupsEnable
       parameters:
         - name: token
           in: header
@@ -363,15 +384,24 @@ paths:
       security:
         - slackAuth:
             - usergroups:write
+      summary: Post  User Groups Enable
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
   /usergroups.list:
     get:
       tags:
-        - usergroups
+        - Get
+        - Users
+        - Groups
+        - Lists
       description: List all User Groups for a team
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/usergroups.list
-      operationId: usergroups_list
+      operationId: getUsergroupsList
       parameters:
         - name: include_users
           in: query
@@ -520,15 +550,24 @@ paths:
       security:
         - slackAuth:
             - usergroups:read
+      summary: Get  User Groups List
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
   /usergroups.update:
     post:
       tags:
-        - usergroups
+        - Post
+        - Users
+        - Groups
+        - Update
       description: Update an existing User Group
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/usergroups.update
-      operationId: usergroups_update
+      operationId: postUsergroupsUpdate
       parameters:
         - name: token
           in: header
@@ -687,16 +726,24 @@ paths:
       security:
         - slackAuth:
             - usergroups:write
+      summary: Post User Groups Update
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
   /usergroups.users.list:
     get:
       tags:
-        - usergroups.users
-        - usergroups
+        - Get
+        - Users
+        - Groups
+        - Lists
       description: List all users in a User Group
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/usergroups.users.list
-      operationId: usergroups_users_list
+      operationId: getUsergroupsUsersList
       parameters:
         - name: token
           in: query
@@ -791,16 +838,24 @@ paths:
       security:
         - slackAuth:
             - usergroups:read
+      summary: Get  User Groups Users List
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
   /usergroups.users.update:
     post:
       tags:
-        - usergroups.users
-        - usergroups
+        - Post
+        - Users
+        - Groups
+        - Update
       description: Update the list of users for a User Group
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/usergroups.users.update
-      operationId: usergroups_users_update
+      operationId: postUsergroupsUsersUpdate
       parameters:
         - name: token
           in: header
@@ -941,5 +996,11 @@ paths:
       security:
         - slackAuth:
             - usergroups:write
+      summary: Post  User Groups Users Update
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
 components:
   schemas: {}
