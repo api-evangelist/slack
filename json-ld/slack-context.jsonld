@@ -1,0 +1,525 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "slack": "https://schema.slack.dev/",
+    "schema": "https://schema.org/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "sioc": "http://rdfs.org/sioc/ns#",
+    "foaf": "http://xmlns.com/foaf/0.1/",
+    "as": "https://www.w3.org/ns/activitystreams#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+    "Message": {
+      "@id": "slack:Message",
+      "@context": {
+        "type": {
+          "@id": "slack:messageType",
+          "@type": "xsd:string"
+        },
+        "subtype": {
+          "@id": "slack:messageSubtype",
+          "@type": "xsd:string"
+        },
+        "text": {
+          "@id": "slack:messageText",
+          "@type": "xsd:string"
+        },
+        "ts": {
+          "@id": "slack:timestamp",
+          "@type": "xsd:string"
+        },
+        "thread_ts": {
+          "@id": "slack:threadTimestamp",
+          "@type": "xsd:string"
+        },
+        "channel": {
+          "@id": "slack:channel",
+          "@type": "@id"
+        },
+        "user": {
+          "@id": "slack:author",
+          "@type": "@id"
+        },
+        "bot_id": {
+          "@id": "slack:botIdentifier",
+          "@type": "xsd:string"
+        },
+        "reply_count": {
+          "@id": "slack:replyCount",
+          "@type": "xsd:integer"
+        },
+        "reply_users_count": {
+          "@id": "slack:replyUsersCount",
+          "@type": "xsd:integer"
+        },
+        "latest_reply": {
+          "@id": "slack:latestReply",
+          "@type": "xsd:string"
+        },
+        "reply_users": {
+          "@id": "slack:replyUsers",
+          "@container": "@list"
+        },
+        "blocks": {
+          "@id": "slack:blocks",
+          "@container": "@list"
+        },
+        "attachments": {
+          "@id": "slack:attachments",
+          "@container": "@list"
+        },
+        "files": {
+          "@id": "slack:files",
+          "@container": "@list"
+        },
+        "reactions": {
+          "@id": "slack:reactions",
+          "@container": "@list"
+        },
+        "edited": {
+          "@id": "slack:edited"
+        },
+        "permalink": {
+          "@id": "slack:permalink",
+          "@type": "@id"
+        },
+        "client_msg_id": {
+          "@id": "slack:clientMessageId",
+          "@type": "xsd:string"
+        },
+        "team": {
+          "@id": "slack:team",
+          "@type": "@id"
+        },
+        "metadata": {
+          "@id": "slack:metadata"
+        },
+        "pinned_to": {
+          "@id": "slack:pinnedTo",
+          "@container": "@list"
+        }
+      }
+    },
+
+    "Channel": {
+      "@id": "slack:Channel",
+      "@context": {
+        "id": {
+          "@id": "slack:channelId",
+          "@type": "xsd:string"
+        },
+        "name": {
+          "@id": "slack:channelName",
+          "@type": "xsd:string"
+        },
+        "name_normalized": {
+          "@id": "slack:channelNameNormalized",
+          "@type": "xsd:string"
+        },
+        "is_channel": {
+          "@id": "slack:isChannel",
+          "@type": "xsd:boolean"
+        },
+        "is_group": {
+          "@id": "slack:isGroup",
+          "@type": "xsd:boolean"
+        },
+        "is_im": {
+          "@id": "slack:isDirectMessage",
+          "@type": "xsd:boolean"
+        },
+        "is_mpim": {
+          "@id": "slack:isMultiPartyDirectMessage",
+          "@type": "xsd:boolean"
+        },
+        "is_private": {
+          "@id": "slack:isPrivate",
+          "@type": "xsd:boolean"
+        },
+        "is_archived": {
+          "@id": "slack:isArchived",
+          "@type": "xsd:boolean"
+        },
+        "is_general": {
+          "@id": "slack:isGeneral",
+          "@type": "xsd:boolean"
+        },
+        "is_shared": {
+          "@id": "slack:isShared",
+          "@type": "xsd:boolean"
+        },
+        "is_ext_shared": {
+          "@id": "slack:isExternallyShared",
+          "@type": "xsd:boolean"
+        },
+        "is_org_shared": {
+          "@id": "slack:isOrgShared",
+          "@type": "xsd:boolean"
+        },
+        "is_member": {
+          "@id": "slack:isMember",
+          "@type": "xsd:boolean"
+        },
+        "created": {
+          "@id": "dcterms:created",
+          "@type": "xsd:integer"
+        },
+        "creator": {
+          "@id": "dcterms:creator",
+          "@type": "@id"
+        },
+        "updated": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:integer"
+        },
+        "topic": {
+          "@id": "slack:topic"
+        },
+        "purpose": {
+          "@id": "slack:purpose"
+        },
+        "previous_names": {
+          "@id": "slack:previousNames",
+          "@container": "@list"
+        },
+        "num_members": {
+          "@id": "slack:memberCount",
+          "@type": "xsd:integer"
+        },
+        "locale": {
+          "@id": "slack:locale",
+          "@type": "xsd:string"
+        },
+        "user": {
+          "@id": "slack:directMessageUser",
+          "@type": "@id"
+        },
+        "shared_team_ids": {
+          "@id": "slack:sharedTeamIds",
+          "@container": "@list"
+        },
+        "context_team_id": {
+          "@id": "slack:contextTeamId",
+          "@type": "xsd:string"
+        }
+      }
+    },
+
+    "User": {
+      "@id": "slack:User",
+      "@context": {
+        "id": {
+          "@id": "slack:userId",
+          "@type": "xsd:string"
+        },
+        "team_id": {
+          "@id": "slack:teamId",
+          "@type": "xsd:string"
+        },
+        "name": {
+          "@id": "slack:username",
+          "@type": "xsd:string"
+        },
+        "real_name": {
+          "@id": "foaf:name",
+          "@type": "xsd:string"
+        },
+        "deleted": {
+          "@id": "slack:isDeleted",
+          "@type": "xsd:boolean"
+        },
+        "color": {
+          "@id": "slack:displayColor",
+          "@type": "xsd:string"
+        },
+        "tz": {
+          "@id": "slack:timezone",
+          "@type": "xsd:string"
+        },
+        "tz_label": {
+          "@id": "slack:timezoneLabel",
+          "@type": "xsd:string"
+        },
+        "tz_offset": {
+          "@id": "slack:timezoneOffset",
+          "@type": "xsd:integer"
+        },
+        "profile": {
+          "@id": "slack:profile"
+        },
+        "is_admin": {
+          "@id": "slack:isAdmin",
+          "@type": "xsd:boolean"
+        },
+        "is_owner": {
+          "@id": "slack:isOwner",
+          "@type": "xsd:boolean"
+        },
+        "is_primary_owner": {
+          "@id": "slack:isPrimaryOwner",
+          "@type": "xsd:boolean"
+        },
+        "is_restricted": {
+          "@id": "slack:isRestricted",
+          "@type": "xsd:boolean"
+        },
+        "is_ultra_restricted": {
+          "@id": "slack:isUltraRestricted",
+          "@type": "xsd:boolean"
+        },
+        "is_bot": {
+          "@id": "slack:isBot",
+          "@type": "xsd:boolean"
+        },
+        "is_app_user": {
+          "@id": "slack:isAppUser",
+          "@type": "xsd:boolean"
+        },
+        "updated": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:integer"
+        },
+        "has_2fa": {
+          "@id": "slack:hasTwoFactorAuth",
+          "@type": "xsd:boolean"
+        },
+        "locale": {
+          "@id": "slack:locale",
+          "@type": "xsd:string"
+        }
+      }
+    },
+
+    "UserProfile": {
+      "@id": "slack:UserProfile",
+      "@context": {
+        "avatar_hash": {
+          "@id": "slack:avatarHash",
+          "@type": "xsd:string"
+        },
+        "status_text": {
+          "@id": "slack:statusText",
+          "@type": "xsd:string"
+        },
+        "status_emoji": {
+          "@id": "slack:statusEmoji",
+          "@type": "xsd:string"
+        },
+        "status_expiration": {
+          "@id": "slack:statusExpiration",
+          "@type": "xsd:integer"
+        },
+        "display_name": {
+          "@id": "slack:displayName",
+          "@type": "xsd:string"
+        },
+        "real_name": {
+          "@id": "foaf:name",
+          "@type": "xsd:string"
+        },
+        "email": {
+          "@id": "foaf:mbox",
+          "@type": "xsd:string"
+        },
+        "first_name": {
+          "@id": "foaf:firstName",
+          "@type": "xsd:string"
+        },
+        "last_name": {
+          "@id": "foaf:lastName",
+          "@type": "xsd:string"
+        },
+        "title": {
+          "@id": "foaf:title",
+          "@type": "xsd:string"
+        },
+        "phone": {
+          "@id": "foaf:phone",
+          "@type": "xsd:string"
+        },
+        "image_24": {
+          "@id": "slack:image24",
+          "@type": "@id"
+        },
+        "image_32": {
+          "@id": "slack:image32",
+          "@type": "@id"
+        },
+        "image_48": {
+          "@id": "slack:image48",
+          "@type": "@id"
+        },
+        "image_72": {
+          "@id": "slack:image72",
+          "@type": "@id"
+        },
+        "image_192": {
+          "@id": "slack:image192",
+          "@type": "@id"
+        },
+        "image_512": {
+          "@id": "foaf:img",
+          "@type": "@id"
+        },
+        "image_original": {
+          "@id": "slack:imageOriginal",
+          "@type": "@id"
+        }
+      }
+    },
+
+    "File": {
+      "@id": "slack:File",
+      "@context": {
+        "id": {
+          "@id": "slack:fileId",
+          "@type": "xsd:string"
+        },
+        "name": {
+          "@id": "slack:fileName",
+          "@type": "xsd:string"
+        },
+        "title": {
+          "@id": "dcterms:title",
+          "@type": "xsd:string"
+        },
+        "mimetype": {
+          "@id": "dcterms:format",
+          "@type": "xsd:string"
+        },
+        "filetype": {
+          "@id": "slack:fileType",
+          "@type": "xsd:string"
+        },
+        "size": {
+          "@id": "slack:fileSize",
+          "@type": "xsd:integer"
+        },
+        "created": {
+          "@id": "dcterms:created",
+          "@type": "xsd:integer"
+        },
+        "user": {
+          "@id": "dcterms:creator",
+          "@type": "@id"
+        },
+        "url_private": {
+          "@id": "slack:privateUrl",
+          "@type": "@id"
+        },
+        "permalink": {
+          "@id": "slack:permalink",
+          "@type": "@id"
+        },
+        "permalink_public": {
+          "@id": "slack:publicPermalink",
+          "@type": "@id"
+        },
+        "is_external": {
+          "@id": "slack:isExternal",
+          "@type": "xsd:boolean"
+        },
+        "is_public": {
+          "@id": "slack:isPublic",
+          "@type": "xsd:boolean"
+        },
+        "mode": {
+          "@id": "slack:fileMode",
+          "@type": "xsd:string"
+        },
+        "channels": {
+          "@id": "slack:sharedInChannels",
+          "@container": "@list"
+        },
+        "comments_count": {
+          "@id": "slack:commentsCount",
+          "@type": "xsd:integer"
+        }
+      }
+    },
+
+    "Reaction": {
+      "@id": "slack:Reaction",
+      "@context": {
+        "name": {
+          "@id": "slack:emojiName",
+          "@type": "xsd:string"
+        },
+        "count": {
+          "@id": "slack:reactionCount",
+          "@type": "xsd:integer"
+        },
+        "users": {
+          "@id": "slack:reactedUsers",
+          "@container": "@list"
+        }
+      }
+    },
+
+    "Team": {
+      "@id": "slack:Team",
+      "@context": {
+        "id": {
+          "@id": "slack:teamId",
+          "@type": "xsd:string"
+        },
+        "name": {
+          "@id": "slack:teamName",
+          "@type": "xsd:string"
+        },
+        "domain": {
+          "@id": "slack:teamDomain",
+          "@type": "xsd:string"
+        },
+        "email_domain": {
+          "@id": "slack:emailDomain",
+          "@type": "xsd:string"
+        },
+        "icon": {
+          "@id": "slack:teamIcon"
+        },
+        "enterprise_id": {
+          "@id": "slack:enterpriseId",
+          "@type": "xsd:string"
+        },
+        "enterprise_name": {
+          "@id": "slack:enterpriseName",
+          "@type": "xsd:string"
+        }
+      }
+    },
+
+    "EventCallback": {
+      "@id": "slack:EventCallback",
+      "@context": {
+        "token": {
+          "@id": "slack:verificationToken",
+          "@type": "xsd:string"
+        },
+        "team_id": {
+          "@id": "slack:teamId",
+          "@type": "xsd:string"
+        },
+        "api_app_id": {
+          "@id": "slack:appId",
+          "@type": "xsd:string"
+        },
+        "event": {
+          "@id": "slack:event"
+        },
+        "event_id": {
+          "@id": "slack:eventId",
+          "@type": "xsd:string"
+        },
+        "event_time": {
+          "@id": "slack:eventTime",
+          "@type": "xsd:integer"
+        },
+        "authorizations": {
+          "@id": "slack:authorizations",
+          "@container": "@list"
+        }
+      }
+    }
+  }
+}

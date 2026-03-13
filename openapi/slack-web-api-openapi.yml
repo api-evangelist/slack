@@ -1,0 +1,3192 @@
+openapi: 3.1.0
+info:
+  title: Slack Web API
+  description: >-
+    The Slack Web API is an HTTP-based interface that provides access to all of
+    Slack's platform features. It consists of over 200 methods organized by
+    functional area (chat, conversations, users, files, admin, and more) that
+    apps call over HTTPS with JSON payloads and receive JSON responses. All
+    methods require authentication via OAuth tokens (bot or user) with granular
+    permission scopes, and are subject to tiered rate limits. The Web API
+    supports cursor-based pagination for large result sets and provides
+    consistent error handling across all endpoints.
+  version: 1.0.0
+  termsOfService: https://slack.com/terms-of-service/api
+  contact:
+    name: Slack Developer Support
+    url: https://docs.slack.dev
+  license:
+    name: Slack API Terms of Service
+    url: https://slack.com/terms-of-service/api
+servers:
+  - url: https://slack.com/api
+    description: Slack Web API production server
+security:
+  - bearerAuth: []
+tags:
+  - name: auth
+    description: Authentication and authorization methods
+  - name: chat
+    description: Post, update, delete, and manage messages
+  - name: conversations
+    description: Manage channels, DMs, and group conversations
+  - name: users
+    description: Find and manage user information
+  - name: files
+    description: Upload, share, and manage files
+  - name: reactions
+    description: Add and manage emoji reactions
+  - name: pins
+    description: Pin and unpin messages in conversations
+  - name: search
+    description: Search messages and files
+  - name: team
+    description: Access workspace information
+  - name: views
+    description: Open, update, and manage modals and App Home tabs
+  - name: reminders
+    description: Create and manage reminders
+  - name: bookmarks
+    description: Manage channel bookmarks
+  - name: emoji
+    description: List custom emoji
+  - name: dnd
+    description: Do Not Disturb management
+  - name: stars
+    description: Star and unstar items (legacy)
+  - name: usergroups
+    description: Manage user groups
+paths:
+  /auth.test:
+    post:
+      tags:
+        - auth
+      summary: Test authentication
+      description: >-
+        Checks authentication and tells the caller who they are. Returns
+        information about the token holder including user ID, team ID, and
+        team name.
+      operationId: authTest
+      externalDocs:
+        description: API method documentation
+        url: https://docs.slack.dev/reference/methods/auth.test
+      responses:
+        '200':
+          description: Successful authentication test
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  url:
+                    type: string
+                    description: URL of the team
+                  team:
+                    type: string
+                    description: Team name
+                  user:
+                    type: string
+                    description: User name
+                  team_id:
+                    type: string
+                    description: Team ID
+                  user_id:
+                    type: string
+                    description: User ID
+                  bot_id:
+                    type: string
+                    description: Bot user ID (if token belongs to a bot)
+                  is_enterprise_install:
+                    type: boolean
+                    description: Whether this is an enterprise install
+                required:
+                  - ok
+  /auth.revoke:
+    post:
+      tags:
+        - auth
+      summary: Revoke an access token
+      description: Revokes the access token that is used to call this method.
+      operationId: authRevoke
+      externalDocs:
+        description: API method documentation
+        url: https://docs.slack.dev/reference/methods/auth.revoke
+      parameters:
+        - name: test
+          in: query
+          description: Setting this parameter to true triggers a testing mode.
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: Token revoked
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  revoked:
+                    type: boolean
+  /chat.postMessage:
+    post:
+      tags:
+        - chat
+      summary: Send a message to a channel
+      description: >-
+        Sends a message to a channel, DM, or group conversation. Supports
+        plain text, Block Kit layouts, attachments, threading, and message
+        metadata. Requires the chat:write scope, or chat:write.public to
+        post to channels the bot is not a member of.
+      operationId: chatPostMessage
+      externalDocs:
+        description: API method documentation
+        url: https://docs.slack.dev/reference/methods/chat.postMessage
+      parameters:
+        - name: token
+          in: header
+          description: 'Authentication token. Requires scope: chat:write'
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - channel
+              properties:
+                channel:
+                  type: string
+                  description: >-
+                    Channel, private group, or IM channel to send message to.
+                    Can be an encoded ID or a name.
+                text:
+                  type: string
+                  description: >-
+                    The text of the message. Required when not providing
+                    blocks or attachments. Used as fallback text for
+                    notifications.
+                blocks:
+                  type: array
+                  description: >-
+                    A JSON array of Block Kit layout blocks.
+                  items:
+                    type: object
+                attachments:
+                  type: array
+                  description: A JSON array of structured attachments.
+                  items:
+                    type: object
+                thread_ts:
+                  type: string
+                  description: >-
+                    Provide another message's ts value to make this message
+                    a reply in a thread.
+                reply_broadcast:
+                  type: boolean
+                  description: >-
+                    Used in conjunction with thread_ts to indicate whether
+                    reply should be made visible in the channel.
+                metadata:
+                  type: object
+                  description: JSON object with event_type and event_payload fields.
+                  properties:
+                    event_type:
+                      type: string
+                    event_payload:
+                      type: object
+                mrkdwn:
+                  type: boolean
+                  description: Enable or disable Slack markup parsing. Defaults to true.
+                parse:
+                  type: string
+                  description: Change how messages are treated.
+                  enum:
+                    - full
+                    - none
+                link_names:
+                  type: boolean
+                  description: Find and link user groups.
+                unfurl_links:
+                  type: boolean
+                  description: Enable unfurling of primarily text-based content.
+                unfurl_media:
+                  type: boolean
+                  description: Enable unfurling of media content.
+                icon_emoji:
+                  type: string
+                  description: Emoji to use as the icon for this message.
+                icon_url:
+                  type: string
+                  format: uri
+                  description: URL to an image to use as the icon for this message.
+                username:
+                  type: string
+                  description: Set your bot's user name.
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required:
+                - channel
+              properties:
+                channel:
+                  type: string
+                text:
+                  type: string
+                blocks:
+                  type: string
+                  description: JSON-encoded array of Block Kit blocks.
+                attachments:
+                  type: string
+                  description: JSON-encoded array of attachments.
+                thread_ts:
+                  type: string
+                reply_broadcast:
+                  type: boolean
+                mrkdwn:
+                  type: boolean
+                parse:
+                  type: string
+                link_names:
+                  type: boolean
+                unfurl_links:
+                  type: boolean
+                unfurl_media:
+                  type: boolean
+      responses:
+        '200':
+          description: Message posted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  channel:
+                    type: string
+                    description: Channel ID where the message was posted
+                  ts:
+                    type: string
+                    description: Timestamp of the posted message
+                  message:
+                    $ref: '#/components/schemas/Message'
+                required:
+                  - ok
+                  - channel
+                  - ts
+  /chat.update:
+    post:
+      tags:
+        - chat
+      summary: Update an existing message
+      description: >-
+        Updates a message in a channel. Both the text and blocks can be
+        updated. Requires the chat:write scope.
+      operationId: chatUpdate
+      externalDocs:
+        description: API method documentation
+        url: https://docs.slack.dev/reference/methods/chat.update
+      parameters:
+        - name: token
+          in: header
+          description: 'Authentication token. Requires scope: chat:write'
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - channel
+                - ts
+              properties:
+                channel:
+                  type: string
+                  description: Channel containing the message to be updated.
+                ts:
+                  type: string
+                  description: Timestamp of the message to be updated.
+                text:
+                  type: string
+                  description: New text for the message.
+                blocks:
+                  type: array
+                  description: A JSON array of Block Kit layout blocks.
+                  items:
+                    type: object
+                attachments:
+                  type: array
+                  description: A JSON array of structured attachments.
+                  items:
+                    type: object
+                metadata:
+                  type: object
+                  description: JSON object with event_type and event_payload fields.
+                parse:
+                  type: string
+                  enum:
+                    - full
+                    - none
+                link_names:
+                  type: boolean
+                reply_broadcast:
+                  type: boolean
+      responses:
+        '200':
+          description: Message updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  channel:
+                    type: string
+                  ts:
+                    type: string
+                  text:
+                    type: string
+                  message:
+                    $ref: '#/components/schemas/Message'
+  /chat.delete:
+    post:
+      tags:
+        - chat
+      summary: Delete a message
+      description: >-
+        Deletes a message from a channel. Requires the chat:write scope.
+        The message must have been posted by the calling user or bot.
+      operationId: chatDelete
+      externalDocs:
+        description: API method documentation
+        url: https://docs.slack.dev/reference/methods/chat.delete
+      parameters:
+        - name: token
+          in: header
+          description: 'Authentication token. Requires scope: chat:write'
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - channel
+                - ts
+              properties:
+                channel:
+                  type: string
+                  description: Channel containing the message to be deleted.
+                ts:
+                  type: string
+                  description: Timestamp of the message to be deleted.
+      responses:
+        '200':
+          description: Message deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  channel:
+                    type: string
+                  ts:
+                    type: string
+  /chat.postEphemeral:
+    post:
+      tags:
+        - chat
+      summary: Send an ephemeral message
+      description: >-
+        Sends an ephemeral message to a user in a channel, visible only
+        to that user. Requires the chat:write scope.
+      operationId: chatPostEphemeral
+      externalDocs:
+        description: API method documentation
+        url: https://docs.slack.dev/reference/methods/chat.postEphemeral
+      parameters:
+        - name: token
+          in: header
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - channel
+                - user
+              properties:
+                channel:
+                  type: string
+                  description: Channel to send the ephemeral message to.
+                user:
+                  type: string
+                  description: User ID of the user who will see the message.
+                text:
+                  type: string
+                  description: The text of the message.
+                blocks:
+                  type: array
+                  items:
+                    type: object
+                attachments:
+                  type: array
+                  items:
+                    type: object
+                thread_ts:
+                  type: string
+                  description: >-
+                    Provide a thread timestamp to send the ephemeral message
+                    within a thread.
+      responses:
+        '200':
+          description: Ephemeral message sent
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  message_ts:
+                    type: string
+  /chat.scheduleMessage:
+    post:
+      tags:
+        - chat
+      summary: Schedule a message for later
+      description: >-
+        Schedules a message to be sent to a channel at a specified time.
+        Requires the chat:write scope.
+      operationId: chatScheduleMessage
+      externalDocs:
+        description: API method documentation
+        url: https://docs.slack.dev/reference/methods/chat.scheduleMessage
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - channel
+                - post_at
+              properties:
+                channel:
+                  type: string
+                  description: Channel to send the scheduled message to.
+                post_at:
+                  type: integer
+                  description: Unix timestamp for when the message should be sent.
+                text:
+                  type: string
+                  description: The text of the message.
+                blocks:
+                  type: array
+                  items:
+                    type: object
+                attachments:
+                  type: array
+                  items:
+                    type: object
+                thread_ts:
+                  type: string
+                metadata:
+                  type: object
+                unfurl_links:
+                  type: boolean
+                unfurl_media:
+                  type: boolean
+      responses:
+        '200':
+          description: Message scheduled
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  channel:
+                    type: string
+                  scheduled_message_id:
+                    type: string
+                  post_at:
+                    type: integer
+                  message:
+                    $ref: '#/components/schemas/Message'
+  /chat.getPermalink:
+    get:
+      tags:
+        - chat
+      summary: Get a permalink for a message
+      description: Retrieve a permalink URL for a specific extant message.
+      operationId: chatGetPermalink
+      externalDocs:
+        description: API method documentation
+        url: https://docs.slack.dev/reference/methods/chat.getPermalink
+      parameters:
+        - name: channel
+          in: query
+          required: true
+          schema:
+            type: string
+          description: The ID of the conversation or channel containing the message.
+        - name: message_ts
+          in: query
+          required: true
+          schema:
+            type: string
+          description: A message's ts value.
+      responses:
+        '200':
+          description: Permalink retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  channel:
+                    type: string
+                  permalink:
+                    type: string
+                    format: uri
+  /chat.unfurl:
+    post:
+      tags:
+        - chat
+      summary: Provide custom unfurl behavior
+      description: >-
+        Provide custom unfurl behavior for URLs posted in messages. Requires
+        links:write scope.
+      operationId: chatUnfurl
+      externalDocs:
+        description: API method documentation
+        url: https://docs.slack.dev/reference/methods/chat.unfurl
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - channel
+                - ts
+                - unfurls
+              properties:
+                channel:
+                  type: string
+                ts:
+                  type: string
+                unfurls:
+                  type: object
+                  description: >-
+                    A map of URL to unfurl content in Block Kit or attachment
+                    format.
+                user_auth_message:
+                  type: string
+                user_auth_required:
+                  type: boolean
+                user_auth_url:
+                  type: string
+                  format: uri
+      responses:
+        '200':
+          description: Unfurl provided
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+  /conversations.list:
+    get:
+      tags:
+        - conversations
+      summary: List all channels
+      description: >-
+        Lists all channels in a Slack team. Returns a paginated collection
+        of conversation objects. Supports filtering by conversation type.
+      operationId: conversationsList
+      externalDocs:
+        description: API method documentation
+        url: https://docs.slack.dev/reference/methods/conversations.list
+      parameters:
+        - name: cursor
+          in: query
+          description: >-
+            Paginate through collections by setting the cursor parameter
+            to a next_cursor attribute returned by a previous request.
+          schema:
+            type: string
+        - name: exclude_archived
+          in: query
+          description: Set to true to exclude archived channels from the list.
+          schema:
+            type: boolean
+            default: false
+        - name: limit
+          in: query
+          description: >-
+            The maximum number of items to return. Fewer than the requested
+            number of items may be returned, even if the end of the list
+            hasn't been reached. Maximum of 1000.
+          schema:
+            type: integer
+            default: 100
+            maximum: 1000
+        - name: team_id
+          in: query
+          description: >-
+            Required for org-wide app tokens. A single team ID to list
+            channels in.
+          schema:
+            type: string
+        - name: types
+          in: query
+          description: >-
+            Mix and match channel types by providing a comma-separated
+            list. Options: public_channel, private_channel, mpim, im.
+          schema:
+            type: string
+            default: public_channel
+      responses:
+        '200':
+          description: Channel list retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  channels:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Channel'
+                  response_metadata:
+                    $ref: '#/components/schemas/ResponseMetadata'
+  /conversations.info:
+    get:
+      tags:
+        - conversations
+      summary: Get information about a channel
+      description: >-
+        Retrieve information about a conversation including its purpose,
+        topic, member count, and other metadata.
+      operationId: conversationsInfo
+      externalDocs:
+        description: API method documentation
+        url: https://docs.slack.dev/reference/methods/conversations.info
+      parameters:
+        - name: channel
+          in: query
+          required: true
+          description: The conversation ID to get info on.
+          schema:
+            type: string
+        - name: include_locale
+          in: query
+          description: Set to true to receive the locale for this conversation.
+          schema:
+            type: boolean
+            default: false
+        - name: include_num_members
+          in: query
+          description: Set to true to include the member count.
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: Channel information retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  channel:
+                    $ref: '#/components/schemas/Channel'
+  /conversations.history:
+    get:
+      tags:
+        - conversations
+      summary: Fetch message history
+      description: >-
+        Fetches a conversation's history of messages and events. Returns
+        messages in reverse chronological order.
+      operationId: conversationsHistory
+      externalDocs:
+        description: API method documentation
+        url: https://docs.slack.dev/reference/methods/conversations.history
+      parameters:
+        - name: channel
+          in: query
+          required: true
+          description: Conversation ID to fetch history for.
+          schema:
+            type: string
+        - name: cursor
+          in: query
+          description: >-
+            Paginate through collections by setting the cursor parameter
+            to a next_cursor attribute returned by a previous request.
+          schema:
+            type: string
+        - name: inclusive
+          in: query
+          description: >-
+            Include messages with oldest or latest timestamps in results.
+          schema:
+            type: boolean
+            default: false
+        - name: latest
+          in: query
+          description: >-
+            Only messages before this Unix timestamp will be included.
+            Default is the current time.
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: >-
+            The maximum number of items to return. Default 100, max 999.
+          schema:
+            type: integer
+            default: 100
+            maximum: 999
+        - name: oldest
+          in: query
+          description: >-
+            Only messages after this Unix timestamp will be included.
+            Default is 0.
+          schema:
+            type: string
+            default: '0'
+        - name: include_all_metadata
+          in: query
+          description: Return all metadata associated with messages.
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: Conversation history retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  messages:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Message'
+                  has_more:
+                    type: boolean
+                  pin_count:
+                    type: integer
+                  response_metadata:
+                    $ref: '#/components/schemas/ResponseMetadata'
+  /conversations.create:
+    post:
+      tags:
+        - conversations
+      summary: Create a channel
+      description: >-
+        Initiates a public or private channel-based conversation.
+        Requires conversations:write scope.
+      operationId: conversationsCreate
+      externalDocs:
+        description: API method documentation
+        url: https://docs.slack.dev/reference/methods/conversations.create
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+              properties:
+                name:
+                  type: string
+                  description: Name of the public or private channel to create.
+                is_private:
+                  type: boolean
+                  description: Create a private channel instead of a public one.
+                  default: false
+                team_id:
+                  type: string
+                  description: >-
+                    Required for org-wide apps. The workspace in which to
+                    create the channel.
+      responses:
+        '200':
+          description: Channel created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  channel:
+                    $ref: '#/components/schemas/Channel'
+  /conversations.join:
+    post:
+      tags:
+        - conversations
+      summary: Join an existing conversation
+      description: >-
+        Joins an existing conversation. Requires channels:write scope.
+      operationId: conversationsJoin
+      externalDocs:
+        description: API method documentation
+        url: https://docs.slack.dev/reference/methods/conversations.join
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - channel
+              properties:
+                channel:
+                  type: string
+                  description: ID of conversation to join.
+      responses:
+        '200':
+          description: Joined channel
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  channel:
+                    $ref: '#/components/schemas/Channel'
+  /conversations.invite:
+    post:
+      tags:
+        - conversations
+      summary: Invite users to a channel
+      description: Invites users to a channel. Requires channels:write scope.
+      operationId: conversationsInvite
+      externalDocs:
+        description: API method documentation
+        url: https://docs.slack.dev/reference/methods/conversations.invite
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - channel
+                - users
+              properties:
+                channel:
+                  type: string
+                  description: The ID of the public or private channel to invite users to.
+                users:
+                  type: string
+                  description: >-
+                    A comma-separated list of user IDs to invite to the
+                    channel. Up to 1000.
+      responses:
+        '200':
+          description: Users invited
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  channel:
+                    $ref: '#/components/schemas/Channel'
+  /conversations.leave:
+    post:
+      tags:
+        - conversations
+      summary: Leave a conversation
+      description: Leaves a conversation. Requires channels:write scope.
+      operationId: conversationsLeave
+      externalDocs:
+        description: API method documentation
+        url: https://docs.slack.dev/reference/methods/conversations.leave
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - channel
+              properties:
+                channel:
+                  type: string
+                  description: Conversation to leave.
+      responses:
+        '200':
+          description: Left channel
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+  /conversations.archive:
+    post:
+      tags:
+        - conversations
+      summary: Archive a channel
+      description: Archives a conversation. Requires channels:write scope.
+      operationId: conversationsArchive
+      externalDocs:
+        description: API method documentation
+        url: https://docs.slack.dev/reference/methods/conversations.archive
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - channel
+              properties:
+                channel:
+                  type: string
+                  description: ID of conversation to archive.
+      responses:
+        '200':
+          description: Channel archived
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+  /conversations.unarchive:
+    post:
+      tags:
+        - conversations
+      summary: Unarchive a channel
+      description: Reverses the archiving of a conversation.
+      operationId: conversationsUnarchive
+      externalDocs:
+        description: API method documentation
+        url: https://docs.slack.dev/reference/methods/conversations.unarchive
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - channel
+              properties:
+                channel:
+                  type: string
+                  description: ID of conversation to unarchive.
+      responses:
+        '200':
+          description: Channel unarchived
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+  /conversations.members:
+    get:
+      tags:
+        - conversations
+      summary: List members of a conversation
+      description: >-
+        Retrieve members of a conversation. Results are paginated with
+        cursor-based pagination.
+      operationId: conversationsMembers
+      externalDocs:
+        description: API method documentation
+        url: https://docs.slack.dev/reference/methods/conversations.members
+      parameters:
+        - name: channel
+          in: query
+          required: true
+          description: ID of the conversation to retrieve members for.
+          schema:
+            type: string
+        - name: cursor
+          in: query
+          schema:
+            type: string
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 100
+            maximum: 1000
+      responses:
+        '200':
+          description: Members listed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  members:
+                    type: array
+                    items:
+                      type: string
+                    description: Array of user IDs.
+                  response_metadata:
+                    $ref: '#/components/schemas/ResponseMetadata'
+  /conversations.replies:
+    get:
+      tags:
+        - conversations
+      summary: Retrieve a thread of messages
+      description: >-
+        Retrieve a thread of messages posted to a conversation. Returns
+        the parent message and all replies.
+      operationId: conversationsReplies
+      externalDocs:
+        description: API method documentation
+        url: https://docs.slack.dev/reference/methods/conversations.replies
+      parameters:
+        - name: channel
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: ts
+          in: query
+          required: true
+          description: >-
+            Unique identifier of the parent message. This is the ts value
+            of the parent message.
+          schema:
+            type: string
+        - name: cursor
+          in: query
+          schema:
+            type: string
+        - name: inclusive
+          in: query
+          schema:
+            type: boolean
+            default: false
+        - name: latest
+          in: query
+          schema:
+            type: string
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 100
+            maximum: 1000
+        - name: oldest
+          in: query
+          schema:
+            type: string
+            default: '0'
+      responses:
+        '200':
+          description: Thread retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  messages:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Message'
+                  has_more:
+                    type: boolean
+                  response_metadata:
+                    $ref: '#/components/schemas/ResponseMetadata'
+  /conversations.setTopic:
+    post:
+      tags:
+        - conversations
+      summary: Set the topic of a conversation
+      description: Sets the topic for a conversation.
+      operationId: conversationsSetTopic
+      externalDocs:
+        description: API method documentation
+        url: https://docs.slack.dev/reference/methods/conversations.setTopic
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - channel
+                - topic
+              properties:
+                channel:
+                  type: string
+                topic:
+                  type: string
+                  description: The new topic string. Maximum 250 characters.
+      responses:
+        '200':
+          description: Topic set
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  channel:
+                    $ref: '#/components/schemas/Channel'
+  /conversations.setPurpose:
+    post:
+      tags:
+        - conversations
+      summary: Set the purpose of a conversation
+      description: Sets the purpose for a conversation.
+      operationId: conversationsSetPurpose
+      externalDocs:
+        description: API method documentation
+        url: https://docs.slack.dev/reference/methods/conversations.setPurpose
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - channel
+                - purpose
+              properties:
+                channel:
+                  type: string
+                purpose:
+                  type: string
+                  description: The new purpose string. Maximum 250 characters.
+      responses:
+        '200':
+          description: Purpose set
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  channel:
+                    $ref: '#/components/schemas/Channel'
+  /conversations.rename:
+    post:
+      tags:
+        - conversations
+      summary: Rename a conversation
+      description: Renames a conversation.
+      operationId: conversationsRename
+      externalDocs:
+        description: API method documentation
+        url: https://docs.slack.dev/reference/methods/conversations.rename
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - channel
+                - name
+              properties:
+                channel:
+                  type: string
+                name:
+                  type: string
+                  description: New name for the conversation.
+      responses:
+        '200':
+          description: Channel renamed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  channel:
+                    $ref: '#/components/schemas/Channel'
+  /users.list:
+    get:
+      tags:
+        - users
+      summary: List all users
+      description: >-
+        Lists all users in a Slack team. Results are paginated with
+        cursor-based pagination.
+      operationId: usersList
+      externalDocs:
+        description: API method documentation
+        url: https://docs.slack.dev/reference/methods/users.list
+      parameters:
+        - name: cursor
+          in: query
+          schema:
+            type: string
+        - name: include_locale
+          in: query
+          description: Set to true to receive the locale for users.
+          schema:
+            type: boolean
+            default: false
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 100
+            maximum: 1000
+        - name: team_id
+          in: query
+          description: Required for org-wide app tokens.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: User list retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  members:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/User'
+                  cache_ts:
+                    type: integer
+                  response_metadata:
+                    $ref: '#/components/schemas/ResponseMetadata'
+  /users.info:
+    get:
+      tags:
+        - users
+      summary: Get information about a user
+      description: >-
+        Gets information about a user. Returns a user object with profile
+        information, timezone, admin status, and more.
+      operationId: usersInfo
+      externalDocs:
+        description: API method documentation
+        url: https://docs.slack.dev/reference/methods/users.info
+      parameters:
+        - name: user
+          in: query
+          required: true
+          description: User to get info on.
+          schema:
+            type: string
+        - name: include_locale
+          in: query
+          description: Set to true to receive the locale for this user.
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: User information retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  user:
+                    $ref: '#/components/schemas/User'
+  /users.lookupByEmail:
+    get:
+      tags:
+        - users
+      summary: Find a user by email address
+      description: >-
+        Find a user with an email address. Requires users:read.email scope.
+      operationId: usersLookupByEmail
+      externalDocs:
+        description: API method documentation
+        url: https://docs.slack.dev/reference/methods/users.lookupByEmail
+      parameters:
+        - name: email
+          in: query
+          required: true
+          description: An email address belonging to a user in the workspace.
+          schema:
+            type: string
+            format: email
+      responses:
+        '200':
+          description: User found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  user:
+                    $ref: '#/components/schemas/User'
+  /users.getPresence:
+    get:
+      tags:
+        - users
+      summary: Get user presence information
+      description: Gets user presence information.
+      operationId: usersGetPresence
+      externalDocs:
+        description: API method documentation
+        url: https://docs.slack.dev/reference/methods/users.getPresence
+      parameters:
+        - name: user
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Presence retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  presence:
+                    type: string
+                    enum:
+                      - active
+                      - away
+  /files.upload:
+    post:
+      tags:
+        - files
+      summary: Upload a file
+      description: >-
+        Uploads or creates a file. Files can be uploaded as binary content
+        or created from content snippets.
+      operationId: filesUpload
+      externalDocs:
+        description: API method documentation
+        url: https://docs.slack.dev/reference/methods/files.upload
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                channels:
+                  type: string
+                  description: Comma-separated list of channel IDs to share the file into.
+                content:
+                  type: string
+                  description: File contents via a POST variable.
+                file:
+                  type: string
+                  format: binary
+                  description: File contents via multipart/form-data.
+                filename:
+                  type: string
+                  description: Filename of file.
+                filetype:
+                  type: string
+                  description: A file type identifier.
+                initial_comment:
+                  type: string
+                  description: The message text introducing the file.
+                thread_ts:
+                  type: string
+                  description: >-
+                    Provide another message's ts value to upload this
+                    file as a reply.
+                title:
+                  type: string
+                  description: Title of the file.
+      responses:
+        '200':
+          description: File uploaded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  file:
+                    $ref: '#/components/schemas/File'
+  /files.list:
+    get:
+      tags:
+        - files
+      summary: List files
+      description: >-
+        List files for a team, in a channel, or from a user. Supports
+        filtering and pagination.
+      operationId: filesList
+      externalDocs:
+        description: API method documentation
+        url: https://docs.slack.dev/reference/methods/files.list
+      parameters:
+        - name: channel
+          in: query
+          description: Filter files appearing in a specific channel.
+          schema:
+            type: string
+        - name: count
+          in: query
+          schema:
+            type: integer
+            default: 100
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: ts_from
+          in: query
+          description: Filter files created after this timestamp.
+          schema:
+            type: string
+        - name: ts_to
+          in: query
+          description: Filter files created before this timestamp.
+          schema:
+            type: string
+        - name: types
+          in: query
+          description: >-
+            Filter files by type: all, spaces, snippets, images, gdocs,
+            zips, pdfs.
+          schema:
+            type: string
+            default: all
+        - name: user
+          in: query
+          description: Filter files created by a single user.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Files listed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  files:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/File'
+                  paging:
+                    type: object
+                    properties:
+                      count:
+                        type: integer
+                      total:
+                        type: integer
+                      page:
+                        type: integer
+                      pages:
+                        type: integer
+  /files.info:
+    get:
+      tags:
+        - files
+      summary: Get information about a file
+      description: Gets information about a file.
+      operationId: filesInfo
+      externalDocs:
+        description: API method documentation
+        url: https://docs.slack.dev/reference/methods/files.info
+      parameters:
+        - name: file
+          in: query
+          required: true
+          description: Specify a file by providing its ID.
+          schema:
+            type: string
+        - name: count
+          in: query
+          schema:
+            type: integer
+            default: 100
+        - name: cursor
+          in: query
+          schema:
+            type: string
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 100
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+      responses:
+        '200':
+          description: File information retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  file:
+                    $ref: '#/components/schemas/File'
+  /files.delete:
+    post:
+      tags:
+        - files
+      summary: Delete a file
+      description: Deletes a file.
+      operationId: filesDelete
+      externalDocs:
+        description: API method documentation
+        url: https://docs.slack.dev/reference/methods/files.delete
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - file
+              properties:
+                file:
+                  type: string
+                  description: ID of file to delete.
+      responses:
+        '200':
+          description: File deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+  /reactions.add:
+    post:
+      tags:
+        - reactions
+      summary: Add an emoji reaction
+      description: >-
+        Adds a reaction (emoji) to a message, file, or file comment.
+        Requires reactions:write scope.
+      operationId: reactionsAdd
+      externalDocs:
+        description: API method documentation
+        url: https://docs.slack.dev/reference/methods/reactions.add
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - channel
+                - name
+                - timestamp
+              properties:
+                channel:
+                  type: string
+                  description: Channel where the message to add reaction to was posted.
+                name:
+                  type: string
+                  description: Reaction (emoji) name without colons.
+                timestamp:
+                  type: string
+                  description: Timestamp of the message to add reaction to.
+      responses:
+        '200':
+          description: Reaction added
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+  /reactions.remove:
+    post:
+      tags:
+        - reactions
+      summary: Remove an emoji reaction
+      description: Removes a reaction (emoji) from an item.
+      operationId: reactionsRemove
+      externalDocs:
+        description: API method documentation
+        url: https://docs.slack.dev/reference/methods/reactions.remove
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+              properties:
+                channel:
+                  type: string
+                name:
+                  type: string
+                  description: Reaction (emoji) name without colons.
+                timestamp:
+                  type: string
+                file:
+                  type: string
+                file_comment:
+                  type: string
+      responses:
+        '200':
+          description: Reaction removed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+  /reactions.get:
+    get:
+      tags:
+        - reactions
+      summary: Get reactions for an item
+      description: Gets reactions for an item (message, file, or file comment).
+      operationId: reactionsGet
+      externalDocs:
+        description: API method documentation
+        url: https://docs.slack.dev/reference/methods/reactions.get
+      parameters:
+        - name: channel
+          in: query
+          description: Channel where the message to get reactions for was posted.
+          schema:
+            type: string
+        - name: file
+          in: query
+          description: File to get reactions for.
+          schema:
+            type: string
+        - name: file_comment
+          in: query
+          description: File comment to get reactions for.
+          schema:
+            type: string
+        - name: full
+          in: query
+          description: If true, return complete reaction list.
+          schema:
+            type: boolean
+        - name: timestamp
+          in: query
+          description: Timestamp of the message to get reactions for.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Reactions retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  type:
+                    type: string
+                  message:
+                    $ref: '#/components/schemas/Message'
+  /reactions.list:
+    get:
+      tags:
+        - reactions
+      summary: List reactions made by a user
+      description: >-
+        Lists reactions made by a user. Paginated with cursor-based
+        pagination.
+      operationId: reactionsList
+      externalDocs:
+        description: API method documentation
+        url: https://docs.slack.dev/reference/methods/reactions.list
+      parameters:
+        - name: count
+          in: query
+          schema:
+            type: integer
+            default: 100
+        - name: cursor
+          in: query
+          schema:
+            type: string
+        - name: full
+          in: query
+          schema:
+            type: boolean
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 100
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: user
+          in: query
+          description: Show reactions made by this user.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Reactions listed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  items:
+                    type: array
+                    items:
+                      type: object
+                  response_metadata:
+                    $ref: '#/components/schemas/ResponseMetadata'
+  /pins.add:
+    post:
+      tags:
+        - pins
+      summary: Pin a message
+      description: Pins a message to a channel. Requires pins:write scope.
+      operationId: pinsAdd
+      externalDocs:
+        description: API method documentation
+        url: https://docs.slack.dev/reference/methods/pins.add
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - channel
+                - timestamp
+              properties:
+                channel:
+                  type: string
+                  description: Channel to pin the message in.
+                timestamp:
+                  type: string
+                  description: Timestamp of the message to pin.
+      responses:
+        '200':
+          description: Message pinned
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+  /pins.remove:
+    post:
+      tags:
+        - pins
+      summary: Unpin a message
+      description: Un-pins a message from a channel.
+      operationId: pinsRemove
+      externalDocs:
+        description: API method documentation
+        url: https://docs.slack.dev/reference/methods/pins.remove
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - channel
+                - timestamp
+              properties:
+                channel:
+                  type: string
+                timestamp:
+                  type: string
+      responses:
+        '200':
+          description: Message unpinned
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+  /pins.list:
+    get:
+      tags:
+        - pins
+      summary: List pinned items
+      description: Lists items pinned to a channel.
+      operationId: pinsList
+      externalDocs:
+        description: API method documentation
+        url: https://docs.slack.dev/reference/methods/pins.list
+      parameters:
+        - name: channel
+          in: query
+          required: true
+          description: Channel to get pinned items for.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Pinned items listed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  items:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        type:
+                          type: string
+                        channel:
+                          type: string
+                        message:
+                          $ref: '#/components/schemas/Message'
+                        created:
+                          type: integer
+                        created_by:
+                          type: string
+  /search.messages:
+    get:
+      tags:
+        - search
+      summary: Search for messages
+      description: >-
+        Searches for messages matching a query. Supports Slack search
+        modifiers such as in:, from:, has:, before:, after:, and is:thread.
+      operationId: searchMessages
+      externalDocs:
+        description: API method documentation
+        url: https://docs.slack.dev/reference/methods/search.messages
+      parameters:
+        - name: query
+          in: query
+          required: true
+          description: Search query.
+          schema:
+            type: string
+        - name: count
+          in: query
+          schema:
+            type: integer
+            default: 20
+        - name: highlight
+          in: query
+          description: Pass a value of true to enable query highlight markers.
+          schema:
+            type: boolean
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: sort
+          in: query
+          description: Return matches sorted by either score or timestamp.
+          schema:
+            type: string
+            enum:
+              - score
+              - timestamp
+        - name: sort_dir
+          in: query
+          description: Change sort direction to ascending or descending.
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+      responses:
+        '200':
+          description: Search results returned
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  query:
+                    type: string
+                  messages:
+                    type: object
+                    properties:
+                      total:
+                        type: integer
+                      pagination:
+                        type: object
+                        properties:
+                          total_count:
+                            type: integer
+                          page:
+                            type: integer
+                          per_page:
+                            type: integer
+                          page_count:
+                            type: integer
+                          first:
+                            type: integer
+                          last:
+                            type: integer
+                      paging:
+                        type: object
+                        properties:
+                          count:
+                            type: integer
+                          total:
+                            type: integer
+                          page:
+                            type: integer
+                          pages:
+                            type: integer
+                      matches:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Message'
+  /search.files:
+    get:
+      tags:
+        - search
+      summary: Search for files
+      description: Searches for files matching a query.
+      operationId: searchFiles
+      externalDocs:
+        description: API method documentation
+        url: https://docs.slack.dev/reference/methods/search.files
+      parameters:
+        - name: query
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: count
+          in: query
+          schema:
+            type: integer
+            default: 20
+        - name: highlight
+          in: query
+          schema:
+            type: boolean
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: sort
+          in: query
+          schema:
+            type: string
+            enum:
+              - score
+              - timestamp
+        - name: sort_dir
+          in: query
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+      responses:
+        '200':
+          description: Search results returned
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  query:
+                    type: string
+                  files:
+                    type: object
+                    properties:
+                      total:
+                        type: integer
+                      matches:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/File'
+  /team.info:
+    get:
+      tags:
+        - team
+      summary: Get team information
+      description: >-
+        Gets information about the current team. Requires team:read scope.
+      operationId: teamInfo
+      externalDocs:
+        description: API method documentation
+        url: https://docs.slack.dev/reference/methods/team.info
+      parameters:
+        - name: team
+          in: query
+          description: >-
+            Team to get info about; if omitted, will return information
+            about the current team.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Team info retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  team:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      name:
+                        type: string
+                      domain:
+                        type: string
+                      email_domain:
+                        type: string
+                      icon:
+                        type: object
+                        properties:
+                          image_34:
+                            type: string
+                          image_44:
+                            type: string
+                          image_68:
+                            type: string
+                          image_88:
+                            type: string
+                          image_102:
+                            type: string
+                          image_132:
+                            type: string
+                          image_default:
+                            type: boolean
+                      enterprise_id:
+                        type: string
+                      enterprise_name:
+                        type: string
+  /views.open:
+    post:
+      tags:
+        - views
+      summary: Open a modal view
+      description: >-
+        Open a view for a user by providing a trigger_id received from
+        a slash command, shortcut, or interactive component.
+      operationId: viewsOpen
+      externalDocs:
+        description: API method documentation
+        url: https://docs.slack.dev/reference/methods/views.open
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - trigger_id
+                - view
+              properties:
+                trigger_id:
+                  type: string
+                  description: >-
+                    Exchange a trigger to post to the user. Must be obtained
+                    from a slash command, shortcut, or interactive component.
+                view:
+                  type: object
+                  description: A view payload in JSON format.
+      responses:
+        '200':
+          description: View opened
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  view:
+                    type: object
+  /views.update:
+    post:
+      tags:
+        - views
+      summary: Update an existing view
+      description: Update an existing view.
+      operationId: viewsUpdate
+      externalDocs:
+        description: API method documentation
+        url: https://docs.slack.dev/reference/methods/views.update
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                view_id:
+                  type: string
+                  description: A unique identifier of the view to be updated.
+                external_id:
+                  type: string
+                view:
+                  type: object
+                  description: A view payload in JSON format.
+                hash:
+                  type: string
+                  description: >-
+                    A string that represents view state to protect against
+                    possible race conditions.
+      responses:
+        '200':
+          description: View updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  view:
+                    type: object
+  /views.publish:
+    post:
+      tags:
+        - views
+      summary: Publish a view to the App Home tab
+      description: Publish a static view for a user to the App Home tab.
+      operationId: viewsPublish
+      externalDocs:
+        description: API method documentation
+        url: https://docs.slack.dev/reference/methods/views.publish
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - user_id
+                - view
+              properties:
+                user_id:
+                  type: string
+                  description: ID of the user you want to publish a view to.
+                view:
+                  type: object
+                  description: A view payload in JSON format.
+                hash:
+                  type: string
+      responses:
+        '200':
+          description: View published
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  view:
+                    type: object
+  /emoji.list:
+    get:
+      tags:
+        - emoji
+      summary: List custom emoji
+      description: >-
+        Lists custom emoji for a team. Returns a map of emoji name to URL.
+        Requires emoji:read scope.
+      operationId: emojiList
+      externalDocs:
+        description: API method documentation
+        url: https://docs.slack.dev/reference/methods/emoji.list
+      responses:
+        '200':
+          description: Emoji listed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  emoji:
+                    type: object
+                    additionalProperties:
+                      type: string
+                  cache_ts:
+                    type: integer
+  /reminders.add:
+    post:
+      tags:
+        - reminders
+      summary: Create a reminder
+      description: Creates a reminder for a user.
+      operationId: remindersAdd
+      externalDocs:
+        description: API method documentation
+        url: https://docs.slack.dev/reference/methods/reminders.add
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - text
+                - time
+              properties:
+                text:
+                  type: string
+                  description: The content of the reminder.
+                time:
+                  type: string
+                  description: >-
+                    When this reminder should happen: Unix timestamp, or
+                    a human-readable natural language string.
+                user:
+                  type: string
+                  description: >-
+                    The user to receive the reminder. If not specified,
+                    defaults to the caller.
+      responses:
+        '200':
+          description: Reminder created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  reminder:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      creator:
+                        type: string
+                      user:
+                        type: string
+                      text:
+                        type: string
+                      recurring:
+                        type: boolean
+                      time:
+                        type: integer
+                      complete_ts:
+                        type: integer
+  /reminders.list:
+    get:
+      tags:
+        - reminders
+      summary: List all reminders
+      description: Lists all reminders created by or for a given user.
+      operationId: remindersList
+      externalDocs:
+        description: API method documentation
+        url: https://docs.slack.dev/reference/methods/reminders.list
+      responses:
+        '200':
+          description: Reminders listed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  reminders:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        creator:
+                          type: string
+                        user:
+                          type: string
+                        text:
+                          type: string
+                        recurring:
+                          type: boolean
+                        time:
+                          type: integer
+                        complete_ts:
+                          type: integer
+  /bookmarks.add:
+    post:
+      tags:
+        - bookmarks
+      summary: Add a bookmark to a channel
+      description: Adds a bookmark to a channel.
+      operationId: bookmarksAdd
+      externalDocs:
+        description: API method documentation
+        url: https://docs.slack.dev/reference/methods/bookmarks.add
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - channel_id
+                - title
+                - type
+              properties:
+                channel_id:
+                  type: string
+                title:
+                  type: string
+                  description: Title for the bookmark.
+                type:
+                  type: string
+                  description: Type of the bookmark. Currently only link is supported.
+                  enum:
+                    - link
+                link:
+                  type: string
+                  format: uri
+                  description: Link to bookmark.
+                emoji:
+                  type: string
+                  description: Emoji tag to apply to the link.
+      responses:
+        '200':
+          description: Bookmark added
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  bookmark:
+                    type: object
+  /bookmarks.list:
+    get:
+      tags:
+        - bookmarks
+      summary: List bookmarks for a channel
+      description: Lists bookmarks for a channel.
+      operationId: bookmarksList
+      externalDocs:
+        description: API method documentation
+        url: https://docs.slack.dev/reference/methods/bookmarks.list
+      parameters:
+        - name: channel_id
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Bookmarks listed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  bookmarks:
+                    type: array
+                    items:
+                      type: object
+  /dnd.setSnooze:
+    post:
+      tags:
+        - dnd
+      summary: Set snooze duration
+      description: >-
+        Turns on Do Not Disturb mode for the current user for the specified
+        number of minutes.
+      operationId: dndSetSnooze
+      externalDocs:
+        description: API method documentation
+        url: https://docs.slack.dev/reference/methods/dnd.setSnooze
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - num_minutes
+              properties:
+                num_minutes:
+                  type: integer
+                  description: Number of minutes to snooze for.
+      responses:
+        '200':
+          description: Snooze set
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  snooze_enabled:
+                    type: boolean
+                  snooze_endtime:
+                    type: integer
+                  snooze_remaining:
+                    type: integer
+  /dnd.info:
+    get:
+      tags:
+        - dnd
+      summary: Get DND status for a user
+      description: >-
+        Retrieves a user's current Do Not Disturb status.
+      operationId: dndInfo
+      externalDocs:
+        description: API method documentation
+        url: https://docs.slack.dev/reference/methods/dnd.info
+      parameters:
+        - name: user
+          in: query
+          description: User to fetch status for.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: DND info retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  dnd_enabled:
+                    type: boolean
+                  next_dnd_start_ts:
+                    type: integer
+                  next_dnd_end_ts:
+                    type: integer
+                  snooze_enabled:
+                    type: boolean
+                  snooze_endtime:
+                    type: integer
+                  snooze_remaining:
+                    type: integer
+  /usergroups.list:
+    get:
+      tags:
+        - usergroups
+      summary: List all user groups
+      description: List all user groups for a team.
+      operationId: usergroupsList
+      externalDocs:
+        description: API method documentation
+        url: https://docs.slack.dev/reference/methods/usergroups.list
+      parameters:
+        - name: include_count
+          in: query
+          schema:
+            type: boolean
+        - name: include_disabled
+          in: query
+          schema:
+            type: boolean
+        - name: include_users
+          in: query
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: User groups listed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  usergroups:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        team_id:
+                          type: string
+                        is_usergroup:
+                          type: boolean
+                        name:
+                          type: string
+                        description:
+                          type: string
+                        handle:
+                          type: string
+                        is_external:
+                          type: boolean
+                        date_create:
+                          type: integer
+                        date_update:
+                          type: integer
+                        date_delete:
+                          type: integer
+                        auto_type:
+                          type: string
+                        created_by:
+                          type: string
+                        updated_by:
+                          type: string
+                        deleted_by:
+                          type: string
+                        user_count:
+                          type: integer
+                        users:
+                          type: array
+                          items:
+                            type: string
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: >-
+        Slack API uses Bearer token authentication. Pass a bot token or
+        user token in the Authorization header.
+  schemas:
+    Message:
+      type: object
+      description: >-
+        A Slack message object representing a single message in a
+        conversation. Messages can contain text, blocks, attachments,
+        files, and reactions.
+      properties:
+        type:
+          type: string
+          description: Always "message" for messages.
+          const: message
+        subtype:
+          type: string
+          description: >-
+            Optional subtype indicating a specialized message type such
+            as bot_message, channel_join, channel_leave, etc.
+        channel:
+          type: string
+          description: The channel ID where the message was posted.
+        user:
+          type: string
+          description: The user ID of the message author.
+        text:
+          type: string
+          description: The text content of the message.
+        ts:
+          type: string
+          description: >-
+            Unique timestamp identifier for the message, also serves as
+            the message ID. Format is Unix epoch with microseconds
+            (e.g., "1503435956.000247").
+        thread_ts:
+          type: string
+          description: >-
+            The timestamp of the parent message in a thread. Present only
+            for threaded replies.
+        reply_count:
+          type: integer
+          description: Number of replies in the thread.
+        reply_users_count:
+          type: integer
+          description: Number of unique users who have replied in the thread.
+        latest_reply:
+          type: string
+          description: Timestamp of the most recent reply in the thread.
+        reply_users:
+          type: array
+          description: Array of user IDs who have replied in the thread.
+          items:
+            type: string
+        blocks:
+          type: array
+          description: >-
+            An array of Block Kit layout blocks used for rich message
+            formatting.
+          items:
+            type: object
+        attachments:
+          type: array
+          description: An array of message attachments.
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              color:
+                type: string
+              fallback:
+                type: string
+              text:
+                type: string
+              pretext:
+                type: string
+              author_name:
+                type: string
+              author_link:
+                type: string
+                format: uri
+              author_icon:
+                type: string
+                format: uri
+              title:
+                type: string
+              title_link:
+                type: string
+                format: uri
+              fields:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    title:
+                      type: string
+                    value:
+                      type: string
+                    short:
+                      type: boolean
+              footer:
+                type: string
+              footer_icon:
+                type: string
+                format: uri
+              ts:
+                type: integer
+        files:
+          type: array
+          description: An array of file objects attached to the message.
+          items:
+            $ref: '#/components/schemas/File'
+        reactions:
+          type: array
+          description: An array of emoji reactions on this message.
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: Emoji name without colons.
+              count:
+                type: integer
+                description: Number of users who added this reaction.
+              users:
+                type: array
+                description: User IDs of users who added this reaction.
+                items:
+                  type: string
+        edited:
+          type: object
+          description: Edit information if the message was edited.
+          properties:
+            user:
+              type: string
+            ts:
+              type: string
+        bot_id:
+          type: string
+          description: Bot ID if the message was posted by a bot.
+        bot_profile:
+          type: object
+          description: Bot profile information if posted by a bot.
+          properties:
+            id:
+              type: string
+            deleted:
+              type: boolean
+            name:
+              type: string
+            updated:
+              type: integer
+            app_id:
+              type: string
+            icons:
+              type: object
+        metadata:
+          type: object
+          description: >-
+            Custom metadata attached to the message by an application.
+          properties:
+            event_type:
+              type: string
+            event_payload:
+              type: object
+        permalink:
+          type: string
+          format: uri
+          description: Permalink URL for the message.
+    Channel:
+      type: object
+      description: >-
+        A Slack conversation object representing a channel, direct message,
+        multi-person DM, or group conversation.
+      properties:
+        id:
+          type: string
+          description: The unique identifier for this conversation.
+        name:
+          type: string
+          description: >-
+            The name of the channel (without the leading # sign).
+        name_normalized:
+          type: string
+          description: Normalized version of the channel name.
+        is_channel:
+          type: boolean
+          description: Whether this is a public channel.
+        is_group:
+          type: boolean
+          description: Whether this is a private channel (formerly a group).
+        is_im:
+          type: boolean
+          description: Whether this is a direct message.
+        is_mpim:
+          type: boolean
+          description: Whether this is a multi-person direct message.
+        is_private:
+          type: boolean
+          description: Whether this is a private conversation.
+        is_archived:
+          type: boolean
+          description: Whether the channel is archived.
+        is_general:
+          type: boolean
+          description: Whether this is the #general channel.
+        is_shared:
+          type: boolean
+          description: Whether the channel is shared with another workspace.
+        is_ext_shared:
+          type: boolean
+          description: >-
+            Whether the channel is shared with an external organization
+            via Slack Connect.
+        is_org_shared:
+          type: boolean
+          description: Whether the channel is shared across an Enterprise Grid org.
+        is_pending_ext_shared:
+          type: boolean
+          description: Whether there is a pending external share invitation.
+        is_member:
+          type: boolean
+          description: Whether the calling user is a member of this conversation.
+        is_open:
+          type: boolean
+          description: Whether the DM is open.
+        is_frozen:
+          type: boolean
+          description: Whether the channel is frozen.
+        created:
+          type: integer
+          description: Unix timestamp of when the conversation was created.
+        creator:
+          type: string
+          description: User ID of the member who created this channel.
+        updated:
+          type: integer
+          description: Unix timestamp of the last update to the conversation.
+        unlinked:
+          type: integer
+          description: Number of times the channel has been unlinked.
+        topic:
+          type: object
+          description: The channel topic.
+          properties:
+            value:
+              type: string
+            creator:
+              type: string
+            last_set:
+              type: integer
+        purpose:
+          type: object
+          description: The channel purpose.
+          properties:
+            value:
+              type: string
+            creator:
+              type: string
+            last_set:
+              type: integer
+        previous_names:
+          type: array
+          description: A list of previous names the channel had.
+          items:
+            type: string
+        num_members:
+          type: integer
+          description: >-
+            The number of members in the channel. Only included when
+            specifically requested.
+        locale:
+          type: string
+          description: >-
+            IETF language code for the channel locale. Only included
+            when specifically requested.
+        user:
+          type: string
+          description: >-
+            For direct messages, the user ID of the other participant.
+        shared_team_ids:
+          type: array
+          description: >-
+            Array of team IDs that share this channel (for shared
+            channels).
+          items:
+            type: string
+        parent_conversation:
+          type: string
+          description: Parent conversation ID for thread-only channels.
+        context_team_id:
+          type: string
+          description: The workspace team ID.
+        properties:
+          type: object
+          description: Additional channel properties.
+          properties:
+            tabs:
+              type: array
+              items:
+                type: object
+    User:
+      type: object
+      description: >-
+        A Slack user object representing a workspace member with their
+        profile, roles, and settings.
+      properties:
+        id:
+          type: string
+          description: The unique identifier for this user.
+        team_id:
+          type: string
+          description: The workspace team ID this user belongs to.
+        name:
+          type: string
+          description: The user's username.
+        deleted:
+          type: boolean
+          description: Whether the user has been deactivated.
+        color:
+          type: string
+          description: >-
+            A hex color code used in certain client displays for this
+            user.
+        real_name:
+          type: string
+          description: The user's real name.
+        tz:
+          type: string
+          description: The user's timezone identifier (e.g., "America/Los_Angeles").
+        tz_label:
+          type: string
+          description: Descriptive label for the user's timezone.
+        tz_offset:
+          type: integer
+          description: The user's timezone offset from UTC in seconds.
+        profile:
+          type: object
+          description: The user's profile information.
+          properties:
+            avatar_hash:
+              type: string
+            status_text:
+              type: string
+              description: The user's current status text.
+            status_emoji:
+              type: string
+              description: >-
+                The user's current status emoji.
+            status_expiration:
+              type: integer
+              description: Unix timestamp when the status expires.
+            real_name:
+              type: string
+            display_name:
+              type: string
+              description: >-
+                The display name the user has chosen.
+            real_name_normalized:
+              type: string
+            display_name_normalized:
+              type: string
+            email:
+              type: string
+              format: email
+              description: >-
+                The user's email address. Requires users:read.email scope.
+            first_name:
+              type: string
+            last_name:
+              type: string
+            title:
+              type: string
+              description: The user's job title.
+            phone:
+              type: string
+            skype:
+              type: string
+            image_24:
+              type: string
+              format: uri
+            image_32:
+              type: string
+              format: uri
+            image_48:
+              type: string
+              format: uri
+            image_72:
+              type: string
+              format: uri
+            image_192:
+              type: string
+              format: uri
+            image_512:
+              type: string
+              format: uri
+            image_original:
+              type: string
+              format: uri
+            team:
+              type: string
+        is_admin:
+          type: boolean
+          description: Whether the user is a workspace admin.
+        is_owner:
+          type: boolean
+          description: Whether the user is a workspace owner.
+        is_primary_owner:
+          type: boolean
+          description: Whether the user is the primary workspace owner.
+        is_restricted:
+          type: boolean
+          description: Whether the user is a guest with single-channel access.
+        is_ultra_restricted:
+          type: boolean
+          description: Whether the user is a single-channel guest.
+        is_bot:
+          type: boolean
+          description: Whether the user is a bot.
+        is_app_user:
+          type: boolean
+          description: Whether the user is an app user.
+        updated:
+          type: integer
+          description: Unix timestamp of when the user was last updated.
+        has_2fa:
+          type: boolean
+          description: Whether the user has two-factor authentication enabled.
+        locale:
+          type: string
+          description: >-
+            IETF language code for the user. Only included when
+            specifically requested.
+    File:
+      type: object
+      description: >-
+        A Slack file object representing an uploaded file with its
+        metadata and sharing information.
+      properties:
+        id:
+          type: string
+          description: Unique file identifier.
+        created:
+          type: integer
+          description: Unix timestamp of when the file was created.
+        timestamp:
+          type: integer
+          description: Unix timestamp.
+        name:
+          type: string
+          description: The file name.
+        title:
+          type: string
+          description: Title of the file.
+        mimetype:
+          type: string
+          description: MIME type of the file.
+        filetype:
+          type: string
+          description: Slack file type identifier (e.g., "png", "pdf", "snippet").
+        pretty_type:
+          type: string
+          description: Human-readable file type.
+        user:
+          type: string
+          description: User ID of the user who uploaded the file.
+        user_team:
+          type: string
+          description: Team ID of the user who uploaded the file.
+        editable:
+          type: boolean
+          description: Whether the file content is editable.
+        size:
+          type: integer
+          description: File size in bytes.
+        mode:
+          type: string
+          description: >-
+            File mode (e.g., "hosted", "external", "snippet", "post").
+        is_external:
+          type: boolean
+          description: Whether the file is externally hosted.
+        external_type:
+          type: string
+          description: Type of external file.
+        is_public:
+          type: boolean
+          description: Whether the file is public.
+        public_url_shared:
+          type: boolean
+        display_as_bot:
+          type: boolean
+        username:
+          type: string
+        url_private:
+          type: string
+          format: uri
+          description: URL to access the file. Requires authentication.
+        url_private_download:
+          type: string
+          format: uri
+          description: URL to download the file. Requires authentication.
+        permalink:
+          type: string
+          format: uri
+          description: Permalink URL for the file.
+        permalink_public:
+          type: string
+          format: uri
+          description: Public permalink URL for the file (if shared publicly).
+        channels:
+          type: array
+          description: Array of channel IDs where the file is shared.
+          items:
+            type: string
+        groups:
+          type: array
+          description: Array of private channel IDs where the file is shared.
+          items:
+            type: string
+        ims:
+          type: array
+          description: Array of DM IDs where the file is shared.
+          items:
+            type: string
+        shares:
+          type: object
+          description: Sharing information broken down by type.
+        comments_count:
+          type: integer
+          description: Number of comments on the file.
+    ResponseMetadata:
+      type: object
+      description: >-
+        Metadata for paginated responses containing cursor information.
+      properties:
+        next_cursor:
+          type: string
+          description: >-
+            An opaque cursor to use in the next request to get the next
+            page of results. Empty string indicates no more results.
+    ErrorResponse:
+      type: object
+      description: Standard error response from the Slack API.
+      properties:
+        ok:
+          type: boolean
+          const: false
+        error:
+          type: string
+          description: >-
+            A short machine-readable error code such as "channel_not_found",
+            "not_authed", "invalid_auth", "missing_scope", etc.
+        response_metadata:
+          type: object
+          properties:
+            messages:
+              type: array
+              items:
+                type: string
+      required:
+        - ok
+        - error

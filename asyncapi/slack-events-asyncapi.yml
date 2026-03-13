@@ -1,0 +1,755 @@
+asyncapi: 3.0.0
+info:
+  title: Slack Events API
+  version: 1.0.0
+  description: >-
+    The Slack Events API enables apps to respond to activities in Slack by
+    subscribing to specific event types. Rather than polling for changes, apps
+    receive HTTP POST payloads when subscribed events occur, such as new
+    messages, reactions, channel changes, or user updates. The Events API offers
+    two delivery options: a public HTTP endpoint that Slack sends event payloads
+    to, or Socket Mode which uses WebSockets for apps that cannot expose a
+    public URL. Events are categorized into Team Events (workspace-scoped,
+    requiring corresponding OAuth scopes) and Bot Events (subscribed on behalf
+    of the app's bot user).
+  termsOfService: https://slack.com/terms-of-service/api
+  contact:
+    name: Slack Developer Support
+    url: https://docs.slack.dev
+  license:
+    name: Slack API Terms of Service
+    url: https://slack.com/terms-of-service/api
+  externalDocs:
+    description: Slack Events API documentation
+    url: https://docs.slack.dev/apis/events-api
+servers:
+  httpEndpoint:
+    host: '{your-server}'
+    pathname: /slack/events
+    protocol: https
+    description: >-
+      Your app's Request URL that receives HTTP POST payloads from Slack when
+      subscribed events occur. Must respond with HTTP 200 within 3 seconds.
+  socketMode:
+    host: wss-primary.slack.com
+    protocol: wss
+    description: >-
+      Slack Socket Mode WebSocket connection for receiving events without
+      exposing a public HTTP endpoint. Initiated via apps.connections.open
+      Web API method.
+defaultContentType: application/json
+channels:
+  eventCallback:
+    address: /slack/events
+    description: >-
+      Primary channel for receiving all subscribed Slack events. Events are
+      delivered as HTTP POST requests wrapped in an event callback envelope
+      containing metadata about the event and the inner event payload. Your
+      app must respond with HTTP 200 within 3 seconds. If not acknowledged,
+      Slack retries up to 3 times with exponential backoff.
+    messages:
+      eventCallbackMessage:
+        $ref: '#/components/messages/EventCallback'
+  urlVerification:
+    address: /slack/events
+    description: >-
+      Used during initial app configuration. When you first configure your
+      Request URL, Slack sends a url_verification challenge event. Your app
+      must respond with the challenge value to confirm ownership.
+    messages:
+      urlVerificationMessage:
+        $ref: '#/components/messages/UrlVerification'
+operations:
+  receiveEvent:
+    action: receive
+    channel:
+      $ref: '#/channels/eventCallback'
+    summary: Receive event callbacks from Slack
+    description: >-
+      Receives event callback payloads from Slack when subscribed events
+      occur in the workspace. Each payload is wrapped in an event callback
+      envelope containing metadata and the inner event object.
+    messages:
+      - $ref: '#/channels/eventCallback/messages/eventCallbackMessage'
+  handleUrlVerification:
+    action: receive
+    channel:
+      $ref: '#/channels/urlVerification'
+    summary: Handle URL verification challenge
+    description: >-
+      Responds to URL verification challenges during initial Request URL
+      configuration. The app must echo back the challenge value.
+    messages:
+      - $ref: '#/channels/urlVerification/messages/urlVerificationMessage'
+components:
+  messages:
+    EventCallback:
+      name: Event Callback
+      title: Slack Event Callback
+      summary: An event callback payload from the Slack Events API
+      description: >-
+        The outer envelope for all event deliveries. Contains metadata about
+        the event and the inner event object with the actual event data.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/EventCallbackEnvelope'
+    UrlVerification:
+      name: URL Verification
+      title: Slack URL Verification Challenge
+      summary: URL verification challenge sent during Request URL configuration
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/UrlVerificationPayload'
+  schemas:
+    EventCallbackEnvelope:
+      type: object
+      description: >-
+        The outer wrapper for all event payloads delivered by the Slack
+        Events API. Contains metadata about the event and the inner event
+        object.
+      required:
+        - token
+        - team_id
+        - api_app_id
+        - event
+        - type
+        - event_id
+        - event_time
+      properties:
+        token:
+          type: string
+          description: >-
+            A shared-private callback token for verifying that the request
+            comes from Slack. Deprecated in favor of signed secrets.
+        team_id:
+          type: string
+          description: >-
+            The unique identifier for the workspace where the event occurred.
+          examples:
+            - T061EG9R6
+        enterprise_id:
+          type: string
+          description: >-
+            The unique identifier for the Enterprise Grid organization.
+            Only present for Enterprise Grid events.
+        api_app_id:
+          type: string
+          description: The unique identifier for your installed Slack application.
+          examples:
+            - A0PNCHHK2
+        type:
+          type: string
+          const: event_callback
+          description: >-
+            The type of outer event payload. Always "event_callback" for
+            event deliveries.
+        event:
+          $ref: '#/components/schemas/InnerEvent'
+        event_id:
+          type: string
+          description: A unique identifier for this specific event, globally unique.
+          examples:
+            - Ev0PV52K25
+        event_time:
+          type: integer
+          description: >-
+            The epoch timestamp in seconds indicating when the event was
+            dispatched.
+          examples:
+            - 1525215129
+        event_context:
+          type: string
+          description: >-
+            An identifier providing installment context for the event,
+            used with the authorizations array.
+        authorizations:
+          type: array
+          description: >-
+            An array of objects describing which app installations can
+            see this event. Replaces the deprecated authed_users field.
+          items:
+            type: object
+            properties:
+              enterprise_id:
+                type: string
+              team_id:
+                type: string
+              user_id:
+                type: string
+              is_bot:
+                type: boolean
+              is_enterprise_install:
+                type: boolean
+        is_ext_shared_channel:
+          type: boolean
+          description: Whether this event occurred in a shared channel.
+        context_team_id:
+          type: string
+          description: The workspace context team ID for this event.
+        context_enterprise_id:
+          type: string
+          description: The enterprise organization context ID.
+    InnerEvent:
+      type: object
+      description: >-
+        The inner event object containing the actual event data. The
+        specific fields depend on the event type.
+      required:
+        - type
+      properties:
+        type:
+          type: string
+          description: >-
+            The specific event type name identifying what happened.
+        event_ts:
+          type: string
+          description: >-
+            The timestamp of the event, used for ordering and deduplication.
+        user:
+          type: string
+          description: >-
+            The user ID of the user who triggered the event. Not present
+            in all event types.
+      discriminator:
+        propertyName: type
+    UrlVerificationPayload:
+      type: object
+      description: >-
+        Payload sent by Slack during Request URL configuration to verify
+        ownership. The app must respond with the challenge value.
+      required:
+        - token
+        - challenge
+        - type
+      properties:
+        token:
+          type: string
+          description: Shared-private callback verification token.
+        challenge:
+          type: string
+          description: >-
+            A randomly generated string that your app must echo back to
+            Slack in the response body.
+        type:
+          type: string
+          const: url_verification
+    MessageEvent:
+      type: object
+      description: >-
+        Fired when a message is posted to a channel the app is subscribed
+        to. Includes the message content, channel, user, and timestamp.
+        Subtypes indicate specialized message types like bot_message,
+        channel_join, file_share, etc.
+      properties:
+        type:
+          type: string
+          const: message
+        channel:
+          type: string
+          description: The channel ID where the message was posted.
+        user:
+          type: string
+          description: The user ID of the message author.
+        text:
+          type: string
+          description: The text content of the message.
+        ts:
+          type: string
+          description: The unique timestamp identifier for the message.
+        event_ts:
+          type: string
+        channel_type:
+          type: string
+          description: >-
+            The type of channel (channel, group, im, mpim).
+          enum:
+            - channel
+            - group
+            - im
+            - mpim
+        subtype:
+          type: string
+          description: >-
+            An optional subtype for specialized message types such as
+            bot_message, channel_join, channel_leave, me_message,
+            file_share, thread_broadcast, etc.
+        thread_ts:
+          type: string
+          description: Thread parent timestamp if this is a threaded reply.
+        blocks:
+          type: array
+          description: Block Kit layout blocks in the message.
+          items:
+            type: object
+        files:
+          type: array
+          description: Files attached to the message.
+          items:
+            type: object
+        bot_id:
+          type: string
+          description: Bot ID if the message was posted by a bot.
+    AppMentionEvent:
+      type: object
+      description: >-
+        Fired when your app is mentioned in a message using @app_name.
+        Useful for building apps that respond when directly mentioned.
+      properties:
+        type:
+          type: string
+          const: app_mention
+        user:
+          type: string
+          description: The user ID of the user who mentioned the app.
+        text:
+          type: string
+          description: The full text of the message containing the mention.
+        ts:
+          type: string
+        channel:
+          type: string
+          description: The channel where the mention occurred.
+        event_ts:
+          type: string
+    ReactionAddedEvent:
+      type: object
+      description: >-
+        Fired when a reaction emoji is added to a message, file, or file
+        comment.
+      properties:
+        type:
+          type: string
+          const: reaction_added
+        user:
+          type: string
+          description: The user ID of the user who added the reaction.
+        reaction:
+          type: string
+          description: The emoji name without colons.
+        item_user:
+          type: string
+          description: The user ID of the user who authored the item being reacted to.
+        item:
+          type: object
+          description: The item that was reacted to.
+          properties:
+            type:
+              type: string
+              description: The type of item (message, file, file_comment).
+              enum:
+                - message
+                - file
+                - file_comment
+            channel:
+              type: string
+            ts:
+              type: string
+            file:
+              type: string
+        event_ts:
+          type: string
+    ReactionRemovedEvent:
+      type: object
+      description: Fired when a reaction emoji is removed from an item.
+      properties:
+        type:
+          type: string
+          const: reaction_removed
+        user:
+          type: string
+        reaction:
+          type: string
+        item_user:
+          type: string
+        item:
+          type: object
+          properties:
+            type:
+              type: string
+            channel:
+              type: string
+            ts:
+              type: string
+            file:
+              type: string
+        event_ts:
+          type: string
+    ChannelCreatedEvent:
+      type: object
+      description: Fired when a new channel is created in the workspace.
+      properties:
+        type:
+          type: string
+          const: channel_created
+        channel:
+          type: object
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+            created:
+              type: integer
+            creator:
+              type: string
+            is_channel:
+              type: boolean
+            is_shared:
+              type: boolean
+            name_normalized:
+              type: string
+        event_ts:
+          type: string
+    ChannelArchiveEvent:
+      type: object
+      description: Fired when a channel is archived.
+      properties:
+        type:
+          type: string
+          const: channel_archive
+        channel:
+          type: string
+          description: The channel ID that was archived.
+        user:
+          type: string
+          description: The user ID of the user who archived the channel.
+        event_ts:
+          type: string
+    ChannelDeletedEvent:
+      type: object
+      description: Fired when a channel is deleted.
+      properties:
+        type:
+          type: string
+          const: channel_deleted
+        channel:
+          type: string
+          description: The channel ID that was deleted.
+        event_ts:
+          type: string
+    ChannelRenameEvent:
+      type: object
+      description: Fired when a channel is renamed.
+      properties:
+        type:
+          type: string
+          const: channel_rename
+        channel:
+          type: object
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+            name_normalized:
+              type: string
+            created:
+              type: integer
+            is_channel:
+              type: boolean
+            is_mpim:
+              type: boolean
+        event_ts:
+          type: string
+    MemberJoinedChannelEvent:
+      type: object
+      description: Fired when a user joins a channel.
+      properties:
+        type:
+          type: string
+          const: member_joined_channel
+        user:
+          type: string
+          description: The user ID of the member who joined.
+        channel:
+          type: string
+          description: The channel ID that was joined.
+        channel_type:
+          type: string
+          description: The type of channel.
+          enum:
+            - C
+            - G
+        team:
+          type: string
+          description: The team ID.
+        inviter:
+          type: string
+          description: The user ID of the person who invited the member, if applicable.
+        event_ts:
+          type: string
+    MemberLeftChannelEvent:
+      type: object
+      description: Fired when a user leaves a channel.
+      properties:
+        type:
+          type: string
+          const: member_left_channel
+        user:
+          type: string
+          description: The user ID of the member who left.
+        channel:
+          type: string
+          description: The channel ID that was left.
+        channel_type:
+          type: string
+          enum:
+            - C
+            - G
+        team:
+          type: string
+        event_ts:
+          type: string
+    TeamJoinEvent:
+      type: object
+      description: Fired when a new member joins the workspace.
+      properties:
+        type:
+          type: string
+          const: team_join
+        user:
+          type: object
+          description: >-
+            The user object for the new team member. Contains the same
+            fields as the users.info response.
+          properties:
+            id:
+              type: string
+            team_id:
+              type: string
+            name:
+              type: string
+            real_name:
+              type: string
+            is_bot:
+              type: boolean
+            profile:
+              type: object
+        event_ts:
+          type: string
+    UserChangeEvent:
+      type: object
+      description: >-
+        Fired when a user's profile information or status is updated.
+      properties:
+        type:
+          type: string
+          const: user_change
+        user:
+          type: object
+          description: The updated user object.
+          properties:
+            id:
+              type: string
+            team_id:
+              type: string
+            name:
+              type: string
+            real_name:
+              type: string
+            profile:
+              type: object
+        event_ts:
+          type: string
+    PinAddedEvent:
+      type: object
+      description: Fired when a message is pinned in a channel.
+      properties:
+        type:
+          type: string
+          const: pin_added
+        user:
+          type: string
+          description: The user ID of the user who pinned the item.
+        channel_id:
+          type: string
+          description: The channel ID where the item was pinned.
+        item:
+          type: object
+          description: The item that was pinned.
+        event_ts:
+          type: string
+    PinRemovedEvent:
+      type: object
+      description: Fired when a pinned message is unpinned from a channel.
+      properties:
+        type:
+          type: string
+          const: pin_removed
+        user:
+          type: string
+        channel_id:
+          type: string
+        item:
+          type: object
+        event_ts:
+          type: string
+    FileSharedEvent:
+      type: object
+      description: Fired when a file is shared into a channel.
+      properties:
+        type:
+          type: string
+          const: file_shared
+        file_id:
+          type: string
+          description: The unique identifier for the shared file.
+        user_id:
+          type: string
+          description: The user who shared the file.
+        file:
+          type: object
+          description: A partial file object.
+          properties:
+            id:
+              type: string
+        channel_id:
+          type: string
+        event_ts:
+          type: string
+    FileCreatedEvent:
+      type: object
+      description: Fired when a file is created.
+      properties:
+        type:
+          type: string
+          const: file_created
+        file_id:
+          type: string
+        user_id:
+          type: string
+        file:
+          type: object
+          properties:
+            id:
+              type: string
+        event_ts:
+          type: string
+    AppHomeOpenedEvent:
+      type: object
+      description: >-
+        Fired when a user opens the app's App Home tab. Used to
+        dynamically publish views.
+      properties:
+        type:
+          type: string
+          const: app_home_opened
+        user:
+          type: string
+          description: The user who opened the App Home.
+        channel:
+          type: string
+          description: The DM channel between the user and the app.
+        tab:
+          type: string
+          description: The tab that was opened (home or messages).
+          enum:
+            - home
+            - messages
+        view:
+          type: object
+          description: >-
+            The current view object for the App Home, if one was
+            previously published.
+        event_ts:
+          type: string
+    LinkSharedEvent:
+      type: object
+      description: >-
+        Fired when a message containing URLs from your app's registered
+        domains is posted. Used to provide custom link unfurling.
+      properties:
+        type:
+          type: string
+          const: link_shared
+        channel:
+          type: string
+        user:
+          type: string
+        message_ts:
+          type: string
+        thread_ts:
+          type: string
+        links:
+          type: array
+          description: Array of link objects found in the message.
+          items:
+            type: object
+            properties:
+              domain:
+                type: string
+              url:
+                type: string
+                format: uri
+        event_ts:
+          type: string
+    EmojiChangedEvent:
+      type: object
+      description: >-
+        Fired when a custom emoji is added, renamed, or removed from
+        the workspace.
+      properties:
+        type:
+          type: string
+          const: emoji_changed
+        subtype:
+          type: string
+          description: The type of change.
+          enum:
+            - add
+            - remove
+            - rename
+        name:
+          type: string
+          description: The name of the emoji.
+        names:
+          type: array
+          description: Array of emoji names (for remove events).
+          items:
+            type: string
+        value:
+          type: string
+          description: The URL of the emoji image (for add events).
+        old_name:
+          type: string
+          description: The old name (for rename events).
+        new_name:
+          type: string
+          description: The new name (for rename events).
+        event_ts:
+          type: string
+    TokensRevokedEvent:
+      type: object
+      description: >-
+        Fired when API tokens belonging to your app are revoked. Allows
+        apps to clean up stored tokens.
+      properties:
+        type:
+          type: string
+          const: tokens_revoked
+        tokens:
+          type: object
+          properties:
+            oauth:
+              type: array
+              description: Array of revoked OAuth token user IDs.
+              items:
+                type: string
+            bot:
+              type: array
+              description: Array of revoked bot token user IDs.
+              items:
+                type: string
+        event_ts:
+          type: string
+    AppUninstalledEvent:
+      type: object
+      description: >-
+        Fired when your app is uninstalled from a workspace. Allows
+        cleanup of stored data and tokens.
+      properties:
+        type:
+          type: string
+          const: app_uninstalled
+        event_ts:
+          type: string
