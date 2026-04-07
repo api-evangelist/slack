@@ -24,43 +24,41 @@ servers:
 security:
   - bearerAuth: []
 tags:
-  - name: auth
+  - name: Auth
     description: Authentication and authorization methods
-  - name: chat
-    description: Post, update, delete, and manage messages
-  - name: conversations
-    description: Manage channels, DMs, and group conversations
-  - name: users
-    description: Find and manage user information
-  - name: files
-    description: Upload, share, and manage files
-  - name: reactions
-    description: Add and manage emoji reactions
-  - name: pins
-    description: Pin and unpin messages in conversations
-  - name: search
-    description: Search messages and files
-  - name: team
-    description: Access workspace information
-  - name: views
-    description: Open, update, and manage modals and App Home tabs
-  - name: reminders
-    description: Create and manage reminders
-  - name: bookmarks
+  - name: Bookmarks
     description: Manage channel bookmarks
-  - name: emoji
-    description: List custom emoji
-  - name: dnd
+  - name: Chat
+    description: Post, update, delete, and manage messages
+  - name: Conversations
+    description: Manage channels, DMs, and group conversations
+  - name: Dnd
     description: Do Not Disturb management
-  - name: stars
-    description: Star and unstar items (legacy)
-  - name: usergroups
+  - name: Emoji
+    description: List custom emoji
+  - name: Files
+    description: Upload, share, and manage files
+  - name: Pins
+    description: Pin and unpin messages in conversations
+  - name: Reactions
+    description: Add and manage emoji reactions
+  - name: Reminders
+    description: Create and manage reminders
+  - name: Search
+    description: Search messages and files
+  - name: Team
+    description: Access workspace information
+  - name: Usergroups
     description: Manage user groups
+  - name: Users
+    description: Find and manage user information
+  - name: Views
+    description: Open, update, and manage modals and App Home tabs
 paths:
   /auth.test:
     post:
       tags:
-        - auth
+        - Auth
       summary: Slack Test authentication
       description: >-
         Checks authentication and tells the caller who they are. Returns
@@ -106,7 +104,7 @@ paths:
   /auth.revoke:
     post:
       tags:
-        - auth
+        - Auth
       summary: Slack Revoke an access token
       description: Revokes the access token that is used to call this method.
       operationId: authRevoke
@@ -134,7 +132,7 @@ paths:
   /chat.postMessage:
     post:
       tags:
-        - chat
+        - Chat
       summary: Slack Send a message to a channel
       description: >-
         Sends a message to a channel, DM, or group conversation. Supports
@@ -283,7 +281,7 @@ paths:
   /chat.update:
     post:
       tags:
-        - chat
+        - Chat
       summary: Slack Update an existing message
       description: >-
         Updates a message in a channel. Both the text and blocks can be
@@ -360,7 +358,7 @@ paths:
   /chat.delete:
     post:
       tags:
-        - chat
+        - Chat
       summary: Slack Delete a message
       description: >-
         Deletes a message from a channel. Requires the chat:write scope.
@@ -408,7 +406,7 @@ paths:
   /chat.postEphemeral:
     post:
       tags:
-        - chat
+        - Chat
       summary: Slack Send an ephemeral message
       description: >-
         Sends an ephemeral message to a user in a channel, visible only
@@ -469,7 +467,7 @@ paths:
   /chat.scheduleMessage:
     post:
       tags:
-        - chat
+        - Chat
       summary: Slack Schedule a message for later
       description: >-
         Schedules a message to be sent to a channel at a specified time.
@@ -534,7 +532,7 @@ paths:
   /chat.getPermalink:
     get:
       tags:
-        - chat
+        - Chat
       summary: Slack Get a permalink for a message
       description: Retrieve a permalink URL for a specific extant message.
       operationId: chatGetPermalink
@@ -572,7 +570,7 @@ paths:
   /chat.unfurl:
     post:
       tags:
-        - chat
+        - Chat
       summary: Slack Provide custom unfurl behavior
       description: >-
         Provide custom unfurl behavior for URLs posted in messages. Requires
@@ -621,7 +619,7 @@ paths:
   /conversations.list:
     get:
       tags:
-        - conversations
+        - Conversations
       summary: Slack List all channels
       description: >-
         Lists all channels in a Slack team. Returns a paginated collection
@@ -688,7 +686,7 @@ paths:
   /conversations.info:
     get:
       tags:
-        - conversations
+        - Conversations
       summary: Slack Get information about a channel
       description: >-
         Retrieve information about a conversation including its purpose,
@@ -731,7 +729,7 @@ paths:
   /conversations.history:
     get:
       tags:
-        - conversations
+        - Conversations
       summary: Slack Fetch message history
       description: >-
         Fetches a conversation's history of messages and events. Returns
@@ -813,7 +811,7 @@ paths:
   /conversations.create:
     post:
       tags:
-        - conversations
+        - Conversations
       summary: Slack Create a channel
       description: >-
         Initiates a public or private channel-based conversation.
@@ -858,7 +856,7 @@ paths:
   /conversations.join:
     post:
       tags:
-        - conversations
+        - Conversations
       summary: Slack Join an existing conversation
       description: >-
         Joins an existing conversation. Requires channels:write scope.
@@ -893,7 +891,7 @@ paths:
   /conversations.invite:
     post:
       tags:
-        - conversations
+        - Conversations
       summary: Slack Invite users to a channel
       description: Invites users to a channel. Requires channels:write scope.
       operationId: conversationsInvite
@@ -933,7 +931,7 @@ paths:
   /conversations.leave:
     post:
       tags:
-        - conversations
+        - Conversations
       summary: Slack Leave a conversation
       description: Leaves a conversation. Requires channels:write scope.
       operationId: conversationsLeave
@@ -965,7 +963,7 @@ paths:
   /conversations.archive:
     post:
       tags:
-        - conversations
+        - Conversations
       summary: Slack Archive a channel
       description: Archives a conversation. Requires channels:write scope.
       operationId: conversationsArchive
@@ -997,7 +995,7 @@ paths:
   /conversations.unarchive:
     post:
       tags:
-        - conversations
+        - Conversations
       summary: Slack Unarchive a channel
       description: Reverses the archiving of a conversation.
       operationId: conversationsUnarchive
@@ -1029,7 +1027,7 @@ paths:
   /conversations.members:
     get:
       tags:
-        - conversations
+        - Conversations
       summary: Slack List members of a conversation
       description: >-
         Retrieve members of a conversation. Results are paginated with
@@ -1075,7 +1073,7 @@ paths:
   /conversations.replies:
     get:
       tags:
-        - conversations
+        - Conversations
       summary: Slack Retrieve a thread of messages
       description: >-
         Retrieve a thread of messages posted to a conversation. Returns
@@ -1143,7 +1141,7 @@ paths:
   /conversations.setTopic:
     post:
       tags:
-        - conversations
+        - Conversations
       summary: Slack Set the topic of a conversation
       description: Sets the topic for a conversation.
       operationId: conversationsSetTopic
@@ -1180,7 +1178,7 @@ paths:
   /conversations.setPurpose:
     post:
       tags:
-        - conversations
+        - Conversations
       summary: Slack Set the purpose of a conversation
       description: Sets the purpose for a conversation.
       operationId: conversationsSetPurpose
@@ -1217,7 +1215,7 @@ paths:
   /conversations.rename:
     post:
       tags:
-        - conversations
+        - Conversations
       summary: Slack Rename a conversation
       description: Renames a conversation.
       operationId: conversationsRename
@@ -1254,7 +1252,7 @@ paths:
   /users.list:
     get:
       tags:
-        - users
+        - Users
       summary: Slack List all users
       description: >-
         Lists all users in a Slack team. Results are paginated with
@@ -1306,7 +1304,7 @@ paths:
   /users.info:
     get:
       tags:
-        - users
+        - Users
       summary: Slack Get information about a user
       description: >-
         Gets information about a user. Returns a user object with profile
@@ -1343,7 +1341,7 @@ paths:
   /users.lookupByEmail:
     get:
       tags:
-        - users
+        - Users
       summary: Slack Find a user by email address
       description: >-
         Find a user with an email address. Requires users:read.email scope.
@@ -1374,7 +1372,7 @@ paths:
   /users.getPresence:
     get:
       tags:
-        - users
+        - Users
       summary: Slack Get user presence information
       description: Gets user presence information.
       operationId: usersGetPresence
@@ -1405,7 +1403,7 @@ paths:
   /files.upload:
     post:
       tags:
-        - files
+        - Files
       summary: Slack Upload a file
       description: >-
         Uploads or creates a file. Files can be uploaded as binary content
@@ -1462,7 +1460,7 @@ paths:
   /files.list:
     get:
       tags:
-        - files
+        - Files
       summary: Slack List files
       description: >-
         List files for a team, in a channel, or from a user. Supports
@@ -1538,7 +1536,7 @@ paths:
   /files.info:
     get:
       tags:
-        - files
+        - Files
       summary: Slack Get information about a file
       description: Gets information about a file.
       operationId: filesInfo
@@ -1586,7 +1584,7 @@ paths:
   /files.delete:
     post:
       tags:
-        - files
+        - Files
       summary: Slack Delete a file
       description: Deletes a file.
       operationId: filesDelete
@@ -1618,7 +1616,7 @@ paths:
   /reactions.add:
     post:
       tags:
-        - reactions
+        - Reactions
       summary: Slack Add an emoji reaction
       description: >-
         Adds a reaction (emoji) to a message, file, or file comment.
@@ -1660,7 +1658,7 @@ paths:
   /reactions.remove:
     post:
       tags:
-        - reactions
+        - Reactions
       summary: Slack Remove an emoji reaction
       description: Removes a reaction (emoji) from an item.
       operationId: reactionsRemove
@@ -1700,7 +1698,7 @@ paths:
   /reactions.get:
     get:
       tags:
-        - reactions
+        - Reactions
       summary: Slack Get reactions for an item
       description: Gets reactions for an item (message, file, or file comment).
       operationId: reactionsGet
@@ -1750,7 +1748,7 @@ paths:
   /reactions.list:
     get:
       tags:
-        - reactions
+        - Reactions
       summary: Slack List reactions made by a user
       description: >-
         Lists reactions made by a user. Paginated with cursor-based
@@ -1807,7 +1805,7 @@ paths:
   /pins.add:
     post:
       tags:
-        - pins
+        - Pins
       summary: Slack Pin a message
       description: Pins a message to a channel. Requires pins:write scope.
       operationId: pinsAdd
@@ -1843,7 +1841,7 @@ paths:
   /pins.remove:
     post:
       tags:
-        - pins
+        - Pins
       summary: Slack Unpin a message
       description: Un-pins a message from a channel.
       operationId: pinsRemove
@@ -1877,7 +1875,7 @@ paths:
   /pins.list:
     get:
       tags:
-        - pins
+        - Pins
       summary: Slack List pinned items
       description: Lists items pinned to a channel.
       operationId: pinsList
@@ -1919,7 +1917,7 @@ paths:
   /search.messages:
     get:
       tags:
-        - search
+        - Search
       summary: Slack Search for messages
       description: >-
         Searches for messages matching a query. Supports Slack search
@@ -2016,7 +2014,7 @@ paths:
   /search.files:
     get:
       tags:
-        - search
+        - Search
       summary: Slack Search for files
       description: Searches for files matching a query.
       operationId: searchFiles
@@ -2081,7 +2079,7 @@ paths:
   /team.info:
     get:
       tags:
-        - team
+        - Team
       summary: Slack Get team information
       description: >-
         Gets information about the current team. Requires team:read scope.
@@ -2142,7 +2140,7 @@ paths:
   /views.open:
     post:
       tags:
-        - views
+        - Views
       summary: Slack Open a modal view
       description: >-
         Open a view for a user by providing a trigger_id received from
@@ -2184,7 +2182,7 @@ paths:
   /views.update:
     post:
       tags:
-        - views
+        - Views
       summary: Slack Update an existing view
       description: Update an existing view.
       operationId: viewsUpdate
@@ -2226,7 +2224,7 @@ paths:
   /views.publish:
     post:
       tags:
-        - views
+        - Views
       summary: Slack Publish a view to the App Home tab
       description: Publish a static view for a user to the App Home tab.
       operationId: viewsPublish
@@ -2266,7 +2264,7 @@ paths:
   /emoji.list:
     get:
       tags:
-        - emoji
+        - Emoji
       summary: Slack List custom emoji
       description: >-
         Lists custom emoji for a team. Returns a map of emoji name to URL.
@@ -2294,7 +2292,7 @@ paths:
   /reminders.add:
     post:
       tags:
-        - reminders
+        - Reminders
       summary: Slack Create a reminder
       description: Creates a reminder for a user.
       operationId: remindersAdd
@@ -2354,7 +2352,7 @@ paths:
   /reminders.list:
     get:
       tags:
-        - reminders
+        - Reminders
       summary: Slack List all reminders
       description: Lists all reminders created by or for a given user.
       operationId: remindersList
@@ -2393,7 +2391,7 @@ paths:
   /bookmarks.add:
     post:
       tags:
-        - bookmarks
+        - Bookmarks
       summary: Slack Add a bookmark to a channel
       description: Adds a bookmark to a channel.
       operationId: bookmarksAdd
@@ -2443,7 +2441,7 @@ paths:
   /bookmarks.list:
     get:
       tags:
-        - bookmarks
+        - Bookmarks
       summary: Slack List bookmarks for a channel
       description: Lists bookmarks for a channel.
       operationId: bookmarksList
@@ -2473,7 +2471,7 @@ paths:
   /dnd.setSnooze:
     post:
       tags:
-        - dnd
+        - Dnd
       summary: Slack Set snooze duration
       description: >-
         Turns on Do Not Disturb mode for the current user for the specified
@@ -2513,7 +2511,7 @@ paths:
   /dnd.info:
     get:
       tags:
-        - dnd
+        - Dnd
       summary: Slack Get DND status for a user
       description: >-
         Retrieves a user's current Do Not Disturb status.
@@ -2552,7 +2550,7 @@ paths:
   /usergroups.list:
     get:
       tags:
-        - usergroups
+        - Usergroups
       summary: Slack List all user groups
       description: List all user groups for a team.
       operationId: usergroupsList
