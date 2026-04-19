@@ -1,33 +1,36 @@
 openapi: 3.1.0
 info:
   title: Slack Calls API
-  description: "Slack\x19s Calls API lets apps represent third\x11party voice or video calls inside Slack by creating a \x1Ccall\x1D object with a join URL and metadata, so users see a rich call message with a Join button, status, and participant list in channels or DMs. Through endpoints to create, update, and end calls\x14and to add or remove participants\x14an app can keep that call message in sync as people join or leave and as the call progresses. The API doesn\x19t handle the media itself; it\x19s for coordinating and rendering the Slack UI around calls hosted by services like Zoom or Webex, making it easy to start, find, and join those calls from Slack."
+  description: "Slack\x19s Calls API lets apps represent third\x11party voice or video calls inside Slack by creating a \x1Ccall\x1D object with a join URL and metadata, so users see a rich call message
+    with a Join button, status, and participant list in channels or DMs. Through endpoints to create, update, and end calls\x14and to add or remove participants\x14an app can keep that call message in sync
+    as people join or leave and as the call progresses. The API doesn\x19t handle the media itself; it\x19s for coordinating and rendering the Slack UI around calls hosted by services like Zoom or Webex,
+    making it easy to start, find, and join those calls from Slack."
 paths:
   /calls.add:
     post:
       tags:
-        - Add
-        - Calls
-        - Post
+      - Add
+      - Calls
+      - Post
       description: Registers a new Call.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/calls.add
       operationId: calls_add
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `calls:write`'
-          required: true
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `calls:write`'
+        required: true
+        schema:
+          type: string
       requestBody:
         content:
           application/x-www-form-urlencoded:
             schema:
               required:
-                - external_unique_id
-                - join_url
+              - external_unique_id
+              - join_url
               type: object
               properties:
                 external_unique_id:
@@ -71,8 +74,8 @@ paths:
           application/json:
             schema:
               required:
-                - external_unique_id
-                - join_url
+              - external_unique_id
+              - join_url
               type: object
               properties:
                 external_unique_id:
@@ -122,7 +125,7 @@ paths:
               schema:
                 title: Default success template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -140,7 +143,7 @@ paths:
               schema:
                 title: Default error template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -153,38 +156,41 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - calls:write
-      summary: Slack Post  Calls Add
+      - slackAuth:
+        - calls:write
+      summary: Slack Post Calls Add
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         PascalCaseOperationTags: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /calls.end:
     post:
       tags:
-        - Calls
-        - End
-        - Post
+      - Calls
+      - End
+      - Post
       description: Ends a Call.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/calls.end
       operationId: calls_end
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `calls:write`'
-          required: true
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `calls:write`'
+        required: true
+        schema:
+          type: string
       requestBody:
         content:
           application/x-www-form-urlencoded:
             schema:
               required:
-                - id
+              - id
               type: object
               properties:
                 id:
@@ -199,7 +205,7 @@ paths:
           application/json:
             schema:
               required:
-                - id
+              - id
               type: object
               properties:
                 id:
@@ -220,7 +226,7 @@ paths:
               schema:
                 title: Default success template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -238,7 +244,7 @@ paths:
               schema:
                 title: Default error template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -251,40 +257,43 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - calls:write
-      summary: Slack Post  Calls End
+      - slackAuth:
+        - calls:write
+      summary: Slack Post Calls End
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         PascalCaseOperationTags: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /calls.info:
     get:
       tags:
-        - Calls
-        - Get
-        - Info
+      - Calls
+      - Get
+      - Info
       description: Returns information about a Call.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/calls.info
       operationId: calls_info
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `calls:read`'
-          required: true
-          schema:
-            type: string
-        - name: id
-          in: query
-          description: >-
-            `id` of the Call returned by the [`calls.add`](/methods/calls.add)
-            method.
-          required: true
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `calls:read`'
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: query
+        description: >-
+          `id` of the Call returned by the [`calls.add`](/methods/calls.add)
+          method.
+        required: true
+        schema:
+          type: string
       responses:
         '200':
           description: Typical success response
@@ -293,7 +302,7 @@ paths:
               schema:
                 title: Default success template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -311,7 +320,7 @@ paths:
               schema:
                 title: Default error template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -324,40 +333,43 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - calls:read
-      summary: Slack Get  Calls Info
+      - slackAuth:
+        - calls:read
+      summary: Slack Get Calls Info
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         PascalCaseOperationTags: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /calls.participants.add:
     post:
       tags:
-        - Add
-        - Calls
-        - Participants
-        - Post
+      - Add
+      - Calls
+      - Participants
+      - Post
       description: Registers new participants added to a Call.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/calls.participants.add
       operationId: calls_participants_add
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `calls:write`'
-          required: true
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `calls:write`'
+        required: true
+        schema:
+          type: string
       requestBody:
         content:
           application/x-www-form-urlencoded:
             schema:
               required:
-                - id
-                - users
+              - id
+              - users
               type: object
               properties:
                 id:
@@ -373,8 +385,8 @@ paths:
           application/json:
             schema:
               required:
-                - id
-                - users
+              - id
+              - users
               type: object
               properties:
                 id:
@@ -396,7 +408,7 @@ paths:
               schema:
                 title: Default success template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -414,7 +426,7 @@ paths:
               schema:
                 title: Default error template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -427,40 +439,43 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - calls:write
-      summary: Slack Post  Calls Participants Add
+      - slackAuth:
+        - calls:write
+      summary: Slack Post Calls Participants Add
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         PascalCaseOperationTags: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /calls.participants.remove:
     post:
       tags:
-        - Calls
-        - Participants
-        - Post
-        - Remove
+      - Calls
+      - Participants
+      - Post
+      - Remove
       description: Registers participants removed from a Call.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/calls.participants.remove
       operationId: calls_participants_remove
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `calls:write`'
-          required: true
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `calls:write`'
+        required: true
+        schema:
+          type: string
       requestBody:
         content:
           application/x-www-form-urlencoded:
             schema:
               required:
-                - id
-                - users
+              - id
+              - users
               type: object
               properties:
                 id:
@@ -476,8 +491,8 @@ paths:
           application/json:
             schema:
               required:
-                - id
-                - users
+              - id
+              - users
               type: object
               properties:
                 id:
@@ -499,7 +514,7 @@ paths:
               schema:
                 title: Default success template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -517,7 +532,7 @@ paths:
               schema:
                 title: Default error template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -530,38 +545,41 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - calls:write
-      summary: Slack Post  Calls Participants Remove
+      - slackAuth:
+        - calls:write
+      summary: Slack Post Calls Participants Remove
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         PascalCaseOperationTags: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /calls.update:
     post:
       tags:
-        - Calls
-        - Post
-        - Update
+      - Calls
+      - Post
+      - Update
       description: Updates information about a Call.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/calls.update
       operationId: calls_update
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `calls:write`'
-          required: true
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `calls:write`'
+        required: true
+        schema:
+          type: string
       requestBody:
         content:
           application/x-www-form-urlencoded:
             schema:
               required:
-                - id
+              - id
               type: object
               properties:
                 id:
@@ -583,7 +601,7 @@ paths:
           application/json:
             schema:
               required:
-                - id
+              - id
               type: object
               properties:
                 id:
@@ -611,7 +629,7 @@ paths:
               schema:
                 title: Default success template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -629,7 +647,7 @@ paths:
               schema:
                 title: Default error template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -642,23 +660,26 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - calls:write
-      summary: Slack Post  Calls Update
+      - slackAuth:
+        - calls:write
+      summary: Slack Post Calls Update
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         PascalCaseOperationTags: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
 components:
   schemas: {}
 tags:
-  - name: Add
-  - name: Calls
-  - name: End
-  - name: Get
-  - name: Info
-  - name: Participants
-  - name: Post
-  - name: Remove
-  - name: Update
+- name: Add
+- name: Calls
+- name: End
+- name: Get
+- name: Info
+- name: Participants
+- name: Post
+- name: Remove
+- name: Update

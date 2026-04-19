@@ -17,11 +17,11 @@ paths:
   /apps.event.authorizations.list:
     get:
       tags:
-        - Applications
-        - Authorization
-        - Events
-        - Get
-        - Lists
+      - Applications
+      - Authorization
+      - Events
+      - Get
+      - Lists
       description: >-
         Get a list of authorizations for the given event context. Each
         authorization represents an app installation that the event is visible
@@ -31,25 +31,25 @@ paths:
         url: https://api.slack.com/methods/apps.event.authorizations.list
       operationId: getAppsEventAuthorizationsList
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `authorizations:read`'
-          required: true
-          schema:
-            type: string
-        - name: event_context
-          in: query
-          required: true
-          schema:
-            type: string
-        - name: cursor
-          in: query
-          schema:
-            type: string
-        - name: limit
-          in: query
-          schema:
-            type: integer
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `authorizations:read`'
+        required: true
+        schema:
+          type: string
+      - name: event_context
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: cursor
+        in: query
+        schema:
+          type: string
+      - name: limit
+        in: query
+        schema:
+          type: integer
       responses:
         '200':
           description: Typical success response
@@ -58,7 +58,7 @@ paths:
               schema:
                 title: Default success template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -81,7 +81,7 @@ paths:
               schema:
                 title: Default error template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -94,32 +94,35 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - authorizations:read
-      summary: Slack Get  Apps Event Authorizations List
+      - slackAuth:
+        - authorizations:read
+      summary: Slack Get Apps Event Authorizations List
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /apps.permissions.info:
     get:
       tags:
-        - Applications
-        - Get
-        - Info
-        - Permissions
+      - Applications
+      - Get
+      - Info
+      - Permissions
       description: Returns list of permissions this app has on a team.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/apps.permissions.info
       operationId: getAppsPermissionsInfo
       parameters:
-        - name: token
-          in: query
-          description: 'Authentication token. Requires scope: `none`'
-          schema:
-            type: string
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `none`'
+        schema:
+          type: string
       responses:
         '200':
           description: Standard success response when used with a user token
@@ -128,18 +131,18 @@ paths:
               schema:
                 title: apps.permissions.info schema
                 required:
-                  - info
-                  - ok
+                - info
+                - ok
                 type: object
                 properties:
                   info:
                     required:
-                      - app_home
-                      - channel
-                      - group
-                      - im
-                      - mpim
-                      - team
+                    - app_home
+                    - channel
+                    - group
+                    - im
+                    - mpim
+                    - team
                     type: object
                     properties:
                       app_home:
@@ -179,8 +182,8 @@ paths:
                             $ref: '#/components/schemas/objs_scopes'
                       team:
                         required:
-                          - resources
-                          - scopes
+                        - resources
+                        - scopes
                         type: object
                         properties:
                           resources:
@@ -198,20 +201,20 @@ paths:
                   app_home:
                     resources:
                       ids:
-                        - D0C0NU1Q8
-                        - D0BH95DLH
+                      - D0C0NU1Q8
+                      - D0BH95DLH
                     scopes:
-                      - chat:write
-                      - im:history
-                      - im:read
+                    - chat:write
+                    - im:history
+                    - im:read
                   channel:
                     resources:
                       excluded_ids: []
                       ids:
-                        - C061FA5PB
+                      - C061FA5PB
                       wildcard: false
                     scopes:
-                      - channels:read
+                    - channels:read
                   group:
                     resources:
                       ids: []
@@ -236,8 +239,8 @@ paths:
               schema:
                 title: apps.permissions.info error schema
                 required:
-                  - error
-                  - ok
+                - error
+                - ok
                 type: object
                 properties:
                   callstack:
@@ -246,25 +249,25 @@ paths:
                   error:
                     type: string
                     enum:
-                      - not_authed
-                      - invalid_auth
-                      - account_inactive
-                      - token_revoked
-                      - no_permission
-                      - org_login_required
-                      - user_is_bot
-                      - invalid_arg_name
-                      - invalid_array_arg
-                      - invalid_charset
-                      - invalid_form_data
-                      - invalid_post_type
-                      - missing_post_type
-                      - team_added_to_org
-                      - invalid_json
-                      - json_not_object
-                      - request_timeout
-                      - upgrade_required
-                      - fatal_error
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - token_revoked
+                    - no_permission
+                    - org_login_required
+                    - user_is_bot
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - fatal_error
                   ok:
                     $ref: '#/components/schemas/defs_ok_false'
                 additionalProperties: false
@@ -273,45 +276,48 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - none
-      summary: Slack Get  Apps Permissions Info
+      - slackAuth:
+        - none
+      summary: Slack Get Apps Permissions Info
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /apps.permissions.request:
     get:
       tags:
-        - Applications
-        - Get
-        - Permissions
-        - Requests
+      - Applications
+      - Get
+      - Permissions
+      - Requests
       description: Allows an app to request additional scopes
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/apps.permissions.request
       operationId: getAppsPermissionsRequest
       parameters:
-        - name: token
-          in: query
-          description: 'Authentication token. Requires scope: `none`'
-          required: true
-          schema:
-            type: string
-        - name: scopes
-          in: query
-          description: A comma separated list of scopes to request for
-          required: true
-          schema:
-            type: string
-        - name: trigger_id
-          in: query
-          description: Token used to trigger the permissions API
-          required: true
-          schema:
-            type: string
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `none`'
+        required: true
+        schema:
+          type: string
+      - name: scopes
+        in: query
+        description: A comma separated list of scopes to request for
+        required: true
+        schema:
+          type: string
+      - name: trigger_id
+        in: query
+        description: Token used to trigger the permissions API
+        required: true
+        schema:
+          type: string
       responses:
         '200':
           description: Standard success response when used with a user token
@@ -320,7 +326,7 @@ paths:
               schema:
                 title: apps.permissions.request schema
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -338,8 +344,8 @@ paths:
               schema:
                 title: apps.permissions.request error schema
                 required:
-                  - error
-                  - ok
+                - error
+                - ok
                 type: object
                 properties:
                   callstack:
@@ -348,29 +354,29 @@ paths:
                   error:
                     type: string
                     enum:
-                      - invalid_trigger
-                      - trigger_exchanged
-                      - invalid_scope
-                      - invalid_user
-                      - not_authed
-                      - invalid_auth
-                      - account_inactive
-                      - token_revoked
-                      - no_permission
-                      - org_login_required
-                      - user_is_bot
-                      - invalid_arg_name
-                      - invalid_array_arg
-                      - invalid_charset
-                      - invalid_form_data
-                      - invalid_post_type
-                      - missing_post_type
-                      - team_added_to_org
-                      - invalid_json
-                      - json_not_object
-                      - request_timeout
-                      - upgrade_required
-                      - fatal_error
+                    - invalid_trigger
+                    - trigger_exchanged
+                    - invalid_scope
+                    - invalid_user
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - token_revoked
+                    - no_permission
+                    - org_login_required
+                    - user_is_bot
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - fatal_error
                   ok:
                     $ref: '#/components/schemas/defs_ok_false'
                 additionalProperties: false
@@ -379,49 +385,52 @@ paths:
                 error: invalid_trigger_id
                 ok: false
       security:
-        - slackAuth:
-            - none
-      summary: Slack Get  Apps Permissions Request
+      - slackAuth:
+        - none
+      summary: Slack Get Apps Permissions Request
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /apps.permissions.resources.list:
     get:
       tags:
-        - Applications
-        - Get
-        - Lists
-        - Permissions
-        - Resources
+      - Applications
+      - Get
+      - Lists
+      - Permissions
+      - Resources
       description: Returns list of resource grants this app has on a team.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/apps.permissions.resources.list
       operationId: getAppsPermissionsResourcesList
       parameters:
-        - name: token
-          in: query
-          description: 'Authentication token. Requires scope: `none`'
-          required: true
-          schema:
-            type: string
-        - name: cursor
-          in: query
-          description: >-
-            Paginate through collections of data by setting the `cursor`
-            parameter to a `next_cursor` attribute returned by a previous
-            request's `response_metadata`. Default value fetches the first
-            "page" of the collection. See [pagination](/docs/pagination) for
-            more detail.
-          schema:
-            type: string
-        - name: limit
-          in: query
-          description: The maximum number of items to return.
-          schema:
-            type: integer
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `none`'
+        required: true
+        schema:
+          type: string
+      - name: cursor
+        in: query
+        description: >-
+          Paginate through collections of data by setting the `cursor`
+          parameter to a `next_cursor` attribute returned by a previous
+          request's `response_metadata`. Default value fetches the first
+          "page" of the collection. See [pagination](/docs/pagination) for
+          more detail.
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: The maximum number of items to return.
+        schema:
+          type: integer
       responses:
         '200':
           description: Typical successful paginated response
@@ -430,8 +439,8 @@ paths:
               schema:
                 title: apps.permissions.resources.list success schema
                 required:
-                  - ok
-                  - resources
+                - ok
+                - resources
                 type: object
                 properties:
                   ok:
@@ -457,12 +466,12 @@ paths:
               example:
                 ok: true
                 resources:
-                  - id: T0DES3UAN
-                    type: team
-                  - id: D024BFF1M
-                    type: app_home
-                  - id: C024BE91L
-                    type: channel
+                - id: T0DES3UAN
+                  type: team
+                - id: D024BFF1M
+                  type: app_home
+                - id: C024BE91L
+                  type: channel
                 response_metadata:
                   next_cursor: dGVhbTpDMUg5UkVTR0w=
         default:
@@ -472,8 +481,8 @@ paths:
               schema:
                 title: apps.permissions.resources.list error schema
                 required:
-                  - error
-                  - ok
+                - error
+                - ok
                 type: object
                 properties:
                   callstack:
@@ -482,26 +491,26 @@ paths:
                   error:
                     type: string
                     enum:
-                      - invalid_cursor
-                      - not_authed
-                      - invalid_auth
-                      - account_inactive
-                      - token_revoked
-                      - no_permission
-                      - org_login_required
-                      - user_is_bot
-                      - invalid_arg_name
-                      - invalid_array_arg
-                      - invalid_charset
-                      - invalid_form_data
-                      - invalid_post_type
-                      - missing_post_type
-                      - team_added_to_org
-                      - invalid_json
-                      - json_not_object
-                      - request_timeout
-                      - upgrade_required
-                      - fatal_error
+                    - invalid_cursor
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - token_revoked
+                    - no_permission
+                    - org_login_required
+                    - user_is_bot
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - fatal_error
                   ok:
                     $ref: '#/components/schemas/defs_ok_false'
                 additionalProperties: false
@@ -512,34 +521,37 @@ paths:
                 error: invalid_cursor
                 ok: false
       security:
-        - slackAuth:
-            - none
-      summary: Slack Get  Apps Permissions Resources List
+      - slackAuth:
+        - none
+      summary: Slack Get Apps Permissions Resources List
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /apps.permissions.scopes.list:
     get:
       tags:
-        - Applications
-        - Get
-        - Lists
-        - Permissions
-        - Scopes
+      - Applications
+      - Get
+      - Lists
+      - Permissions
+      - Scopes
       description: Returns list of scopes this app has on a team.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/apps.permissions.scopes.list
       operationId: getAppsPermissionsScopesList
       parameters:
-        - name: token
-          in: query
-          description: 'Authentication token. Requires scope: `none`'
-          required: true
-          schema:
-            type: string
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `none`'
+        required: true
+        schema:
+          type: string
       responses:
         '200':
           description: Typical successful paginated response
@@ -548,8 +560,8 @@ paths:
               schema:
                 title: api.permissions.scopes.list success schema
                 required:
-                  - ok
-                  - scopes
+                - ok
+                - scopes
                 type: object
                 properties:
                   ok:
@@ -565,20 +577,20 @@ paths:
                 ok: true
                 scopes:
                   app_home:
-                    - chat:write
-                    - im:history
-                    - im:read
+                  - chat:write
+                  - im:history
+                  - im:read
                   channel:
-                    - channels:history
-                    - chat:write
+                  - channels:history
+                  - chat:write
                   group:
-                    - chat:write
+                  - chat:write
                   im:
-                    - chat:write
+                  - chat:write
                   mpim:
-                    - chat:write
+                  - chat:write
                   team:
-                    - users:read
+                  - users:read
                   user: []
         default:
           description: Typical error response
@@ -587,8 +599,8 @@ paths:
               schema:
                 title: apps.permissions.scopes.list error schema
                 required:
-                  - error
-                  - ok
+                - error
+                - ok
                 type: object
                 properties:
                   callstack:
@@ -597,25 +609,25 @@ paths:
                   error:
                     type: string
                     enum:
-                      - not_authed
-                      - invalid_auth
-                      - account_inactive
-                      - token_revoked
-                      - no_permission
-                      - org_login_required
-                      - user_is_bot
-                      - invalid_arg_name
-                      - invalid_array_arg
-                      - invalid_charset
-                      - invalid_form_data
-                      - invalid_post_type
-                      - missing_post_type
-                      - team_added_to_org
-                      - invalid_json
-                      - json_not_object
-                      - request_timeout
-                      - upgrade_required
-                      - fatal_error
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - token_revoked
+                    - no_permission
+                    - org_login_required
+                    - user_is_bot
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - fatal_error
                   ok:
                     $ref: '#/components/schemas/defs_ok_false'
                 additionalProperties: false
@@ -626,22 +638,25 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - none
-      summary: Slack Get  Apps Permissions Scopes List
+      - slackAuth:
+        - none
+      summary: Slack Get Apps Permissions Scopes List
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /apps.permissions.users.list:
     get:
       tags:
-        - Applications
-        - Get
-        - Lists
-        - Permissions
-        - Users
+      - Applications
+      - Get
+      - Lists
+      - Permissions
+      - Users
       description: >-
         Returns list of user grants and corresponding scopes this app has on a
         team.
@@ -650,27 +665,27 @@ paths:
         url: https://api.slack.com/methods/apps.permissions.users.list
       operationId: getAppsPermissionsUsersList
       parameters:
-        - name: token
-          in: query
-          description: 'Authentication token. Requires scope: `none`'
-          required: true
-          schema:
-            type: string
-        - name: cursor
-          in: query
-          description: >-
-            Paginate through collections of data by setting the `cursor`
-            parameter to a `next_cursor` attribute returned by a previous
-            request's `response_metadata`. Default value fetches the first
-            "page" of the collection. See [pagination](/docs/pagination) for
-            more detail.
-          schema:
-            type: string
-        - name: limit
-          in: query
-          description: The maximum number of items to return.
-          schema:
-            type: integer
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `none`'
+        required: true
+        schema:
+          type: string
+      - name: cursor
+        in: query
+        description: >-
+          Paginate through collections of data by setting the `cursor`
+          parameter to a `next_cursor` attribute returned by a previous
+          request's `response_metadata`. Default value fetches the first
+          "page" of the collection. See [pagination](/docs/pagination) for
+          more detail.
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: The maximum number of items to return.
+        schema:
+          type: integer
       responses:
         '200':
           description: Typical successful paginated response
@@ -679,7 +694,7 @@ paths:
               schema:
                 title: Default success template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -691,13 +706,13 @@ paths:
               example:
                 ok: true
                 resources:
-                  - id: U0DES3UAN
-                    scopes:
-                      - dnd:write:user
-                      - reminders:write:user
-                  - id: U024BFF1M
-                    scopes:
-                      - reminders:write:user
+                - id: U0DES3UAN
+                  scopes:
+                  - dnd:write:user
+                  - reminders:write:user
+                - id: U024BFF1M
+                  scopes:
+                  - reminders:write:user
                 response_metadata:
                   next_cursor: dGVhbTdPMUg5UkFTT0w=
         default:
@@ -707,7 +722,7 @@ paths:
               schema:
                 title: Default error template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -720,22 +735,25 @@ paths:
                 error: invalid_cursor
                 ok: false
       security:
-        - slackAuth:
-            - none
-      summary: Slack Get  Apps Permissions Users List
+      - slackAuth:
+        - none
+      summary: Slack Get Apps Permissions Users List
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /apps.permissions.users.request:
     get:
       tags:
-        - Applications
-        - Get
-        - Permissions
-        - Requests
-        - Users
+      - Applications
+      - Get
+      - Permissions
+      - Requests
+      - Users
       description: >-
         Enables an app to trigger a permissions modal to grant an app access to
         a user access scope.
@@ -744,30 +762,30 @@ paths:
         url: https://api.slack.com/methods/apps.permissions.users.request
       operationId: getAppsPermissionsUsersRequest
       parameters:
-        - name: token
-          in: query
-          description: 'Authentication token. Requires scope: `none`'
-          required: true
-          schema:
-            type: string
-        - name: scopes
-          in: query
-          description: A comma separated list of user scopes to request for
-          required: true
-          schema:
-            type: string
-        - name: trigger_id
-          in: query
-          description: Token used to trigger the request
-          required: true
-          schema:
-            type: string
-        - name: user
-          in: query
-          description: The user this scope is being requested for
-          required: true
-          schema:
-            type: string
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `none`'
+        required: true
+        schema:
+          type: string
+      - name: scopes
+        in: query
+        description: A comma separated list of user scopes to request for
+        required: true
+        schema:
+          type: string
+      - name: trigger_id
+        in: query
+        description: Token used to trigger the request
+        required: true
+        schema:
+          type: string
+      - name: user
+        in: query
+        description: The user this scope is being requested for
+        required: true
+        schema:
+          type: string
       responses:
         '200':
           description: Standard success response when used with a user token
@@ -776,7 +794,7 @@ paths:
               schema:
                 title: Default success template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -794,7 +812,7 @@ paths:
               schema:
                 title: Default error template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -807,41 +825,44 @@ paths:
                 error: invalid_trigger_id
                 ok: false
       security:
-        - slackAuth:
-            - none
-      summary: Slack Get  Apps Permissions Users Request
+      - slackAuth:
+        - none
+      summary: Slack Get Apps Permissions Users Request
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /apps.uninstall:
     get:
       tags:
-        - Applications
-        - Get
-        - Uninstall
+      - Applications
+      - Get
+      - Uninstall
       description: Uninstalls your app from a workspace.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/apps.uninstall
       operationId: getAppsUninstall
       parameters:
-        - name: token
-          in: query
-          description: 'Authentication token. Requires scope: `none`'
-          schema:
-            type: string
-        - name: client_id
-          in: query
-          description: Issued when you created your application.
-          schema:
-            type: string
-        - name: client_secret
-          in: query
-          description: Issued when you created your application.
-          schema:
-            type: string
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `none`'
+        schema:
+          type: string
+      - name: client_id
+        in: query
+        description: Issued when you created your application.
+        schema:
+          type: string
+      - name: client_secret
+        in: query
+        description: Issued when you created your application.
+        schema:
+          type: string
       responses:
         '200':
           description: Typical success response
@@ -850,7 +871,7 @@ paths:
               schema:
                 title: apps.uninstall schema
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -866,8 +887,8 @@ paths:
               schema:
                 title: apps.uninstall error schema
                 required:
-                  - error
-                  - ok
+                - error
+                - ok
                 type: object
                 properties:
                   callstack:
@@ -876,28 +897,28 @@ paths:
                   error:
                     type: string
                     enum:
-                      - invalid_client_id
-                      - bad_client_secret
-                      - client_id_token_mismatch
-                      - not_authed
-                      - invalid_auth
-                      - account_inactive
-                      - token_revoked
-                      - no_permission
-                      - org_login_required
-                      - user_is_bot
-                      - invalid_arg_name
-                      - invalid_array_arg
-                      - invalid_charset
-                      - invalid_form_data
-                      - invalid_post_type
-                      - missing_post_type
-                      - team_added_to_org
-                      - invalid_json
-                      - json_not_object
-                      - request_timeout
-                      - upgrade_required
-                      - fatal_error
+                    - invalid_client_id
+                    - bad_client_secret
+                    - client_id_token_mismatch
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - token_revoked
+                    - no_permission
+                    - org_login_required
+                    - user_is_bot
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - fatal_error
                   ok:
                     $ref: '#/components/schemas/defs_ok_false'
                 additionalProperties: false
@@ -906,26 +927,29 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - none
-      summary: Slack Get  Apps Uninstall
+      - slackAuth:
+        - none
+      summary: Slack Get Apps Uninstall
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
 components:
   schemas: {}
 tags:
-  - name: Applications
-  - name: Authorization
-  - name: Events
-  - name: Get
-  - name: Info
-  - name: Lists
-  - name: Permissions
-  - name: Requests
-  - name: Resources
-  - name: Scopes
-  - name: Uninstall
-  - name: Users
+- name: Applications
+- name: Authorization
+- name: Events
+- name: Get
+- name: Info
+- name: Lists
+- name: Permissions
+- name: Requests
+- name: Resources
+- name: Scopes
+- name: Uninstall
+- name: Users

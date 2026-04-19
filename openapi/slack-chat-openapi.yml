@@ -17,20 +17,20 @@ paths:
   /chat.delete:
     post:
       tags:
-        - Chat
-        - Deletes
-        - Post
+      - Chat
+      - Deletes
+      - Post
       description: Deletes a message.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/chat.delete
       operationId: postChatDelete
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `chat:write`'
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `chat:write`'
+        schema:
+          type: string
       requestBody:
         content:
           application/x-www-form-urlencoded:
@@ -75,9 +75,9 @@ paths:
               schema:
                 title: chat.delete success schema
                 required:
-                  - channel
-                  - ok
-                  - ts
+                - channel
+                - ok
+                - ts
                 type: object
                 properties:
                   channel:
@@ -99,8 +99,8 @@ paths:
               schema:
                 title: chat.delete error schema
                 required:
-                  - error
-                  - ok
+                - error
+                - ok
                 type: object
                 properties:
                   callstack:
@@ -109,27 +109,27 @@ paths:
                   error:
                     type: string
                     enum:
-                      - message_not_found
-                      - channel_not_found
-                      - cant_delete_message
-                      - compliance_exports_prevent_deletion
-                      - not_authed
-                      - invalid_auth
-                      - account_inactive
-                      - token_revoked
-                      - no_permission
-                      - invalid_arg_name
-                      - invalid_array_arg
-                      - invalid_charset
-                      - invalid_form_data
-                      - invalid_post_type
-                      - missing_post_type
-                      - team_added_to_org
-                      - invalid_json
-                      - json_not_object
-                      - request_timeout
-                      - upgrade_required
-                      - fatal_error
+                    - message_not_found
+                    - channel_not_found
+                    - cant_delete_message
+                    - compliance_exports_prevent_deletion
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - token_revoked
+                    - no_permission
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - fatal_error
                   ok:
                     $ref: '#/components/schemas/defs_ok_false'
                 additionalProperties: false
@@ -138,39 +138,42 @@ paths:
                 error: message_not_found
                 ok: false
       security:
-        - slackAuth:
-            - chat:write:user
-            - chat:write:bot
-      summary: Slack Post  Chat Delete
+      - slackAuth:
+        - chat:write:user
+        - chat:write:bot
+      summary: Slack Post Chat Delete
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /chat.deleteScheduledMessage:
     post:
       tags:
-        - Chat
-        - Post
+      - Chat
+      - Post
       description: Deletes a pending scheduled message from the queue.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/chat.deleteScheduledMessage
       operationId: postChatDeletescheduledmessage
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `chat:write`'
-          required: true
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `chat:write`'
+        required: true
+        schema:
+          type: string
       requestBody:
         content:
           application/x-www-form-urlencoded:
             schema:
               required:
-                - channel
-                - scheduled_message_id
+              - channel
+              - scheduled_message_id
               type: object
               properties:
                 as_user:
@@ -191,8 +194,8 @@ paths:
           application/json:
             schema:
               required:
-                - channel
-                - scheduled_message_id
+              - channel
+              - scheduled_message_id
               type: object
               properties:
                 as_user:
@@ -219,7 +222,7 @@ paths:
               schema:
                 title: chat.deleteScheduledMessage schema
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -237,8 +240,8 @@ paths:
               schema:
                 title: chat.deleteScheduledMessage error schema
                 required:
-                  - error
-                  - ok
+                - error
+                - ok
                 type: object
                 properties:
                   callstack:
@@ -247,29 +250,29 @@ paths:
                   error:
                     type: string
                     enum:
-                      - invalid_scheduled_message_id
-                      - channel_not_found
-                      - bad_token
-                      - not_authed
-                      - invalid_auth
-                      - account_inactive
-                      - token_revoked
-                      - no_permission
-                      - org_login_required
-                      - ekm_access_denied
-                      - missing_scope
-                      - invalid_arguments
-                      - invalid_arg_name
-                      - invalid_charset
-                      - invalid_form_data
-                      - invalid_post_type
-                      - missing_post_type
-                      - team_added_to_org
-                      - invalid_json
-                      - json_not_object
-                      - request_timeout
-                      - upgrade_required
-                      - fatal_error
+                    - invalid_scheduled_message_id
+                    - channel_not_found
+                    - bad_token
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - token_revoked
+                    - no_permission
+                    - org_login_required
+                    - ekm_access_denied
+                    - missing_scope
+                    - invalid_arguments
+                    - invalid_arg_name
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - fatal_error
                   ok:
                     $ref: '#/components/schemas/defs_ok_false'
                 additionalProperties: false
@@ -280,44 +283,47 @@ paths:
                 error: invalid_scheduled_message_id
                 ok: false
       security:
-        - slackAuth:
-            - chat:write:user
-            - chat:write:bot
-      summary: Slack Post  Chat Deletescheduledmessage
+      - slackAuth:
+        - chat:write:user
+        - chat:write:bot
+      summary: Slack Post Chat Deletescheduledmessage
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /chat.getPermalink:
     get:
       tags:
-        - Chat
-        - Get
+      - Chat
+      - Get
       description: Retrieve a permalink URL for a specific extant message
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/chat.getPermalink
       operationId: getChatGetpermalink
       parameters:
-        - name: token
-          in: query
-          description: 'Authentication token. Requires scope: `none`'
-          required: true
-          schema:
-            type: string
-        - name: channel
-          in: query
-          description: The ID of the conversation or channel containing the message
-          required: true
-          schema:
-            type: string
-        - name: message_ts
-          in: query
-          description: A message's `ts` value, uniquely identifying it within a channel
-          required: true
-          schema:
-            type: string
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `none`'
+        required: true
+        schema:
+          type: string
+      - name: channel
+        in: query
+        description: The ID of the conversation or channel containing the message
+        required: true
+        schema:
+          type: string
+      - name: message_ts
+        in: query
+        description: A message's `ts` value, uniquely identifying it within a channel
+        required: true
+        schema:
+          type: string
       responses:
         '200':
           description: Standard success response
@@ -326,9 +332,9 @@ paths:
               schema:
                 title: chat.getPermalink success schema
                 required:
-                  - channel
-                  - ok
-                  - permalink
+                - channel
+                - ok
+                - permalink
                 type: object
                 properties:
                   channel:
@@ -352,8 +358,8 @@ paths:
               schema:
                 title: chat.getPermalink error schema
                 required:
-                  - error
-                  - ok
+                - error
+                - ok
                 type: object
                 properties:
                   callstack:
@@ -362,26 +368,26 @@ paths:
                   error:
                     type: string
                     enum:
-                      - channel_not_found
-                      - message_not_found
-                      - not_authed
-                      - invalid_auth
-                      - account_inactive
-                      - token_revoked
-                      - no_permission
-                      - org_login_required
-                      - invalid_arg_name
-                      - invalid_array_arg
-                      - invalid_charset
-                      - invalid_form_data
-                      - invalid_post_type
-                      - missing_post_type
-                      - team_added_to_org
-                      - invalid_json
-                      - json_not_object
-                      - request_timeout
-                      - upgrade_required
-                      - fatal_error
+                    - channel_not_found
+                    - message_not_found
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - token_revoked
+                    - no_permission
+                    - org_login_required
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - fatal_error
                   ok:
                     $ref: '#/components/schemas/defs_ok_false'
                 additionalProperties: false
@@ -390,30 +396,33 @@ paths:
                 error: channel_not_found
                 ok: false
       security:
-        - slackAuth:
-            - none
-      summary: Slack Get  Chat Getpermalink
+      - slackAuth:
+        - none
+      summary: Slack Get Chat Getpermalink
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /chat.meMessage:
     post:
       tags:
-        - Chat
-        - Post
+      - Chat
+      - Post
       description: Share a me message into a channel.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/chat.meMessage
       operationId: postChatMemessage
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `chat:write`'
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `chat:write`'
+        schema:
+          type: string
       requestBody:
         content:
           application/x-www-form-urlencoded:
@@ -448,7 +457,7 @@ paths:
               schema:
                 title: chat.meMessage schema
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   channel:
@@ -470,8 +479,8 @@ paths:
               schema:
                 title: chat.meMessage error schema
                 required:
-                  - error
-                  - ok
+                - error
+                - ok
                 type: object
                 properties:
                   callstack:
@@ -480,30 +489,30 @@ paths:
                   error:
                     type: string
                     enum:
-                      - channel_not_found
-                      - not_in_channel
-                      - is_archived
-                      - msg_too_long
-                      - no_text
-                      - rate_limited
-                      - not_authed
-                      - invalid_auth
-                      - account_inactive
-                      - token_revoked
-                      - no_permission
-                      - org_login_required
-                      - invalid_arg_name
-                      - invalid_array_arg
-                      - invalid_charset
-                      - invalid_form_data
-                      - invalid_post_type
-                      - missing_post_type
-                      - team_added_to_org
-                      - invalid_json
-                      - json_not_object
-                      - request_timeout
-                      - upgrade_required
-                      - fatal_error
+                    - channel_not_found
+                    - not_in_channel
+                    - is_archived
+                    - msg_too_long
+                    - no_text
+                    - rate_limited
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - token_revoked
+                    - no_permission
+                    - org_login_required
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - fatal_error
                   ok:
                     $ref: '#/components/schemas/defs_ok_false'
                 additionalProperties: false
@@ -512,39 +521,42 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - chat:write:user
-            - chat:write:bot
-      summary: Slack Post  Chat Memessage
+      - slackAuth:
+        - chat:write:user
+        - chat:write:bot
+      summary: Slack Post Chat Memessage
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /chat.postEphemeral:
     post:
       tags:
-        - Chat
-        - Post
+      - Chat
+      - Post
       description: Sends an ephemeral message to a user in a channel.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/chat.postEphemeral
       operationId: postChatPostephemeral
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `chat:write`'
-          required: true
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `chat:write`'
+        required: true
+        schema:
+          type: string
       requestBody:
         content:
           application/x-www-form-urlencoded:
             schema:
               required:
-                - channel
-                - user
+              - channel
+              - user
               type: object
               properties:
                 as_user:
@@ -617,8 +629,8 @@ paths:
           application/json:
             schema:
               required:
-                - channel
-                - user
+              - channel
+              - user
               type: object
               properties:
                 as_user:
@@ -697,8 +709,8 @@ paths:
               schema:
                 title: chat.postEphemeral success schema
                 required:
-                  - message_ts
-                  - ok
+                - message_ts
+                - ok
                 type: object
                 properties:
                   message_ts:
@@ -717,8 +729,8 @@ paths:
               schema:
                 title: chat.postEphemeral error schema
                 required:
-                  - error
-                  - ok
+                - error
+                - ok
                 type: object
                 properties:
                   callstack:
@@ -727,31 +739,31 @@ paths:
                   error:
                     type: string
                     enum:
-                      - channel_not_found
-                      - is_archived
-                      - msg_too_long
-                      - no_text
-                      - restricted_action
-                      - too_many_attachments
-                      - user_not_in_channel
-                      - not_authed
-                      - invalid_auth
-                      - account_inactive
-                      - token_revoked
-                      - no_permission
-                      - org_login_required
-                      - invalid_arg_name
-                      - invalid_array_arg
-                      - invalid_charset
-                      - invalid_form_data
-                      - invalid_post_type
-                      - missing_post_type
-                      - team_added_to_org
-                      - invalid_json
-                      - json_not_object
-                      - request_timeout
-                      - upgrade_required
-                      - fatal_error
+                    - channel_not_found
+                    - is_archived
+                    - msg_too_long
+                    - no_text
+                    - restricted_action
+                    - too_many_attachments
+                    - user_not_in_channel
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - token_revoked
+                    - no_permission
+                    - org_login_required
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - fatal_error
                   ok:
                     $ref: '#/components/schemas/defs_ok_false'
                 additionalProperties: false
@@ -760,38 +772,41 @@ paths:
                 error: user_not_in_channel
                 ok: false
       security:
-        - slackAuth:
-            - chat:write:user
-            - chat:write:bot
-      summary: Slack Post  Chat Postephemeral
+      - slackAuth:
+        - chat:write:user
+        - chat:write:bot
+      summary: Slack Post Chat Postephemeral
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /chat.postMessage:
     post:
       tags:
-        - Chat
-        - Post
+      - Chat
+      - Post
       description: Sends a message to a channel.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/chat.postMessage
       operationId: postChatPostmessage
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `chat:write`'
-          required: true
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `chat:write`'
+        required: true
+        schema:
+          type: string
       requestBody:
         content:
           application/x-www-form-urlencoded:
             schema:
               required:
-                - channel
+              - channel
               type: object
               properties:
                 as_user:
@@ -877,7 +892,7 @@ paths:
           application/json:
             schema:
               required:
-                - channel
+              - channel
               type: object
               properties:
                 as_user:
@@ -969,10 +984,10 @@ paths:
               schema:
                 title: chat.postMessage success schema
                 required:
-                  - channel
-                  - message
-                  - ok
-                  - ts
+                - channel
+                - message
+                - ok
+                - ts
                 type: object
                 properties:
                   channel:
@@ -989,9 +1004,9 @@ paths:
                 channel: C1H9RESGL
                 message:
                   attachments:
-                    - fallback: This is an attachment's fallback
-                      id: 1
-                      text: This is an attachment
+                  - fallback: This is an attachment's fallback
+                    id: 1
+                    text: This is an attachment
                   bot_id: B19LU7CSY
                   subtype: bot_message
                   text: Here's a message for you
@@ -1007,8 +1022,8 @@ paths:
               schema:
                 title: chat.postMessage error schema
                 required:
-                  - error
-                  - ok
+                - error
+                - ok
                 type: object
                 properties:
                   callstack:
@@ -1017,22 +1032,22 @@ paths:
                   error:
                     type: string
                     enum:
-                      - channel_not_found
-                      - not_in_channel
-                      - is_archived
-                      - msg_too_long
-                      - no_text
-                      - too_many_attachments
-                      - rate_limited
-                      - not_authed
-                      - invalid_auth
-                      - account_inactive
-                      - invalid_arg_name
-                      - invalid_array_arg
-                      - invalid_charset
-                      - invalid_form_data
-                      - invalid_post_type
-                      - missing_post_type
+                    - channel_not_found
+                    - not_in_channel
+                    - is_archived
+                    - msg_too_long
+                    - no_text
+                    - too_many_attachments
+                    - rate_limited
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
                   ok:
                     $ref: '#/components/schemas/defs_ok_false'
                 additionalProperties: false
@@ -1041,31 +1056,34 @@ paths:
                 error: too_many_attachments
                 ok: false
       security:
-        - slackAuth:
-            - chat:write:user
-            - chat:write:bot
-      summary: Slack Post  Chat Postmessage
+      - slackAuth:
+        - chat:write:user
+        - chat:write:bot
+      summary: Slack Post Chat Postmessage
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /chat.scheduleMessage:
     post:
       tags:
-        - Chat
-        - Post
+      - Chat
+      - Post
       description: Schedules a message to be sent to a channel.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/chat.scheduleMessage
       operationId: postChatSchedulemessage
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `chat:write`'
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `chat:write`'
+        schema:
+          type: string
       requestBody:
         content:
           application/x-www-form-urlencoded:
@@ -1202,11 +1220,11 @@ paths:
               schema:
                 title: chat.scheduleMessage success schema
                 required:
-                  - channel
-                  - message
-                  - ok
-                  - post_at
-                  - scheduled_message_id
+                - channel
+                - message
+                - ok
+                - post_at
+                - scheduled_message_id
                 type: object
                 properties:
                   channel:
@@ -1228,9 +1246,9 @@ paths:
                 channel: C1H9RESGL
                 message:
                   attachments:
-                    - fallback: This is an attachment's fallback
-                      id: 1
-                      text: This is an attachment
+                  - fallback: This is an attachment's fallback
+                    id: 1
+                    text: This is an attachment
                   bot_id: B19LU7CSY
                   subtype: bot_message
                   text: Here's a message for you in the future
@@ -1248,8 +1266,8 @@ paths:
               schema:
                 title: chat.scheduleMessage error schema
                 required:
-                  - error
-                  - ok
+                - error
+                - ok
                 type: object
                 properties:
                   callstack:
@@ -1258,40 +1276,40 @@ paths:
                   error:
                     type: string
                     enum:
-                      - invalid_time
-                      - time_in_past
-                      - time_too_far
-                      - channel_not_found
-                      - not_in_channel
-                      - is_archived
-                      - msg_too_long
-                      - no_text
-                      - restricted_action
-                      - restricted_action_read_only_channel
-                      - restricted_action_thread_only_channel
-                      - restricted_action_non_threadable_channel
-                      - too_many_attachments
-                      - rate_limited
-                      - not_authed
-                      - invalid_auth
-                      - account_inactive
-                      - token_revoked
-                      - no_permission
-                      - org_login_required
-                      - ekm_access_denied
-                      - missing_scope
-                      - invalid_arguments
-                      - invalid_arg_name
-                      - invalid_charset
-                      - invalid_form_data
-                      - invalid_post_type
-                      - missing_post_type
-                      - team_added_to_org
-                      - invalid_json
-                      - json_not_object
-                      - request_timeout
-                      - upgrade_required
-                      - fatal_error
+                    - invalid_time
+                    - time_in_past
+                    - time_too_far
+                    - channel_not_found
+                    - not_in_channel
+                    - is_archived
+                    - msg_too_long
+                    - no_text
+                    - restricted_action
+                    - restricted_action_read_only_channel
+                    - restricted_action_thread_only_channel
+                    - restricted_action_non_threadable_channel
+                    - too_many_attachments
+                    - rate_limited
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - token_revoked
+                    - no_permission
+                    - org_login_required
+                    - ekm_access_denied
+                    - missing_scope
+                    - invalid_arguments
+                    - invalid_arg_name
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - fatal_error
                   ok:
                     $ref: '#/components/schemas/defs_ok_false'
                 additionalProperties: false
@@ -1300,60 +1318,63 @@ paths:
                 error: time_in_past
                 ok: false
       security:
-        - slackAuth:
-            - chat:write:user
-            - chat:write:bot
-      summary: Slack Post  Chat Schedulemessage
+      - slackAuth:
+        - chat:write:user
+        - chat:write:bot
+      summary: Slack Post Chat Schedulemessage
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /chat.scheduledMessages.list:
     get:
       tags:
-        - Chat
-        - Get
-        - Lists
+      - Chat
+      - Get
+      - Lists
       description: Returns a list of scheduled messages.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/chat.scheduledMessages.list
       operationId: getChatScheduledmessagesList
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `none`'
-          schema:
-            type: string
-        - name: channel
-          in: query
-          description: The channel of the scheduled messages
-          schema:
-            type: string
-        - name: latest
-          in: query
-          description: A UNIX timestamp of the latest value in the time range
-          schema:
-            type: number
-        - name: oldest
-          in: query
-          description: A UNIX timestamp of the oldest value in the time range
-          schema:
-            type: number
-        - name: limit
-          in: query
-          description: Maximum number of original entries to return.
-          schema:
-            type: integer
-        - name: cursor
-          in: query
-          description: >-
-            For pagination purposes, this is the `cursor` value returned from a
-            previous call to `chat.scheduledmessages.list` indicating where you
-            want to start this call from.
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `none`'
+        schema:
+          type: string
+      - name: channel
+        in: query
+        description: The channel of the scheduled messages
+        schema:
+          type: string
+      - name: latest
+        in: query
+        description: A UNIX timestamp of the latest value in the time range
+        schema:
+          type: number
+      - name: oldest
+        in: query
+        description: A UNIX timestamp of the oldest value in the time range
+        schema:
+          type: number
+      - name: limit
+        in: query
+        description: Maximum number of original entries to return.
+        schema:
+          type: integer
+      - name: cursor
+        in: query
+        description: >-
+          For pagination purposes, this is the `cursor` value returned from a
+          previous call to `chat.scheduledmessages.list` indicating where you
+          want to start this call from.
+        schema:
+          type: string
       responses:
         '200':
           description: Typical success response
@@ -1362,9 +1383,9 @@ paths:
               schema:
                 title: chat.scheduledMessages.list schema
                 required:
-                  - ok
-                  - response_metadata
-                  - scheduled_messages
+                - ok
+                - response_metadata
+                - scheduled_messages
                 type: object
                 properties:
                   ok:
@@ -1386,11 +1407,11 @@ paths:
                 response_metadata:
                   next_cursor: ''
                 scheduled_messages:
-                  - channel_id: C1H9RESGL
-                    date_created: 1551891734
-                    id: 1298393284
-                    post_at: 1551991428
-                    text: Here's a message for you in the future
+                - channel_id: C1H9RESGL
+                  date_created: 1551891734
+                  id: 1298393284
+                  post_at: 1551991428
+                  text: Here's a message for you in the future
         default:
           description: Typical error response if the channel passed is invalid
           content:
@@ -1398,8 +1419,8 @@ paths:
               schema:
                 title: chat.scheduledMessages.list error schema
                 required:
-                  - error
-                  - ok
+                - error
+                - ok
                 type: object
                 properties:
                   callstack:
@@ -1408,27 +1429,27 @@ paths:
                   error:
                     type: string
                     enum:
-                      - invalid_channel
-                      - not_authed
-                      - invalid_auth
-                      - account_inactive
-                      - token_revoked
-                      - no_permission
-                      - org_login_required
-                      - ekm_access_denied
-                      - missing_scope
-                      - invalid_arguments
-                      - invalid_arg_name
-                      - invalid_charset
-                      - invalid_form_data
-                      - invalid_post_type
-                      - missing_post_type
-                      - team_added_to_org
-                      - invalid_json
-                      - json_not_object
-                      - request_timeout
-                      - upgrade_required
-                      - fatal_error
+                    - invalid_channel
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - token_revoked
+                    - no_permission
+                    - org_login_required
+                    - ekm_access_denied
+                    - missing_scope
+                    - invalid_arguments
+                    - invalid_arg_name
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - fatal_error
                   ok:
                     $ref: '#/components/schemas/defs_ok_false'
                 additionalProperties: false
@@ -1439,39 +1460,42 @@ paths:
                 error: invalid_channel
                 ok: false
       security:
-        - slackAuth:
-            - none
-      summary: Slack Get  Chat Scheduledmessages List
+      - slackAuth:
+        - none
+      summary: Slack Get Chat Scheduledmessages List
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /chat.unfurl:
     post:
       tags:
-        - Chat
-        - Post
-        - Unfurl
+      - Chat
+      - Post
+      - Unfurl
       description: Provide custom unfurl behavior for user-posted URLs
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/chat.unfurl
       operationId: postChatUnfurl
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `links:write`'
-          required: true
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `links:write`'
+        required: true
+        schema:
+          type: string
       requestBody:
         content:
           application/x-www-form-urlencoded:
             schema:
               required:
-                - channel
-                - ts
+              - channel
+              - ts
               type: object
               properties:
                 channel:
@@ -1506,8 +1530,8 @@ paths:
           application/json:
             schema:
               required:
-                - channel
-                - ts
+              - channel
+              - ts
               type: object
               properties:
                 channel:
@@ -1548,7 +1572,7 @@ paths:
               schema:
                 title: chat.unfurl success schema
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -1564,8 +1588,8 @@ paths:
               schema:
                 title: chat.unfurl error schema
                 required:
-                  - error
-                  - ok
+                - error
+                - ok
                 type: object
                 properties:
                   callstack:
@@ -1574,29 +1598,29 @@ paths:
                   error:
                     type: string
                     enum:
-                      - cannot_unfurl_url
-                      - cannot_find_service
-                      - missing_unfurls
-                      - cannot_prompt
-                      - not_authed
-                      - invalid_auth
-                      - account_inactive
-                      - token_revoked
-                      - no_permission
-                      - org_login_required
-                      - user_is_bot
-                      - invalid_arg_name
-                      - invalid_array_arg
-                      - invalid_charset
-                      - invalid_form_data
-                      - invalid_post_type
-                      - missing_post_type
-                      - team_added_to_org
-                      - invalid_json
-                      - json_not_object
-                      - request_timeout
-                      - upgrade_required
-                      - fatal_error
+                    - cannot_unfurl_url
+                    - cannot_find_service
+                    - missing_unfurls
+                    - cannot_prompt
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - token_revoked
+                    - no_permission
+                    - org_login_required
+                    - user_is_bot
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - fatal_error
                   ok:
                     $ref: '#/components/schemas/defs_ok_false'
                 additionalProperties: false
@@ -1605,39 +1629,42 @@ paths:
                 error: cannot_unfurl_url
                 ok: false
       security:
-        - slackAuth:
-            - links:write
-      summary: Slack Post  Chat Unfurl
+      - slackAuth:
+        - links:write
+      summary: Slack Post Chat Unfurl
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /chat.update:
     post:
       tags:
-        - Chat
-        - Post
-        - Update
+      - Chat
+      - Post
+      - Update
       description: Updates a message.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/chat.update
       operationId: postChatUpdate
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `chat:write`'
-          required: true
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `chat:write`'
+        required: true
+        schema:
+          type: string
       requestBody:
         content:
           application/x-www-form-urlencoded:
             schema:
               required:
-                - channel
-                - ts
+              - channel
+              - ts
               type: object
               properties:
                 as_user:
@@ -1693,8 +1720,8 @@ paths:
           application/json:
             schema:
               required:
-                - channel
-                - ts
+              - channel
+              - ts
               type: object
               properties:
                 as_user:
@@ -1756,11 +1783,11 @@ paths:
               schema:
                 title: chat.update success schema
                 required:
-                  - channel
-                  - message
-                  - ok
-                  - text
-                  - ts
+                - channel
+                - message
+                - ok
+                - text
+                - ts
                 type: object
                 properties:
                   channel:
@@ -1768,7 +1795,7 @@ paths:
                   message:
                     title: Message object
                     required:
-                      - text
+                    - text
                     type: object
                     properties:
                       attachments:
@@ -1804,8 +1831,8 @@ paths:
               schema:
                 title: chat.update error schema
                 required:
-                  - error
-                  - ok
+                - error
+                - ok
                 type: object
                 properties:
                   callstack:
@@ -1814,31 +1841,31 @@ paths:
                   error:
                     type: string
                     enum:
-                      - message_not_found
-                      - cant_update_message
-                      - channel_not_found
-                      - edit_window_closed
-                      - msg_too_long
-                      - too_many_attachments
-                      - rate_limited
-                      - no_text
-                      - not_authed
-                      - invalid_auth
-                      - account_inactive
-                      - token_revoked
-                      - no_permission
-                      - invalid_arg_name
-                      - invalid_array_arg
-                      - invalid_charset
-                      - invalid_form_data
-                      - invalid_post_type
-                      - missing_post_type
-                      - request_timeout
-                      - invalid_json
-                      - json_not_object
-                      - upgrade_required
-                      - fatal_error
-                      - is_inactive
+                    - message_not_found
+                    - cant_update_message
+                    - channel_not_found
+                    - edit_window_closed
+                    - msg_too_long
+                    - too_many_attachments
+                    - rate_limited
+                    - no_text
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - token_revoked
+                    - no_permission
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - request_timeout
+                    - invalid_json
+                    - json_not_object
+                    - upgrade_required
+                    - fatal_error
+                    - is_inactive
                   ok:
                     $ref: '#/components/schemas/defs_ok_false'
                 additionalProperties: false
@@ -1847,22 +1874,25 @@ paths:
                 error: cant_update_message
                 ok: false
       security:
-        - slackAuth:
-            - chat:write:user
-            - chat:write:bot
-      summary: Slack Post  Chat Update
+      - slackAuth:
+        - chat:write:user
+        - chat:write:bot
+      summary: Slack Post Chat Update
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
 components:
   schemas: {}
 tags:
-  - name: Chat
-  - name: Deletes
-  - name: Get
-  - name: Lists
-  - name: Post
-  - name: Unfurl
-  - name: Update
+- name: Chat
+- name: Deletes
+- name: Get
+- name: Lists
+- name: Post
+- name: Unfurl
+- name: Update

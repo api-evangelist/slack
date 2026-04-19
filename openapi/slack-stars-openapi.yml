@@ -1,25 +1,28 @@
 openapi: 3.1.0
 info:
   title: Slack Stars API
-  description: "The Slack Stars API is a set of Web API methods that let apps manage a user\x19s starred items\x14Slack\x19s legacy personal bookmarking feature. It allows adding or removing a star on items such as messages (via channel and timestamp), files, and file comments, and listing all items a user has starred, typically with pagination and basic metadata. Stars are user-specific and don\x19t alter the underlying content; they simply mark things for quick reference. Note that Slack has moved toward Saved items and other mechanisms in the client, and the stars.* methods have been deprecated, so availability and support may be limited."
+  description: "The Slack Stars API is a set of Web API methods that let apps manage a user\x19s starred items\x14Slack\x19s legacy personal bookmarking feature. It allows adding or removing a star on items
+    such as messages (via channel and timestamp), files, and file comments, and listing all items a user has starred, typically with pagination and basic metadata. Stars are user-specific and don\x19t alter
+    the underlying content; they simply mark things for quick reference. Note that Slack has moved toward Saved items and other mechanisms in the client, and the stars.* methods have been deprecated, so
+    availability and support may be limited."
 paths:
   /stars.add:
     post:
       tags:
-        - Add
-        - Post
+      - Add
+      - Post
       description: Adds a star to an item.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/stars.add
       operationId: postStarsAdd
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `stars:write`'
-          required: true
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `stars:write`'
+        required: true
+        schema:
+          type: string
       requestBody:
         content:
           application/x-www-form-urlencoded:
@@ -66,7 +69,7 @@ paths:
               schema:
                 title: stars.add schema
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -82,8 +85,8 @@ paths:
               schema:
                 title: stars.add error schema
                 required:
-                  - error
-                  - ok
+                - error
+                - ok
                 type: object
                 properties:
                   callstack:
@@ -92,31 +95,31 @@ paths:
                   error:
                     type: string
                     enum:
-                      - bad_timestamp
-                      - message_not_found
-                      - file_not_found
-                      - file_comment_not_found
-                      - channel_not_found
-                      - no_item_specified
-                      - already_starred
-                      - not_authed
-                      - invalid_auth
-                      - account_inactive
-                      - token_revoked
-                      - no_permission
-                      - org_login_required
-                      - invalid_arg_name
-                      - invalid_array_arg
-                      - invalid_charset
-                      - invalid_form_data
-                      - invalid_post_type
-                      - missing_post_type
-                      - team_added_to_org
-                      - invalid_json
-                      - json_not_object
-                      - request_timeout
-                      - upgrade_required
-                      - fatal_error
+                    - bad_timestamp
+                    - message_not_found
+                    - file_not_found
+                    - file_comment_not_found
+                    - channel_not_found
+                    - no_item_specified
+                    - already_starred
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - token_revoked
+                    - no_permission
+                    - org_login_required
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - fatal_error
                   ok:
                     $ref: '#/components/schemas/defs_ok_false'
                 additionalProperties: false
@@ -125,56 +128,59 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - stars:write
-      summary: Slack Post  Stars Add
+      - slackAuth:
+        - stars:write
+      summary: Slack Post Stars Add
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /stars.list:
     get:
       tags:
-        - Get
-        - Lists
+      - Get
+      - Lists
       description: Lists stars for a user.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/stars.list
       operationId: getStarsList
       parameters:
-        - name: token
-          in: query
-          description: 'Authentication token. Requires scope: `stars:read`'
-          schema:
-            type: string
-        - name: count
-          in: query
-          schema:
-            type: string
-        - name: page
-          in: query
-          schema:
-            type: string
-        - name: cursor
-          in: query
-          description: >-
-            Parameter for pagination. Set `cursor` equal to the `next_cursor`
-            attribute returned by the previous request's `response_metadata`.
-            This parameter is optional, but pagination is mandatory: the default
-            value simply fetches the first "page" of the collection. See
-            [pagination](/docs/pagination) for more details.
-          schema:
-            type: string
-        - name: limit
-          in: query
-          description: >-
-            The maximum number of items to return. Fewer than the requested
-            number of items may be returned, even if the end of the list hasn't
-            been reached.
-          schema:
-            type: integer
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `stars:read`'
+        schema:
+          type: string
+      - name: count
+        in: query
+        schema:
+          type: string
+      - name: page
+        in: query
+        schema:
+          type: string
+      - name: cursor
+        in: query
+        description: >-
+          Parameter for pagination. Set `cursor` equal to the `next_cursor`
+          attribute returned by the previous request's `response_metadata`.
+          This parameter is optional, but pagination is mandatory: the default
+          value simply fetches the first "page" of the collection. See
+          [pagination](/docs/pagination) for more details.
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: >-
+          The maximum number of items to return. Fewer than the requested
+          number of items may be returned, even if the end of the list hasn't
+          been reached.
+        schema:
+          type: integer
       responses:
         '200':
           description: Typical success response
@@ -183,8 +189,8 @@ paths:
               schema:
                 title: stars.list schema
                 required:
-                  - items
-                  - ok
+                - items
+                - ok
                 type: object
                 properties:
                   items:
@@ -206,8 +212,8 @@ paths:
               schema:
                 title: stars.list error schema
                 required:
-                  - error
-                  - ok
+                - error
+                - ok
                 type: object
                 properties:
                   callstack:
@@ -216,25 +222,25 @@ paths:
                   error:
                     type: string
                     enum:
-                      - not_authed
-                      - invalid_auth
-                      - account_inactive
-                      - token_revoked
-                      - no_permission
-                      - org_login_required
-                      - user_is_bot
-                      - invalid_arg_name
-                      - invalid_array_arg
-                      - invalid_charset
-                      - invalid_form_data
-                      - invalid_post_type
-                      - missing_post_type
-                      - team_added_to_org
-                      - invalid_json
-                      - json_not_object
-                      - request_timeout
-                      - upgrade_required
-                      - fatal_error
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - token_revoked
+                    - no_permission
+                    - org_login_required
+                    - user_is_bot
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - fatal_error
                   ok:
                     $ref: '#/components/schemas/defs_ok_false'
                 additionalProperties: false
@@ -243,31 +249,34 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - stars:read
-      summary: Slack Get  Stars List
+      - slackAuth:
+        - stars:read
+      summary: Slack Get Stars List
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /stars.remove:
     post:
       tags:
-        - Post
-        - Remove
+      - Post
+      - Remove
       description: Removes a star from an item.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/stars.remove
       operationId: postStarsRemove
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `stars:write`'
-          required: true
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `stars:write`'
+        required: true
+        schema:
+          type: string
       requestBody:
         content:
           application/x-www-form-urlencoded:
@@ -314,7 +323,7 @@ paths:
               schema:
                 title: stars.remove schema
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -330,8 +339,8 @@ paths:
               schema:
                 title: stars.remove error schema
                 required:
-                  - error
-                  - ok
+                - error
+                - ok
                 type: object
                 properties:
                   callstack:
@@ -340,31 +349,31 @@ paths:
                   error:
                     type: string
                     enum:
-                      - bad_timestamp
-                      - message_not_found
-                      - file_not_found
-                      - file_comment_not_found
-                      - channel_not_found
-                      - no_item_specified
-                      - not_starred
-                      - not_authed
-                      - invalid_auth
-                      - account_inactive
-                      - token_revoked
-                      - no_permission
-                      - org_login_required
-                      - invalid_arg_name
-                      - invalid_array_arg
-                      - invalid_charset
-                      - invalid_form_data
-                      - invalid_post_type
-                      - missing_post_type
-                      - team_added_to_org
-                      - invalid_json
-                      - json_not_object
-                      - request_timeout
-                      - upgrade_required
-                      - fatal_error
+                    - bad_timestamp
+                    - message_not_found
+                    - file_not_found
+                    - file_comment_not_found
+                    - channel_not_found
+                    - no_item_specified
+                    - not_starred
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - token_revoked
+                    - no_permission
+                    - org_login_required
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - fatal_error
                   ok:
                     $ref: '#/components/schemas/defs_ok_false'
                 additionalProperties: false
@@ -373,19 +382,22 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - stars:write
-      summary: Slack Post  Stars Remove
+      - slackAuth:
+        - stars:write
+      summary: Slack Post Stars Remove
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
 components:
   schemas: {}
 tags:
-  - name: Add
-  - name: Get
-  - name: Lists
-  - name: Post
-  - name: Remove
+- name: Add
+- name: Get
+- name: Lists
+- name: Post
+- name: Remove

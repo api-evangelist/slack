@@ -1,25 +1,29 @@
 openapi: 3.1.0
 info:
   title: Slack Conversations API
-  description: "The Slack Conversations API is the unified Web API for working with all types of Slack conversations\x14public and private channels, direct messages, and multi-person DMs. It lets apps discover and inspect conversations, list members, and read message history and threads, as well as create, join, invite, leave, and archive channels where permissions allow. By consolidating the legacy channels.*, groups.*, im.*, and mpim.* endpoints into conversations.*, it provides consistent IDs and behavior across conversation types. It supports cursor-based pagination, filtering by conversation type, and granular OAuth scopes to ensure apps only access authorized data. Developers use it to find the right place to post, fetch context for workflows, manage membership, and build features that traverse messages and threads across a workspace (including Slack Connect channels when permitted)."
+  description: "The Slack Conversations API is the unified Web API for working with all types of Slack conversations\x14public and private channels, direct messages, and multi-person DMs. It lets apps discover
+    and inspect conversations, list members, and read message history and threads, as well as create, join, invite, leave, and archive channels where permissions allow. By consolidating the legacy channels.*,
+    groups.*, im.*, and mpim.* endpoints into conversations.*, it provides consistent IDs and behavior across conversation types. It supports cursor-based pagination, filtering by conversation type, and
+    granular OAuth scopes to ensure apps only access authorized data. Developers use it to find the right place to post, fetch context for workflows, manage membership, and build features that traverse
+    messages and threads across a workspace (including Slack Connect channels when permitted)."
 paths:
   /conversations.archive:
     post:
       tags:
-        - Archive
-        - Conversations
-        - Post
+      - Archive
+      - Conversations
+      - Post
       description: Archives a conversation.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/conversations.archive
       operationId: postConversationsArchive
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `conversations:write`'
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `conversations:write`'
+        schema:
+          type: string
       requestBody:
         content:
           application/x-www-form-urlencoded:
@@ -44,7 +48,7 @@ paths:
               schema:
                 title: conversations.archive success schema
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -60,8 +64,8 @@ paths:
               schema:
                 title: conversations.archive error schema
                 required:
-                  - error
-                  - ok
+                - error
+                - ok
                 type: object
                 properties:
                   callstack:
@@ -70,32 +74,32 @@ paths:
                   error:
                     type: string
                     enum:
-                      - method_not_supported_for_channel_type
-                      - missing_scope
-                      - not_supported
-                      - channel_not_found
-                      - already_archived
-                      - cant_archive_general
-                      - restricted_action
-                      - not_authed
-                      - invalid_auth
-                      - account_inactive
-                      - user_is_bot
-                      - user_is_restricted
-                      - user_is_ultra_restricted
-                      - invalid_arg_name
-                      - invalid_array_arg
-                      - invalid_charset
-                      - invalid_form_data
-                      - invalid_post_type
-                      - missing_post_type
-                      - invalid_json
-                      - json_not_object
-                      - request_timeout
-                      - upgrade_required
-                      - team_added_to_org
-                      - missing_charset
-                      - superfluous_charset
+                    - method_not_supported_for_channel_type
+                    - missing_scope
+                    - not_supported
+                    - channel_not_found
+                    - already_archived
+                    - cant_archive_general
+                    - restricted_action
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - user_is_bot
+                    - user_is_restricted
+                    - user_is_ultra_restricted
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - team_added_to_org
+                    - missing_charset
+                    - superfluous_charset
                   needed:
                     type: string
                   ok:
@@ -108,34 +112,37 @@ paths:
                 error: channel_not_found
                 ok: false
       security:
-        - slackAuth:
-            - channels:write
-            - groups:write
-            - im:write
-            - mpim:write
-      summary: Slack Post  Conversations Archive
+      - slackAuth:
+        - channels:write
+        - groups:write
+        - im:write
+        - mpim:write
+      summary: Slack Post Conversations Archive
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /conversations.close:
     post:
       tags:
-        - Close
-        - Conversations
-        - Post
+      - Close
+      - Conversations
+      - Post
       description: Closes a direct message or multi-person direct message.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/conversations.close
       operationId: postConversationsClose
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `conversations:write`'
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `conversations:write`'
+        schema:
+          type: string
       requestBody:
         content:
           application/x-www-form-urlencoded:
@@ -160,7 +167,7 @@ paths:
               schema:
                 title: conversations.close success schema
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   already_closed:
@@ -180,8 +187,8 @@ paths:
               schema:
                 title: conversations.close error schema
                 required:
-                  - error
-                  - ok
+                - error
+                - ok
                 type: object
                 properties:
                   callstack:
@@ -190,24 +197,24 @@ paths:
                   error:
                     type: string
                     enum:
-                      - method_not_supported_for_channel_type
-                      - channel_not_found
-                      - user_does_not_own_channel
-                      - missing_scope
-                      - not_authed
-                      - invalid_auth
-                      - account_inactive
-                      - invalid_arg_name
-                      - invalid_array_arg
-                      - invalid_charset
-                      - invalid_form_data
-                      - invalid_post_type
-                      - missing_post_type
-                      - team_added_to_org
-                      - invalid_json
-                      - json_not_object
-                      - request_timeout
-                      - upgrade_required
+                    - method_not_supported_for_channel_type
+                    - channel_not_found
+                    - user_does_not_own_channel
+                    - missing_scope
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
                   needed:
                     type: string
                   ok:
@@ -220,34 +227,37 @@ paths:
                 error: channel_not_found
                 ok: false
       security:
-        - slackAuth:
-            - channels:write
-            - groups:write
-            - im:write
-            - mpim:write
-      summary: Slack Post  Conversations Close
+      - slackAuth:
+        - channels:write
+        - groups:write
+        - im:write
+        - mpim:write
+      summary: Slack Post Conversations Close
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /conversations.create:
     post:
       tags:
-        - Conversations
-        - Create
-        - Post
+      - Conversations
+      - Create
+      - Post
       description: Initiates a public or private channel-based conversation
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/conversations.create
       operationId: postConversationsCreate
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `conversations:write`'
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `conversations:write`'
+        schema:
+          type: string
       requestBody:
         content:
           application/x-www-form-urlencoded:
@@ -280,8 +290,8 @@ paths:
               schema:
                 title: conversations.create success schema
                 required:
-                  - channel
-                  - ok
+                - channel
+                - ok
                 type: object
                 properties:
                   channel:
@@ -333,8 +343,8 @@ paths:
               schema:
                 title: conversations.create error schema
                 required:
-                  - error
-                  - ok
+                - error
+                - ok
                 type: object
                 properties:
                   callstack:
@@ -345,32 +355,32 @@ paths:
                   error:
                     type: string
                     enum:
-                      - method_not_supported_for_channel_type
-                      - missing_scope
-                      - name_taken
-                      - restricted_action
-                      - no_channel
-                      - invalid_name_required
-                      - invalid_name_punctuation
-                      - invalid_name_maxlength
-                      - invalid_name_specials
-                      - invalid_name
-                      - not_authed
-                      - invalid_auth
-                      - account_inactive
-                      - user_is_bot
-                      - user_is_restricted
-                      - invalid_arg_name
-                      - invalid_array_arg
-                      - invalid_charset
-                      - invalid_form_data
-                      - invalid_post_type
-                      - missing_post_type
-                      - team_added_to_org
-                      - invalid_json
-                      - json_not_object
-                      - request_timeout
-                      - upgrade_required
+                    - method_not_supported_for_channel_type
+                    - missing_scope
+                    - name_taken
+                    - restricted_action
+                    - no_channel
+                    - invalid_name_required
+                    - invalid_name_punctuation
+                    - invalid_name_maxlength
+                    - invalid_name_specials
+                    - invalid_name
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - user_is_bot
+                    - user_is_restricted
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
                   needed:
                     type: string
                   ok:
@@ -383,74 +393,77 @@ paths:
                 error: name_taken
                 ok: false
       security:
-        - slackAuth:
-            - channels:write
-            - groups:write
-            - im:write
-            - mpim:write
-      summary: Slack Post  Conversations Create
+      - slackAuth:
+        - channels:write
+        - groups:write
+        - im:write
+        - mpim:write
+      summary: Slack Post Conversations Create
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /conversations.history:
     get:
       tags:
-        - Conversations
-        - Get
-        - History
+      - Conversations
+      - Get
+      - History
       description: Fetches a conversation's history of messages and events.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/conversations.history
       operationId: getConversationsHistory
       parameters:
-        - name: token
-          in: query
-          description: 'Authentication token. Requires scope: `conversations:history`'
-          schema:
-            type: string
-        - name: channel
-          in: query
-          description: Conversation ID to fetch history for.
-          schema:
-            type: string
-        - name: latest
-          in: query
-          description: End of time range of messages to include in results.
-          schema:
-            type: number
-        - name: oldest
-          in: query
-          description: Start of time range of messages to include in results.
-          schema:
-            type: number
-        - name: inclusive
-          in: query
-          description: >-
-            Include messages with latest or oldest timestamp in results only
-            when either timestamp is specified.
-          schema:
-            type: boolean
-        - name: limit
-          in: query
-          description: >-
-            The maximum number of items to return. Fewer than the requested
-            number of items may be returned, even if the end of the users list
-            hasn't been reached.
-          schema:
-            type: integer
-        - name: cursor
-          in: query
-          description: >-
-            Paginate through collections of data by setting the `cursor`
-            parameter to a `next_cursor` attribute returned by a previous
-            request's `response_metadata`. Default value fetches the first
-            "page" of the collection. See [pagination](/docs/pagination) for
-            more detail.
-          schema:
-            type: string
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `conversations:history`'
+        schema:
+          type: string
+      - name: channel
+        in: query
+        description: Conversation ID to fetch history for.
+        schema:
+          type: string
+      - name: latest
+        in: query
+        description: End of time range of messages to include in results.
+        schema:
+          type: number
+      - name: oldest
+        in: query
+        description: Start of time range of messages to include in results.
+        schema:
+          type: number
+      - name: inclusive
+        in: query
+        description: >-
+          Include messages with latest or oldest timestamp in results only
+          when either timestamp is specified.
+        schema:
+          type: boolean
+      - name: limit
+        in: query
+        description: >-
+          The maximum number of items to return. Fewer than the requested
+          number of items may be returned, even if the end of the users list
+          hasn't been reached.
+        schema:
+          type: integer
+      - name: cursor
+        in: query
+        description: >-
+          Paginate through collections of data by setting the `cursor`
+          parameter to a `next_cursor` attribute returned by a previous
+          request's `response_metadata`. Default value fetches the first
+          "page" of the collection. See [pagination](/docs/pagination) for
+          more detail.
+        schema:
+          type: string
       responses:
         '200':
           description: Typical success response containing a channel's messages
@@ -459,12 +472,12 @@ paths:
               schema:
                 title: conversations.history success schema
                 required:
-                  - channel_actions_count
-                  - channel_actions_ts
-                  - has_more
-                  - messages
-                  - ok
-                  - pin_count
+                - channel_actions_count
+                - channel_actions_ts
+                - has_more
+                - messages
+                - ok
+                - pin_count
                 type: object
                 properties:
                   channel_actions_count:
@@ -490,14 +503,14 @@ paths:
               example:
                 has_more: true
                 messages:
-                  - text: I find you punny and would like to smell your nose letter
-                    ts: '1512085950.000216'
-                    type: message
-                    user: U012AB3CDE
-                  - text: What, you want to smell my shoes better?
-                    ts: '1512104434.000490'
-                    type: message
-                    user: U061F7AUR
+                - text: I find you punny and would like to smell your nose letter
+                  ts: '1512085950.000216'
+                  type: message
+                  user: U012AB3CDE
+                - text: What, you want to smell my shoes better?
+                  ts: '1512104434.000490'
+                  type: message
+                  user: U061F7AUR
                 ok: true
                 pin_count: 0
                 response_metadata:
@@ -509,8 +522,8 @@ paths:
               schema:
                 title: conversations.history error schema
                 required:
-                  - error
-                  - ok
+                - error
+                - ok
                 type: object
                 properties:
                   callstack:
@@ -519,23 +532,23 @@ paths:
                   error:
                     type: string
                     enum:
-                      - missing_scope
-                      - channel_not_found
-                      - invalid_ts_latest
-                      - invalid_ts_oldest
-                      - not_authed
-                      - invalid_auth
-                      - account_inactive
-                      - invalid_arg_name
-                      - invalid_array_arg
-                      - invalid_charset
-                      - invalid_form_data
-                      - invalid_post_type
-                      - missing_post_type
-                      - invalid_json
-                      - json_not_object
-                      - request_timeout
-                      - upgrade_required
+                    - missing_scope
+                    - channel_not_found
+                    - invalid_ts_latest
+                    - invalid_ts_oldest
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
                   needed:
                     type: string
                   ok:
@@ -548,53 +561,56 @@ paths:
                 error: channel_not_found
                 ok: false
       security:
-        - slackAuth:
-            - channels:history
-            - groups:history
-            - im:history
-            - mpim:history
-      summary: Slack Get  Conversations History
+      - slackAuth:
+        - channels:history
+        - groups:history
+        - im:history
+        - mpim:history
+      summary: Slack Get Conversations History
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /conversations.info:
     get:
       tags:
-        - Conversations
-        - Get
-        - Info
+      - Conversations
+      - Get
+      - Info
       description: Retrieve information about a conversation.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/conversations.info
       operationId: getConversationsInfo
       parameters:
-        - name: token
-          in: query
-          description: 'Authentication token. Requires scope: `conversations:read`'
-          schema:
-            type: string
-        - name: channel
-          in: query
-          description: Conversation ID to learn more about
-          schema:
-            type: string
-        - name: include_locale
-          in: query
-          description: >-
-            Set this to `true` to receive the locale for this conversation.
-            Defaults to `false`
-          schema:
-            type: boolean
-        - name: include_num_members
-          in: query
-          description: >-
-            Set to `true` to include the member count for the specified
-            conversation. Defaults to `false`
-          schema:
-            type: boolean
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `conversations:read`'
+        schema:
+          type: string
+      - name: channel
+        in: query
+        description: Conversation ID to learn more about
+        schema:
+          type: string
+      - name: include_locale
+        in: query
+        description: >-
+          Set this to `true` to receive the locale for this conversation.
+          Defaults to `false`
+        schema:
+          type: boolean
+      - name: include_num_members
+        in: query
+        description: >-
+          Set to `true` to include the member count for the specified
+          conversation. Defaults to `false`
+        schema:
+          type: boolean
       responses:
         '200':
           description: >-
@@ -606,8 +622,8 @@ paths:
               schema:
                 title: conversations.info success schema
                 required:
-                  - channel
-                  - ok
+                - channel
+                - ok
                 type: object
                 properties:
                   channel:
@@ -641,9 +657,9 @@ paths:
                   parent_conversation:
                   pending_shared: []
                   previous_names:
-                    - specifics
-                    - abstractions
-                    - etc
+                  - specifics
+                  - abstractions
+                  - etc
                   purpose:
                     creator: W012A3BCD
                     last_set: 1449709364
@@ -661,8 +677,8 @@ paths:
               schema:
                 title: conversations.info error schema
                 required:
-                  - error
-                  - ok
+                - error
+                - ok
                 type: object
                 properties:
                   callstack:
@@ -671,22 +687,22 @@ paths:
                   error:
                     type: string
                     enum:
-                      - missing_scope
-                      - channel_not_found
-                      - team_added_to_org
-                      - not_authed
-                      - invalid_auth
-                      - account_inactive
-                      - invalid_arg_name
-                      - invalid_array_arg
-                      - invalid_charset
-                      - invalid_form_data
-                      - invalid_post_type
-                      - missing_post_type
-                      - invalid_json
-                      - json_not_object
-                      - request_timeout
-                      - upgrade_required
+                    - missing_scope
+                    - channel_not_found
+                    - team_added_to_org
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
                   needed:
                     type: string
                   ok:
@@ -699,34 +715,37 @@ paths:
                 error: channel_not_found
                 ok: false
       security:
-        - slackAuth:
-            - channels:read
-            - groups:read
-            - im:read
-            - mpim:read
-      summary: Slack Get  Conversations Info
+      - slackAuth:
+        - channels:read
+        - groups:read
+        - im:read
+        - mpim:read
+      summary: Slack Get Conversations Info
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /conversations.invite:
     post:
       tags:
-        - Conversations
-        - Invites
-        - Post
+      - Conversations
+      - Invites
+      - Post
       description: Invites users to a channel.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/conversations.invite
       operationId: postConversationsInvite
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `conversations:write`'
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `conversations:write`'
+        schema:
+          type: string
       requestBody:
         content:
           application/x-www-form-urlencoded:
@@ -765,8 +784,8 @@ paths:
               schema:
                 title: conversations.invite error schema
                 required:
-                  - channel
-                  - ok
+                - channel
+                - ok
                 type: object
                 properties:
                   channel:
@@ -802,9 +821,9 @@ paths:
                   num_members: 23
                   pending_shared: []
                   previous_names:
-                    - specifics
-                    - abstractions
-                    - etc
+                  - specifics
+                  - abstractions
+                  - etc
                   purpose:
                     creator: W012A3BCD
                     last_set: 1449709364
@@ -824,7 +843,7 @@ paths:
               schema:
                 title: conversations.invite error schema
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   callstack:
@@ -833,37 +852,37 @@ paths:
                   error:
                     type: string
                     enum:
-                      - method_not_supported_for_channel_type
-                      - missing_scope
-                      - channel_not_found
-                      - user_not_found
-                      - no_user
-                      - cant_invite_self
-                      - not_in_channel
-                      - already_in_channel
-                      - is_archived
-                      - cant_invite
-                      - too_many_users
-                      - ura_max_channels
-                      - not_authed
-                      - invalid_auth
-                      - account_inactive
-                      - user_is_bot
-                      - user_is_restricted
-                      - user_is_ultra_restricted
-                      - invalid_arg_name
-                      - invalid_array_arg
-                      - invalid_charset
-                      - invalid_form_data
-                      - invalid_post_type
-                      - missing_post_type
-                      - invalid_json
-                      - json_not_object
-                      - request_timeout
-                      - upgrade_required
-                      - team_added_to_org
-                      - missing_charset
-                      - superfluous_charset
+                    - method_not_supported_for_channel_type
+                    - missing_scope
+                    - channel_not_found
+                    - user_not_found
+                    - no_user
+                    - cant_invite_self
+                    - not_in_channel
+                    - already_in_channel
+                    - is_archived
+                    - cant_invite
+                    - too_many_users
+                    - ura_max_channels
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - user_is_bot
+                    - user_is_restricted
+                    - user_is_ultra_restricted
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - team_added_to_org
+                    - missing_charset
+                    - superfluous_charset
                   errors:
                     title: errors is returned when an error associates an user
                     minItems: 1
@@ -884,34 +903,37 @@ paths:
                 error: method_not_supported_for_channel_type
                 ok: false
       security:
-        - slackAuth:
-            - channels:write
-            - groups:write
-            - im:write
-            - mpim:write
-      summary: Slack Post  Conversations Invite
+      - slackAuth:
+        - channels:write
+        - groups:write
+        - im:write
+        - mpim:write
+      summary: Slack Post Conversations Invite
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /conversations.join:
     post:
       tags:
-        - Conversations
-        - Join
-        - Post
+      - Conversations
+      - Join
+      - Post
       description: Joins an existing conversation.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/conversations.join
       operationId: postConversationsJoin
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `channels:write`'
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `channels:write`'
+        schema:
+          type: string
       requestBody:
         content:
           application/x-www-form-urlencoded:
@@ -936,8 +958,8 @@ paths:
               schema:
                 title: conversations.join success schema
                 required:
-                  - channel
-                  - ok
+                - channel
+                - ok
                 type: object
                 properties:
                   channel:
@@ -991,7 +1013,7 @@ paths:
                 ok: true
                 response_metadata:
                   warnings:
-                    - already_in_channel
+                  - already_in_channel
                 warning: already_in_channel
         default:
           description: >-
@@ -1002,8 +1024,8 @@ paths:
               schema:
                 title: conversations.join error schema
                 required:
-                  - error
-                  - ok
+                - error
+                - ok
                 type: object
                 properties:
                   callstack:
@@ -1012,29 +1034,29 @@ paths:
                   error:
                     type: string
                     enum:
-                      - method_not_supported_for_channel_type
-                      - missing_scope
-                      - channel_not_found
-                      - is_archived
-                      - not_authed
-                      - invalid_auth
-                      - account_inactive
-                      - user_is_bot
-                      - user_is_restricted
-                      - user_is_ultra_restricted
-                      - invalid_arg_name
-                      - invalid_array_arg
-                      - invalid_charset
-                      - invalid_form_data
-                      - invalid_post_type
-                      - missing_post_type
-                      - invalid_json
-                      - json_not_object
-                      - request_timeout
-                      - upgrade_required
-                      - team_added_to_org
-                      - missing_charset
-                      - superfluous_charset
+                    - method_not_supported_for_channel_type
+                    - missing_scope
+                    - channel_not_found
+                    - is_archived
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - user_is_bot
+                    - user_is_restricted
+                    - user_is_ultra_restricted
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - team_added_to_org
+                    - missing_charset
+                    - superfluous_charset
                   needed:
                     type: string
                   ok:
@@ -1047,31 +1069,34 @@ paths:
                 error: is_archived
                 ok: false
       security:
-        - slackAuth:
-            - channels:write
-      summary: Slack Post  Conversations Join
+      - slackAuth:
+        - channels:write
+      summary: Slack Post Conversations Join
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /conversations.kick:
     post:
       tags:
-        - Conversations
-        - Kick
-        - Post
+      - Conversations
+      - Kick
+      - Post
       description: Removes a user from a conversation.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/conversations.kick
       operationId: postConversationsKick
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `conversations:write`'
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `conversations:write`'
+        schema:
+          type: string
       requestBody:
         content:
           application/x-www-form-urlencoded:
@@ -1102,7 +1127,7 @@ paths:
               schema:
                 title: conversations.kick success schema
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -1120,8 +1145,8 @@ paths:
               schema:
                 title: conversations.kick error schema
                 required:
-                  - error
-                  - ok
+                - error
+                - ok
                 type: object
                 properties:
                   callstack:
@@ -1130,29 +1155,29 @@ paths:
                   error:
                     type: string
                     enum:
-                      - method_not_supported_for_channel_type
-                      - missing_scope
-                      - channel_not_found
-                      - user_not_found
-                      - cant_kick_self
-                      - not_in_channel
-                      - cant_kick_from_general
-                      - restricted_action
-                      - not_authed
-                      - invalid_auth
-                      - account_inactive
-                      - user_is_bot
-                      - user_is_restricted
-                      - invalid_arg_name
-                      - invalid_array_arg
-                      - invalid_charset
-                      - invalid_form_data
-                      - invalid_post_type
-                      - missing_post_type
-                      - invalid_json
-                      - json_not_object
-                      - request_timeout
-                      - upgrade_required
+                    - method_not_supported_for_channel_type
+                    - missing_scope
+                    - channel_not_found
+                    - user_not_found
+                    - cant_kick_self
+                    - not_in_channel
+                    - cant_kick_from_general
+                    - restricted_action
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - user_is_bot
+                    - user_is_restricted
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
                   needed:
                     type: string
                   ok:
@@ -1165,34 +1190,37 @@ paths:
                 error: cant_kick_self
                 ok: false
       security:
-        - slackAuth:
-            - channels:write
-            - groups:write
-            - im:write
-            - mpim:write
-      summary: Slack Post  Conversations Kick
+      - slackAuth:
+        - channels:write
+        - groups:write
+        - im:write
+        - mpim:write
+      summary: Slack Post Conversations Kick
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /conversations.leave:
     post:
       tags:
-        - Conversations
-        - Leave
-        - Post
+      - Conversations
+      - Leave
+      - Post
       description: Leaves a conversation.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/conversations.leave
       operationId: postConversationsLeave
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `conversations:write`'
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `conversations:write`'
+        schema:
+          type: string
       requestBody:
         content:
           application/x-www-form-urlencoded:
@@ -1217,7 +1245,7 @@ paths:
               schema:
                 title: conversations.leave success schema
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   not_in_channel:
@@ -1237,8 +1265,8 @@ paths:
               schema:
                 title: conversations.leave error schema
                 required:
-                  - error
-                  - ok
+                - error
+                - ok
                 type: object
                 properties:
                   callstack:
@@ -1247,31 +1275,31 @@ paths:
                   error:
                     type: string
                     enum:
-                      - method_not_supported_for_channel_type
-                      - last_member
-                      - missing_scope
-                      - channel_not_found
-                      - is_archived
-                      - cant_leave_general
-                      - not_authed
-                      - invalid_auth
-                      - account_inactive
-                      - user_is_bot
-                      - user_is_restricted
-                      - user_is_ultra_restricted
-                      - invalid_arg_name
-                      - invalid_array_arg
-                      - invalid_charset
-                      - invalid_form_data
-                      - invalid_post_type
-                      - missing_post_type
-                      - invalid_json
-                      - json_not_object
-                      - request_timeout
-                      - upgrade_required
-                      - team_added_to_org
-                      - missing_charset
-                      - superfluous_charset
+                    - method_not_supported_for_channel_type
+                    - last_member
+                    - missing_scope
+                    - channel_not_found
+                    - is_archived
+                    - cant_leave_general
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - user_is_bot
+                    - user_is_restricted
+                    - user_is_ultra_restricted
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - team_added_to_org
+                    - missing_charset
+                    - superfluous_charset
                   needed:
                     type: string
                   ok:
@@ -1284,64 +1312,67 @@ paths:
                 error: cant_leave_general
                 ok: false
       security:
-        - slackAuth:
-            - channels:write
-            - groups:write
-            - im:write
-            - mpim:write
-      summary: Slack Post  Conversations Leave
+      - slackAuth:
+        - channels:write
+        - groups:write
+        - im:write
+        - mpim:write
+      summary: Slack Post Conversations Leave
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /conversations.list:
     get:
       tags:
-        - Conversations
-        - Get
-        - Lists
+      - Conversations
+      - Get
+      - Lists
       description: Lists all channels in a Slack team.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/conversations.list
       operationId: getConversationsList
       parameters:
-        - name: token
-          in: query
-          description: 'Authentication token. Requires scope: `conversations:read`'
-          schema:
-            type: string
-        - name: exclude_archived
-          in: query
-          description: Set to `true` to exclude archived channels from the list
-          schema:
-            type: boolean
-        - name: types
-          in: query
-          description: >-
-            Mix and match channel types by providing a comma-separated list of
-            any combination of `public_channel`, `private_channel`, `mpim`, `im`
-          schema:
-            type: string
-        - name: limit
-          in: query
-          description: >-
-            The maximum number of items to return. Fewer than the requested
-            number of items may be returned, even if the end of the list hasn't
-            been reached. Must be an integer no larger than 1000.
-          schema:
-            type: integer
-        - name: cursor
-          in: query
-          description: >-
-            Paginate through collections of data by setting the `cursor`
-            parameter to a `next_cursor` attribute returned by a previous
-            request's `response_metadata`. Default value fetches the first
-            "page" of the collection. See [pagination](/docs/pagination) for
-            more detail.
-          schema:
-            type: string
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `conversations:read`'
+        schema:
+          type: string
+      - name: exclude_archived
+        in: query
+        description: Set to `true` to exclude archived channels from the list
+        schema:
+          type: boolean
+      - name: types
+        in: query
+        description: >-
+          Mix and match channel types by providing a comma-separated list of
+          any combination of `public_channel`, `private_channel`, `mpim`, `im`
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: >-
+          The maximum number of items to return. Fewer than the requested
+          number of items may be returned, even if the end of the list hasn't
+          been reached. Must be an integer no larger than 1000.
+        schema:
+          type: integer
+      - name: cursor
+        in: query
+        description: >-
+          Paginate through collections of data by setting the `cursor`
+          parameter to a `next_cursor` attribute returned by a previous
+          request's `response_metadata`. Default value fetches the first
+          "page" of the collection. See [pagination](/docs/pagination) for
+          more detail.
+        schema:
+          type: string
       responses:
         '200':
           description: Typical success response with only public channels
@@ -1350,8 +1381,8 @@ paths:
               schema:
                 title: conversations.list success schema
                 required:
-                  - channels
-                  - ok
+                - channels
+                - ok
                 type: object
                 properties:
                   channels:
@@ -1368,69 +1399,69 @@ paths:
                 description: Schema for successful response from conversations.list method
               example:
                 channels:
-                  - created: 1449252889
-                    creator: U012A3CDE
-                    id: C012AB3CD
-                    is_archived: false
-                    is_channel: true
-                    is_ext_shared: false
-                    is_general: true
-                    is_group: false
-                    is_im: false
-                    is_member: true
-                    is_mpim: false
-                    is_org_shared: false
-                    is_pending_ext_shared: false
-                    is_private: false
-                    is_shared: false
-                    name: general
-                    name_normalized: general
-                    num_members: 4
-                    pending_shared: []
-                    previous_names: []
-                    purpose:
-                      creator: ''
-                      last_set: 0
-                      value: >-
-                        This channel is for team-wide communication and
-                        announcements. All team members are in this channel.
-                    topic:
-                      creator: ''
-                      last_set: 0
-                      value: Company-wide announcements and work-based matters
-                    unlinked: 0
-                  - created: 1449252889
-                    creator: U061F7AUR
-                    id: C061EG9T2
-                    is_archived: false
-                    is_channel: true
-                    is_ext_shared: false
-                    is_general: false
-                    is_group: false
-                    is_im: false
-                    is_member: true
-                    is_mpim: false
-                    is_org_shared: false
-                    is_pending_ext_shared: false
-                    is_private: false
-                    is_shared: false
-                    name: random
-                    name_normalized: random
-                    num_members: 4
-                    pending_shared: []
-                    previous_names: []
-                    purpose:
-                      creator: ''
-                      last_set: 0
-                      value: >-
-                        A place for non-work-related flimflam, faffing,
-                        hodge-podge or jibber-jabber you'd prefer to keep out of
-                        more focused work-related channels.
-                    topic:
-                      creator: ''
-                      last_set: 0
-                      value: Non-work banter and water cooler conversation
-                    unlinked: 0
+                - created: 1449252889
+                  creator: U012A3CDE
+                  id: C012AB3CD
+                  is_archived: false
+                  is_channel: true
+                  is_ext_shared: false
+                  is_general: true
+                  is_group: false
+                  is_im: false
+                  is_member: true
+                  is_mpim: false
+                  is_org_shared: false
+                  is_pending_ext_shared: false
+                  is_private: false
+                  is_shared: false
+                  name: general
+                  name_normalized: general
+                  num_members: 4
+                  pending_shared: []
+                  previous_names: []
+                  purpose:
+                    creator: ''
+                    last_set: 0
+                    value: >-
+                      This channel is for team-wide communication and
+                      announcements. All team members are in this channel.
+                  topic:
+                    creator: ''
+                    last_set: 0
+                    value: Company-wide announcements and work-based matters
+                  unlinked: 0
+                - created: 1449252889
+                  creator: U061F7AUR
+                  id: C061EG9T2
+                  is_archived: false
+                  is_channel: true
+                  is_ext_shared: false
+                  is_general: false
+                  is_group: false
+                  is_im: false
+                  is_member: true
+                  is_mpim: false
+                  is_org_shared: false
+                  is_pending_ext_shared: false
+                  is_private: false
+                  is_shared: false
+                  name: random
+                  name_normalized: random
+                  num_members: 4
+                  pending_shared: []
+                  previous_names: []
+                  purpose:
+                    creator: ''
+                    last_set: 0
+                    value: >-
+                      A place for non-work-related flimflam, faffing,
+                      hodge-podge or jibber-jabber you'd prefer to keep out of
+                      more focused work-related channels.
+                  topic:
+                    creator: ''
+                    last_set: 0
+                    value: Non-work banter and water cooler conversation
+                  unlinked: 0
                 ok: true
                 response_metadata:
                   next_cursor: dGVhbTpDMDYxRkE1UEI=
@@ -1441,8 +1472,8 @@ paths:
               schema:
                 title: conversations.list error schema
                 required:
-                  - error
-                  - ok
+                - error
+                - ok
                 type: object
                 properties:
                   callstack:
@@ -1451,20 +1482,20 @@ paths:
                   error:
                     type: string
                     enum:
-                      - missing_scope
-                      - not_authed
-                      - invalid_auth
-                      - account_inactive
-                      - invalid_arg_name
-                      - invalid_array_arg
-                      - invalid_charset
-                      - invalid_form_data
-                      - invalid_post_type
-                      - missing_post_type
-                      - invalid_json
-                      - json_not_object
-                      - request_timeout
-                      - upgrade_required
+                    - missing_scope
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
                   needed:
                     type: string
                   ok:
@@ -1477,34 +1508,37 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - channels:read
-            - groups:read
-            - im:read
-            - mpim:read
-      summary: Slack Get  Conversations List
+      - slackAuth:
+        - channels:read
+        - groups:read
+        - im:read
+        - mpim:read
+      summary: Slack Get Conversations List
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /conversations.mark:
     post:
       tags:
-        - Conversations
-        - Mark
-        - Post
+      - Conversations
+      - Mark
+      - Post
       description: Sets the read cursor in a channel.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/conversations.mark
       operationId: postConversationsMark
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `conversations:write`'
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `conversations:write`'
+        schema:
+          type: string
       requestBody:
         content:
           application/x-www-form-urlencoded:
@@ -1539,7 +1573,7 @@ paths:
               schema:
                 title: conversations.mark success schema
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -1555,8 +1589,8 @@ paths:
               schema:
                 title: conversations.mark error schema
                 required:
-                  - error
-                  - ok
+                - error
+                - ok
                 type: object
                 properties:
                   callstack:
@@ -1565,25 +1599,25 @@ paths:
                   error:
                     type: string
                     enum:
-                      - method_not_supported_for_channel_type
-                      - missing_scope
-                      - channel_not_found
-                      - invalid_timestamp
-                      - not_in_channel
-                      - not_authed
-                      - invalid_auth
-                      - account_inactive
-                      - invalid_arg_name
-                      - invalid_array_arg
-                      - invalid_charset
-                      - invalid_form_data
-                      - invalid_post_type
-                      - missing_post_type
-                      - invalid_json
-                      - json_not_object
-                      - request_timeout
-                      - upgrade_required
-                      - not_allowed_token_type
+                    - method_not_supported_for_channel_type
+                    - missing_scope
+                    - channel_not_found
+                    - invalid_timestamp
+                    - not_in_channel
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - not_allowed_token_type
                   needed:
                     type: string
                   ok:
@@ -1596,57 +1630,60 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - channels:write
-            - groups:write
-            - im:write
-            - mpim:write
-      summary: Slack Post  Conversations Mark
+      - slackAuth:
+        - channels:write
+        - groups:write
+        - im:write
+        - mpim:write
+      summary: Slack Post Conversations Mark
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /conversations.members:
     get:
       tags:
-        - Conversations
-        - Get
-        - Members
+      - Conversations
+      - Get
+      - Members
       description: Retrieve members of a conversation.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/conversations.members
       operationId: getConversationsMembers
       parameters:
-        - name: token
-          in: query
-          description: 'Authentication token. Requires scope: `conversations:read`'
-          schema:
-            type: string
-        - name: channel
-          in: query
-          description: ID of the conversation to retrieve members for
-          schema:
-            type: string
-        - name: limit
-          in: query
-          description: >-
-            The maximum number of items to return. Fewer than the requested
-            number of items may be returned, even if the end of the users list
-            hasn't been reached.
-          schema:
-            type: integer
-        - name: cursor
-          in: query
-          description: >-
-            Paginate through collections of data by setting the `cursor`
-            parameter to a `next_cursor` attribute returned by a previous
-            request's `response_metadata`. Default value fetches the first
-            "page" of the collection. See [pagination](/docs/pagination) for
-            more detail.
-          schema:
-            type: string
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `conversations:read`'
+        schema:
+          type: string
+      - name: channel
+        in: query
+        description: ID of the conversation to retrieve members for
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: >-
+          The maximum number of items to return. Fewer than the requested
+          number of items may be returned, even if the end of the users list
+          hasn't been reached.
+        schema:
+          type: integer
+      - name: cursor
+        in: query
+        description: >-
+          Paginate through collections of data by setting the `cursor`
+          parameter to a `next_cursor` attribute returned by a previous
+          request's `response_metadata`. Default value fetches the first
+          "page" of the collection. See [pagination](/docs/pagination) for
+          more detail.
+        schema:
+          type: string
       responses:
         '200':
           description: Typical paginated success response
@@ -1655,9 +1692,9 @@ paths:
               schema:
                 title: conversations.members success schema
                 required:
-                  - members
-                  - ok
-                  - response_metadata
+                - members
+                - ok
+                - response_metadata
                 type: object
                 properties:
                   members:
@@ -1675,9 +1712,9 @@ paths:
                 description: Schema for successful response conversations.members method
               example:
                 members:
-                  - U023BECGF
-                  - U061F7AUR
-                  - W012A3CDE
+                - U023BECGF
+                - U061F7AUR
+                - W012A3CDE
                 ok: true
                 response_metadata:
                   next_cursor: e3VzZXJfaWQ6IFcxMjM0NTY3fQ==
@@ -1688,8 +1725,8 @@ paths:
               schema:
                 title: conversations.members error schema
                 required:
-                  - error
-                  - ok
+                - error
+                - ok
                 type: object
                 properties:
                   callstack:
@@ -1698,24 +1735,24 @@ paths:
                   error:
                     type: string
                     enum:
-                      - channel_not_found
-                      - invalid_limit
-                      - invalid_cursor
-                      - fetch_members_failed
-                      - not_authed
-                      - invalid_auth
-                      - account_inactive
-                      - invalid_arg_name
-                      - invalid_array_arg
-                      - invalid_charset
-                      - invalid_form_data
-                      - invalid_post_type
-                      - missing_post_type
-                      - team_added_to_org
-                      - invalid_json
-                      - json_not_object
-                      - request_timeout
-                      - upgrade_required
+                    - channel_not_found
+                    - invalid_limit
+                    - invalid_cursor
+                    - fetch_members_failed
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
                   ok:
                     $ref: '#/components/schemas/defs_ok_false'
                 additionalProperties: false
@@ -1724,34 +1761,37 @@ paths:
                 error: invalid_cursor
                 ok: false
       security:
-        - slackAuth:
-            - channels:read
-            - groups:read
-            - im:read
-            - mpim:read
-      summary: Slack Get  Conversations Members
+      - slackAuth:
+        - channels:read
+        - groups:read
+        - im:read
+        - mpim:read
+      summary: Slack Get Conversations Members
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /conversations.open:
     post:
       tags:
-        - Conversations
-        - Open
-        - Post
+      - Conversations
+      - Open
+      - Post
       description: Opens or resumes a direct message or multi-person direct message.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/conversations.open
       operationId: postConversationsOpen
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `conversations:write`'
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `conversations:write`'
+        schema:
+          type: string
       requestBody:
         content:
           application/x-www-form-urlencoded:
@@ -1804,8 +1844,8 @@ paths:
               schema:
                 title: conversations.open success schema
                 required:
-                  - channel
-                  - ok
+                - channel
+                - ok
                 type: object
                 properties:
                   already_open:
@@ -1831,8 +1871,8 @@ paths:
               schema:
                 title: conversations.open error schema
                 required:
-                  - error
-                  - ok
+                - error
+                - ok
                 type: object
                 properties:
                   callstack:
@@ -1841,29 +1881,29 @@ paths:
                   error:
                     type: string
                     enum:
-                      - method_not_supported_for_channel_type
-                      - user_not_found
-                      - user_not_visible
-                      - user_disabled
-                      - users_list_not_supplied
-                      - not_enough_users
-                      - too_many_users
-                      - invalid_user_combination
-                      - not_authed
-                      - invalid_auth
-                      - account_inactive
-                      - invalid_arg_name
-                      - invalid_array_arg
-                      - invalid_charset
-                      - invalid_form_data
-                      - invalid_post_type
-                      - missing_post_type
-                      - team_added_to_org
-                      - invalid_json
-                      - json_not_object
-                      - request_timeout
-                      - upgrade_required
-                      - channel_not_found
+                    - method_not_supported_for_channel_type
+                    - user_not_found
+                    - user_not_visible
+                    - user_disabled
+                    - users_list_not_supplied
+                    - not_enough_users
+                    - too_many_users
+                    - invalid_user_combination
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - channel_not_found
                   ok:
                     $ref: '#/components/schemas/defs_ok_false'
                 additionalProperties: false
@@ -1872,34 +1912,37 @@ paths:
                 error: channel_not_found
                 ok: false
       security:
-        - slackAuth:
-            - channels:write
-            - groups:write
-            - im:write
-            - mpim:write
-      summary: Slack Post  Conversations Open
+      - slackAuth:
+        - channels:write
+        - groups:write
+        - im:write
+        - mpim:write
+      summary: Slack Post Conversations Open
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /conversations.rename:
     post:
       tags:
-        - Conversations
-        - Post
-        - Rename
+      - Conversations
+      - Post
+      - Rename
       description: Renames a conversation.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/conversations.rename
       operationId: postConversationsRename
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `conversations:write`'
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `conversations:write`'
+        schema:
+          type: string
       requestBody:
         content:
           application/x-www-form-urlencoded:
@@ -1930,8 +1973,8 @@ paths:
               schema:
                 title: conversations.rename success schema
                 required:
-                  - channel
-                  - ok
+                - channel
+                - ok
                 type: object
                 properties:
                   channel:
@@ -1967,9 +2010,9 @@ paths:
                   num_members: 23
                   pending_shared: []
                   previous_names:
-                    - specifics
-                    - abstractions
-                    - etc
+                  - specifics
+                  - abstractions
+                  - etc
                   purpose:
                     creator: W012A3BCD
                     last_set: 1449709364
@@ -1989,8 +2032,8 @@ paths:
               schema:
                 title: conversations.rename error schema
                 required:
-                  - error
-                  - ok
+                - error
+                - ok
                 type: object
                 properties:
                   callstack:
@@ -1999,31 +2042,31 @@ paths:
                   error:
                     type: string
                     enum:
-                      - user_is_restricted
-                      - method_not_supported_for_channel_type
-                      - missing_scope
-                      - channel_not_found
-                      - not_in_channel
-                      - not_authorized
-                      - invalid_name
-                      - name_taken
-                      - invalid_name_required
-                      - invalid_name_punctuation
-                      - invalid_name_maxlength
-                      - invalid_name_specials
-                      - not_authed
-                      - invalid_auth
-                      - account_inactive
-                      - invalid_arg_name
-                      - invalid_array_arg
-                      - invalid_charset
-                      - invalid_form_data
-                      - invalid_post_type
-                      - missing_post_type
-                      - invalid_json
-                      - json_not_object
-                      - request_timeout
-                      - upgrade_required
+                    - user_is_restricted
+                    - method_not_supported_for_channel_type
+                    - missing_scope
+                    - channel_not_found
+                    - not_in_channel
+                    - not_authorized
+                    - invalid_name
+                    - name_taken
+                    - invalid_name_required
+                    - invalid_name_punctuation
+                    - invalid_name_maxlength
+                    - invalid_name_specials
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
                   needed:
                     type: string
                   ok:
@@ -2036,83 +2079,86 @@ paths:
                 error: not_in_channel
                 ok: false
       security:
-        - slackAuth:
-            - channels:write
-            - groups:write
-            - im:write
-            - mpim:write
-      summary: Slack Post  Conversations Rename
+      - slackAuth:
+        - channels:write
+        - groups:write
+        - im:write
+        - mpim:write
+      summary: Slack Post Conversations Rename
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /conversations.replies:
     get:
       tags:
-        - Conversations
-        - Get
-        - Replies
+      - Conversations
+      - Get
+      - Replies
       description: Retrieve a thread of messages posted to a conversation
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/conversations.replies
       operationId: getConversationsReplies
       parameters:
-        - name: token
-          in: query
-          description: 'Authentication token. Requires scope: `conversations:history`'
-          schema:
-            type: string
-        - name: channel
-          in: query
-          description: Conversation ID to fetch thread from.
-          schema:
-            type: string
-        - name: ts
-          in: query
-          description: >-
-            Unique identifier of a thread's parent message. `ts` must be the
-            timestamp of an existing message with 0 or more replies. If there
-            are no replies then just the single message referenced by `ts` will
-            return - it is just an ordinary, unthreaded message.
-          schema:
-            type: number
-        - name: latest
-          in: query
-          description: End of time range of messages to include in results.
-          schema:
-            type: number
-        - name: oldest
-          in: query
-          description: Start of time range of messages to include in results.
-          schema:
-            type: number
-        - name: inclusive
-          in: query
-          description: >-
-            Include messages with latest or oldest timestamp in results only
-            when either timestamp is specified.
-          schema:
-            type: boolean
-        - name: limit
-          in: query
-          description: >-
-            The maximum number of items to return. Fewer than the requested
-            number of items may be returned, even if the end of the users list
-            hasn't been reached.
-          schema:
-            type: integer
-        - name: cursor
-          in: query
-          description: >-
-            Paginate through collections of data by setting the `cursor`
-            parameter to a `next_cursor` attribute returned by a previous
-            request's `response_metadata`. Default value fetches the first
-            "page" of the collection. See [pagination](/docs/pagination) for
-            more detail.
-          schema:
-            type: string
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `conversations:history`'
+        schema:
+          type: string
+      - name: channel
+        in: query
+        description: Conversation ID to fetch thread from.
+        schema:
+          type: string
+      - name: ts
+        in: query
+        description: >-
+          Unique identifier of a thread's parent message. `ts` must be the
+          timestamp of an existing message with 0 or more replies. If there
+          are no replies then just the single message referenced by `ts` will
+          return - it is just an ordinary, unthreaded message.
+        schema:
+          type: number
+      - name: latest
+        in: query
+        description: End of time range of messages to include in results.
+        schema:
+          type: number
+      - name: oldest
+        in: query
+        description: Start of time range of messages to include in results.
+        schema:
+          type: number
+      - name: inclusive
+        in: query
+        description: >-
+          Include messages with latest or oldest timestamp in results only
+          when either timestamp is specified.
+        schema:
+          type: boolean
+      - name: limit
+        in: query
+        description: >-
+          The maximum number of items to return. Fewer than the requested
+          number of items may be returned, even if the end of the users list
+          hasn't been reached.
+        schema:
+          type: integer
+      - name: cursor
+        in: query
+        description: >-
+          Paginate through collections of data by setting the `cursor`
+          parameter to a `next_cursor` attribute returned by a previous
+          request's `response_metadata`. Default value fetches the first
+          "page" of the collection. See [pagination](/docs/pagination) for
+          more detail.
+        schema:
+          type: string
       responses:
         '200':
           description: Typical success response
@@ -2121,8 +2167,8 @@ paths:
               schema:
                 title: conversations.replies success schema
                 required:
-                  - messages
-                  - ok
+                - messages
+                - ok
                 type: object
                 properties:
                   has_more:
@@ -2140,33 +2186,33 @@ paths:
               example:
                 has_more: true
                 messages:
-                  - last_read: '1484678597.521003'
-                    reply_count: 3
-                    subscribed: true
-                    text: island
-                    thread_ts: '1482960137.003543'
-                    ts: '1482960137.003543'
-                    type: message
-                    unread_count: 0
-                    user: U061F7AUR
-                  - parent_user_id: U061F7AUR
-                    text: one island
-                    thread_ts: '1482960137.003543'
-                    ts: '1483037603.017503'
-                    type: message
-                    user: U061F7AUR
-                  - parent_user_id: U061F7AUR
-                    text: two island
-                    thread_ts: '1482960137.003543'
-                    ts: '1483051909.018632'
-                    type: message
-                    user: U061F7AUR
-                  - parent_user_id: U061F7AUR
-                    text: three for the land
-                    thread_ts: '1482960137.003543'
-                    ts: '1483125339.020269'
-                    type: message
-                    user: U061F7AUR
+                - last_read: '1484678597.521003'
+                  reply_count: 3
+                  subscribed: true
+                  text: island
+                  thread_ts: '1482960137.003543'
+                  ts: '1482960137.003543'
+                  type: message
+                  unread_count: 0
+                  user: U061F7AUR
+                - parent_user_id: U061F7AUR
+                  text: one island
+                  thread_ts: '1482960137.003543'
+                  ts: '1483037603.017503'
+                  type: message
+                  user: U061F7AUR
+                - parent_user_id: U061F7AUR
+                  text: two island
+                  thread_ts: '1482960137.003543'
+                  ts: '1483051909.018632'
+                  type: message
+                  user: U061F7AUR
+                - parent_user_id: U061F7AUR
+                  text: three for the land
+                  thread_ts: '1482960137.003543'
+                  ts: '1483125339.020269'
+                  type: message
+                  user: U061F7AUR
                 ok: true
                 response_metadata:
                   next_cursor: bmV4dF90czoxNDg0Njc4MjkwNTE3MDkx
@@ -2177,8 +2223,8 @@ paths:
               schema:
                 title: conversations.replies error schema
                 required:
-                  - error
-                  - ok
+                - error
+                - ok
                 type: object
                 properties:
                   callstack:
@@ -2187,23 +2233,23 @@ paths:
                   error:
                     type: string
                     enum:
-                      - missing_scope
-                      - channel_not_found
-                      - thread_not_found
-                      - not_authed
-                      - invalid_auth
-                      - account_inactive
-                      - invalid_arg_name
-                      - invalid_array_arg
-                      - invalid_charset
-                      - invalid_form_data
-                      - invalid_post_type
-                      - missing_post_type
-                      - team_added_to_org
-                      - invalid_json
-                      - json_not_object
-                      - request_timeout
-                      - upgrade_required
+                    - missing_scope
+                    - channel_not_found
+                    - thread_not_found
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
                   needed:
                     type: string
                   ok:
@@ -2216,33 +2262,36 @@ paths:
                 error: thread_not_found
                 ok: false
       security:
-        - slackAuth:
-            - channels:history
-            - groups:history
-            - im:history
-            - mpim:history
-      summary: Slack Get  Conversations Replies
+      - slackAuth:
+        - channels:history
+        - groups:history
+        - im:history
+        - mpim:history
+      summary: Slack Get Conversations Replies
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /conversations.setPurpose:
     post:
       tags:
-        - Conversations
-        - Post
+      - Conversations
+      - Post
       description: Sets the purpose for a conversation.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/conversations.setPurpose
       operationId: postConversationsSetpurpose
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `conversations:write`'
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `conversations:write`'
+        schema:
+          type: string
       requestBody:
         content:
           application/x-www-form-urlencoded:
@@ -2273,8 +2322,8 @@ paths:
               schema:
                 title: conversations.setPurpose success schema
                 required:
-                  - channel
-                  - ok
+                - channel
+                - ok
                 type: object
                 properties:
                   channel:
@@ -2294,8 +2343,8 @@ paths:
               schema:
                 title: conversations.setPurpose error schema
                 required:
-                  - error
-                  - ok
+                - error
+                - ok
                 type: object
                 properties:
                   callstack:
@@ -2304,27 +2353,27 @@ paths:
                   error:
                     type: string
                     enum:
-                      - method_not_supported_for_channel_type
-                      - missing_scope
-                      - channel_not_found
-                      - not_in_channel
-                      - is_archived
-                      - too_long
-                      - user_is_restricted
-                      - not_authed
-                      - invalid_auth
-                      - account_inactive
-                      - invalid_arg_name
-                      - invalid_array_arg
-                      - invalid_charset
-                      - invalid_form_data
-                      - invalid_post_type
-                      - missing_post_type
-                      - team_added_to_org
-                      - invalid_json
-                      - json_not_object
-                      - request_timeout
-                      - upgrade_required
+                    - method_not_supported_for_channel_type
+                    - missing_scope
+                    - channel_not_found
+                    - not_in_channel
+                    - is_archived
+                    - too_long
+                    - user_is_restricted
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
                   needed:
                     type: string
                   ok:
@@ -2337,33 +2386,36 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - channels:write
-            - groups:write
-            - im:write
-            - mpim:write
-      summary: Slack Post  Conversations Setpurpose
+      - slackAuth:
+        - channels:write
+        - groups:write
+        - im:write
+        - mpim:write
+      summary: Slack Post Conversations Setpurpose
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /conversations.setTopic:
     post:
       tags:
-        - Conversations
-        - Post
+      - Conversations
+      - Post
       description: Sets the topic for a conversation.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/conversations.setTopic
       operationId: postConversationsSettopic
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `conversations:write`'
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `conversations:write`'
+        schema:
+          type: string
       requestBody:
         content:
           application/x-www-form-urlencoded:
@@ -2398,8 +2450,8 @@ paths:
               schema:
                 title: conversations.setTopic success schema
                 required:
-                  - channel
-                  - ok
+                - channel
+                - ok
                 type: object
                 properties:
                   channel:
@@ -2419,8 +2471,8 @@ paths:
               schema:
                 title: conversations.setTopic error schema
                 required:
-                  - error
-                  - ok
+                - error
+                - ok
                 type: object
                 properties:
                   callstack:
@@ -2429,27 +2481,27 @@ paths:
                   error:
                     type: string
                     enum:
-                      - method_not_supported_for_channel_type
-                      - missing_scope
-                      - channel_not_found
-                      - not_in_channel
-                      - is_archived
-                      - too_long
-                      - user_is_restricted
-                      - not_authed
-                      - invalid_auth
-                      - account_inactive
-                      - invalid_arg_name
-                      - invalid_array_arg
-                      - invalid_charset
-                      - invalid_form_data
-                      - invalid_post_type
-                      - missing_post_type
-                      - team_added_to_org
-                      - invalid_json
-                      - json_not_object
-                      - request_timeout
-                      - upgrade_required
+                    - method_not_supported_for_channel_type
+                    - missing_scope
+                    - channel_not_found
+                    - not_in_channel
+                    - is_archived
+                    - too_long
+                    - user_is_restricted
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
                   needed:
                     type: string
                   ok:
@@ -2462,34 +2514,37 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - channels:write
-            - groups:write
-            - im:write
-            - mpim:write
-      summary: Slack Post  Conversations Settopic
+      - slackAuth:
+        - channels:write
+        - groups:write
+        - im:write
+        - mpim:write
+      summary: Slack Post Conversations Settopic
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /conversations.unarchive:
     post:
       tags:
-        - Conversations
-        - Post
-        - Unarchive
+      - Conversations
+      - Post
+      - Unarchive
       description: Reverses conversation archival.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/conversations.unarchive
       operationId: postConversationsUnarchive
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `conversations:write`'
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `conversations:write`'
+        schema:
+          type: string
       requestBody:
         content:
           application/x-www-form-urlencoded:
@@ -2514,7 +2569,7 @@ paths:
               schema:
                 title: conversations.unarchive success schema
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -2532,8 +2587,8 @@ paths:
               schema:
                 title: conversations.unarchive error schema
                 required:
-                  - error
-                  - ok
+                - error
+                - ok
                 type: object
                 properties:
                   callstack:
@@ -2542,29 +2597,29 @@ paths:
                   error:
                     type: string
                     enum:
-                      - method_not_supported_for_channel_type
-                      - missing_scope
-                      - channel_not_found
-                      - not_archived
-                      - not_authed
-                      - invalid_auth
-                      - account_inactive
-                      - user_is_bot
-                      - user_is_restricted
-                      - user_is_ultra_restricted
-                      - invalid_arg_name
-                      - invalid_array_arg
-                      - invalid_charset
-                      - invalid_form_data
-                      - invalid_post_type
-                      - missing_post_type
-                      - invalid_json
-                      - json_not_object
-                      - request_timeout
-                      - upgrade_required
-                      - team_added_to_org
-                      - missing_charset
-                      - superfluous_charset
+                    - method_not_supported_for_channel_type
+                    - missing_scope
+                    - channel_not_found
+                    - not_archived
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - user_is_bot
+                    - user_is_restricted
+                    - user_is_ultra_restricted
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - team_added_to_org
+                    - missing_charset
+                    - superfluous_charset
                   needed:
                     type: string
                   ok:
@@ -2577,36 +2632,39 @@ paths:
                 error: channel_not_found
                 ok: false
       security:
-        - slackAuth:
-            - channels:write
-            - groups:write
-            - im:write
-            - mpim:write
-      summary: Slack Post  Conversations Unarchive
+      - slackAuth:
+        - channels:write
+        - groups:write
+        - im:write
+        - mpim:write
+      summary: Slack Post Conversations Unarchive
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
 components:
   schemas: {}
 tags:
-  - name: Archive
-  - name: Close
-  - name: Conversations
-  - name: Create
-  - name: Get
-  - name: History
-  - name: Info
-  - name: Invites
-  - name: Join
-  - name: Kick
-  - name: Leave
-  - name: Lists
-  - name: Mark
-  - name: Members
-  - name: Open
-  - name: Post
-  - name: Rename
-  - name: Replies
-  - name: Unarchive
+- name: Archive
+- name: Close
+- name: Conversations
+- name: Create
+- name: Get
+- name: History
+- name: Info
+- name: Invites
+- name: Join
+- name: Kick
+- name: Leave
+- name: Lists
+- name: Mark
+- name: Members
+- name: Open
+- name: Post
+- name: Rename
+- name: Replies
+- name: Unarchive

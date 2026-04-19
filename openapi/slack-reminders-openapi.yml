@@ -1,32 +1,35 @@
 openapi: 3.1.0
 info:
   title: Slack Reminders API
-  description: "Slack\x19s Reminders API lets apps create and manage personal reminders for Slack users, so teams can automate nudges, follow\x11ups, and routine check\x11ins without leaving Slack. Through Web API methods, an app can add reminders with natural language or timestamps (including recurring patterns like \x1Cevery Monday at 9am\x1D), list a user\x19s upcoming reminders, fetch details, and mark or delete them when done. It\x19s useful for workflows like task handoffs, compliance pings, or lightweight to\x11dos that need to surface at the right moment. Access is controlled with granular OAuth scopes (reminders:write and reminders:read), and reminders are delivered inside Slack where users already communicate, keeping prompts contextual and unobtrusive."
+  description: "Slack\x19s Reminders API lets apps create and manage personal reminders for Slack users, so teams can automate nudges, follow\x11ups, and routine check\x11ins without leaving Slack. Through
+    Web API methods, an app can add reminders with natural language or timestamps (including recurring patterns like \x1Cevery Monday at 9am\x1D), list a user\x19s upcoming reminders, fetch details, and
+    mark or delete them when done. It\x19s useful for workflows like task handoffs, compliance pings, or lightweight to\x11dos that need to surface at the right moment. Access is controlled with granular
+    OAuth scopes (reminders:write and reminders:read), and reminders are delivered inside Slack where users already communicate, keeping prompts contextual and unobtrusive."
 paths:
   /reminders.add:
     post:
       tags:
-        - Add
-        - Post
+      - Add
+      - Post
       description: Creates a reminder.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/reminders.add
       operationId: postRemindersAdd
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `reminders:write`'
-          required: true
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `reminders:write`'
+        required: true
+        schema:
+          type: string
       requestBody:
         content:
           application/x-www-form-urlencoded:
             schema:
               required:
-                - text
-                - time
+              - text
+              - time
               type: object
               properties:
                 text:
@@ -47,8 +50,8 @@ paths:
           application/json:
             schema:
               required:
-                - text
-                - time
+              - text
+              - time
               type: object
               properties:
                 text:
@@ -75,8 +78,8 @@ paths:
               schema:
                 title: reminders.add schema
                 required:
-                  - ok
-                  - reminder
+                - ok
+                - reminder
                 type: object
                 properties:
                   ok:
@@ -94,8 +97,8 @@ paths:
               schema:
                 title: reminders.add error schema
                 required:
-                  - error
-                  - ok
+                - error
+                - ok
                 type: object
                 properties:
                   callstack:
@@ -104,31 +107,31 @@ paths:
                   error:
                     type: string
                     enum:
-                      - cannot_parse
-                      - user_not_found
-                      - cannot_add_bot
-                      - cannot_add_slackbot
-                      - cannot_add_others
-                      - cannot_add_others_recurring
-                      - not_authed
-                      - invalid_auth
-                      - account_inactive
-                      - token_revoked
-                      - no_permission
-                      - org_login_required
-                      - user_is_bot
-                      - invalid_arg_name
-                      - invalid_array_arg
-                      - invalid_charset
-                      - invalid_form_data
-                      - invalid_post_type
-                      - missing_post_type
-                      - team_added_to_org
-                      - invalid_json
-                      - json_not_object
-                      - request_timeout
-                      - upgrade_required
-                      - fatal_error
+                    - cannot_parse
+                    - user_not_found
+                    - cannot_add_bot
+                    - cannot_add_slackbot
+                    - cannot_add_others
+                    - cannot_add_others_recurring
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - token_revoked
+                    - no_permission
+                    - org_login_required
+                    - user_is_bot
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - fatal_error
                   ok:
                     $ref: '#/components/schemas/defs_ok_false'
                 additionalProperties: false
@@ -137,30 +140,33 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - reminders:write
-      summary: Slack Post  Reminders Add
+      - slackAuth:
+        - reminders:write
+      summary: Slack Post Reminders Add
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /reminders.complete:
     post:
       tags:
-        - Complete
-        - Post
+      - Complete
+      - Post
       description: Marks a reminder as complete.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/reminders.complete
       operationId: postRemindersComplete
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `reminders:write`'
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `reminders:write`'
+        schema:
+          type: string
       requestBody:
         content:
           application/x-www-form-urlencoded:
@@ -185,7 +191,7 @@ paths:
               schema:
                 title: reminders.complete schema
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -201,8 +207,8 @@ paths:
               schema:
                 title: reminders.complete error schema
                 required:
-                  - error
-                  - ok
+                - error
+                - ok
                 type: object
                 properties:
                   callstack:
@@ -211,28 +217,28 @@ paths:
                   error:
                     type: string
                     enum:
-                      - not_found
-                      - cannot_complete_recurring
-                      - cannot_complete_others
-                      - not_authed
-                      - invalid_auth
-                      - account_inactive
-                      - token_revoked
-                      - no_permission
-                      - org_login_required
-                      - user_is_bot
-                      - invalid_arg_name
-                      - invalid_array_arg
-                      - invalid_charset
-                      - invalid_form_data
-                      - invalid_post_type
-                      - missing_post_type
-                      - team_added_to_org
-                      - invalid_json
-                      - json_not_object
-                      - request_timeout
-                      - upgrade_required
-                      - fatal_error
+                    - not_found
+                    - cannot_complete_recurring
+                    - cannot_complete_others
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - token_revoked
+                    - no_permission
+                    - org_login_required
+                    - user_is_bot
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - fatal_error
                   ok:
                     $ref: '#/components/schemas/defs_ok_false'
                 additionalProperties: false
@@ -241,30 +247,33 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - reminders:write
-      summary: Slack Post  Reminders Complete
+      - slackAuth:
+        - reminders:write
+      summary: Slack Post Reminders Complete
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /reminders.delete:
     post:
       tags:
-        - Deletes
-        - Post
+      - Deletes
+      - Post
       description: Deletes a reminder.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/reminders.delete
       operationId: postRemindersDelete
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `reminders:write`'
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `reminders:write`'
+        schema:
+          type: string
       requestBody:
         content:
           application/x-www-form-urlencoded:
@@ -289,7 +298,7 @@ paths:
               schema:
                 title: reminders.delete schema
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -305,8 +314,8 @@ paths:
               schema:
                 title: reminders.delete error schema
                 required:
-                  - error
-                  - ok
+                - error
+                - ok
                 type: object
                 properties:
                   callstack:
@@ -315,26 +324,26 @@ paths:
                   error:
                     type: string
                     enum:
-                      - not_found
-                      - not_authed
-                      - invalid_auth
-                      - account_inactive
-                      - token_revoked
-                      - no_permission
-                      - org_login_required
-                      - user_is_bot
-                      - invalid_arg_name
-                      - invalid_array_arg
-                      - invalid_charset
-                      - invalid_form_data
-                      - invalid_post_type
-                      - missing_post_type
-                      - team_added_to_org
-                      - invalid_json
-                      - json_not_object
-                      - request_timeout
-                      - upgrade_required
-                      - fatal_error
+                    - not_found
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - token_revoked
+                    - no_permission
+                    - org_login_required
+                    - user_is_bot
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - fatal_error
                   ok:
                     $ref: '#/components/schemas/defs_ok_false'
                 additionalProperties: false
@@ -343,35 +352,38 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - reminders:write
-      summary: Slack Post  Reminders Delete
+      - slackAuth:
+        - reminders:write
+      summary: Slack Post Reminders Delete
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /reminders.info:
     get:
       tags:
-        - Get
-        - Info
+      - Get
+      - Info
       description: Gets information about a reminder.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/reminders.info
       operationId: getRemindersInfo
       parameters:
-        - name: token
-          in: query
-          description: 'Authentication token. Requires scope: `reminders:read`'
-          schema:
-            type: string
-        - name: reminder
-          in: query
-          description: The ID of the reminder
-          schema:
-            type: string
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `reminders:read`'
+        schema:
+          type: string
+      - name: reminder
+        in: query
+        description: The ID of the reminder
+        schema:
+          type: string
       responses:
         '200':
           description: Typical success response
@@ -380,8 +392,8 @@ paths:
               schema:
                 title: reminders.info schema
                 required:
-                  - ok
-                  - reminder
+                - ok
+                - reminder
                 type: object
                 properties:
                   ok:
@@ -399,8 +411,8 @@ paths:
               schema:
                 title: reminders.info error schema
                 required:
-                  - error
-                  - ok
+                - error
+                - ok
                 type: object
                 properties:
                   callstack:
@@ -409,26 +421,26 @@ paths:
                   error:
                     type: string
                     enum:
-                      - not_found
-                      - not_authed
-                      - invalid_auth
-                      - account_inactive
-                      - token_revoked
-                      - no_permission
-                      - org_login_required
-                      - user_is_bot
-                      - invalid_arg_name
-                      - invalid_array_arg
-                      - invalid_charset
-                      - invalid_form_data
-                      - invalid_post_type
-                      - missing_post_type
-                      - team_added_to_org
-                      - invalid_json
-                      - json_not_object
-                      - request_timeout
-                      - upgrade_required
-                      - fatal_error
+                    - not_found
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - token_revoked
+                    - no_permission
+                    - org_login_required
+                    - user_is_bot
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - fatal_error
                   ok:
                     $ref: '#/components/schemas/defs_ok_false'
                 additionalProperties: false
@@ -437,30 +449,33 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - reminders:read
-      summary: Slack Get  Reminders Info
+      - slackAuth:
+        - reminders:read
+      summary: Slack Get Reminders Info
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /reminders.list:
     get:
       tags:
-        - Get
-        - Lists
+      - Get
+      - Lists
       description: Lists all reminders created by or for a given user.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/reminders.list
       operationId: getRemindersList
       parameters:
-        - name: token
-          in: query
-          description: 'Authentication token. Requires scope: `reminders:read`'
-          schema:
-            type: string
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `reminders:read`'
+        schema:
+          type: string
       responses:
         '200':
           description: Typical success response
@@ -469,8 +484,8 @@ paths:
               schema:
                 title: reminders.list schema
                 required:
-                  - ok
-                  - reminders
+                - ok
+                - reminders
                 type: object
                 properties:
                   ok:
@@ -490,8 +505,8 @@ paths:
               schema:
                 title: reminders.list error schema
                 required:
-                  - error
-                  - ok
+                - error
+                - ok
                 type: object
                 properties:
                   callstack:
@@ -500,25 +515,25 @@ paths:
                   error:
                     type: string
                     enum:
-                      - not_authed
-                      - invalid_auth
-                      - account_inactive
-                      - token_revoked
-                      - no_permission
-                      - org_login_required
-                      - user_is_bot
-                      - invalid_arg_name
-                      - invalid_array_arg
-                      - invalid_charset
-                      - invalid_form_data
-                      - invalid_post_type
-                      - missing_post_type
-                      - team_added_to_org
-                      - invalid_json
-                      - json_not_object
-                      - request_timeout
-                      - upgrade_required
-                      - fatal_error
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - token_revoked
+                    - no_permission
+                    - org_login_required
+                    - user_is_bot
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - fatal_error
                   ok:
                     $ref: '#/components/schemas/defs_ok_false'
                 additionalProperties: false
@@ -527,21 +542,24 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - reminders:read
-      summary: Slack Get  Reminders List
+      - slackAuth:
+        - reminders:read
+      summary: Slack Get Reminders List
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
 components:
   schemas: {}
 tags:
-  - name: Add
-  - name: Complete
-  - name: Deletes
-  - name: Get
-  - name: Info
-  - name: Lists
-  - name: Post
+- name: Add
+- name: Complete
+- name: Deletes
+- name: Get
+- name: Info
+- name: Lists
+- name: Post

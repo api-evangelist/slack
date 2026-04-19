@@ -1,40 +1,44 @@
 openapi: 3.1.0
 info:
   title: Slack Views API
-  description: "The Slack Views API lets your app build and control Block Kit interfaces inside Slack\x14primarily modals and the App Home tab. With methods like views.open, views.update, and views.push, your app can launch multi-step modal flows in response to interactive triggers (slash commands, shortcuts, or message actions), update them in place, or push new steps onto the stack. Using views.publish, you can render a personalized, dynamic Home tab for each user. Submissions and closes generate interactivity payloads (view_submission and view_closed) that let you validate inputs, return per-field errors, and persist state; you can also pass callback_id and private_metadata to track context. Concurrency is handled via a view hash to avoid overwriting stale content. In short, the Views API provides the lifecycle and plumbing for rich, interactive app experiences directly in Slack."
+  description: "The Slack Views API lets your app build and control Block Kit interfaces inside Slack\x14primarily modals and the App Home tab. With methods like views.open, views.update, and views.push,
+    your app can launch multi-step modal flows in response to interactive triggers (slash commands, shortcuts, or message actions), update them in place, or push new steps onto the stack. Using views.publish,
+    you can render a personalized, dynamic Home tab for each user. Submissions and closes generate interactivity payloads (view_submission and view_closed) that let you validate inputs, return per-field
+    errors, and persist state; you can also pass callback_id and private_metadata to track context. Concurrency is handled via a view hash to avoid overwriting stale content. In short, the Views API provides
+    the lifecycle and plumbing for rich, interactive app experiences directly in Slack."
 paths:
   /views.open:
     get:
       tags:
-        - Get
-        - Open
-        - Views
+      - Get
+      - Open
+      - Views
       description: Open a view for a user.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/views.open
       operationId: getViewsOpen
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `none`'
-          required: true
-          schema:
-            type: string
-        - name: trigger_id
-          in: query
-          description: Exchange a trigger to post to the user.
-          required: true
-          schema:
-            type: string
-        - name: view
-          in: query
-          description: >-
-            A [view payload](/reference/surfaces/views). This must be a
-            JSON-encoded string.
-          required: true
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `none`'
+        required: true
+        schema:
+          type: string
+      - name: trigger_id
+        in: query
+        description: Exchange a trigger to post to the user.
+        required: true
+        schema:
+          type: string
+      - name: view
+        in: query
+        description: >-
+          A [view payload](/reference/surfaces/views). This must be a
+          JSON-encoded string.
+        required: true
+        schema:
+          type: string
       responses:
         '200':
           description: Typical success response includes the opened view payload.
@@ -43,7 +47,7 @@ paths:
               schema:
                 title: Default success template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -57,16 +61,16 @@ paths:
                 view:
                   app_id: AA4928AQ
                   blocks:
-                    - block_id: a_block_id
-                      element:
-                        action_id: an_action_id
-                        type: plain_text_input
-                      label:
-                        emoji: true
-                        text: A simple label
-                        type: plain_text
-                      optional: false
-                      type: input
+                  - block_id: a_block_id
+                    element:
+                      action_id: an_action_id
+                      type: plain_text_input
+                    label:
+                      emoji: true
+                      text: A simple label
+                      type: plain_text
+                    optional: false
+                    type: input
                   bot_id: BA13894H
                   callback_id: identify_your_modals
                   clear_on_close: false
@@ -95,7 +99,7 @@ paths:
               schema:
                 title: Default error template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -109,55 +113,58 @@ paths:
                 ok: false
                 response_metadata:
                   messages:
-                    - invalid `trigger_id`
+                  - invalid `trigger_id`
       security:
-        - slackAuth:
-            - none
-      summary: Slack Get  Views Open
+      - slackAuth:
+        - none
+      summary: Slack Get Views Open
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /views.publish:
     get:
       tags:
-        - Get
-        - Publish
-        - Views
+      - Get
+      - Publish
+      - Views
       description: Publish a static view for a User.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/views.publish
       operationId: getViewsPublish
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `none`'
-          required: true
-          schema:
-            type: string
-        - name: user_id
-          in: query
-          description: '`id` of the user you want publish a view to.'
-          required: true
-          schema:
-            type: string
-        - name: view
-          in: query
-          description: >-
-            A [view payload](/reference/surfaces/views). This must be a
-            JSON-encoded string.
-          required: true
-          schema:
-            type: string
-        - name: hash
-          in: query
-          description: >-
-            A string that represents view state to protect against possible race
-            conditions.
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `none`'
+        required: true
+        schema:
+          type: string
+      - name: user_id
+        in: query
+        description: '`id` of the user you want publish a view to.'
+        required: true
+        schema:
+          type: string
+      - name: view
+        in: query
+        description: >-
+          A [view payload](/reference/surfaces/views). This must be a
+          JSON-encoded string.
+        required: true
+        schema:
+          type: string
+      - name: hash
+        in: query
+        description: >-
+          A string that represents view state to protect against possible race
+          conditions.
+        schema:
+          type: string
       responses:
         '200':
           description: Typical success response includes the published view payload.
@@ -166,7 +173,7 @@ paths:
               schema:
                 title: Default success template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -180,12 +187,12 @@ paths:
                 view:
                   app_id: AA4928AQ
                   blocks:
-                    - block_id: 2WGp9
-                      text:
-                        text: A simple section with some sample sentence.
-                        type: mrkdwn
-                        verbatim: false
-                      type: section
+                  - block_id: 2WGp9
+                    text:
+                      text: A simple section with some sample sentence.
+                      type: mrkdwn
+                      verbatim: false
+                    type: section
                   bot_id: BA13894H
                   callback_id: identify_your_home_tab
                   clear_on_close: false
@@ -211,7 +218,7 @@ paths:
               schema:
                 title: Default error template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -225,48 +232,51 @@ paths:
                 ok: false
                 response_metadata:
                   messages:
-                    - invalid `user_id`
+                  - invalid `user_id`
       security:
-        - slackAuth:
-            - none
-      summary: Slack Get  Views Publish
+      - slackAuth:
+        - none
+      summary: Slack Get Views Publish
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /views.push:
     get:
       tags:
-        - Get
-        - Push
-        - Views
+      - Get
+      - Push
+      - Views
       description: Push a view onto the stack of a root view.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/views.push
       operationId: getViewsPush
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `none`'
-          required: true
-          schema:
-            type: string
-        - name: trigger_id
-          in: query
-          description: Exchange a trigger to post to the user.
-          required: true
-          schema:
-            type: string
-        - name: view
-          in: query
-          description: >-
-            A [view payload](/reference/surfaces/views). This must be a
-            JSON-encoded string.
-          required: true
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `none`'
+        required: true
+        schema:
+          type: string
+      - name: trigger_id
+        in: query
+        description: Exchange a trigger to post to the user.
+        required: true
+        schema:
+          type: string
+      - name: view
+        in: query
+        description: >-
+          A [view payload](/reference/surfaces/views). This must be a
+          JSON-encoded string.
+        required: true
+        schema:
+          type: string
       responses:
         '200':
           description: Typical success response includes the pushed view payload.
@@ -275,7 +285,7 @@ paths:
               schema:
                 title: Default success template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -289,14 +299,14 @@ paths:
                 view:
                   app_id: AAD3351BQ
                   blocks:
-                    - block_id: edit_details
-                      element:
-                        action_id: detail_input
-                        type: plain_text_input
-                      label:
-                        text: Edit details
-                        type: plain_text
-                      type: input
+                  - block_id: edit_details
+                    element:
+                      action_id: detail_input
+                      type: plain_text_input
+                    label:
+                      text: Edit details
+                      type: plain_text
+                    type: input
                   bot_id: BADF7A34H
                   callback_id: view_4
                   clear_on_close: true
@@ -330,7 +340,7 @@ paths:
               schema:
                 title: Default error template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -344,63 +354,66 @@ paths:
                 ok: false
                 response_metadata:
                   messages:
-                    - 'missing required field: title'
+                  - 'missing required field: title'
       security:
-        - slackAuth:
-            - none
-      summary: Slack Get  Views Push
+      - slackAuth:
+        - none
+      summary: Slack Get Views Push
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /views.update:
     get:
       tags:
-        - Get
-        - Update
-        - Views
+      - Get
+      - Update
+      - Views
       description: Update an existing view.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/views.update
       operationId: getViewsUpdate
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `none`'
-          required: true
-          schema:
-            type: string
-        - name: view_id
-          in: query
-          description: >-
-            A unique identifier of the view to be updated. Either `view_id` or
-            `external_id` is required.
-          schema:
-            type: string
-        - name: external_id
-          in: query
-          description: >-
-            A unique identifier of the view set by the developer. Must be unique
-            for all views on a team. Max length of 255 characters. Either
-            `view_id` or `external_id` is required.
-          schema:
-            type: string
-        - name: view
-          in: query
-          description: >-
-            A [view object](/reference/surfaces/views). This must be a
-            JSON-encoded string.
-          schema:
-            type: string
-        - name: hash
-          in: query
-          description: >-
-            A string that represents view state to protect against possible race
-            conditions.
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `none`'
+        required: true
+        schema:
+          type: string
+      - name: view_id
+        in: query
+        description: >-
+          A unique identifier of the view to be updated. Either `view_id` or
+          `external_id` is required.
+        schema:
+          type: string
+      - name: external_id
+        in: query
+        description: >-
+          A unique identifier of the view set by the developer. Must be unique
+          for all views on a team. Max length of 255 characters. Either
+          `view_id` or `external_id` is required.
+        schema:
+          type: string
+      - name: view
+        in: query
+        description: >-
+          A [view object](/reference/surfaces/views). This must be a
+          JSON-encoded string.
+        schema:
+          type: string
+      - name: hash
+        in: query
+        description: >-
+          A string that represents view state to protect against possible race
+          conditions.
+        schema:
+          type: string
       responses:
         '200':
           description: Typical success response includes the updated view payload.
@@ -409,7 +422,7 @@ paths:
               schema:
                 title: Default success template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -423,18 +436,18 @@ paths:
                 view:
                   app_id: AAD3351BQ
                   blocks:
-                    - accessory:
-                        action_id: button_4
-                        text:
-                          text: Click me
-                          type: plain_text
-                        type: button
-                      block_id: s_block
+                  - accessory:
+                      action_id: button_4
                       text:
-                        emoji: true
-                        text: I am but an updated modal
+                        text: Click me
                         type: plain_text
-                      type: section
+                      type: button
+                    block_id: s_block
+                    text:
+                      emoji: true
+                      text: I am but an updated modal
+                      type: plain_text
+                    type: section
                   bot_id: BADF7A34H
                   callback_id: view_2
                   clear_on_close: true
@@ -465,7 +478,7 @@ paths:
               schema:
                 title: Default error template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -478,20 +491,23 @@ paths:
                 error: not_found
                 ok: false
       security:
-        - slackAuth:
-            - none
-      summary: Slack Get  Views Update
+      - slackAuth:
+        - none
+      summary: Slack Get Views Update
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
 components:
   schemas: {}
 tags:
-  - name: Get
-  - name: Open
-  - name: Publish
-  - name: Push
-  - name: Update
-  - name: Views
+- name: Get
+- name: Open
+- name: Publish
+- name: Push
+- name: Update
+- name: Views

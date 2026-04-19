@@ -19,47 +19,47 @@ info:
     name: Slack API Terms of Service
     url: https://slack.com/terms-of-service/api
 servers:
-  - url: https://slack.com/api
-    description: Slack Web API production server
+- url: https://slack.com/api
+  description: Slack Web API production server
 security:
-  - bearerAuth: []
+- bearerAuth: []
 tags:
-  - name: Auth
-    description: Authentication and authorization methods
-  - name: Bookmarks
-    description: Manage channel bookmarks
-  - name: Chat
-    description: Post, update, delete, and manage messages
-  - name: Conversations
-    description: Manage channels, DMs, and group conversations
-  - name: Dnd
-    description: Do Not Disturb management
-  - name: Emoji
-    description: List custom emoji
-  - name: Files
-    description: Upload, share, and manage files
-  - name: Pins
-    description: Pin and unpin messages in conversations
-  - name: Reactions
-    description: Add and manage emoji reactions
-  - name: Reminders
-    description: Create and manage reminders
-  - name: Search
-    description: Search messages and files
-  - name: Team
-    description: Access workspace information
-  - name: Usergroups
-    description: Manage user groups
-  - name: Users
-    description: Find and manage user information
-  - name: Views
-    description: Open, update, and manage modals and App Home tabs
+- name: Auth
+  description: Authentication and authorization methods
+- name: Bookmarks
+  description: Manage channel bookmarks
+- name: Chat
+  description: Post, update, delete, and manage messages
+- name: Conversations
+  description: Manage channels, DMs, and group conversations
+- name: Dnd
+  description: Do Not Disturb management
+- name: Emoji
+  description: List custom emoji
+- name: Files
+  description: Upload, share, and manage files
+- name: Pins
+  description: Pin and unpin messages in conversations
+- name: Reactions
+  description: Add and manage emoji reactions
+- name: Reminders
+  description: Create and manage reminders
+- name: Search
+  description: Search messages and files
+- name: Team
+  description: Access workspace information
+- name: Usergroups
+  description: Manage user groups
+- name: Users
+  description: Find and manage user information
+- name: Views
+  description: Open, update, and manage modals and App Home tabs
 paths:
   /auth.test:
     post:
       tags:
-        - Auth
-      summary: Slack Test authentication
+      - Auth
+      summary: Slack Test Authentication
       description: >-
         Checks authentication and tells the caller who they are. Returns
         information about the token holder including user ID, team ID, and
@@ -100,23 +100,26 @@ paths:
                     type: boolean
                     description: Whether this is an enterprise install
                 required:
-                  - ok
+                - ok
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /auth.revoke:
     post:
       tags:
-        - Auth
-      summary: Slack Revoke an access token
+      - Auth
+      summary: Slack Revoke an Access Token
       description: Revokes the access token that is used to call this method.
       operationId: authRevoke
       externalDocs:
         description: API method documentation
         url: https://docs.slack.dev/reference/methods/auth.revoke
       parameters:
-        - name: test
-          in: query
-          description: Setting this parameter to true triggers a testing mode.
-          schema:
-            type: boolean
+      - name: test
+        in: query
+        description: Setting this parameter to true triggers a testing mode.
+        schema:
+          type: boolean
       responses:
         '200':
           description: Token revoked
@@ -129,11 +132,14 @@ paths:
                     type: boolean
                   revoked:
                     type: boolean
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /chat.postMessage:
     post:
       tags:
-        - Chat
-      summary: Slack Send a message to a channel
+      - Chat
+      summary: Slack Send a Message to a Channel
       description: >-
         Sends a message to a channel, DM, or group conversation. Supports
         plain text, Block Kit layouts, attachments, threading, and message
@@ -144,11 +150,11 @@ paths:
         description: API method documentation
         url: https://docs.slack.dev/reference/methods/chat.postMessage
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: chat:write'
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: chat:write'
+        schema:
+          type: string
       requestBody:
         required: true
         content:
@@ -156,7 +162,7 @@ paths:
             schema:
               type: object
               required:
-                - channel
+              - channel
               properties:
                 channel:
                   type: string
@@ -205,8 +211,8 @@ paths:
                   type: string
                   description: Change how messages are treated.
                   enum:
-                    - full
-                    - none
+                  - full
+                  - none
                 link_names:
                   type: boolean
                   description: Find and link user groups.
@@ -230,7 +236,7 @@ paths:
             schema:
               type: object
               required:
-                - channel
+              - channel
               properties:
                 channel:
                   type: string
@@ -275,14 +281,17 @@ paths:
                   message:
                     $ref: '#/components/schemas/Message'
                 required:
-                  - ok
-                  - channel
-                  - ts
+                - ok
+                - channel
+                - ts
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /chat.update:
     post:
       tags:
-        - Chat
-      summary: Slack Update an existing message
+      - Chat
+      summary: Slack Update an Existing Message
       description: >-
         Updates a message in a channel. Both the text and blocks can be
         updated. Requires the chat:write scope.
@@ -291,11 +300,11 @@ paths:
         description: API method documentation
         url: https://docs.slack.dev/reference/methods/chat.update
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: chat:write'
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: chat:write'
+        schema:
+          type: string
       requestBody:
         required: true
         content:
@@ -303,8 +312,8 @@ paths:
             schema:
               type: object
               required:
-                - channel
-                - ts
+              - channel
+              - ts
               properties:
                 channel:
                   type: string
@@ -331,8 +340,8 @@ paths:
                 parse:
                   type: string
                   enum:
-                    - full
-                    - none
+                  - full
+                  - none
                 link_names:
                   type: boolean
                 reply_broadcast:
@@ -355,11 +364,14 @@ paths:
                     type: string
                   message:
                     $ref: '#/components/schemas/Message'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /chat.delete:
     post:
       tags:
-        - Chat
-      summary: Slack Delete a message
+      - Chat
+      summary: Slack Delete a Message
       description: >-
         Deletes a message from a channel. Requires the chat:write scope.
         The message must have been posted by the calling user or bot.
@@ -368,11 +380,11 @@ paths:
         description: API method documentation
         url: https://docs.slack.dev/reference/methods/chat.delete
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: chat:write'
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: chat:write'
+        schema:
+          type: string
       requestBody:
         required: true
         content:
@@ -380,8 +392,8 @@ paths:
             schema:
               type: object
               required:
-                - channel
-                - ts
+              - channel
+              - ts
               properties:
                 channel:
                   type: string
@@ -403,11 +415,14 @@ paths:
                     type: string
                   ts:
                     type: string
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /chat.postEphemeral:
     post:
       tags:
-        - Chat
-      summary: Slack Send an ephemeral message
+      - Chat
+      summary: Slack Send an Ephemeral Message
       description: >-
         Sends an ephemeral message to a user in a channel, visible only
         to that user. Requires the chat:write scope.
@@ -416,10 +431,10 @@ paths:
         description: API method documentation
         url: https://docs.slack.dev/reference/methods/chat.postEphemeral
       parameters:
-        - name: token
-          in: header
-          schema:
-            type: string
+      - name: token
+        in: header
+        schema:
+          type: string
       requestBody:
         required: true
         content:
@@ -427,8 +442,8 @@ paths:
             schema:
               type: object
               required:
-                - channel
-                - user
+              - channel
+              - user
               properties:
                 channel:
                   type: string
@@ -464,11 +479,14 @@ paths:
                     type: boolean
                   message_ts:
                     type: string
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /chat.scheduleMessage:
     post:
       tags:
-        - Chat
-      summary: Slack Schedule a message for later
+      - Chat
+      summary: Slack Schedule a Message for Later
       description: >-
         Schedules a message to be sent to a channel at a specified time.
         Requires the chat:write scope.
@@ -483,8 +501,8 @@ paths:
             schema:
               type: object
               required:
-                - channel
-                - post_at
+              - channel
+              - post_at
               properties:
                 channel:
                   type: string
@@ -529,29 +547,32 @@ paths:
                     type: integer
                   message:
                     $ref: '#/components/schemas/Message'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /chat.getPermalink:
     get:
       tags:
-        - Chat
-      summary: Slack Get a permalink for a message
+      - Chat
+      summary: Slack Get a Permalink for a Message
       description: Retrieve a permalink URL for a specific extant message.
       operationId: chatGetPermalink
       externalDocs:
         description: API method documentation
         url: https://docs.slack.dev/reference/methods/chat.getPermalink
       parameters:
-        - name: channel
-          in: query
-          required: true
-          schema:
-            type: string
-          description: The ID of the conversation or channel containing the message.
-        - name: message_ts
-          in: query
-          required: true
-          schema:
-            type: string
-          description: A message's ts value.
+      - name: channel
+        in: query
+        required: true
+        schema:
+          type: string
+        description: The ID of the conversation or channel containing the message.
+      - name: message_ts
+        in: query
+        required: true
+        schema:
+          type: string
+        description: A message's ts value.
       responses:
         '200':
           description: Permalink retrieved
@@ -567,11 +588,14 @@ paths:
                   permalink:
                     type: string
                     format: uri
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /chat.unfurl:
     post:
       tags:
-        - Chat
-      summary: Slack Provide custom unfurl behavior
+      - Chat
+      summary: Slack Provide Custom Unfurl Behavior
       description: >-
         Provide custom unfurl behavior for URLs posted in messages. Requires
         links:write scope.
@@ -586,9 +610,9 @@ paths:
             schema:
               type: object
               required:
-                - channel
-                - ts
-                - unfurls
+              - channel
+              - ts
+              - unfurls
               properties:
                 channel:
                   type: string
@@ -616,11 +640,14 @@ paths:
                 properties:
                   ok:
                     type: boolean
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /conversations.list:
     get:
       tags:
-        - Conversations
-      summary: Slack List all channels
+      - Conversations
+      summary: Slack List All Channels
       description: >-
         Lists all channels in a Slack team. Returns a paginated collection
         of conversation objects. Supports filtering by conversation type.
@@ -629,44 +656,44 @@ paths:
         description: API method documentation
         url: https://docs.slack.dev/reference/methods/conversations.list
       parameters:
-        - name: cursor
-          in: query
-          description: >-
-            Paginate through collections by setting the cursor parameter
-            to a next_cursor attribute returned by a previous request.
-          schema:
-            type: string
-        - name: exclude_archived
-          in: query
-          description: Set to true to exclude archived channels from the list.
-          schema:
-            type: boolean
-            default: false
-        - name: limit
-          in: query
-          description: >-
-            The maximum number of items to return. Fewer than the requested
-            number of items may be returned, even if the end of the list
-            hasn't been reached. Maximum of 1000.
-          schema:
-            type: integer
-            default: 100
-            maximum: 1000
-        - name: team_id
-          in: query
-          description: >-
-            Required for org-wide app tokens. A single team ID to list
-            channels in.
-          schema:
-            type: string
-        - name: types
-          in: query
-          description: >-
-            Mix and match channel types by providing a comma-separated
-            list. Options: public_channel, private_channel, mpim, im.
-          schema:
-            type: string
-            default: public_channel
+      - name: cursor
+        in: query
+        description: >-
+          Paginate through collections by setting the cursor parameter
+          to a next_cursor attribute returned by a previous request.
+        schema:
+          type: string
+      - name: exclude_archived
+        in: query
+        description: Set to true to exclude archived channels from the list.
+        schema:
+          type: boolean
+          default: false
+      - name: limit
+        in: query
+        description: >-
+          The maximum number of items to return. Fewer than the requested
+          number of items may be returned, even if the end of the list
+          hasn't been reached. Maximum of 1000.
+        schema:
+          type: integer
+          default: 100
+          maximum: 1000
+      - name: team_id
+        in: query
+        description: >-
+          Required for org-wide app tokens. A single team ID to list
+          channels in.
+        schema:
+          type: string
+      - name: types
+        in: query
+        description: >-
+          Mix and match channel types by providing a comma-separated
+          list. Options: public_channel, private_channel, mpim, im.
+        schema:
+          type: string
+          default: public_channel
       responses:
         '200':
           description: Channel list retrieved
@@ -683,11 +710,14 @@ paths:
                       $ref: '#/components/schemas/Channel'
                   response_metadata:
                     $ref: '#/components/schemas/ResponseMetadata'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /conversations.info:
     get:
       tags:
-        - Conversations
-      summary: Slack Get information about a channel
+      - Conversations
+      summary: Slack Get Information About a Channel
       description: >-
         Retrieve information about a conversation including its purpose,
         topic, member count, and other metadata.
@@ -696,24 +726,24 @@ paths:
         description: API method documentation
         url: https://docs.slack.dev/reference/methods/conversations.info
       parameters:
-        - name: channel
-          in: query
-          required: true
-          description: The conversation ID to get info on.
-          schema:
-            type: string
-        - name: include_locale
-          in: query
-          description: Set to true to receive the locale for this conversation.
-          schema:
-            type: boolean
-            default: false
-        - name: include_num_members
-          in: query
-          description: Set to true to include the member count.
-          schema:
-            type: boolean
-            default: false
+      - name: channel
+        in: query
+        required: true
+        description: The conversation ID to get info on.
+        schema:
+          type: string
+      - name: include_locale
+        in: query
+        description: Set to true to receive the locale for this conversation.
+        schema:
+          type: boolean
+          default: false
+      - name: include_num_members
+        in: query
+        description: Set to true to include the member count.
+        schema:
+          type: boolean
+          default: false
       responses:
         '200':
           description: Channel information retrieved
@@ -726,11 +756,14 @@ paths:
                     type: boolean
                   channel:
                     $ref: '#/components/schemas/Channel'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /conversations.history:
     get:
       tags:
-        - Conversations
-      summary: Slack Fetch message history
+      - Conversations
+      summary: Slack Fetch Message History
       description: >-
         Fetches a conversation's history of messages and events. Returns
         messages in reverse chronological order.
@@ -739,55 +772,55 @@ paths:
         description: API method documentation
         url: https://docs.slack.dev/reference/methods/conversations.history
       parameters:
-        - name: channel
-          in: query
-          required: true
-          description: Conversation ID to fetch history for.
-          schema:
-            type: string
-        - name: cursor
-          in: query
-          description: >-
-            Paginate through collections by setting the cursor parameter
-            to a next_cursor attribute returned by a previous request.
-          schema:
-            type: string
-        - name: inclusive
-          in: query
-          description: >-
-            Include messages with oldest or latest timestamps in results.
-          schema:
-            type: boolean
-            default: false
-        - name: latest
-          in: query
-          description: >-
-            Only messages before this Unix timestamp will be included.
-            Default is the current time.
-          schema:
-            type: string
-        - name: limit
-          in: query
-          description: >-
-            The maximum number of items to return. Default 100, max 999.
-          schema:
-            type: integer
-            default: 100
-            maximum: 999
-        - name: oldest
-          in: query
-          description: >-
-            Only messages after this Unix timestamp will be included.
-            Default is 0.
-          schema:
-            type: string
-            default: '0'
-        - name: include_all_metadata
-          in: query
-          description: Return all metadata associated with messages.
-          schema:
-            type: boolean
-            default: false
+      - name: channel
+        in: query
+        required: true
+        description: Conversation ID to fetch history for.
+        schema:
+          type: string
+      - name: cursor
+        in: query
+        description: >-
+          Paginate through collections by setting the cursor parameter
+          to a next_cursor attribute returned by a previous request.
+        schema:
+          type: string
+      - name: inclusive
+        in: query
+        description: >-
+          Include messages with oldest or latest timestamps in results.
+        schema:
+          type: boolean
+          default: false
+      - name: latest
+        in: query
+        description: >-
+          Only messages before this Unix timestamp will be included.
+          Default is the current time.
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: >-
+          The maximum number of items to return. Default 100, max 999.
+        schema:
+          type: integer
+          default: 100
+          maximum: 999
+      - name: oldest
+        in: query
+        description: >-
+          Only messages after this Unix timestamp will be included.
+          Default is 0.
+        schema:
+          type: string
+          default: '0'
+      - name: include_all_metadata
+        in: query
+        description: Return all metadata associated with messages.
+        schema:
+          type: boolean
+          default: false
       responses:
         '200':
           description: Conversation history retrieved
@@ -808,11 +841,14 @@ paths:
                     type: integer
                   response_metadata:
                     $ref: '#/components/schemas/ResponseMetadata'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /conversations.create:
     post:
       tags:
-        - Conversations
-      summary: Slack Create a channel
+      - Conversations
+      summary: Slack Create a Channel
       description: >-
         Initiates a public or private channel-based conversation.
         Requires conversations:write scope.
@@ -827,7 +863,7 @@ paths:
             schema:
               type: object
               required:
-                - name
+              - name
               properties:
                 name:
                   type: string
@@ -853,11 +889,14 @@ paths:
                     type: boolean
                   channel:
                     $ref: '#/components/schemas/Channel'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /conversations.join:
     post:
       tags:
-        - Conversations
-      summary: Slack Join an existing conversation
+      - Conversations
+      summary: Slack Join an Existing Conversation
       description: >-
         Joins an existing conversation. Requires channels:write scope.
       operationId: conversationsJoin
@@ -871,7 +910,7 @@ paths:
             schema:
               type: object
               required:
-                - channel
+              - channel
               properties:
                 channel:
                   type: string
@@ -888,11 +927,14 @@ paths:
                     type: boolean
                   channel:
                     $ref: '#/components/schemas/Channel'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /conversations.invite:
     post:
       tags:
-        - Conversations
-      summary: Slack Invite users to a channel
+      - Conversations
+      summary: Slack Invite Users to a Channel
       description: Invites users to a channel. Requires channels:write scope.
       operationId: conversationsInvite
       externalDocs:
@@ -905,8 +947,8 @@ paths:
             schema:
               type: object
               required:
-                - channel
-                - users
+              - channel
+              - users
               properties:
                 channel:
                   type: string
@@ -928,11 +970,14 @@ paths:
                     type: boolean
                   channel:
                     $ref: '#/components/schemas/Channel'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /conversations.leave:
     post:
       tags:
-        - Conversations
-      summary: Slack Leave a conversation
+      - Conversations
+      summary: Slack Leave a Conversation
       description: Leaves a conversation. Requires channels:write scope.
       operationId: conversationsLeave
       externalDocs:
@@ -945,7 +990,7 @@ paths:
             schema:
               type: object
               required:
-                - channel
+              - channel
               properties:
                 channel:
                   type: string
@@ -960,11 +1005,14 @@ paths:
                 properties:
                   ok:
                     type: boolean
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /conversations.archive:
     post:
       tags:
-        - Conversations
-      summary: Slack Archive a channel
+      - Conversations
+      summary: Slack Archive a Channel
       description: Archives a conversation. Requires channels:write scope.
       operationId: conversationsArchive
       externalDocs:
@@ -977,7 +1025,7 @@ paths:
             schema:
               type: object
               required:
-                - channel
+              - channel
               properties:
                 channel:
                   type: string
@@ -992,11 +1040,14 @@ paths:
                 properties:
                   ok:
                     type: boolean
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /conversations.unarchive:
     post:
       tags:
-        - Conversations
-      summary: Slack Unarchive a channel
+      - Conversations
+      summary: Slack Unarchive a Channel
       description: Reverses the archiving of a conversation.
       operationId: conversationsUnarchive
       externalDocs:
@@ -1009,7 +1060,7 @@ paths:
             schema:
               type: object
               required:
-                - channel
+              - channel
               properties:
                 channel:
                   type: string
@@ -1024,11 +1075,14 @@ paths:
                 properties:
                   ok:
                     type: boolean
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /conversations.members:
     get:
       tags:
-        - Conversations
-      summary: Slack List members of a conversation
+      - Conversations
+      summary: Slack List Members of a Conversation
       description: >-
         Retrieve members of a conversation. Results are paginated with
         cursor-based pagination.
@@ -1037,22 +1091,22 @@ paths:
         description: API method documentation
         url: https://docs.slack.dev/reference/methods/conversations.members
       parameters:
-        - name: channel
-          in: query
-          required: true
-          description: ID of the conversation to retrieve members for.
-          schema:
-            type: string
-        - name: cursor
-          in: query
-          schema:
-            type: string
-        - name: limit
-          in: query
-          schema:
-            type: integer
-            default: 100
-            maximum: 1000
+      - name: channel
+        in: query
+        required: true
+        description: ID of the conversation to retrieve members for.
+        schema:
+          type: string
+      - name: cursor
+        in: query
+        schema:
+          type: string
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          default: 100
+          maximum: 1000
       responses:
         '200':
           description: Members listed
@@ -1070,11 +1124,14 @@ paths:
                     description: Array of user IDs.
                   response_metadata:
                     $ref: '#/components/schemas/ResponseMetadata'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /conversations.replies:
     get:
       tags:
-        - Conversations
-      summary: Slack Retrieve a thread of messages
+      - Conversations
+      summary: Slack Retrieve a Thread of Messages
       description: >-
         Retrieve a thread of messages posted to a conversation. Returns
         the parent message and all replies.
@@ -1083,43 +1140,43 @@ paths:
         description: API method documentation
         url: https://docs.slack.dev/reference/methods/conversations.replies
       parameters:
-        - name: channel
-          in: query
-          required: true
-          schema:
-            type: string
-        - name: ts
-          in: query
-          required: true
-          description: >-
-            Unique identifier of the parent message. This is the ts value
-            of the parent message.
-          schema:
-            type: string
-        - name: cursor
-          in: query
-          schema:
-            type: string
-        - name: inclusive
-          in: query
-          schema:
-            type: boolean
-            default: false
-        - name: latest
-          in: query
-          schema:
-            type: string
-        - name: limit
-          in: query
-          schema:
-            type: integer
-            default: 100
-            maximum: 1000
-        - name: oldest
-          in: query
-          schema:
-            type: string
-            default: '0'
+      - name: channel
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: ts
+        in: query
+        required: true
+        description: >-
+          Unique identifier of the parent message. This is the ts value
+          of the parent message.
+        schema:
+          type: string
+      - name: cursor
+        in: query
+        schema:
+          type: string
+      - name: inclusive
+        in: query
+        schema:
+          type: boolean
+          default: false
+      - name: latest
+        in: query
+        schema:
+          type: string
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          default: 100
+          maximum: 1000
+      - name: oldest
+        in: query
+        schema:
+          type: string
+          default: '0'
       responses:
         '200':
           description: Thread retrieved
@@ -1138,11 +1195,14 @@ paths:
                     type: boolean
                   response_metadata:
                     $ref: '#/components/schemas/ResponseMetadata'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /conversations.setTopic:
     post:
       tags:
-        - Conversations
-      summary: Slack Set the topic of a conversation
+      - Conversations
+      summary: Slack Set the Topic of a Conversation
       description: Sets the topic for a conversation.
       operationId: conversationsSetTopic
       externalDocs:
@@ -1155,8 +1215,8 @@ paths:
             schema:
               type: object
               required:
-                - channel
-                - topic
+              - channel
+              - topic
               properties:
                 channel:
                   type: string
@@ -1175,11 +1235,14 @@ paths:
                     type: boolean
                   channel:
                     $ref: '#/components/schemas/Channel'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /conversations.setPurpose:
     post:
       tags:
-        - Conversations
-      summary: Slack Set the purpose of a conversation
+      - Conversations
+      summary: Slack Set the Purpose of a Conversation
       description: Sets the purpose for a conversation.
       operationId: conversationsSetPurpose
       externalDocs:
@@ -1192,8 +1255,8 @@ paths:
             schema:
               type: object
               required:
-                - channel
-                - purpose
+              - channel
+              - purpose
               properties:
                 channel:
                   type: string
@@ -1212,11 +1275,14 @@ paths:
                     type: boolean
                   channel:
                     $ref: '#/components/schemas/Channel'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /conversations.rename:
     post:
       tags:
-        - Conversations
-      summary: Slack Rename a conversation
+      - Conversations
+      summary: Slack Rename a Conversation
       description: Renames a conversation.
       operationId: conversationsRename
       externalDocs:
@@ -1229,8 +1295,8 @@ paths:
             schema:
               type: object
               required:
-                - channel
-                - name
+              - channel
+              - name
               properties:
                 channel:
                   type: string
@@ -1249,11 +1315,14 @@ paths:
                     type: boolean
                   channel:
                     $ref: '#/components/schemas/Channel'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /users.list:
     get:
       tags:
-        - Users
-      summary: Slack List all users
+      - Users
+      summary: Slack List All Users
       description: >-
         Lists all users in a Slack team. Results are paginated with
         cursor-based pagination.
@@ -1262,27 +1331,27 @@ paths:
         description: API method documentation
         url: https://docs.slack.dev/reference/methods/users.list
       parameters:
-        - name: cursor
-          in: query
-          schema:
-            type: string
-        - name: include_locale
-          in: query
-          description: Set to true to receive the locale for users.
-          schema:
-            type: boolean
-            default: false
-        - name: limit
-          in: query
-          schema:
-            type: integer
-            default: 100
-            maximum: 1000
-        - name: team_id
-          in: query
-          description: Required for org-wide app tokens.
-          schema:
-            type: string
+      - name: cursor
+        in: query
+        schema:
+          type: string
+      - name: include_locale
+        in: query
+        description: Set to true to receive the locale for users.
+        schema:
+          type: boolean
+          default: false
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          default: 100
+          maximum: 1000
+      - name: team_id
+        in: query
+        description: Required for org-wide app tokens.
+        schema:
+          type: string
       responses:
         '200':
           description: User list retrieved
@@ -1301,11 +1370,14 @@ paths:
                     type: integer
                   response_metadata:
                     $ref: '#/components/schemas/ResponseMetadata'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /users.info:
     get:
       tags:
-        - Users
-      summary: Slack Get information about a user
+      - Users
+      summary: Slack Get Information About a User
       description: >-
         Gets information about a user. Returns a user object with profile
         information, timezone, admin status, and more.
@@ -1314,18 +1386,18 @@ paths:
         description: API method documentation
         url: https://docs.slack.dev/reference/methods/users.info
       parameters:
-        - name: user
-          in: query
-          required: true
-          description: User to get info on.
-          schema:
-            type: string
-        - name: include_locale
-          in: query
-          description: Set to true to receive the locale for this user.
-          schema:
-            type: boolean
-            default: false
+      - name: user
+        in: query
+        required: true
+        description: User to get info on.
+        schema:
+          type: string
+      - name: include_locale
+        in: query
+        description: Set to true to receive the locale for this user.
+        schema:
+          type: boolean
+          default: false
       responses:
         '200':
           description: User information retrieved
@@ -1338,11 +1410,14 @@ paths:
                     type: boolean
                   user:
                     $ref: '#/components/schemas/User'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /users.lookupByEmail:
     get:
       tags:
-        - Users
-      summary: Slack Find a user by email address
+      - Users
+      summary: Slack Find a User by Email Address
       description: >-
         Find a user with an email address. Requires users:read.email scope.
       operationId: usersLookupByEmail
@@ -1350,13 +1425,13 @@ paths:
         description: API method documentation
         url: https://docs.slack.dev/reference/methods/users.lookupByEmail
       parameters:
-        - name: email
-          in: query
-          required: true
-          description: An email address belonging to a user in the workspace.
-          schema:
-            type: string
-            format: email
+      - name: email
+        in: query
+        required: true
+        description: An email address belonging to a user in the workspace.
+        schema:
+          type: string
+          format: email
       responses:
         '200':
           description: User found
@@ -1369,22 +1444,25 @@ paths:
                     type: boolean
                   user:
                     $ref: '#/components/schemas/User'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /users.getPresence:
     get:
       tags:
-        - Users
-      summary: Slack Get user presence information
+      - Users
+      summary: Slack Get User Presence Information
       description: Gets user presence information.
       operationId: usersGetPresence
       externalDocs:
         description: API method documentation
         url: https://docs.slack.dev/reference/methods/users.getPresence
       parameters:
-        - name: user
-          in: query
-          required: true
-          schema:
-            type: string
+      - name: user
+        in: query
+        required: true
+        schema:
+          type: string
       responses:
         '200':
           description: Presence retrieved
@@ -1398,13 +1476,16 @@ paths:
                   presence:
                     type: string
                     enum:
-                      - active
-                      - away
+                    - active
+                    - away
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /files.upload:
     post:
       tags:
-        - Files
-      summary: Slack Upload a file
+      - Files
+      summary: Slack Upload a File
       description: >-
         Uploads or creates a file. Files can be uploaded as binary content
         or created from content snippets.
@@ -1457,11 +1538,14 @@ paths:
                     type: boolean
                   file:
                     $ref: '#/components/schemas/File'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /files.list:
     get:
       tags:
-        - Files
-      summary: Slack List files
+      - Files
+      summary: Slack List Files
       description: >-
         List files for a team, in a channel, or from a user. Supports
         filtering and pagination.
@@ -1470,44 +1554,44 @@ paths:
         description: API method documentation
         url: https://docs.slack.dev/reference/methods/files.list
       parameters:
-        - name: channel
-          in: query
-          description: Filter files appearing in a specific channel.
-          schema:
-            type: string
-        - name: count
-          in: query
-          schema:
-            type: integer
-            default: 100
-        - name: page
-          in: query
-          schema:
-            type: integer
-            default: 1
-        - name: ts_from
-          in: query
-          description: Filter files created after this timestamp.
-          schema:
-            type: string
-        - name: ts_to
-          in: query
-          description: Filter files created before this timestamp.
-          schema:
-            type: string
-        - name: types
-          in: query
-          description: >-
-            Filter files by type: all, spaces, snippets, images, gdocs,
-            zips, pdfs.
-          schema:
-            type: string
-            default: all
-        - name: user
-          in: query
-          description: Filter files created by a single user.
-          schema:
-            type: string
+      - name: channel
+        in: query
+        description: Filter files appearing in a specific channel.
+        schema:
+          type: string
+      - name: count
+        in: query
+        schema:
+          type: integer
+          default: 100
+      - name: page
+        in: query
+        schema:
+          type: integer
+          default: 1
+      - name: ts_from
+        in: query
+        description: Filter files created after this timestamp.
+        schema:
+          type: string
+      - name: ts_to
+        in: query
+        description: Filter files created before this timestamp.
+        schema:
+          type: string
+      - name: types
+        in: query
+        description: >-
+          Filter files by type: all, spaces, snippets, images, gdocs,
+          zips, pdfs.
+        schema:
+          type: string
+          default: all
+      - name: user
+        in: query
+        description: Filter files created by a single user.
+        schema:
+          type: string
       responses:
         '200':
           description: Files listed
@@ -1533,42 +1617,45 @@ paths:
                         type: integer
                       pages:
                         type: integer
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /files.info:
     get:
       tags:
-        - Files
-      summary: Slack Get information about a file
+      - Files
+      summary: Slack Get Information About a File
       description: Gets information about a file.
       operationId: filesInfo
       externalDocs:
         description: API method documentation
         url: https://docs.slack.dev/reference/methods/files.info
       parameters:
-        - name: file
-          in: query
-          required: true
-          description: Specify a file by providing its ID.
-          schema:
-            type: string
-        - name: count
-          in: query
-          schema:
-            type: integer
-            default: 100
-        - name: cursor
-          in: query
-          schema:
-            type: string
-        - name: limit
-          in: query
-          schema:
-            type: integer
-            default: 100
-        - name: page
-          in: query
-          schema:
-            type: integer
-            default: 1
+      - name: file
+        in: query
+        required: true
+        description: Specify a file by providing its ID.
+        schema:
+          type: string
+      - name: count
+        in: query
+        schema:
+          type: integer
+          default: 100
+      - name: cursor
+        in: query
+        schema:
+          type: string
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          default: 100
+      - name: page
+        in: query
+        schema:
+          type: integer
+          default: 1
       responses:
         '200':
           description: File information retrieved
@@ -1581,11 +1668,14 @@ paths:
                     type: boolean
                   file:
                     $ref: '#/components/schemas/File'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /files.delete:
     post:
       tags:
-        - Files
-      summary: Slack Delete a file
+      - Files
+      summary: Slack Delete a File
       description: Deletes a file.
       operationId: filesDelete
       externalDocs:
@@ -1598,7 +1688,7 @@ paths:
             schema:
               type: object
               required:
-                - file
+              - file
               properties:
                 file:
                   type: string
@@ -1613,11 +1703,14 @@ paths:
                 properties:
                   ok:
                     type: boolean
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /reactions.add:
     post:
       tags:
-        - Reactions
-      summary: Slack Add an emoji reaction
+      - Reactions
+      summary: Slack Add an Emoji Reaction
       description: >-
         Adds a reaction (emoji) to a message, file, or file comment.
         Requires reactions:write scope.
@@ -1632,9 +1725,9 @@ paths:
             schema:
               type: object
               required:
-                - channel
-                - name
-                - timestamp
+              - channel
+              - name
+              - timestamp
               properties:
                 channel:
                   type: string
@@ -1655,11 +1748,14 @@ paths:
                 properties:
                   ok:
                     type: boolean
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /reactions.remove:
     post:
       tags:
-        - Reactions
-      summary: Slack Remove an emoji reaction
+      - Reactions
+      summary: Slack Remove an Emoji Reaction
       description: Removes a reaction (emoji) from an item.
       operationId: reactionsRemove
       externalDocs:
@@ -1672,7 +1768,7 @@ paths:
             schema:
               type: object
               required:
-                - name
+              - name
               properties:
                 channel:
                   type: string
@@ -1695,42 +1791,45 @@ paths:
                 properties:
                   ok:
                     type: boolean
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /reactions.get:
     get:
       tags:
-        - Reactions
-      summary: Slack Get reactions for an item
+      - Reactions
+      summary: Slack Get Reactions for an Item
       description: Gets reactions for an item (message, file, or file comment).
       operationId: reactionsGet
       externalDocs:
         description: API method documentation
         url: https://docs.slack.dev/reference/methods/reactions.get
       parameters:
-        - name: channel
-          in: query
-          description: Channel where the message to get reactions for was posted.
-          schema:
-            type: string
-        - name: file
-          in: query
-          description: File to get reactions for.
-          schema:
-            type: string
-        - name: file_comment
-          in: query
-          description: File comment to get reactions for.
-          schema:
-            type: string
-        - name: full
-          in: query
-          description: If true, return complete reaction list.
-          schema:
-            type: boolean
-        - name: timestamp
-          in: query
-          description: Timestamp of the message to get reactions for.
-          schema:
-            type: string
+      - name: channel
+        in: query
+        description: Channel where the message to get reactions for was posted.
+        schema:
+          type: string
+      - name: file
+        in: query
+        description: File to get reactions for.
+        schema:
+          type: string
+      - name: file_comment
+        in: query
+        description: File comment to get reactions for.
+        schema:
+          type: string
+      - name: full
+        in: query
+        description: If true, return complete reaction list.
+        schema:
+          type: boolean
+      - name: timestamp
+        in: query
+        description: Timestamp of the message to get reactions for.
+        schema:
+          type: string
       responses:
         '200':
           description: Reactions retrieved
@@ -1745,11 +1844,14 @@ paths:
                     type: string
                   message:
                     $ref: '#/components/schemas/Message'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /reactions.list:
     get:
       tags:
-        - Reactions
-      summary: Slack List reactions made by a user
+      - Reactions
+      summary: Slack List Reactions Made by a User
       description: >-
         Lists reactions made by a user. Paginated with cursor-based
         pagination.
@@ -1758,34 +1860,34 @@ paths:
         description: API method documentation
         url: https://docs.slack.dev/reference/methods/reactions.list
       parameters:
-        - name: count
-          in: query
-          schema:
-            type: integer
-            default: 100
-        - name: cursor
-          in: query
-          schema:
-            type: string
-        - name: full
-          in: query
-          schema:
-            type: boolean
-        - name: limit
-          in: query
-          schema:
-            type: integer
-            default: 100
-        - name: page
-          in: query
-          schema:
-            type: integer
-            default: 1
-        - name: user
-          in: query
-          description: Show reactions made by this user.
-          schema:
-            type: string
+      - name: count
+        in: query
+        schema:
+          type: integer
+          default: 100
+      - name: cursor
+        in: query
+        schema:
+          type: string
+      - name: full
+        in: query
+        schema:
+          type: boolean
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          default: 100
+      - name: page
+        in: query
+        schema:
+          type: integer
+          default: 1
+      - name: user
+        in: query
+        description: Show reactions made by this user.
+        schema:
+          type: string
       responses:
         '200':
           description: Reactions listed
@@ -1802,11 +1904,14 @@ paths:
                       type: object
                   response_metadata:
                     $ref: '#/components/schemas/ResponseMetadata'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /pins.add:
     post:
       tags:
-        - Pins
-      summary: Slack Pin a message
+      - Pins
+      summary: Slack Pin a Message
       description: Pins a message to a channel. Requires pins:write scope.
       operationId: pinsAdd
       externalDocs:
@@ -1819,8 +1924,8 @@ paths:
             schema:
               type: object
               required:
-                - channel
-                - timestamp
+              - channel
+              - timestamp
               properties:
                 channel:
                   type: string
@@ -1838,11 +1943,14 @@ paths:
                 properties:
                   ok:
                     type: boolean
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /pins.remove:
     post:
       tags:
-        - Pins
-      summary: Slack Unpin a message
+      - Pins
+      summary: Slack Unpin a Message
       description: Un-pins a message from a channel.
       operationId: pinsRemove
       externalDocs:
@@ -1855,8 +1963,8 @@ paths:
             schema:
               type: object
               required:
-                - channel
-                - timestamp
+              - channel
+              - timestamp
               properties:
                 channel:
                   type: string
@@ -1872,23 +1980,26 @@ paths:
                 properties:
                   ok:
                     type: boolean
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /pins.list:
     get:
       tags:
-        - Pins
-      summary: Slack List pinned items
+      - Pins
+      summary: Slack List Pinned Items
       description: Lists items pinned to a channel.
       operationId: pinsList
       externalDocs:
         description: API method documentation
         url: https://docs.slack.dev/reference/methods/pins.list
       parameters:
-        - name: channel
-          in: query
-          required: true
-          description: Channel to get pinned items for.
-          schema:
-            type: string
+      - name: channel
+        in: query
+        required: true
+        description: Channel to get pinned items for.
+        schema:
+          type: string
       responses:
         '200':
           description: Pinned items listed
@@ -1914,11 +2025,14 @@ paths:
                           type: integer
                         created_by:
                           type: string
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /search.messages:
     get:
       tags:
-        - Search
-      summary: Slack Search for messages
+      - Search
+      summary: Slack Search for Messages
       description: >-
         Searches for messages matching a query. Supports Slack search
         modifiers such as in:, from:, has:, before:, after:, and is:thread.
@@ -1927,43 +2041,43 @@ paths:
         description: API method documentation
         url: https://docs.slack.dev/reference/methods/search.messages
       parameters:
-        - name: query
-          in: query
-          required: true
-          description: Search query.
-          schema:
-            type: string
-        - name: count
-          in: query
-          schema:
-            type: integer
-            default: 20
-        - name: highlight
-          in: query
-          description: Pass a value of true to enable query highlight markers.
-          schema:
-            type: boolean
-        - name: page
-          in: query
-          schema:
-            type: integer
-            default: 1
-        - name: sort
-          in: query
-          description: Return matches sorted by either score or timestamp.
-          schema:
-            type: string
-            enum:
-              - score
-              - timestamp
-        - name: sort_dir
-          in: query
-          description: Change sort direction to ascending or descending.
-          schema:
-            type: string
-            enum:
-              - asc
-              - desc
+      - name: query
+        in: query
+        required: true
+        description: Search query.
+        schema:
+          type: string
+      - name: count
+        in: query
+        schema:
+          type: integer
+          default: 20
+      - name: highlight
+        in: query
+        description: Pass a value of true to enable query highlight markers.
+        schema:
+          type: boolean
+      - name: page
+        in: query
+        schema:
+          type: integer
+          default: 1
+      - name: sort
+        in: query
+        description: Return matches sorted by either score or timestamp.
+        schema:
+          type: string
+          enum:
+          - score
+          - timestamp
+      - name: sort_dir
+        in: query
+        description: Change sort direction to ascending or descending.
+        schema:
+          type: string
+          enum:
+          - asc
+          - desc
       responses:
         '200':
           description: Search results returned
@@ -2011,50 +2125,53 @@ paths:
                         type: array
                         items:
                           $ref: '#/components/schemas/Message'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /search.files:
     get:
       tags:
-        - Search
-      summary: Slack Search for files
+      - Search
+      summary: Slack Search for Files
       description: Searches for files matching a query.
       operationId: searchFiles
       externalDocs:
         description: API method documentation
         url: https://docs.slack.dev/reference/methods/search.files
       parameters:
-        - name: query
-          in: query
-          required: true
-          schema:
-            type: string
-        - name: count
-          in: query
-          schema:
-            type: integer
-            default: 20
-        - name: highlight
-          in: query
-          schema:
-            type: boolean
-        - name: page
-          in: query
-          schema:
-            type: integer
-            default: 1
-        - name: sort
-          in: query
-          schema:
-            type: string
-            enum:
-              - score
-              - timestamp
-        - name: sort_dir
-          in: query
-          schema:
-            type: string
-            enum:
-              - asc
-              - desc
+      - name: query
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: count
+        in: query
+        schema:
+          type: integer
+          default: 20
+      - name: highlight
+        in: query
+        schema:
+          type: boolean
+      - name: page
+        in: query
+        schema:
+          type: integer
+          default: 1
+      - name: sort
+        in: query
+        schema:
+          type: string
+          enum:
+          - score
+          - timestamp
+      - name: sort_dir
+        in: query
+        schema:
+          type: string
+          enum:
+          - asc
+          - desc
       responses:
         '200':
           description: Search results returned
@@ -2076,11 +2193,14 @@ paths:
                         type: array
                         items:
                           $ref: '#/components/schemas/File'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /team.info:
     get:
       tags:
-        - Team
-      summary: Slack Get team information
+      - Team
+      summary: Slack Get Team Information
       description: >-
         Gets information about the current team. Requires team:read scope.
       operationId: teamInfo
@@ -2088,13 +2208,13 @@ paths:
         description: API method documentation
         url: https://docs.slack.dev/reference/methods/team.info
       parameters:
-        - name: team
-          in: query
-          description: >-
-            Team to get info about; if omitted, will return information
-            about the current team.
-          schema:
-            type: string
+      - name: team
+        in: query
+        description: >-
+          Team to get info about; if omitted, will return information
+          about the current team.
+        schema:
+          type: string
       responses:
         '200':
           description: Team info retrieved
@@ -2137,11 +2257,14 @@ paths:
                         type: string
                       enterprise_name:
                         type: string
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /views.open:
     post:
       tags:
-        - Views
-      summary: Slack Open a modal view
+      - Views
+      summary: Slack Open a Modal View
       description: >-
         Open a view for a user by providing a trigger_id received from
         a slash command, shortcut, or interactive component.
@@ -2156,8 +2279,8 @@ paths:
             schema:
               type: object
               required:
-                - trigger_id
-                - view
+              - trigger_id
+              - view
               properties:
                 trigger_id:
                   type: string
@@ -2179,11 +2302,14 @@ paths:
                     type: boolean
                   view:
                     type: object
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /views.update:
     post:
       tags:
-        - Views
-      summary: Slack Update an existing view
+      - Views
+      summary: Slack Update an Existing View
       description: Update an existing view.
       operationId: viewsUpdate
       externalDocs:
@@ -2221,11 +2347,14 @@ paths:
                     type: boolean
                   view:
                     type: object
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /views.publish:
     post:
       tags:
-        - Views
-      summary: Slack Publish a view to the App Home tab
+      - Views
+      summary: Slack Publish a View to the App Home Tab
       description: Publish a static view for a user to the App Home tab.
       operationId: viewsPublish
       externalDocs:
@@ -2238,8 +2367,8 @@ paths:
             schema:
               type: object
               required:
-                - user_id
-                - view
+              - user_id
+              - view
               properties:
                 user_id:
                   type: string
@@ -2261,11 +2390,14 @@ paths:
                     type: boolean
                   view:
                     type: object
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /emoji.list:
     get:
       tags:
-        - Emoji
-      summary: Slack List custom emoji
+      - Emoji
+      summary: Slack List Custom Emoji
       description: >-
         Lists custom emoji for a team. Returns a map of emoji name to URL.
         Requires emoji:read scope.
@@ -2289,11 +2421,14 @@ paths:
                       type: string
                   cache_ts:
                     type: integer
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /reminders.add:
     post:
       tags:
-        - Reminders
-      summary: Slack Create a reminder
+      - Reminders
+      summary: Slack Create a Reminder
       description: Creates a reminder for a user.
       operationId: remindersAdd
       externalDocs:
@@ -2306,8 +2441,8 @@ paths:
             schema:
               type: object
               required:
-                - text
-                - time
+              - text
+              - time
               properties:
                 text:
                   type: string
@@ -2349,11 +2484,14 @@ paths:
                         type: integer
                       complete_ts:
                         type: integer
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /reminders.list:
     get:
       tags:
-        - Reminders
-      summary: Slack List all reminders
+      - Reminders
+      summary: Slack List All Reminders
       description: Lists all reminders created by or for a given user.
       operationId: remindersList
       externalDocs:
@@ -2388,11 +2526,14 @@ paths:
                           type: integer
                         complete_ts:
                           type: integer
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /bookmarks.add:
     post:
       tags:
-        - Bookmarks
-      summary: Slack Add a bookmark to a channel
+      - Bookmarks
+      summary: Slack Add a Bookmark to a Channel
       description: Adds a bookmark to a channel.
       operationId: bookmarksAdd
       externalDocs:
@@ -2405,9 +2546,9 @@ paths:
             schema:
               type: object
               required:
-                - channel_id
-                - title
-                - type
+              - channel_id
+              - title
+              - type
               properties:
                 channel_id:
                   type: string
@@ -2418,7 +2559,7 @@ paths:
                   type: string
                   description: Type of the bookmark. Currently only link is supported.
                   enum:
-                    - link
+                  - link
                 link:
                   type: string
                   format: uri
@@ -2438,22 +2579,25 @@ paths:
                     type: boolean
                   bookmark:
                     type: object
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /bookmarks.list:
     get:
       tags:
-        - Bookmarks
-      summary: Slack List bookmarks for a channel
+      - Bookmarks
+      summary: Slack List Bookmarks for a Channel
       description: Lists bookmarks for a channel.
       operationId: bookmarksList
       externalDocs:
         description: API method documentation
         url: https://docs.slack.dev/reference/methods/bookmarks.list
       parameters:
-        - name: channel_id
-          in: query
-          required: true
-          schema:
-            type: string
+      - name: channel_id
+        in: query
+        required: true
+        schema:
+          type: string
       responses:
         '200':
           description: Bookmarks listed
@@ -2468,11 +2612,14 @@ paths:
                     type: array
                     items:
                       type: object
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /dnd.setSnooze:
     post:
       tags:
-        - Dnd
-      summary: Slack Set snooze duration
+      - Dnd
+      summary: Slack Set Snooze Duration
       description: >-
         Turns on Do Not Disturb mode for the current user for the specified
         number of minutes.
@@ -2487,7 +2634,7 @@ paths:
             schema:
               type: object
               required:
-                - num_minutes
+              - num_minutes
               properties:
                 num_minutes:
                   type: integer
@@ -2508,11 +2655,14 @@ paths:
                     type: integer
                   snooze_remaining:
                     type: integer
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /dnd.info:
     get:
       tags:
-        - Dnd
-      summary: Slack Get DND status for a user
+      - Dnd
+      summary: Slack Get Dnd Status for a User
       description: >-
         Retrieves a user's current Do Not Disturb status.
       operationId: dndInfo
@@ -2520,11 +2670,11 @@ paths:
         description: API method documentation
         url: https://docs.slack.dev/reference/methods/dnd.info
       parameters:
-        - name: user
-          in: query
-          description: User to fetch status for.
-          schema:
-            type: string
+      - name: user
+        in: query
+        description: User to fetch status for.
+        schema:
+          type: string
       responses:
         '200':
           description: DND info retrieved
@@ -2547,29 +2697,32 @@ paths:
                     type: integer
                   snooze_remaining:
                     type: integer
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /usergroups.list:
     get:
       tags:
-        - Usergroups
-      summary: Slack List all user groups
+      - Usergroups
+      summary: Slack List All User Groups
       description: List all user groups for a team.
       operationId: usergroupsList
       externalDocs:
         description: API method documentation
         url: https://docs.slack.dev/reference/methods/usergroups.list
       parameters:
-        - name: include_count
-          in: query
-          schema:
-            type: boolean
-        - name: include_disabled
-          in: query
-          schema:
-            type: boolean
-        - name: include_users
-          in: query
-          schema:
-            type: boolean
+      - name: include_count
+        in: query
+        schema:
+          type: boolean
+      - name: include_disabled
+        in: query
+        schema:
+          type: boolean
+      - name: include_users
+        in: query
+        schema:
+          type: boolean
       responses:
         '200':
           description: User groups listed
@@ -2619,6 +2772,9 @@ paths:
                           type: array
                           items:
                             type: string
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
 components:
   securitySchemes:
     bearerAuth:
@@ -2639,45 +2795,56 @@ components:
           type: string
           description: Always "message" for messages.
           const: message
+          example: example_value
         subtype:
           type: string
           description: >-
             Optional subtype indicating a specialized message type such
             as bot_message, channel_join, channel_leave, etc.
+          example: example_value
         channel:
           type: string
           description: The channel ID where the message was posted.
+          example: example_value
         user:
           type: string
           description: The user ID of the message author.
+          example: example_value
         text:
           type: string
           description: The text content of the message.
+          example: example_value
         ts:
           type: string
           description: >-
             Unique timestamp identifier for the message, also serves as
             the message ID. Format is Unix epoch with microseconds
             (e.g., "1503435956.000247").
+          example: example_value
         thread_ts:
           type: string
           description: >-
             The timestamp of the parent message in a thread. Present only
             for threaded replies.
+          example: example_value
         reply_count:
           type: integer
           description: Number of replies in the thread.
+          example: 10
         reply_users_count:
           type: integer
           description: Number of unique users who have replied in the thread.
+          example: 10
         latest_reply:
           type: string
           description: Timestamp of the most recent reply in the thread.
+          example: example_value
         reply_users:
           type: array
           description: Array of user IDs who have replied in the thread.
           items:
             type: string
+          example: []
         blocks:
           type: array
           description: >-
@@ -2685,6 +2852,7 @@ components:
             formatting.
           items:
             type: object
+          example: []
         attachments:
           type: array
           description: An array of message attachments.
@@ -2732,11 +2900,13 @@ components:
                 format: uri
               ts:
                 type: integer
+          example: []
         files:
           type: array
           description: An array of file objects attached to the message.
           items:
             $ref: '#/components/schemas/File'
+          example: []
         reactions:
           type: array
           description: An array of emoji reactions on this message.
@@ -2754,6 +2924,7 @@ components:
                 description: User IDs of users who added this reaction.
                 items:
                   type: string
+          example: []
         edited:
           type: object
           description: Edit information if the message was edited.
@@ -2762,9 +2933,11 @@ components:
               type: string
             ts:
               type: string
+          example: example_value
         bot_id:
           type: string
           description: Bot ID if the message was posted by a bot.
+          example: '500123'
         bot_profile:
           type: object
           description: Bot profile information if posted by a bot.
@@ -2781,6 +2954,7 @@ components:
               type: string
             icons:
               type: object
+          example: example_value
         metadata:
           type: object
           description: >-
@@ -2790,10 +2964,12 @@ components:
               type: string
             event_payload:
               type: object
+          example: example_value
         permalink:
           type: string
           format: uri
           description: Permalink URL for the message.
+          example: https://www.example.com
     Channel:
       type: object
       description: >-
@@ -2803,69 +2979,90 @@ components:
         id:
           type: string
           description: The unique identifier for this conversation.
+          example: abc123
         name:
           type: string
           description: >-
             The name of the channel (without the leading # sign).
+          example: Example Title
         name_normalized:
           type: string
           description: Normalized version of the channel name.
+          example: example_value
         is_channel:
           type: boolean
           description: Whether this is a public channel.
+          example: true
         is_group:
           type: boolean
           description: Whether this is a private channel (formerly a group).
+          example: true
         is_im:
           type: boolean
           description: Whether this is a direct message.
+          example: true
         is_mpim:
           type: boolean
           description: Whether this is a multi-person direct message.
+          example: true
         is_private:
           type: boolean
           description: Whether this is a private conversation.
+          example: true
         is_archived:
           type: boolean
           description: Whether the channel is archived.
+          example: true
         is_general:
           type: boolean
           description: Whether this is the #general channel.
+          example: true
         is_shared:
           type: boolean
           description: Whether the channel is shared with another workspace.
+          example: true
         is_ext_shared:
           type: boolean
           description: >-
             Whether the channel is shared with an external organization
             via Slack Connect.
+          example: true
         is_org_shared:
           type: boolean
           description: Whether the channel is shared across an Enterprise Grid org.
+          example: true
         is_pending_ext_shared:
           type: boolean
           description: Whether there is a pending external share invitation.
+          example: true
         is_member:
           type: boolean
           description: Whether the calling user is a member of this conversation.
+          example: true
         is_open:
           type: boolean
           description: Whether the DM is open.
+          example: true
         is_frozen:
           type: boolean
           description: Whether the channel is frozen.
+          example: true
         created:
           type: integer
           description: Unix timestamp of when the conversation was created.
+          example: 10
         creator:
           type: string
           description: User ID of the member who created this channel.
+          example: example_value
         updated:
           type: integer
           description: Unix timestamp of the last update to the conversation.
+          example: 10
         unlinked:
           type: integer
           description: Number of times the channel has been unlinked.
+          example: 10
         topic:
           type: object
           description: The channel topic.
@@ -2876,6 +3073,7 @@ components:
               type: string
             last_set:
               type: integer
+          example: example_value
         purpose:
           type: object
           description: The channel purpose.
@@ -2886,25 +3084,30 @@ components:
               type: string
             last_set:
               type: integer
+          example: example_value
         previous_names:
           type: array
           description: A list of previous names the channel had.
           items:
             type: string
+          example: []
         num_members:
           type: integer
           description: >-
             The number of members in the channel. Only included when
             specifically requested.
+          example: 10
         locale:
           type: string
           description: >-
             IETF language code for the channel locale. Only included
             when specifically requested.
+          example: example_value
         user:
           type: string
           description: >-
             For direct messages, the user ID of the other participant.
+          example: example_value
         shared_team_ids:
           type: array
           description: >-
@@ -2912,12 +3115,15 @@ components:
             channels).
           items:
             type: string
+          example: []
         parent_conversation:
           type: string
           description: Parent conversation ID for thread-only channels.
+          example: example_value
         context_team_id:
           type: string
           description: The workspace team ID.
+          example: '500123'
         properties:
           type: object
           description: Additional channel properties.
@@ -2926,6 +3132,7 @@ components:
               type: array
               items:
                 type: object
+          example: example_value
     User:
       type: object
       description: >-
@@ -2935,32 +3142,41 @@ components:
         id:
           type: string
           description: The unique identifier for this user.
+          example: abc123
         team_id:
           type: string
           description: The workspace team ID this user belongs to.
+          example: '500123'
         name:
           type: string
           description: The user's username.
+          example: Example Title
         deleted:
           type: boolean
           description: Whether the user has been deactivated.
+          example: true
         color:
           type: string
           description: >-
             A hex color code used in certain client displays for this
             user.
+          example: example_value
         real_name:
           type: string
           description: The user's real name.
+          example: example_value
         tz:
           type: string
           description: The user's timezone identifier (e.g., "America/Los_Angeles").
+          example: example_value
         tz_label:
           type: string
           description: Descriptive label for the user's timezone.
+          example: example_value
         tz_offset:
           type: integer
           description: The user's timezone offset from UTC in seconds.
+          example: 10
         profile:
           type: object
           description: The user's profile information.
@@ -3026,38 +3242,49 @@ components:
               format: uri
             team:
               type: string
+          example: example_value
         is_admin:
           type: boolean
           description: Whether the user is a workspace admin.
+          example: true
         is_owner:
           type: boolean
           description: Whether the user is a workspace owner.
+          example: true
         is_primary_owner:
           type: boolean
           description: Whether the user is the primary workspace owner.
+          example: true
         is_restricted:
           type: boolean
           description: Whether the user is a guest with single-channel access.
+          example: true
         is_ultra_restricted:
           type: boolean
           description: Whether the user is a single-channel guest.
+          example: true
         is_bot:
           type: boolean
           description: Whether the user is a bot.
+          example: true
         is_app_user:
           type: boolean
           description: Whether the user is an app user.
+          example: true
         updated:
           type: integer
           description: Unix timestamp of when the user was last updated.
+          example: 10
         has_2fa:
           type: boolean
           description: Whether the user has two-factor authentication enabled.
+          example: true
         locale:
           type: string
           description: >-
             IETF language code for the user. Only included when
             specifically requested.
+          example: example_value
     File:
       type: object
       description: >-
@@ -3067,95 +3294,123 @@ components:
         id:
           type: string
           description: Unique file identifier.
+          example: abc123
         created:
           type: integer
           description: Unix timestamp of when the file was created.
+          example: 10
         timestamp:
           type: integer
           description: Unix timestamp.
+          example: 10
         name:
           type: string
           description: The file name.
+          example: Example Title
         title:
           type: string
           description: Title of the file.
+          example: Example Title
         mimetype:
           type: string
           description: MIME type of the file.
+          example: example_value
         filetype:
           type: string
           description: Slack file type identifier (e.g., "png", "pdf", "snippet").
+          example: example_value
         pretty_type:
           type: string
           description: Human-readable file type.
+          example: example_value
         user:
           type: string
           description: User ID of the user who uploaded the file.
+          example: example_value
         user_team:
           type: string
           description: Team ID of the user who uploaded the file.
+          example: example_value
         editable:
           type: boolean
           description: Whether the file content is editable.
+          example: true
         size:
           type: integer
           description: File size in bytes.
+          example: 10
         mode:
           type: string
           description: >-
             File mode (e.g., "hosted", "external", "snippet", "post").
+          example: example_value
         is_external:
           type: boolean
           description: Whether the file is externally hosted.
+          example: true
         external_type:
           type: string
           description: Type of external file.
+          example: example_value
         is_public:
           type: boolean
           description: Whether the file is public.
+          example: true
         public_url_shared:
           type: boolean
+          example: https://www.example.com
         display_as_bot:
           type: boolean
+          example: true
         username:
           type: string
+          example: example_value
         url_private:
           type: string
           format: uri
           description: URL to access the file. Requires authentication.
+          example: https://www.example.com
         url_private_download:
           type: string
           format: uri
           description: URL to download the file. Requires authentication.
+          example: https://www.example.com
         permalink:
           type: string
           format: uri
           description: Permalink URL for the file.
+          example: https://www.example.com
         permalink_public:
           type: string
           format: uri
           description: Public permalink URL for the file (if shared publicly).
+          example: https://www.example.com
         channels:
           type: array
           description: Array of channel IDs where the file is shared.
           items:
             type: string
+          example: []
         groups:
           type: array
           description: Array of private channel IDs where the file is shared.
           items:
             type: string
+          example: []
         ims:
           type: array
           description: Array of DM IDs where the file is shared.
           items:
             type: string
+          example: []
         shares:
           type: object
           description: Sharing information broken down by type.
+          example: example_value
         comments_count:
           type: integer
           description: Number of comments on the file.
+          example: 10
     ResponseMetadata:
       type: object
       description: >-
@@ -3166,6 +3421,7 @@ components:
           description: >-
             An opaque cursor to use in the next request to get the next
             page of results. Empty string indicates no more results.
+          example: example_value
     ErrorResponse:
       type: object
       description: Standard error response from the Slack API.
@@ -3173,11 +3429,13 @@ components:
         ok:
           type: boolean
           const: false
+          example: true
         error:
           type: string
           description: >-
             A short machine-readable error code such as "channel_not_found",
             "not_authed", "invalid_auth", "missing_scope", etc.
+          example: example_value
         response_metadata:
           type: object
           properties:
@@ -3185,6 +3443,7 @@ components:
               type: array
               items:
                 type: string
+          example: example_value
       required:
-        - ok
-        - error
+      - ok
+      - error

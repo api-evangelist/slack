@@ -1,0 +1,167 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Slack App Platform"
+  description: "Unified workflow for building Slack apps including app management, interactive views, dialogs, bots, workflow functions, calls, and real-time messaging. Used by platform developers building Slack integrations."
+  tags:
+    - Slack
+    - App Development
+    - Platform
+    - Automation
+  created: "2026-04-18"
+  modified: "2026-04-18"
+
+binds:
+  - namespace: env
+    keys:
+      SLACK_BOT_TOKEN: SLACK_BOT_TOKEN
+
+capability:
+  consumes:
+    - import: slack-apps
+      location: ./shared/apps.yaml
+    - import: slack-views
+      location: ./shared/views.yaml
+    - import: slack-dialog
+      location: ./shared/dialog.yaml
+    - import: slack-bots
+      location: ./shared/bots.yaml
+    - import: slack-functions
+      location: ./shared/functions.yaml
+    - import: slack-workflows
+      location: ./shared/workflows.yaml
+    - import: slack-calls
+      location: ./shared/calls.yaml
+    - import: slack-rtm
+      location: ./shared/rtm.yaml
+    - import: slack-assistant
+      location: ./shared/assistant.yaml
+    - import: slack-tests
+      location: ./shared/test-api.yaml
+
+  exposes:
+    - type: rest
+      port: 8082
+      namespace: app-platform-api
+      description: "Unified REST API for Slack app platform."
+      resources:
+        - path: /v1/apps
+          name: apps
+          description: "App management."
+          operations:
+            - method: GET
+              name: list-apps
+              description: "List apps."
+              call: "slack-apps.list"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/views
+          name: views
+          description: "View management."
+          operations:
+            - method: POST
+              name: open-view
+              description: "Open a view."
+              call: "slack-views.list"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/workflows
+          name: workflows
+          description: "Workflow management."
+          operations:
+            - method: GET
+              name: list-workflows
+              description: "List workflows."
+              call: "slack-workflows.list"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9082
+      namespace: app-platform-mcp
+      transport: http
+      description: "MCP server for AI-assisted Slack app development."
+      tools:
+        - name: list-apps
+          description: "List installed apps."
+          hints:
+            readOnly: true
+          call: "slack-apps.list"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: open-view
+          description: "Open a modal view."
+          hints:
+            readOnly: false
+          call: "slack-views.list"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: open-dialog
+          description: "Open a dialog."
+          hints:
+            readOnly: false
+          call: "slack-dialog.list"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-bot-info
+          description: "Get bot information."
+          hints:
+            readOnly: true
+          call: "slack-bots.list"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: complete-function
+          description: "Complete a workflow function."
+          hints:
+            readOnly: false
+          call: "slack-functions.list"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: manage-workflows
+          description: "Manage workflows."
+          hints:
+            readOnly: false
+          call: "slack-workflows.list"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: manage-calls
+          description: "Manage voice/video calls."
+          hints:
+            readOnly: false
+          call: "slack-calls.list"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: rtm-connect
+          description: "Connect to Real-Time Messaging."
+          hints:
+            readOnly: true
+          call: "slack-rtm.list"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: manage-assistant
+          description: "Manage AI assistant threads."
+          hints:
+            readOnly: false
+          call: "slack-assistant.list"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: api-test
+          description: "Test API connectivity."
+          hints:
+            readOnly: true
+          call: "slack-tests.list"
+          outputParameters:
+            - type: object
+              mapping: "$."

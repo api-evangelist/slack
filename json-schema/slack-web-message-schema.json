@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Message",
+  "type": "object",
+  "description": "A Slack message object representing a single message in a conversation. Messages can contain text, blocks, attachments, files, and reactions.",
+  "properties": {
+    "type": {
+      "type": "string",
+      "description": "Always \"message\" for messages."
+    },
+    "subtype": {
+      "type": "string",
+      "description": "Optional subtype indicating a specialized message type such as bot_message, channel_join, channel_leave, etc."
+    },
+    "channel": {
+      "type": "string",
+      "description": "The channel ID where the message was posted."
+    },
+    "user": {
+      "type": "string",
+      "description": "The user ID of the message author."
+    },
+    "text": {
+      "type": "string",
+      "description": "The text content of the message."
+    },
+    "ts": {
+      "type": "string",
+      "description": "Unique timestamp identifier for the message, also serves as the message ID. Format is Unix epoch with microseconds (e.g., \"1503435956.000247\")."
+    },
+    "thread_ts": {
+      "type": "string",
+      "description": "The timestamp of the parent message in a thread. Present only for threaded replies."
+    },
+    "reply_count": {
+      "type": "integer",
+      "description": "Number of replies in the thread."
+    },
+    "reply_users_count": {
+      "type": "integer",
+      "description": "Number of unique users who have replied in the thread."
+    },
+    "latest_reply": {
+      "type": "string",
+      "description": "Timestamp of the most recent reply in the thread."
+    },
+    "reply_users": {
+      "type": "array",
+      "description": "Array of user IDs who have replied in the thread."
+    },
+    "blocks": {
+      "type": "array",
+      "description": "An array of Block Kit layout blocks used for rich message formatting."
+    },
+    "attachments": {
+      "type": "array",
+      "description": "An array of message attachments."
+    },
+    "files": {
+      "type": "array",
+      "description": "An array of file objects attached to the message."
+    },
+    "reactions": {
+      "type": "array",
+      "description": "An array of emoji reactions on this message."
+    },
+    "edited": {
+      "type": "object",
+      "description": "Edit information if the message was edited."
+    },
+    "bot_id": {
+      "type": "string",
+      "description": "Bot ID if the message was posted by a bot."
+    },
+    "bot_profile": {
+      "type": "object",
+      "description": "Bot profile information if posted by a bot."
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Custom metadata attached to the message by an application."
+    },
+    "permalink": {
+      "type": "string",
+      "description": "Permalink URL for the message."
+    }
+  }
+}

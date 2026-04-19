@@ -1,27 +1,31 @@
 openapi: 3.1.0
 info:
   title: Slack DND API
-  description: "Slack\x19s Do Not Disturb (DND) API lets apps read and manage users\x19 notification quiet time so they don\x19t get pinged when they\x19ve paused alerts. With the dnd:read and dnd:write scopes, an app can check a user\x19s current DND state and scheduled quiet hours, retrieve team-wide DND summaries (where permitted), start or extend a snooze for a specified duration, and end snooze or active DND. Key methods include dnd.info, dnd.teamInfo, dnd.setSnooze, dnd.endSnooze, and dnd.endDnd. Responses provide whether DND is enabled and timestamps for when it starts and ends, enabling apps to defer messages, schedule work, or adjust notification behavior. The API is designed to respect user preferences and workspace policies; apps should handle rate limits and note that they can set temporary snoozes but cannot programmatically change a user\x19s full DND schedule."
+  description: "Slack\x19s Do Not Disturb (DND) API lets apps read and manage users\x19 notification quiet time so they don\x19t get pinged when they\x19ve paused alerts. With the dnd:read and dnd:write
+    scopes, an app can check a user\x19s current DND state and scheduled quiet hours, retrieve team-wide DND summaries (where permitted), start or extend a snooze for a specified duration, and end snooze
+    or active DND. Key methods include dnd.info, dnd.teamInfo, dnd.setSnooze, dnd.endSnooze, and dnd.endDnd. Responses provide whether DND is enabled and timestamps for when it starts and ends, enabling
+    apps to defer messages, schedule work, or adjust notification behavior. The API is designed to respect user preferences and workspace policies; apps should handle rate limits and note that they can
+    set temporary snoozes but cannot programmatically change a user\x19s full DND schedule."
 paths:
   /dnd.endDnd:
     post:
       tags:
-        - Disturb
-        - Do
-        - End
-        - Post
+      - Disturb
+      - Do
+      - End
+      - Post
       description: Ends the current user's Do Not Disturb session immediately.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/dnd.endDnd
       operationId: postDndEnddnd
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `dnd:write`'
-          required: true
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `dnd:write`'
+        required: true
+        schema:
+          type: string
       responses:
         '200':
           description: Typical success response
@@ -30,7 +34,7 @@ paths:
               schema:
                 title: dnd.endDnd schema
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -46,8 +50,8 @@ paths:
               schema:
                 title: dnd.endDnd error schema
                 required:
-                  - error
-                  - ok
+                - error
+                - ok
                 type: object
                 properties:
                   callstack:
@@ -56,26 +60,26 @@ paths:
                   error:
                     type: string
                     enum:
-                      - unknown_error
-                      - not_authed
-                      - invalid_auth
-                      - account_inactive
-                      - token_revoked
-                      - no_permission
-                      - org_login_required
-                      - user_is_bot
-                      - invalid_arg_name
-                      - invalid_array_arg
-                      - invalid_charset
-                      - invalid_form_data
-                      - invalid_post_type
-                      - missing_post_type
-                      - team_added_to_org
-                      - invalid_json
-                      - json_not_object
-                      - request_timeout
-                      - upgrade_required
-                      - fatal_error
+                    - unknown_error
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - token_revoked
+                    - no_permission
+                    - org_login_required
+                    - user_is_bot
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - fatal_error
                   ok:
                     $ref: '#/components/schemas/defs_ok_false'
                 additionalProperties: false
@@ -84,34 +88,37 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - dnd:write
+      - slackAuth:
+        - dnd:write
       summary: Slack Post End Do Not Disturb
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /dnd.endSnooze:
     post:
       tags:
-        - Disturb
-        - Do
-        - End
-        - Post
-        - Snooze
+      - Disturb
+      - Do
+      - End
+      - Post
+      - Snooze
       description: Ends the current user's snooze mode immediately.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/dnd.endSnooze
       operationId: postDndEndsnooze
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `dnd:write`'
-          required: true
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `dnd:write`'
+        required: true
+        schema:
+          type: string
       responses:
         '200':
           description: Typical success response
@@ -120,11 +127,11 @@ paths:
               schema:
                 title: dnd.endSnooze schema
                 required:
-                  - dnd_enabled
-                  - next_dnd_end_ts
-                  - next_dnd_start_ts
-                  - ok
-                  - snooze_enabled
+                - dnd_enabled
+                - next_dnd_end_ts
+                - next_dnd_start_ts
+                - ok
+                - snooze_enabled
                 type: object
                 properties:
                   dnd_enabled:
@@ -148,8 +155,8 @@ paths:
               schema:
                 title: dnd.endSnooze error schema
                 required:
-                  - error
-                  - ok
+                - error
+                - ok
                 type: object
                 properties:
                   callstack:
@@ -158,27 +165,27 @@ paths:
                   error:
                     type: string
                     enum:
-                      - snooze_not_active
-                      - snooze_end_failed
-                      - not_authed
-                      - invalid_auth
-                      - account_inactive
-                      - token_revoked
-                      - no_permission
-                      - org_login_required
-                      - user_is_bot
-                      - invalid_arg_name
-                      - invalid_array_arg
-                      - invalid_charset
-                      - invalid_form_data
-                      - invalid_post_type
-                      - missing_post_type
-                      - team_added_to_org
-                      - invalid_json
-                      - json_not_object
-                      - request_timeout
-                      - upgrade_required
-                      - fatal_error
+                    - snooze_not_active
+                    - snooze_end_failed
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - token_revoked
+                    - no_permission
+                    - org_login_required
+                    - user_is_bot
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - fatal_error
                   ok:
                     $ref: '#/components/schemas/defs_ok_false'
                 additionalProperties: false
@@ -187,37 +194,40 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - dnd:write
+      - slackAuth:
+        - dnd:write
       summary: Slack Post End Do Not Disturb Snooze
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /dnd.info:
     get:
       tags:
-        - Disturb
-        - Do
-        - Get
-        - Info
+      - Disturb
+      - Do
+      - Get
+      - Info
       description: Retrieves a user's current Do Not Disturb status.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/dnd.info
       operationId: getDndInfo
       parameters:
-        - name: token
-          in: query
-          description: 'Authentication token. Requires scope: `dnd:read`'
-          schema:
-            type: string
-        - name: user
-          in: query
-          description: User to fetch status for (defaults to current user)
-          schema:
-            type: string
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `dnd:read`'
+        schema:
+          type: string
+      - name: user
+        in: query
+        description: User to fetch status for (defaults to current user)
+        schema:
+          type: string
       responses:
         '200':
           description: Typical success response
@@ -226,10 +236,10 @@ paths:
               schema:
                 title: dnd.info schema
                 required:
-                  - dnd_enabled
-                  - next_dnd_end_ts
-                  - next_dnd_start_ts
-                  - ok
+                - dnd_enabled
+                - next_dnd_end_ts
+                - next_dnd_start_ts
+                - ok
                 type: object
                 properties:
                   dnd_enabled:
@@ -257,8 +267,8 @@ paths:
               schema:
                 title: dnd.info error schema
                 required:
-                  - error
-                  - ok
+                - error
+                - ok
                 type: object
                 properties:
                   callstack:
@@ -267,25 +277,25 @@ paths:
                   error:
                     type: string
                     enum:
-                      - user_not_found
-                      - not_authed
-                      - invalid_auth
-                      - account_inactive
-                      - token_revoked
-                      - no_permission
-                      - org_login_required
-                      - invalid_arg_name
-                      - invalid_array_arg
-                      - invalid_charset
-                      - invalid_form_data
-                      - invalid_post_type
-                      - missing_post_type
-                      - team_added_to_org
-                      - invalid_json
-                      - json_not_object
-                      - request_timeout
-                      - upgrade_required
-                      - fatal_error
+                    - user_not_found
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - token_revoked
+                    - no_permission
+                    - org_login_required
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - fatal_error
                   ok:
                     $ref: '#/components/schemas/defs_ok_false'
                 additionalProperties: false
@@ -294,21 +304,24 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - dnd:read
+      - slackAuth:
+        - dnd:read
       summary: Slack Get Do Not Disturb Info
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /dnd.setSnooze:
     post:
       tags:
-        - Disturb
-        - Do
-        - Post
-        - Snooze
+      - Disturb
+      - Do
+      - Post
+      - Snooze
       description: >-
         Turns on Do Not Disturb mode for the current user, or changes its
         duration.
@@ -321,8 +334,8 @@ paths:
           application/x-www-form-urlencoded:
             schema:
               required:
-                - num_minutes
-                - token
+              - num_minutes
+              - token
               type: object
               properties:
                 token:
@@ -340,10 +353,10 @@ paths:
               schema:
                 title: dnd.setSnooze schema
                 required:
-                  - ok
-                  - snooze_enabled
-                  - snooze_endtime
-                  - snooze_remaining
+                - ok
+                - snooze_enabled
+                - snooze_endtime
+                - snooze_remaining
                 type: object
                 properties:
                   ok:
@@ -365,8 +378,8 @@ paths:
               schema:
                 title: dnd.setSnooze error schema
                 required:
-                  - error
-                  - ok
+                - error
+                - ok
                 type: object
                 properties:
                   callstack:
@@ -375,28 +388,28 @@ paths:
                   error:
                     type: string
                     enum:
-                      - missing_duration
-                      - snooze_failed
-                      - not_authed
-                      - invalid_auth
-                      - account_inactive
-                      - token_revoked
-                      - no_permission
-                      - org_login_required
-                      - user_is_bot
-                      - invalid_arg_name
-                      - invalid_array_arg
-                      - invalid_charset
-                      - invalid_form_data
-                      - invalid_post_type
-                      - missing_post_type
-                      - team_added_to_org
-                      - invalid_json
-                      - json_not_object
-                      - request_timeout
-                      - upgrade_required
-                      - too_long
-                      - fatal_error
+                    - missing_duration
+                    - snooze_failed
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - token_revoked
+                    - no_permission
+                    - org_login_required
+                    - user_is_bot
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - too_long
+                    - fatal_error
                   ok:
                     $ref: '#/components/schemas/defs_ok_false'
                 additionalProperties: false
@@ -405,38 +418,41 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - dnd:write
+      - slackAuth:
+        - dnd:write
       summary: Slack Post Do Not Disturb Snooze
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /dnd.teamInfo:
     get:
       tags:
-        - Disturb
-        - Do
-        - Get
-        - Information
-        - Teams
+      - Disturb
+      - Do
+      - Get
+      - Information
+      - Teams
       description: Retrieves the Do Not Disturb status for up to 50 users on a team.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/dnd.teamInfo
       operationId: getDndTeaminfo
       parameters:
-        - name: token
-          in: query
-          description: 'Authentication token. Requires scope: `dnd:read`'
-          schema:
-            type: string
-        - name: users
-          in: query
-          description: Comma-separated list of users to fetch Do Not Disturb status for
-          schema:
-            type: string
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `dnd:read`'
+        schema:
+          type: string
+      - name: users
+        in: query
+        description: Comma-separated list of users to fetch Do Not Disturb status for
+        schema:
+          type: string
       responses:
         '200':
           description: Typical success response
@@ -445,7 +461,7 @@ paths:
               schema:
                 title: Default success template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -472,7 +488,7 @@ paths:
               schema:
                 title: Default error template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -485,23 +501,26 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - dnd:read
+      - slackAuth:
+        - dnd:read
       summary: Slack Get Do Not Disturb Team Information
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
 components:
   schemas: {}
 tags:
-  - name: Disturb
-  - name: Do
-  - name: End
-  - name: Get
-  - name: Info
-  - name: Information
-  - name: Post
-  - name: Snooze
-  - name: Teams
+- name: Disturb
+- name: Do
+- name: End
+- name: Get
+- name: Info
+- name: Information
+- name: Post
+- name: Snooze
+- name: Teams

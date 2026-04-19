@@ -1,34 +1,38 @@
 openapi: 3.1.0
 info:
   title: Slack Reactions API
-  description: "Slack\x19s Reactions API lets apps programmatically manage emoji reactions on messages and files, making it easy to capture lightweight feedback like approvals, acknowledgments, or votes. Through Web API methods (reactions.add, reactions.remove, reactions.get, reactions.list) and the Events API (reaction_added and reaction_removed), apps can add or delete reactions, read which reactions are on an item, and monitor reaction activity in real time. It works with messages (including threads), files, and file comments in channels, DMs, and group DMs where the app has access. Responses include reaction names, counts, and user IDs, and support both standard and custom emoji. Proper scopes (reactions:read and reactions:write, plus relevant conversation/file scopes) and channel visibility rules apply, rate limits are enforced, and each user can apply at most one instance of a given emoji per item."
+  description: "Slack\x19s Reactions API lets apps programmatically manage emoji reactions on messages and files, making it easy to capture lightweight feedback like approvals, acknowledgments, or votes.
+    Through Web API methods (reactions.add, reactions.remove, reactions.get, reactions.list) and the Events API (reaction_added and reaction_removed), apps can add or delete reactions, read which reactions
+    are on an item, and monitor reaction activity in real time. It works with messages (including threads), files, and file comments in channels, DMs, and group DMs where the app has access. Responses include
+    reaction names, counts, and user IDs, and support both standard and custom emoji. Proper scopes (reactions:read and reactions:write, plus relevant conversation/file scopes) and channel visibility rules
+    apply, rate limits are enforced, and each user can apply at most one instance of a given emoji per item."
 paths:
   /reactions.add:
     post:
       tags:
-        - Add
-        - Post
-        - Reactions
+      - Add
+      - Post
+      - Reactions
       description: Adds a reaction to an item.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/reactions.add
       operationId: postReactionsAdd
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `reactions:write`'
-          required: true
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `reactions:write`'
+        required: true
+        schema:
+          type: string
       requestBody:
         content:
           application/x-www-form-urlencoded:
             schema:
               required:
-                - channel
-                - name
-                - timestamp
+              - channel
+              - name
+              - timestamp
               type: object
               properties:
                 channel:
@@ -43,9 +47,9 @@ paths:
           application/json:
             schema:
               required:
-                - channel
-                - name
-                - timestamp
+              - channel
+              - name
+              - timestamp
               type: object
               properties:
                 channel:
@@ -66,7 +70,7 @@ paths:
               schema:
                 title: reactions.add schema
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -82,8 +86,8 @@ paths:
               schema:
                 title: reactions.add error schema
                 required:
-                  - error
-                  - ok
+                - error
+                - ok
                 type: object
                 properties:
                   callstack:
@@ -92,28 +96,28 @@ paths:
                   error:
                     type: string
                     enum:
-                      - bad_timestamp
-                      - message_not_found
-                      - no_item_specified
-                      - invalid_name
-                      - already_reacted
-                      - too_many_emoji
-                      - too_many_reactions
-                      - not_authed
-                      - invalid_auth
-                      - account_inactive
-                      - no_permission
-                      - invalid_arg_name
-                      - invalid_array_arg
-                      - invalid_charset
-                      - invalid_form_data
-                      - invalid_post_type
-                      - missing_post_type
-                      - team_added_to_org
-                      - invalid_json
-                      - json_not_object
-                      - request_timeout
-                      - upgrade_required
+                    - bad_timestamp
+                    - message_not_found
+                    - no_item_specified
+                    - invalid_name
+                    - already_reacted
+                    - too_many_emoji
+                    - too_many_reactions
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - no_permission
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
                   ok:
                     $ref: '#/components/schemas/defs_ok_false'
                 additionalProperties: false
@@ -122,56 +126,59 @@ paths:
                 error: already_reacted
                 ok: false
       security:
-        - slackAuth:
-            - reactions:write
-      summary: Slack Post  Reactions Add
+      - slackAuth:
+        - reactions:write
+      summary: Slack Post Reactions Add
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /reactions.get:
     get:
       tags:
-        - Get
-        - Reactions
+      - Get
+      - Reactions
       description: Gets reactions for an item.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/reactions.get
       operationId: getReactionsGet
       parameters:
-        - name: token
-          in: query
-          description: 'Authentication token. Requires scope: `reactions:read`'
-          required: true
-          schema:
-            type: string
-        - name: channel
-          in: query
-          description: Channel where the message to get reactions for was posted.
-          schema:
-            type: string
-        - name: file
-          in: query
-          description: File to get reactions for.
-          schema:
-            type: string
-        - name: file_comment
-          in: query
-          description: File comment to get reactions for.
-          schema:
-            type: string
-        - name: full
-          in: query
-          description: If true always return the complete reaction list.
-          schema:
-            type: boolean
-        - name: timestamp
-          in: query
-          description: Timestamp of the message to get reactions for.
-          schema:
-            type: string
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `reactions:read`'
+        required: true
+        schema:
+          type: string
+      - name: channel
+        in: query
+        description: Channel where the message to get reactions for was posted.
+        schema:
+          type: string
+      - name: file
+        in: query
+        description: File to get reactions for.
+        schema:
+          type: string
+      - name: file_comment
+        in: query
+        description: File comment to get reactions for.
+        schema:
+          type: string
+      - name: full
+        in: query
+        description: If true always return the complete reaction list.
+        schema:
+          type: boolean
+      - name: timestamp
+        in: query
+        description: Timestamp of the message to get reactions for.
+        schema:
+          type: string
       responses:
         '200':
           description: Typical success response
@@ -184,7 +191,7 @@ paths:
               example:
                 file:
                   channels:
-                    - C2U7V2YA2
+                  - C2U7V2YA2
                   comments_count: 1
                   created: 1507850315
                   groups: []
@@ -192,10 +199,10 @@ paths:
                   ims: []
                   name: computer.gif
                   reactions:
-                    - count: 1
-                      name: stuck_out_tongue_winking_eye
-                      users:
-                        - U2U85N1RV
+                  - count: 1
+                    name: stuck_out_tongue_winking_eye
+                    users:
+                    - U2U85N1RV
                   timestamp: 1507850315
                   title: computer.gif
                   user: U2U85N1RV
@@ -208,8 +215,8 @@ paths:
               schema:
                 title: reactions.get error schema
                 required:
-                  - error
-                  - ok
+                - error
+                - ok
                 type: object
                 properties:
                   callstack:
@@ -218,25 +225,25 @@ paths:
                   error:
                     type: string
                     enum:
-                      - bad_timestamp
-                      - file_not_found
-                      - file_comment_not_found
-                      - message_not_found
-                      - no_item_specified
-                      - not_authed
-                      - invalid_auth
-                      - account_inactive
-                      - no_permission
-                      - invalid_array_arg
-                      - invalid_charset
-                      - invalid_form_data
-                      - invalid_post_type
-                      - missing_post_type
-                      - team_added_to_org
-                      - invalid_json
-                      - json_not_object
-                      - request_timeout
-                      - upgrade_required
+                    - bad_timestamp
+                    - file_not_found
+                    - file_comment_not_found
+                    - message_not_found
+                    - no_item_specified
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - no_permission
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
                   ok:
                     $ref: '#/components/schemas/defs_ok_false'
                 additionalProperties: false
@@ -245,68 +252,71 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - reactions:read
-      summary: Slack Get  Reactions Get
+      - slackAuth:
+        - reactions:read
+      summary: Slack Get Reactions Get
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /reactions.list:
     get:
       tags:
-        - Get
-        - Lists
-        - Reactions
+      - Get
+      - Lists
+      - Reactions
       description: Lists reactions made by a user.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/reactions.list
       operationId: getReactionsList
       parameters:
-        - name: token
-          in: query
-          description: 'Authentication token. Requires scope: `reactions:read`'
-          required: true
-          schema:
-            type: string
-        - name: user
-          in: query
-          description: Show reactions made by this user. Defaults to the authed user.
-          schema:
-            type: string
-        - name: full
-          in: query
-          description: If true always return the complete reaction list.
-          schema:
-            type: boolean
-        - name: count
-          in: query
-          schema:
-            type: integer
-        - name: page
-          in: query
-          schema:
-            type: integer
-        - name: cursor
-          in: query
-          description: >-
-            Parameter for pagination. Set `cursor` equal to the `next_cursor`
-            attribute returned by the previous request's `response_metadata`.
-            This parameter is optional, but pagination is mandatory: the default
-            value simply fetches the first "page" of the collection. See
-            [pagination](/docs/pagination) for more details.
-          schema:
-            type: string
-        - name: limit
-          in: query
-          description: >-
-            The maximum number of items to return. Fewer than the requested
-            number of items may be returned, even if the end of the list hasn't
-            been reached.
-          schema:
-            type: integer
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `reactions:read`'
+        required: true
+        schema:
+          type: string
+      - name: user
+        in: query
+        description: Show reactions made by this user. Defaults to the authed user.
+        schema:
+          type: string
+      - name: full
+        in: query
+        description: If true always return the complete reaction list.
+        schema:
+          type: boolean
+      - name: count
+        in: query
+        schema:
+          type: integer
+      - name: page
+        in: query
+        schema:
+          type: integer
+      - name: cursor
+        in: query
+        description: >-
+          Parameter for pagination. Set `cursor` equal to the `next_cursor`
+          attribute returned by the previous request's `response_metadata`.
+          This parameter is optional, but pagination is mandatory: the default
+          value simply fetches the first "page" of the collection. See
+          [pagination](/docs/pagination) for more details.
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: >-
+          The maximum number of items to return. Fewer than the requested
+          number of items may be returned, even if the end of the list hasn't
+          been reached.
+        schema:
+          type: integer
       responses:
         '200':
           description: Typical success response
@@ -315,8 +325,8 @@ paths:
               schema:
                 title: reactions.list schema
                 required:
-                  - items
-                  - ok
+                - items
+                - ok
                 type: object
                 properties:
                   items:
@@ -333,61 +343,61 @@ paths:
                 description: Schema for successful response from reactions.list method
               example:
                 items:
-                  - channel: C3UKJTQAC
-                    message:
-                      bot_id: B4VLRLMKJ
-                      reactions:
-                        - count: 1
-                          name: robot_face
-                          users:
-                            - U2U85N1RV
-                      subtype: bot_message
-                      text: 'Hello from Python! :tada:'
-                      ts: '1507849573.000090'
-                      username: Shipit Notifications
-                    type: message
-                  - comment:
-                      comment: This is a file comment
-                      created: 1508286096
-                      id: Fc7LP08P1U
-                      reactions:
-                        - count: 1
-                          name: white_check_mark
-                          users:
-                            - U2U85N1RV
-                      timestamp: 1508286096
-                      type: file_comment
-                      user: U2U85N1RV
-                    file:
-                      channels:
-                        - C2U7V2YA2
-                      comments_count: 1
-                      created: 1507850315
-                      reactions:
-                        - count: 1
-                          name: stuck_out_tongue_winking_eye
-                          users:
-                            - U2U85N1RV
-                      title: computer.gif
-                      user: U2U85N1RV
-                      username: ''
-                  - file:
-                      channels:
-                        - C2U7V2YA2
-                      comments_count: 1
-                      created: 1507850315
-                      id: F7H0D7ZA4
-                      name: computer.gif
-                      reactions:
-                        - count: 1
-                          name: stuck_out_tongue_winking_eye
-                          users:
-                            - U2U85N1RV
-                      size: 1639034
-                      title: computer.gif
-                      user: U2U85N1RV
-                      username: ''
-                    type: file
+                - channel: C3UKJTQAC
+                  message:
+                    bot_id: B4VLRLMKJ
+                    reactions:
+                    - count: 1
+                      name: robot_face
+                      users:
+                      - U2U85N1RV
+                    subtype: bot_message
+                    text: 'Hello from Python! :tada:'
+                    ts: '1507849573.000090'
+                    username: Shipit Notifications
+                  type: message
+                - comment:
+                    comment: This is a file comment
+                    created: 1508286096
+                    id: Fc7LP08P1U
+                    reactions:
+                    - count: 1
+                      name: white_check_mark
+                      users:
+                      - U2U85N1RV
+                    timestamp: 1508286096
+                    type: file_comment
+                    user: U2U85N1RV
+                  file:
+                    channels:
+                    - C2U7V2YA2
+                    comments_count: 1
+                    created: 1507850315
+                    reactions:
+                    - count: 1
+                      name: stuck_out_tongue_winking_eye
+                      users:
+                      - U2U85N1RV
+                    title: computer.gif
+                    user: U2U85N1RV
+                    username: ''
+                - file:
+                    channels:
+                    - C2U7V2YA2
+                    comments_count: 1
+                    created: 1507850315
+                    id: F7H0D7ZA4
+                    name: computer.gif
+                    reactions:
+                    - count: 1
+                      name: stuck_out_tongue_winking_eye
+                      users:
+                      - U2U85N1RV
+                    size: 1639034
+                    title: computer.gif
+                    user: U2U85N1RV
+                    username: ''
+                  type: file
                 ok: true
                 response_metadata:
                   next_cursor: dGVhbTpDMUg5UkVTR0w=
@@ -398,8 +408,8 @@ paths:
               schema:
                 title: reactions.list error schema
                 required:
-                  - error
-                  - ok
+                - error
+                - ok
                 type: object
                 properties:
                   callstack:
@@ -408,23 +418,23 @@ paths:
                   error:
                     type: string
                     enum:
-                      - user_not_found
-                      - not_authed
-                      - invalid_auth
-                      - account_inactiv
-                      - no_permission
-                      - invalid_arg_name
-                      - invalid_array_arg
-                      - invalid_charset
-                      - invalid_form_data
-                      - invalid_post_type
-                      - missing_post_type
-                      - team_added_to_org
-                      - invalid_json
-                      - json_not_object
-                      - request_timeout
-                      - upgrade_required
-                      - fatal_error
+                    - user_not_found
+                    - not_authed
+                    - invalid_auth
+                    - account_inactiv
+                    - no_permission
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - fatal_error
                   ok:
                     $ref: '#/components/schemas/defs_ok_false'
                 additionalProperties: false
@@ -433,38 +443,41 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - reactions:read
-      summary: Slack Get  Reactions List
+      - slackAuth:
+        - reactions:read
+      summary: Slack Get Reactions List
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /reactions.remove:
     post:
       tags:
-        - Post
-        - Reactions
-        - Remove
+      - Post
+      - Reactions
+      - Remove
       description: Removes a reaction from an item.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/reactions.remove
       operationId: postReactionsRemove
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `reactions:write`'
-          required: true
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `reactions:write`'
+        required: true
+        schema:
+          type: string
       requestBody:
         content:
           application/x-www-form-urlencoded:
             schema:
               required:
-                - name
+              - name
               type: object
               properties:
                 name:
@@ -487,7 +500,7 @@ paths:
           application/json:
             schema:
               required:
-                - name
+              - name
               type: object
               properties:
                 name:
@@ -516,7 +529,7 @@ paths:
               schema:
                 title: reactions.remove schema
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -532,8 +545,8 @@ paths:
               schema:
                 title: reactions.remove error schema
                 required:
-                  - error
-                  - ok
+                - error
+                - ok
                 type: object
                 properties:
                   callstack:
@@ -542,29 +555,29 @@ paths:
                   error:
                     type: string
                     enum:
-                      - bad_timestamp
-                      - file_not_found
-                      - file_comment_not_found
-                      - message_not_found
-                      - no_item_specified
-                      - invalid_name
-                      - no_reaction
-                      - not_authed
-                      - invalid_auth
-                      - account_inactive
-                      - no_permission
-                      - invalid_arg_name
-                      - invalid_array_arg
-                      - invalid_charset
-                      - invalid_form_data
-                      - invalid_post_type
-                      - missing_post_type
-                      - team_added_to_org
-                      - invalid_json
-                      - json_not_object
-                      - request_timeout
-                      - upgrade_required
-                      - fatal_error
+                    - bad_timestamp
+                    - file_not_found
+                    - file_comment_not_found
+                    - message_not_found
+                    - no_item_specified
+                    - invalid_name
+                    - no_reaction
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - no_permission
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - fatal_error
                   ok:
                     $ref: '#/components/schemas/defs_ok_false'
                 additionalProperties: false
@@ -573,20 +586,23 @@ paths:
                 error: no_reaction
                 ok: false
       security:
-        - slackAuth:
-            - reactions:write
-      summary: Slack Post  Reactions Remove
+      - slackAuth:
+        - reactions:write
+      summary: Slack Post Reactions Remove
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
 components:
   schemas: {}
 tags:
-  - name: Add
-  - name: Get
-  - name: Lists
-  - name: Post
-  - name: Reactions
-  - name: Remove
+- name: Add
+- name: Get
+- name: Lists
+- name: Post
+- name: Reactions
+- name: Remove

@@ -1,26 +1,29 @@
 openapi: 3.1.0
 info:
   title: Slack Files API
-  description: "Slack\x19s Files API lets apps programmatically upload, share, and manage files in Slack. Apps can upload binaries (images, docs, code snippets) or register links to external files, then attach them to channels, DMs, or threads with optional captions. The API supports retrieving file metadata and content, listing and filtering files, generating or revoking public share links, and deleting files, with access controlled by app scopes and channel membership. For large uploads, a two-step flow provides an upload URL before finalizing the file, and related Events API notifications (for example, file_created and file_shared) let apps react to changes. Common uses include import/export pipelines, compliance and archiving tools, and integrations with cloud storage."
+  description: "Slack\x19s Files API lets apps programmatically upload, share, and manage files in Slack. Apps can upload binaries (images, docs, code snippets) or register links to external files, then
+    attach them to channels, DMs, or threads with optional captions. The API supports retrieving file metadata and content, listing and filtering files, generating or revoking public share links, and deleting
+    files, with access controlled by app scopes and channel membership. For large uploads, a two-step flow provides an upload URL before finalizing the file, and related Events API notifications (for example,
+    file_created and file_shared) let apps react to changes. Common uses include import/export pipelines, compliance and archiving tools, and integrations with cloud storage."
 paths:
   /files.comments.delete:
     post:
       tags:
-        - Comments
-        - Deletes
-        - Files
-        - Post
+      - Comments
+      - Deletes
+      - Files
+      - Post
       description: Deletes an existing comment on a file.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/files.comments.delete
       operationId: postFilesCommentsDelete
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `files:write:user`'
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `files:write:user`'
+        schema:
+          type: string
       requestBody:
         content:
           application/x-www-form-urlencoded:
@@ -51,7 +54,7 @@ paths:
               schema:
                 title: files.comments.delete schema
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -67,8 +70,8 @@ paths:
               schema:
                 title: files.comments.delete error schema
                 required:
-                  - error
-                  - ok
+                - error
+                - ok
                 type: object
                 properties:
                   callstack:
@@ -77,22 +80,22 @@ paths:
                   error:
                     type: string
                     enum:
-                      - cant_delete
-                      - comment_not_found
-                      - not_authed
-                      - invalid_auth
-                      - account_inactive
-                      - no_permission
-                      - invalid_arg_name
-                      - invalid_array_arg
-                      - invalid_charset
-                      - invalid_form_data
-                      - invalid_post_type
-                      - missing_post_type
-                      - invalid_json
-                      - json_not_object
-                      - request_timeout
-                      - upgrade_required
+                    - cant_delete
+                    - comment_not_found
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - no_permission
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
                   ok:
                     $ref: '#/components/schemas/defs_ok_false'
                 additionalProperties: false
@@ -101,31 +104,34 @@ paths:
                 error: file_not_found
                 ok: false
       security:
-        - slackAuth:
-            - files:write:user
-      summary: Slack Post  Files Comments Delete
+      - slackAuth:
+        - files:write:user
+      summary: Slack Post Files Comments Delete
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /files.delete:
     post:
       tags:
-        - Deletes
-        - Files
-        - Post
+      - Deletes
+      - Files
+      - Post
       description: Deletes a file.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/files.delete
       operationId: postFilesDelete
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `files:write:user`'
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `files:write:user`'
+        schema:
+          type: string
       requestBody:
         content:
           application/x-www-form-urlencoded:
@@ -150,7 +156,7 @@ paths:
               schema:
                 title: files.delete schema
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -166,8 +172,8 @@ paths:
               schema:
                 title: files.delete error schema
                 required:
-                  - error
-                  - ok
+                - error
+                - ok
                 type: object
                 properties:
                   callstack:
@@ -176,24 +182,24 @@ paths:
                   error:
                     type: string
                     enum:
-                      - file_not_found
-                      - file_deleted
-                      - cant_delete_file
-                      - not_authed
-                      - invalid_auth
-                      - account_inactive
-                      - no_permission
-                      - invalid_arg_name
-                      - invalid_array_arg
-                      - invalid_charset
-                      - invalid_form_data
-                      - invalid_post_type
-                      - missing_post_type
-                      - team_added_to_org
-                      - invalid_json
-                      - json_not_object
-                      - request_timeout
-                      - upgrade_required
+                    - file_not_found
+                    - file_deleted
+                    - cant_delete_file
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - no_permission
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
                   ok:
                     $ref: '#/components/schemas/defs_ok_false'
                 additionalProperties: false
@@ -202,63 +208,66 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - files:write:user
-      summary: Slack Post  Files Delete
+      - slackAuth:
+        - files:write:user
+      summary: Slack Post Files Delete
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /files.info:
     get:
       tags:
-        - Files
-        - Get
-        - Info
+      - Files
+      - Get
+      - Info
       description: Gets information about a file.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/files.info
       operationId: getFilesInfo
       parameters:
-        - name: token
-          in: query
-          description: 'Authentication token. Requires scope: `files:read`'
-          schema:
-            type: string
-        - name: file
-          in: query
-          description: Specify a file by providing its ID.
-          schema:
-            type: string
-        - name: count
-          in: query
-          schema:
-            type: string
-        - name: page
-          in: query
-          schema:
-            type: string
-        - name: limit
-          in: query
-          description: >-
-            The maximum number of items to return. Fewer than the requested
-            number of items may be returned, even if the end of the list hasn't
-            been reached.
-          schema:
-            type: integer
-        - name: cursor
-          in: query
-          description: >-
-            Parameter for pagination. File comments are paginated for a single
-            file. Set `cursor` equal to the `next_cursor` attribute returned by
-            the previous request's `response_metadata`. This parameter is
-            optional, but pagination is mandatory: the default value simply
-            fetches the first "page" of the collection of comments. See
-            [pagination](/docs/pagination) for more details.
-          schema:
-            type: string
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `files:read`'
+        schema:
+          type: string
+      - name: file
+        in: query
+        description: Specify a file by providing its ID.
+        schema:
+          type: string
+      - name: count
+        in: query
+        schema:
+          type: string
+      - name: page
+        in: query
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: >-
+          The maximum number of items to return. Fewer than the requested
+          number of items may be returned, even if the end of the list hasn't
+          been reached.
+        schema:
+          type: integer
+      - name: cursor
+        in: query
+        description: >-
+          Parameter for pagination. File comments are paginated for a single
+          file. Set `cursor` equal to the `next_cursor` attribute returned by
+          the previous request's `response_metadata`. This parameter is
+          optional, but pagination is mandatory: the default value simply
+          fetches the first "page" of the collection of comments. See
+          [pagination](/docs/pagination) for more details.
+        schema:
+          type: string
       responses:
         '200':
           description: Typical success response
@@ -267,9 +276,9 @@ paths:
               schema:
                 title: files.info schema
                 required:
-                  - comments
-                  - file
-                  - ok
+                - comments
+                - file
+                - ok
                 type: object
                 properties:
                   comments:
@@ -290,7 +299,7 @@ paths:
                 comments: []
                 file:
                   channels:
-                    - C0T8SE4AU
+                  - C0T8SE4AU
                   comments_count: 0
                   created: 1531763342
                   deanimate_gif: https://.../tedair_deanimate_gif.png
@@ -319,15 +328,15 @@ paths:
                   shares:
                     public:
                       C0T8SE4AU:
-                        - channel_name: file-under
-                          latest_reply: '1531763348.000001'
-                          reply_count: 1
-                          reply_users:
-                            - U061F7AUR
-                          reply_users_count: 1
-                          team_id: T061EG9R6
-                          thread_ts: '1531763273.000015'
-                          ts: '1531763348.000001'
+                      - channel_name: file-under
+                        latest_reply: '1531763348.000001'
+                        reply_count: 1
+                        reply_users:
+                        - U061F7AUR
+                        reply_users_count: 1
+                        team_id: T061EG9R6
+                        thread_ts: '1531763273.000015'
+                        ts: '1531763348.000001'
                   size: 137531
                   thumb_160: https://.../tedair_=_160.png
                   thumb_360: https://.../tedair_360.png
@@ -352,8 +361,8 @@ paths:
               schema:
                 title: files.info error schema
                 required:
-                  - error
-                  - ok
+                - error
+                - ok
                 type: object
                 properties:
                   callstack:
@@ -362,24 +371,24 @@ paths:
                   error:
                     type: string
                     enum:
-                      - file_not_found
-                      - file_deleted
-                      - timezone_count_failed
-                      - not_authed
-                      - invalid_auth
-                      - account_inactive
-                      - no_permission
-                      - invalid_arg_name
-                      - invalid_array_arg
-                      - invalid_charset
-                      - invalid_form_data
-                      - invalid_post_type
-                      - missing_post_type
-                      - team_added_to_org
-                      - invalid_json
-                      - json_not_object
-                      - request_timeout
-                      - upgrade_required
+                    - file_not_found
+                    - file_deleted
+                    - timezone_count_failed
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - no_permission
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
                   ok:
                     $ref: '#/components/schemas/defs_ok_false'
                 additionalProperties: false
@@ -388,75 +397,78 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - files:read
-      summary: Slack Get  Files Info
+      - slackAuth:
+        - files:read
+      summary: Slack Get Files Info
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /files.list:
     get:
       tags:
-        - Files
-        - Get
-        - Lists
+      - Files
+      - Get
+      - Lists
       description: List for a team, in a channel, or from a user with applied filters.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/files.list
       operationId: getFilesList
       parameters:
-        - name: token
-          in: query
-          description: 'Authentication token. Requires scope: `files:read`'
-          schema:
-            type: string
-        - name: user
-          in: query
-          description: Filter files created by a single user.
-          schema:
-            type: string
-        - name: channel
-          in: query
-          description: Filter files appearing in a specific channel, indicated by its ID.
-          schema:
-            type: string
-        - name: ts_from
-          in: query
-          description: Filter files created after this timestamp (inclusive).
-          schema:
-            type: number
-        - name: ts_to
-          in: query
-          description: Filter files created before this timestamp (inclusive).
-          schema:
-            type: number
-        - name: types
-          in: query
-          description: >-
-            Filter files by type ([see below](#file_types)). You can pass
-            multiple values in the types argument, like
-            `types=spaces,snippets`.The default value is `all`, which does not
-            filter the list.
-          schema:
-            type: string
-        - name: count
-          in: query
-          schema:
-            type: string
-        - name: page
-          in: query
-          schema:
-            type: string
-        - name: show_files_hidden_by_limit
-          in: query
-          description: >-
-            Show truncated file info for files hidden due to being too old, and
-            the team who owns the file being over the file limit.
-          schema:
-            type: boolean
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `files:read`'
+        schema:
+          type: string
+      - name: user
+        in: query
+        description: Filter files created by a single user.
+        schema:
+          type: string
+      - name: channel
+        in: query
+        description: Filter files appearing in a specific channel, indicated by its ID.
+        schema:
+          type: string
+      - name: ts_from
+        in: query
+        description: Filter files created after this timestamp (inclusive).
+        schema:
+          type: number
+      - name: ts_to
+        in: query
+        description: Filter files created before this timestamp (inclusive).
+        schema:
+          type: number
+      - name: types
+        in: query
+        description: >-
+          Filter files by type ([see below](#file_types)). You can pass
+          multiple values in the types argument, like
+          `types=spaces,snippets`.The default value is `all`, which does not
+          filter the list.
+        schema:
+          type: string
+      - name: count
+        in: query
+        schema:
+          type: string
+      - name: page
+        in: query
+        schema:
+          type: string
+      - name: show_files_hidden_by_limit
+        in: query
+        description: >-
+          Show truncated file info for files hidden due to being too old, and
+          the team who owns the file being over the file limit.
+        schema:
+          type: boolean
       responses:
         '200':
           description: Typical success response
@@ -465,9 +477,9 @@ paths:
               schema:
                 title: files.list schema
                 required:
-                  - files
-                  - ok
-                  - paging
+                - files
+                - ok
+                - paging
                 type: object
                 properties:
                   files:
@@ -484,84 +496,84 @@ paths:
                 description: Schema for successful response from files.list method
               example:
                 files:
-                  - channels:
-                      - C0T8SE4AU
-                    comments_count: 0
-                    created: 1531763254
-                    deanimate_gif: https://.../billair_deanimate_gif.png
-                    display_as_bot: false
-                    editable: false
-                    external_type: ''
-                    filetype: gif
-                    groups: []
-                    id: F0S43P1CZ
-                    image_exif_rotation: 1
-                    ims: []
-                    is_external: false
-                    is_public: true
-                    mimetype: image/gif
-                    mode: hosted
-                    name: billair.gif
-                    original_h: 226
-                    original_w: 176
-                    permalink: https://.../billair.gif
-                    permalink_public: https://.../...
-                    pjpeg: https://.../billair_pjpeg.jpg
-                    pretty_type: GIF
-                    public_url_shared: false
-                    size: 144538
-                    thumb_160: https://.../billair_=_160.png
-                    thumb_360: https://.../billair_360.png
-                    thumb_360_gif: https://.../billair_360.gif
-                    thumb_360_h: 226
-                    thumb_360_w: 176
-                    thumb_64: https://.../billair_64.png
-                    thumb_80: https://.../billair_80.png
-                    timestamp: 1531763254
-                    title: billair.gif
-                    url_private: https://.../billair.gif
-                    url_private_download: https://.../billair.gif
-                    user: U061F7AUR
-                    username: ''
-                  - channels:
-                      - C0T8SE4AU
-                    comments_count: 0
-                    created: 1531763342
-                    deanimate_gif: https://.../tedair_deanimate_gif.png
-                    display_as_bot: false
-                    editable: false
-                    external_type: ''
-                    filetype: gif
-                    groups: []
-                    id: F0S43PZDF
-                    image_exif_rotation: 1
-                    ims: []
-                    is_external: false
-                    is_public: true
-                    mimetype: image/gif
-                    mode: hosted
-                    name: tedair.gif
-                    original_h: 226
-                    original_w: 176
-                    permalink: https://.../tedair.gif
-                    permalink_public: https://.../...
-                    pjpeg: https://.../tedair_pjpeg.jpg
-                    pretty_type: GIF
-                    public_url_shared: false
-                    size: 137531
-                    thumb_160: https://.../tedair_=_160.png
-                    thumb_360: https://.../tedair_360.png
-                    thumb_360_gif: https://.../tedair_360.gif
-                    thumb_360_h: 226
-                    thumb_360_w: 176
-                    thumb_64: https://.../tedair_64.png
-                    thumb_80: https://.../tedair_80.png
-                    timestamp: 1531763342
-                    title: tedair.gif
-                    url_private: https://.../tedair.gif
-                    url_private_download: https://.../tedair.gif
-                    user: U061F7AUR
-                    username: ''
+                - channels:
+                  - C0T8SE4AU
+                  comments_count: 0
+                  created: 1531763254
+                  deanimate_gif: https://.../billair_deanimate_gif.png
+                  display_as_bot: false
+                  editable: false
+                  external_type: ''
+                  filetype: gif
+                  groups: []
+                  id: F0S43P1CZ
+                  image_exif_rotation: 1
+                  ims: []
+                  is_external: false
+                  is_public: true
+                  mimetype: image/gif
+                  mode: hosted
+                  name: billair.gif
+                  original_h: 226
+                  original_w: 176
+                  permalink: https://.../billair.gif
+                  permalink_public: https://.../...
+                  pjpeg: https://.../billair_pjpeg.jpg
+                  pretty_type: GIF
+                  public_url_shared: false
+                  size: 144538
+                  thumb_160: https://.../billair_=_160.png
+                  thumb_360: https://.../billair_360.png
+                  thumb_360_gif: https://.../billair_360.gif
+                  thumb_360_h: 226
+                  thumb_360_w: 176
+                  thumb_64: https://.../billair_64.png
+                  thumb_80: https://.../billair_80.png
+                  timestamp: 1531763254
+                  title: billair.gif
+                  url_private: https://.../billair.gif
+                  url_private_download: https://.../billair.gif
+                  user: U061F7AUR
+                  username: ''
+                - channels:
+                  - C0T8SE4AU
+                  comments_count: 0
+                  created: 1531763342
+                  deanimate_gif: https://.../tedair_deanimate_gif.png
+                  display_as_bot: false
+                  editable: false
+                  external_type: ''
+                  filetype: gif
+                  groups: []
+                  id: F0S43PZDF
+                  image_exif_rotation: 1
+                  ims: []
+                  is_external: false
+                  is_public: true
+                  mimetype: image/gif
+                  mode: hosted
+                  name: tedair.gif
+                  original_h: 226
+                  original_w: 176
+                  permalink: https://.../tedair.gif
+                  permalink_public: https://.../...
+                  pjpeg: https://.../tedair_pjpeg.jpg
+                  pretty_type: GIF
+                  public_url_shared: false
+                  size: 137531
+                  thumb_160: https://.../tedair_=_160.png
+                  thumb_360: https://.../tedair_360.png
+                  thumb_360_gif: https://.../tedair_360.gif
+                  thumb_360_h: 226
+                  thumb_360_w: 176
+                  thumb_64: https://.../tedair_64.png
+                  thumb_80: https://.../tedair_80.png
+                  timestamp: 1531763342
+                  title: tedair.gif
+                  url_private: https://.../tedair.gif
+                  url_private_download: https://.../tedair.gif
+                  user: U061F7AUR
+                  username: ''
                 ok: true
                 paging:
                   count: 100
@@ -575,8 +587,8 @@ paths:
               schema:
                 title: files.list error schema
                 required:
-                  - error
-                  - ok
+                - error
+                - ok
                 type: object
                 properties:
                   callstack:
@@ -585,24 +597,24 @@ paths:
                   error:
                     type: string
                     enum:
-                      - user_not_found
-                      - unknown_type
-                      - not_authed
-                      - invalid_auth
-                      - account_inactive
-                      - no_permission
-                      - user_is_bot
-                      - invalid_arg_name
-                      - invalid_array_arg
-                      - invalid_charset
-                      - invalid_form_data
-                      - invalid_post_type
-                      - missing_post_type
-                      - team_added_to_org
-                      - invalid_json
-                      - json_not_object
-                      - request_timeout
-                      - upgrade_required
+                    - user_not_found
+                    - unknown_type
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - no_permission
+                    - user_is_bot
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
                   ok:
                     $ref: '#/components/schemas/defs_ok_false'
                 additionalProperties: false
@@ -611,21 +623,24 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - files:read
-      summary: Slack Get  Files List
+      - slackAuth:
+        - files:read
+      summary: Slack Get Files List
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /files.remote.add:
     post:
       tags:
-        - Add
-        - Files
-        - Post
-        - Remote
+      - Add
+      - Files
+      - Post
+      - Remote
       description: Adds a file from a remote service
       externalDocs:
         description: API method documentation
@@ -668,7 +683,7 @@ paths:
               schema:
                 title: Default success template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -686,7 +701,7 @@ paths:
               schema:
                 title: Default error template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -699,42 +714,45 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - remote_files:write
-      summary: Slack Post  Files Remote Add
+      - slackAuth:
+        - remote_files:write
+      summary: Slack Post Files Remote Add
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /files.remote.info:
     get:
       tags:
-        - Files
-        - Get
-        - Info
-        - Remote
+      - Files
+      - Get
+      - Info
+      - Remote
       description: Retrieve information about a remote file added to Slack
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/files.remote.info
       operationId: getFilesRemoteInfo
       parameters:
-        - name: token
-          in: query
-          description: 'Authentication token. Requires scope: `remote_files:read`'
-          schema:
-            type: string
-        - name: file
-          in: query
-          description: Specify a file by providing its ID.
-          schema:
-            type: string
-        - name: external_id
-          in: query
-          description: Creator defined GUID for the file.
-          schema:
-            type: string
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `remote_files:read`'
+        schema:
+          type: string
+      - name: file
+        in: query
+        description: Specify a file by providing its ID.
+        schema:
+          type: string
+      - name: external_id
+        in: query
+        description: Creator defined GUID for the file.
+        schema:
+          type: string
       responses:
         '200':
           description: Typical success response
@@ -743,7 +761,7 @@ paths:
               schema:
                 title: Default success template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -761,7 +779,7 @@ paths:
               schema:
                 title: Default error template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -774,62 +792,65 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - remote_files:read
-      summary: Slack Get  Files Remote Info
+      - slackAuth:
+        - remote_files:read
+      summary: Slack Get Files Remote Info
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /files.remote.list:
     get:
       tags:
-        - Files
-        - Get
-        - Lists
-        - Remote
+      - Files
+      - Get
+      - Lists
+      - Remote
       description: Retrieve information about a remote file added to Slack
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/files.remote.list
       operationId: getFilesRemoteList
       parameters:
-        - name: token
-          in: query
-          description: 'Authentication token. Requires scope: `remote_files:read`'
-          schema:
-            type: string
-        - name: channel
-          in: query
-          description: Filter files appearing in a specific channel, indicated by its ID.
-          schema:
-            type: string
-        - name: ts_from
-          in: query
-          description: Filter files created after this timestamp (inclusive).
-          schema:
-            type: number
-        - name: ts_to
-          in: query
-          description: Filter files created before this timestamp (inclusive).
-          schema:
-            type: number
-        - name: limit
-          in: query
-          description: The maximum number of items to return.
-          schema:
-            type: integer
-        - name: cursor
-          in: query
-          description: >-
-            Paginate through collections of data by setting the `cursor`
-            parameter to a `next_cursor` attribute returned by a previous
-            request's `response_metadata`. Default value fetches the first
-            "page" of the collection. See [pagination](/docs/pagination) for
-            more detail.
-          schema:
-            type: string
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `remote_files:read`'
+        schema:
+          type: string
+      - name: channel
+        in: query
+        description: Filter files appearing in a specific channel, indicated by its ID.
+        schema:
+          type: string
+      - name: ts_from
+        in: query
+        description: Filter files created after this timestamp (inclusive).
+        schema:
+          type: number
+      - name: ts_to
+        in: query
+        description: Filter files created before this timestamp (inclusive).
+        schema:
+          type: number
+      - name: limit
+        in: query
+        description: The maximum number of items to return.
+        schema:
+          type: integer
+      - name: cursor
+        in: query
+        description: >-
+          Paginate through collections of data by setting the `cursor`
+          parameter to a `next_cursor` attribute returned by a previous
+          request's `response_metadata`. Default value fetches the first
+          "page" of the collection. See [pagination](/docs/pagination) for
+          more detail.
+        schema:
+          type: string
       responses:
         '200':
           description: Typical success response
@@ -838,7 +859,7 @@ paths:
               schema:
                 title: Default success template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -856,7 +877,7 @@ paths:
               schema:
                 title: Default error template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -869,21 +890,24 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - remote_files:read
-      summary: Slack Get  Files Remote List
+      - slackAuth:
+        - remote_files:read
+      summary: Slack Get Files Remote List
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /files.remote.remove:
     post:
       tags:
-        - Files
-        - Post
-        - Remote
-        - Remove
+      - Files
+      - Post
+      - Remote
+      - Remove
       description: Remove a remote file.
       externalDocs:
         description: API method documentation
@@ -912,7 +936,7 @@ paths:
               schema:
                 title: Default success template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -930,7 +954,7 @@ paths:
               schema:
                 title: Default error template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -943,52 +967,55 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - remote_files:write
-      summary: Slack Post  Files Remote Remove
+      - slackAuth:
+        - remote_files:write
+      summary: Slack Post Files Remote Remove
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /files.remote.share:
     get:
       tags:
-        - Files
-        - Get
-        - Remote
-        - Share
+      - Files
+      - Get
+      - Remote
+      - Share
       description: Share a remote file into a channel.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/files.remote.share
       operationId: getFilesRemoteShare
       parameters:
-        - name: token
-          in: query
-          description: 'Authentication token. Requires scope: `remote_files:share`'
-          schema:
-            type: string
-        - name: file
-          in: query
-          description: >-
-            Specify a file registered with Slack by providing its ID. Either
-            this field or `external_id` or both are required.
-          schema:
-            type: string
-        - name: external_id
-          in: query
-          description: >-
-            The globally unique identifier (GUID) for the file, as set by the
-            app registering the file with Slack.  Either this field or `file` or
-            both are required.
-          schema:
-            type: string
-        - name: channels
-          in: query
-          description: Comma-separated list of channel IDs where the file will be shared.
-          schema:
-            type: string
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `remote_files:share`'
+        schema:
+          type: string
+      - name: file
+        in: query
+        description: >-
+          Specify a file registered with Slack by providing its ID. Either
+          this field or `external_id` or both are required.
+        schema:
+          type: string
+      - name: external_id
+        in: query
+        description: >-
+          The globally unique identifier (GUID) for the file, as set by the
+          app registering the file with Slack.  Either this field or `file` or
+          both are required.
+        schema:
+          type: string
+      - name: channels
+        in: query
+        description: Comma-separated list of channel IDs where the file will be shared.
+        schema:
+          type: string
       responses:
         '200':
           description: Typical success response
@@ -997,7 +1024,7 @@ paths:
               schema:
                 title: Default success template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -1015,7 +1042,7 @@ paths:
               schema:
                 title: Default error template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -1028,21 +1055,24 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - remote_files:share
-      summary: Slack Get  Files Remote Share
+      - slackAuth:
+        - remote_files:share
+      summary: Slack Get Files Remote Share
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /files.remote.update:
     post:
       tags:
-        - Files
-        - Post
-        - Remote
-        - Update
+      - Files
+      - Post
+      - Remote
+      - Update
       description: Updates an existing remote file.
       externalDocs:
         description: API method documentation
@@ -1088,7 +1118,7 @@ paths:
               schema:
                 title: Default success template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -1106,7 +1136,7 @@ paths:
               schema:
                 title: Default error template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -1119,30 +1149,33 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - remote_files:write
-      summary: Slack Post  Files Remote Update
+      - slackAuth:
+        - remote_files:write
+      summary: Slack Post Files Remote Update
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /files.revokePublicURL:
     post:
       tags:
-        - Files
-        - Post
+      - Files
+      - Post
       description: Revokes public/external sharing access for a file
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/files.revokePublicURL
       operationId: postFilesRevokepublicurl
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `files:write:user`'
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `files:write:user`'
+        schema:
+          type: string
       requestBody:
         content:
           application/x-www-form-urlencoded:
@@ -1167,8 +1200,8 @@ paths:
               schema:
                 title: files.revokePublicURL schema
                 required:
-                  - file
-                  - ok
+                - file
+                - ok
                 type: object
                 properties:
                   file:
@@ -1188,8 +1221,8 @@ paths:
               schema:
                 title: files.revokePublicURL error schema
                 required:
-                  - error
-                  - ok
+                - error
+                - ok
                 type: object
                 properties:
                   callstack:
@@ -1198,27 +1231,27 @@ paths:
                   error:
                     type: string
                     enum:
-                      - file_not_found
-                      - not_authed
-                      - invalid_auth
-                      - account_inactive
-                      - token_revoked
-                      - no_permission
-                      - org_login_required
-                      - user_is_bot
-                      - user_is_restricted
-                      - invalid_arg_name
-                      - invalid_array_arg
-                      - invalid_charset
-                      - invalid_form_data
-                      - invalid_post_type
-                      - missing_post_type
-                      - team_added_to_org
-                      - invalid_json
-                      - json_not_object
-                      - request_timeout
-                      - upgrade_required
-                      - fatal_error
+                    - file_not_found
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - token_revoked
+                    - no_permission
+                    - org_login_required
+                    - user_is_bot
+                    - user_is_restricted
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - fatal_error
                   ok:
                     $ref: '#/components/schemas/defs_ok_false'
                 additionalProperties: false
@@ -1227,30 +1260,33 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - files:write:user
-      summary: Slack Post  Files Revokepublicurl
+      - slackAuth:
+        - files:write:user
+      summary: Slack Post Files Revokepublicurl
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /files.sharedPublicURL:
     post:
       tags:
-        - Files
-        - Post
+      - Files
+      - Post
       description: Enables a file for public/external sharing.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/files.sharedPublicURL
       operationId: postFilesSharedpublicurl
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `files:write:user`'
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `files:write:user`'
+        schema:
+          type: string
       requestBody:
         content:
           application/x-www-form-urlencoded:
@@ -1275,8 +1311,8 @@ paths:
               schema:
                 title: files.sharedPublicURL schema
                 required:
-                  - file
-                  - ok
+                - file
+                - ok
                 type: object
                 properties:
                   file:
@@ -1296,8 +1332,8 @@ paths:
               schema:
                 title: files.sharedPublicURL error schema
                 required:
-                  - error
-                  - ok
+                - error
+                - ok
                 type: object
                 properties:
                   callstack:
@@ -1306,28 +1342,28 @@ paths:
                   error:
                     type: string
                     enum:
-                      - file_not_found
-                      - not_allowed
-                      - not_authed
-                      - invalid_auth
-                      - account_inactive
-                      - token_revoked
-                      - no_permission
-                      - org_login_required
-                      - user_is_bot
-                      - user_is_restricted
-                      - invalid_arg_name
-                      - invalid_array_arg
-                      - invalid_charset
-                      - invalid_form_data
-                      - invalid_post_type
-                      - missing_post_type
-                      - team_added_to_org
-                      - invalid_json
-                      - json_not_object
-                      - request_timeout
-                      - upgrade_required
-                      - fatal_error
+                    - file_not_found
+                    - not_allowed
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - token_revoked
+                    - no_permission
+                    - org_login_required
+                    - user_is_bot
+                    - user_is_restricted
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - fatal_error
                   ok:
                     $ref: '#/components/schemas/defs_ok_false'
                 additionalProperties: false
@@ -1336,20 +1372,23 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - files:write:user
-      summary: Slack Post  Files Sharedpublicurl
+      - slackAuth:
+        - files:write:user
+      summary: Slack Post Files Sharedpublicurl
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /files.upload:
     post:
       tags:
-        - Files
-        - Post
-        - Upload
+      - Files
+      - Post
+      - Upload
       description: Uploads or creates a file.
       externalDocs:
         description: API method documentation
@@ -1409,8 +1448,8 @@ paths:
               schema:
                 title: files.upload schema
                 required:
-                  - file
-                  - ok
+                - file
+                - ok
                 type: object
                 properties:
                   file:
@@ -1433,7 +1472,7 @@ paths:
                   id: F0TD00400
                   image_exif_rotation: 1
                   ims:
-                    - D0L4B9P0Q
+                  - D0L4B9P0Q
                   is_external: false
                   is_public: false
                   is_starred: false
@@ -1449,10 +1488,10 @@ paths:
                   shares:
                     private:
                       D0L4B9P0Q:
-                        - reply_count: 0
-                          reply_users: []
-                          reply_users_count: 0
-                          ts: '1532293503.000001'
+                      - reply_count: 0
+                        reply_users: []
+                        reply_users_count: 0
+                        ts: '1532293503.000001'
                   size: 43518
                   thumb_160: https://.../dramacat_160.gif
                   thumb_360: https://.../dramacat_360.gif
@@ -1477,8 +1516,8 @@ paths:
               schema:
                 title: files.upload error schema
                 required:
-                  - error
-                  - ok
+                - error
+                - ok
                 type: object
                 properties:
                   callstack:
@@ -1487,26 +1526,26 @@ paths:
                   error:
                     type: string
                     enum:
-                      - posting_to_general_channel_denied
-                      - invalid_channel
-                      - file_uploads_disabled
-                      - file_uploads_except_images_disabled
-                      - storage_limit_reached
-                      - not_authed
-                      - invalid_auth
-                      - account_inactive
-                      - no_permission
-                      - invalid_arg_name
-                      - invalid_array_arg
-                      - invalid_charset
-                      - invalid_form_data
-                      - invalid_post_type
-                      - missing_post_type
-                      - team_added_to_org
-                      - invalid_json
-                      - json_not_object
-                      - request_timeout
-                      - upgrade_required
+                    - posting_to_general_channel_denied
+                    - invalid_channel
+                    - file_uploads_disabled
+                    - file_uploads_except_images_disabled
+                    - storage_limit_reached
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - no_permission
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
                   ok:
                     $ref: '#/components/schemas/defs_ok_false'
                 additionalProperties: false
@@ -1515,27 +1554,30 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - files:write:user
-      summary: Slack Post  Files Upload
+      - slackAuth:
+        - files:write:user
+      summary: Slack Post Files Upload
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
 components:
   schemas: {}
 tags:
-  - name: Add
-  - name: Comments
-  - name: Deletes
-  - name: Files
-  - name: Get
-  - name: Info
-  - name: Lists
-  - name: Post
-  - name: Remote
-  - name: Remove
-  - name: Share
-  - name: Update
-  - name: Upload
+- name: Add
+- name: Comments
+- name: Deletes
+- name: Files
+- name: Get
+- name: Info
+- name: Lists
+- name: Post
+- name: Remote
+- name: Remove
+- name: Share
+- name: Update
+- name: Upload

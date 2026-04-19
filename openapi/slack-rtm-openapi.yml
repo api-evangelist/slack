@@ -1,40 +1,43 @@
 openapi: 3.1.0
 info:
   title: Slack RTM API
-  description: "The Slack Real Time Messaging (RTM) API lets an app open a WebSocket connection to Slack and receive a live stream of JSON events from a workspace\x14such as new messages, edits, reactions, user presence and typing indicators, channel joins, and more\x14so you can build low\x11latency, interactive bots and clients. Apps typically use the RTM stream for listening and the Web API for performing actions like posting or updating messages. You start by calling rtm.connect (or rtm.start, historically) to obtain a WebSocket URL, then maintain the socket to process events as they happen. RTM is now considered legacy; for new apps Slack recommends using the Events API with the Web API, or Socket Mode if you can\x19t expose a public HTTP endpoint."
+  description: "The Slack Real Time Messaging (RTM) API lets an app open a WebSocket connection to Slack and receive a live stream of JSON events from a workspace\x14such as new messages, edits, reactions,
+    user presence and typing indicators, channel joins, and more\x14so you can build low\x11latency, interactive bots and clients. Apps typically use the RTM stream for listening and the Web API for performing
+    actions like posting or updating messages. You start by calling rtm.connect (or rtm.start, historically) to obtain a WebSocket URL, then maintain the socket to process events as they happen. RTM is
+    now considered legacy; for new apps Slack recommends using the Events API with the Web API, or Socket Mode if you can\x19t expose a public HTTP endpoint."
 paths:
   /rtm.connect:
     get:
       tags:
-        - Connect
-        - Get
+      - Connect
+      - Get
       description: Starts a Real Time Messaging session.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/rtm.connect
       operationId: getRtmConnect
       parameters:
-        - name: token
-          in: query
-          description: 'Authentication token. Requires scope: `rtm:stream`'
-          required: true
-          schema:
-            type: string
-        - name: batch_presence_aware
-          in: query
-          description: >-
-            Batch presence deliveries via subscription. Enabling changes the
-            shape of `presence_change` events. See [batch
-            presence](/docs/presence-and-status#batching).
-          schema:
-            type: boolean
-        - name: presence_sub
-          in: query
-          description: >-
-            Only deliver presence events when requested by subscription. See
-            [presence subscriptions](/docs/presence-and-status#subscriptions).
-          schema:
-            type: boolean
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `rtm:stream`'
+        required: true
+        schema:
+          type: string
+      - name: batch_presence_aware
+        in: query
+        description: >-
+          Batch presence deliveries via subscription. Enabling changes the
+          shape of `presence_change` events. See [batch
+          presence](/docs/presence-and-status#batching).
+        schema:
+          type: boolean
+      - name: presence_sub
+        in: query
+        description: >-
+          Only deliver presence events when requested by subscription. See
+          [presence subscriptions](/docs/presence-and-status#subscriptions).
+        schema:
+          type: boolean
       responses:
         '200':
           description: Typical success response
@@ -43,10 +46,10 @@ paths:
               schema:
                 title: rtm.connect schema
                 required:
-                  - ok
-                  - self
-                  - team
-                  - url
+                - ok
+                - self
+                - team
+                - url
                 type: object
                 properties:
                   ok:
@@ -79,8 +82,8 @@ paths:
               schema:
                 title: rtm.connect error schema
                 required:
-                  - error
-                  - ok
+                - error
+                - ok
                 type: object
                 properties:
                   callstack:
@@ -89,23 +92,23 @@ paths:
                   error:
                     type: string
                     enum:
-                      - not_authed
-                      - invalid_auth
-                      - account_inactive
-                      - token_revoked
-                      - no_permission
-                      - invalid_arg_name
-                      - invalid_array_arg
-                      - invalid_charset
-                      - invalid_form_data
-                      - invalid_post_type
-                      - missing_post_type
-                      - team_added_to_org
-                      - invalid_json
-                      - json_not_object
-                      - request_timeout
-                      - upgrade_required
-                      - fatal_error
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - token_revoked
+                    - no_permission
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - fatal_error
                   ok:
                     $ref: '#/components/schemas/defs_ok_false'
                 additionalProperties: false
@@ -114,16 +117,19 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - rtm:stream
-      summary: Slack Get  Rtm Connect
+      - slackAuth:
+        - rtm:stream
+      summary: Slack Get Rtm Connect
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
 components:
   schemas: {}
 tags:
-  - name: Connect
-  - name: Get
+- name: Connect
+- name: Get

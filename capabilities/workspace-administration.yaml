@@ -1,0 +1,152 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Slack Workspace Administration"
+  description: "Unified workflow for workspace administration including admin controls, team settings, user management, user groups, authentication, and enterprise migration. Used by workspace administrators and IT teams."
+  tags:
+    - Slack
+    - Administration
+    - User Management
+    - Enterprise
+  created: "2026-04-18"
+  modified: "2026-04-18"
+
+binds:
+  - namespace: env
+    keys:
+      SLACK_BOT_TOKEN: SLACK_BOT_TOKEN
+
+capability:
+  consumes:
+    - import: slack-admin
+      location: ./shared/admin.yaml
+    - import: slack-team
+      location: ./shared/team.yaml
+    - import: slack-users
+      location: ./shared/users.yaml
+    - import: slack-usergroups
+      location: ./shared/usergroups.yaml
+    - import: slack-migration
+      location: ./shared/migration.yaml
+    - import: slack-auth
+      location: ./shared/auth.yaml
+    - import: slack-oauth
+      location: ./shared/oauth.yaml
+    - import: slack-openid
+      location: ./shared/openid-connect.yaml
+    - import: slack-dnd
+      location: ./shared/dnd.yaml
+
+  exposes:
+    - type: rest
+      port: 8081
+      namespace: workspace-admin-api
+      description: "Unified REST API for workspace administration."
+      resources:
+        - path: /v1/admin
+          name: admin
+          description: "Admin controls."
+          operations:
+            - method: GET
+              name: list-admin
+              description: "List admin resources."
+              call: "slack-admin.list"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/users
+          name: users
+          description: "User management."
+          operations:
+            - method: GET
+              name: list-users
+              description: "List users."
+              call: "slack-users.list"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/user-groups
+          name: user-groups
+          description: "User group management."
+          operations:
+            - method: GET
+              name: list-groups
+              description: "List user groups."
+              call: "slack-usergroups.list"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/team
+          name: team
+          description: "Team information."
+          operations:
+            - method: GET
+              name: get-team
+              description: "Get team info."
+              call: "slack-team.list"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9081
+      namespace: workspace-admin-mcp
+      transport: http
+      description: "MCP server for AI-assisted workspace administration."
+      tools:
+        - name: admin-controls
+          description: "Access admin controls."
+          hints:
+            readOnly: true
+          call: "slack-admin.list"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-team-info
+          description: "Get workspace information."
+          hints:
+            readOnly: true
+          call: "slack-team.list"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-users
+          description: "List workspace users."
+          hints:
+            readOnly: true
+          call: "slack-users.list"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-user-groups
+          description: "List user groups."
+          hints:
+            readOnly: true
+          call: "slack-usergroups.list"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: migrate-ids
+          description: "Migrate enterprise IDs."
+          hints:
+            readOnly: true
+          call: "slack-migration.list"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: auth-test
+          description: "Test authentication."
+          hints:
+            readOnly: true
+          call: "slack-auth.list"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-dnd-status
+          description: "Get Do Not Disturb status."
+          hints:
+            readOnly: true
+          call: "slack-dnd.list"
+          outputParameters:
+            - type: object
+              mapping: "$."

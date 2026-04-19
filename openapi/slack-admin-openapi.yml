@@ -1,27 +1,31 @@
 openapi: 3.1.0
 info:
   title: Slack Admin API
-  description: "The Slack Admin API is a set of privileged endpoints\x14primarily under admin.* with related SCIM and Audit Logs APIs\x14that lets Enterprise Grid owners and admins automate organization\x11wide management and governance. It covers user lifecycle (provision, suspend, assign roles), workspace and channel administration across workspaces (create, move, archive channels; manage membership and settings), app governance (approve/deny or allowlist/ban apps and install them to workspaces), invite request handling, and security/compliance controls such as information barriers, session and authentication policies, and org\x11level analytics exports. These APIs require elevated admin scopes and are commonly used to power automated onboarding/offboarding, centralized channel and app controls, and integrations with identity, ITSM, and compliance systems."
+  description: "The Slack Admin API is a set of privileged endpoints\x14primarily under admin.* with related SCIM and Audit Logs APIs\x14that lets Enterprise Grid owners and admins automate organization\x11
+    wide management and governance. It covers user lifecycle (provision, suspend, assign roles), workspace and channel administration across workspaces (create, move, archive channels; manage membership
+    and settings), app governance (approve/deny or allowlist/ban apps and install them to workspaces), invite request handling, and security/compliance controls such as information barriers, session and
+    authentication policies, and org\x11level analytics exports. These APIs require elevated admin scopes and are commonly used to power automated onboarding/offboarding, centralized channel and app controls,
+    and integrations with identity, ITSM, and compliance systems."
 paths:
   /admin.apps.approve:
     post:
       tags:
-        - Administrative
-        - Applications
-        - Approve
-        - Post
+      - Administrative
+      - Applications
+      - Approve
+      - Post
       description: Approve an app for installation on a workspace.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/admin.apps.approve
       operationId: postAdminAppsApprove
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `admin.apps:write`'
-          required: true
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.apps:write`'
+        required: true
+        schema:
+          type: string
       requestBody:
         content:
           application/x-www-form-urlencoded:
@@ -56,7 +60,7 @@ paths:
               schema:
                 title: Default success template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -74,7 +78,7 @@ paths:
               schema:
                 title: Default error template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -87,56 +91,59 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - admin.apps:write
-      summary: Slack Post  Admin Apps Approve
+      - slackAuth:
+        - admin.apps:write
+      summary: Slack Post Admin Apps Approve
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /admin.apps.approved.list:
     get:
       tags:
-        - Administrative
-        - Applications
-        - Approved
-        - Get
-        - Lists
+      - Administrative
+      - Applications
+      - Approved
+      - Get
+      - Lists
       description: List approved apps for an org or workspace.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/admin.apps.approved.list
       operationId: getAdminAppsApprovedList
       parameters:
-        - name: token
-          in: query
-          description: 'Authentication token. Requires scope: `admin.apps:read`'
-          required: true
-          schema:
-            type: string
-        - name: limit
-          in: query
-          description: >-
-            The maximum number of items to return. Must be between 1 - 1000 both
-            inclusive.
-          schema:
-            type: integer
-        - name: cursor
-          in: query
-          description: >-
-            Set `cursor` to `next_cursor` returned by the previous call to list
-            items in the next page
-          schema:
-            type: string
-        - name: team_id
-          in: query
-          schema:
-            type: string
-        - name: enterprise_id
-          in: query
-          schema:
-            type: string
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `admin.apps:read`'
+        required: true
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: >-
+          The maximum number of items to return. Must be between 1 - 1000 both
+          inclusive.
+        schema:
+          type: integer
+      - name: cursor
+        in: query
+        description: >-
+          Set `cursor` to `next_cursor` returned by the previous call to list
+          items in the next page
+        schema:
+          type: string
+      - name: team_id
+        in: query
+        schema:
+          type: string
+      - name: enterprise_id
+        in: query
+        schema:
+          type: string
       responses:
         '200':
           description: Typical success response
@@ -145,7 +152,7 @@ paths:
               schema:
                 title: Default success template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -156,42 +163,42 @@ paths:
                   verbose schema is not available for this method.
               example:
                 approved_apps:
-                  - app:
-                      additional_info: ''
-                      app_directory_url: >-
-                        https://myteam.enterprise.slack.com/apps/A0W7UKG8E-my-test-app
-                      app_homepage_url: https://www.slack.com
-                      description: test app
-                      help_url: https://www.slack.com
-                      icons:
-                        image_1024: https://3026743124446w96_2bd4ea1ad1f89a23c242_1024.png
-                        image_128: https://30267341249446w6_2bd4ea1ad1f89a23c242_128.png
-                        image_192: https://30267431249446w6_2bd4ea1ad1f89a23c242_192.png
-                        image_32: https://302674312496446w_2bd4ea1ad1f89a23c242_32.png
-                        image_36: https://302674312496446w_2bd4ea1ad1f89a23c242_36.png
-                        image_48: https://302674312496446w_2bd4ea1ad1f89a23c242_48.png
-                        image_512: https://30267431249446w6_2bd4ea1ad1f89a23c242_512.png
-                        image_64: https://302674312496446w_2bd4ea1ad1f89a23c242_64.png
-                        image_72: https://302674312496446w_2bd4ea1ad1f89a23c242_72.png
-                        image_96: https://302674312496446w_2bd4ea1ad1f89a23c242_96.png
-                        image_original: >-
-                          https://302674446w12496_2bd4ea1ad1f89a23c242_original.png
-                      id: A0W7UKG8E
-                      is_app_directory_approved: false
-                      is_internal: false
-                      name: My Test App
-                      privacy_policy_url: https://www.slack.com
-                    date_updated: 1574296707
-                    last_resolved_by:
-                      actor_id: W0G82F4FD
-                      actor_type: user
-                    scopes:
-                      - description: >-
-                          Add the ability for people to direct message or
-                          mention @my_test_app
-                        is_sensitive: true
-                        name: bot
-                        token_type: bot
+                - app:
+                    additional_info: ''
+                    app_directory_url: >-
+                      https://myteam.enterprise.slack.com/apps/A0W7UKG8E-my-test-app
+                    app_homepage_url: https://www.slack.com
+                    description: test app
+                    help_url: https://www.slack.com
+                    icons:
+                      image_1024: https://3026743124446w96_2bd4ea1ad1f89a23c242_1024.png
+                      image_128: https://30267341249446w6_2bd4ea1ad1f89a23c242_128.png
+                      image_192: https://30267431249446w6_2bd4ea1ad1f89a23c242_192.png
+                      image_32: https://302674312496446w_2bd4ea1ad1f89a23c242_32.png
+                      image_36: https://302674312496446w_2bd4ea1ad1f89a23c242_36.png
+                      image_48: https://302674312496446w_2bd4ea1ad1f89a23c242_48.png
+                      image_512: https://30267431249446w6_2bd4ea1ad1f89a23c242_512.png
+                      image_64: https://302674312496446w_2bd4ea1ad1f89a23c242_64.png
+                      image_72: https://302674312496446w_2bd4ea1ad1f89a23c242_72.png
+                      image_96: https://302674312496446w_2bd4ea1ad1f89a23c242_96.png
+                      image_original: >-
+                        https://302674446w12496_2bd4ea1ad1f89a23c242_original.png
+                    id: A0W7UKG8E
+                    is_app_directory_approved: false
+                    is_internal: false
+                    name: My Test App
+                    privacy_policy_url: https://www.slack.com
+                  date_updated: 1574296707
+                  last_resolved_by:
+                    actor_id: W0G82F4FD
+                    actor_type: user
+                  scopes:
+                  - description: >-
+                      Add the ability for people to direct message or
+                      mention @my_test_app
+                    is_sensitive: true
+                    name: bot
+                    token_type: bot
                 ok: true
                 response_metadata:
                   next_cursor: ''
@@ -202,7 +209,7 @@ paths:
               schema:
                 title: Default error template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -215,52 +222,55 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - admin.apps:read
-      summary: Slack Get  Admin Apps Approved List
+      - slackAuth:
+        - admin.apps:read
+      summary: Slack Get Admin Apps Approved List
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /admin.apps.requests.list:
     get:
       tags:
-        - Administrative
-        - Applications
-        - Get
-        - Lists
-        - Requests
+      - Administrative
+      - Applications
+      - Get
+      - Lists
+      - Requests
       description: List app requests for a team/workspace.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/admin.apps.requests.list
       operationId: getAdminAppsRequestsList
       parameters:
-        - name: token
-          in: query
-          description: 'Authentication token. Requires scope: `admin.apps:read`'
-          required: true
-          schema:
-            type: string
-        - name: limit
-          in: query
-          description: >-
-            The maximum number of items to return. Must be between 1 - 1000 both
-            inclusive.
-          schema:
-            type: integer
-        - name: cursor
-          in: query
-          description: >-
-            Set `cursor` to `next_cursor` returned by the previous call to list
-            items in the next page
-          schema:
-            type: string
-        - name: team_id
-          in: query
-          schema:
-            type: string
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `admin.apps:read`'
+        required: true
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: >-
+          The maximum number of items to return. Must be between 1 - 1000 both
+          inclusive.
+        schema:
+          type: integer
+      - name: cursor
+        in: query
+        description: >-
+          Set `cursor` to `next_cursor` returned by the previous call to list
+          items in the next page
+        schema:
+          type: string
+      - name: team_id
+        in: query
+        schema:
+          type: string
       responses:
         '200':
           description: Typical success response
@@ -269,7 +279,7 @@ paths:
               schema:
                 title: Default success template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -280,45 +290,45 @@ paths:
                   verbose schema is not available for this method.
               example:
                 app_requests:
-                  - app:
-                      additional_info: ''
-                      app_directory_url: https://acmecorp.slack.com/apps/A061BL8RQ0-test-app
-                      app_homepage_url: ''
-                      description: ''
-                      help_url: ''
-                      icons:
-                        image_1024: /cdn/15258203/img/testapp/service_1024.png
-                        image_128: /cdn/157258203/img/testapp/service_128.png
-                        image_192: /cdn/157258203/img/testapp/service_192.png
-                        image_32: /cdn/157658203/img/testapp/service_32.png
-                        image_36: /cdn/157658203/img/testapp/service_36.png
-                        image_48: /cdn/157658203/img/testapp/service_48.png
-                        image_512: /cdn/15758203/img/testapp/service_512.png
-                        image_64: /cdn/157658203/img/testapp/service_64.png
-                        image_72: /cdn/157658203/img/testapp/service_72.png
-                        image_96: /cdn/157658203/img/testapp/service_96.png
-                      id: A061BL8RQ0
-                      is_app_directory_approved: true
-                      is_internal: false
-                      name: Test App
-                      privacy_policy_url: https://testapp.com/privacy
-                    date_created: 1578956327
-                    id: Ar0XJGFLMLS
-                    message: test test again
-                    previous_resolution:
-                    scopes:
-                      - description: Post messages to specific channels in Slack
-                        is_sensitive: false
-                        name: incoming-webhook
-                        token_type: user
-                    team:
-                      domain: acmecorp
-                      id: T0M94LNUCR
-                      name: Acme Corp
-                    user:
-                      email: janedoe@example.com
-                      id: W08RA9G5HR
-                      name: Jane Doe
+                - app:
+                    additional_info: ''
+                    app_directory_url: https://acmecorp.slack.com/apps/A061BL8RQ0-test-app
+                    app_homepage_url: ''
+                    description: ''
+                    help_url: ''
+                    icons:
+                      image_1024: /cdn/15258203/img/testapp/service_1024.png
+                      image_128: /cdn/157258203/img/testapp/service_128.png
+                      image_192: /cdn/157258203/img/testapp/service_192.png
+                      image_32: /cdn/157658203/img/testapp/service_32.png
+                      image_36: /cdn/157658203/img/testapp/service_36.png
+                      image_48: /cdn/157658203/img/testapp/service_48.png
+                      image_512: /cdn/15758203/img/testapp/service_512.png
+                      image_64: /cdn/157658203/img/testapp/service_64.png
+                      image_72: /cdn/157658203/img/testapp/service_72.png
+                      image_96: /cdn/157658203/img/testapp/service_96.png
+                    id: A061BL8RQ0
+                    is_app_directory_approved: true
+                    is_internal: false
+                    name: Test App
+                    privacy_policy_url: https://testapp.com/privacy
+                  date_created: 1578956327
+                  id: Ar0XJGFLMLS
+                  message: test test again
+                  previous_resolution:
+                  scopes:
+                  - description: Post messages to specific channels in Slack
+                    is_sensitive: false
+                    name: incoming-webhook
+                    token_type: user
+                  team:
+                    domain: acmecorp
+                    id: T0M94LNUCR
+                    name: Acme Corp
+                  user:
+                    email: janedoe@example.com
+                    id: W08RA9G5HR
+                    name: Jane Doe
                 ok: true
                 response_metadata:
                   next_cursor: ''
@@ -329,7 +339,7 @@ paths:
               schema:
                 title: Default error template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -344,33 +354,36 @@ paths:
                 ok: false
                 provided: read,client,admin,identify,post,apps
       security:
-        - slackAuth:
-            - admin.apps:read
-      summary: Slack Get  Admin Apps Requests List
+      - slackAuth:
+        - admin.apps:read
+      summary: Slack Get Admin Apps Requests List
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /admin.apps.restrict:
     post:
       tags:
-        - Administrative
-        - Applications
-        - Post
-        - Restrict
+      - Administrative
+      - Applications
+      - Post
+      - Restrict
       description: Restrict an app for installation on a workspace.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/admin.apps.restrict
       operationId: postAdminAppsRestrict
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `admin.apps:write`'
-          required: true
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.apps:write`'
+        required: true
+        schema:
+          type: string
       requestBody:
         content:
           application/x-www-form-urlencoded:
@@ -405,7 +418,7 @@ paths:
               schema:
                 title: Default success template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -423,7 +436,7 @@ paths:
               schema:
                 title: Default error template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -436,56 +449,59 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - admin.apps:write
-      summary: Slack Post  Admin Apps Restrict
+      - slackAuth:
+        - admin.apps:write
+      summary: Slack Post Admin Apps Restrict
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /admin.apps.restricted.list:
     get:
       tags:
-        - Administrative
-        - Applications
-        - Get
-        - Lists
-        - Restricted
+      - Administrative
+      - Applications
+      - Get
+      - Lists
+      - Restricted
       description: List restricted apps for an org or workspace.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/admin.apps.restricted.list
       operationId: getAdminAppsRestrictedList
       parameters:
-        - name: token
-          in: query
-          description: 'Authentication token. Requires scope: `admin.apps:read`'
-          required: true
-          schema:
-            type: string
-        - name: limit
-          in: query
-          description: >-
-            The maximum number of items to return. Must be between 1 - 1000 both
-            inclusive.
-          schema:
-            type: integer
-        - name: cursor
-          in: query
-          description: >-
-            Set `cursor` to `next_cursor` returned by the previous call to list
-            items in the next page
-          schema:
-            type: string
-        - name: team_id
-          in: query
-          schema:
-            type: string
-        - name: enterprise_id
-          in: query
-          schema:
-            type: string
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `admin.apps:read`'
+        required: true
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: >-
+          The maximum number of items to return. Must be between 1 - 1000 both
+          inclusive.
+        schema:
+          type: integer
+      - name: cursor
+        in: query
+        description: >-
+          Set `cursor` to `next_cursor` returned by the previous call to list
+          items in the next page
+        schema:
+          type: string
+      - name: team_id
+        in: query
+        schema:
+          type: string
+      - name: enterprise_id
+        in: query
+        schema:
+          type: string
       responses:
         '200':
           description: Typical success response
@@ -494,7 +510,7 @@ paths:
               schema:
                 title: Default success template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -508,41 +524,41 @@ paths:
                 response_metadata:
                   next_cursor: ''
                 restricted_apps:
-                  - app:
-                      additional_info: ''
-                      app_directory_url: >-
-                        https://myteam.enterprise.slack.com/apps/A0FDLP8M2L-my-test-app
-                      app_homepage_url: https://example.com
-                      description: A fun test app for Slack
-                      help_url: https://example.com
-                      icons:
-                        image_1024: >-
-                          https://1433265338rl878408_eb57dbc818daa4ba15d6_1024.png
-                        image_128: https://4332653438rl87808_eb57dbc818daa4ba15d6_128.png
-                        image_192: https://4332653438rl87808_eb57dbc818daa4ba15d6_192.png
-                        image_32: https://143326534038rl8788_eb57dbc818daa4ba15d6_32.png
-                        image_36: https://143326534038rl8788_eb57dbc818daa4ba15d6_36.png
-                        image_48: https://143326534038rl8788_eb57dbc818daa4ba15d6_48.png
-                        image_512: https://4332653438rl87808_eb57dbc818daa4ba15d6_512.png
-                        image_64: https://143326534038rl8788_eb57dbc818daa4ba15d6_64.png
-                        image_72: https://143326534038rl8788_eb57dbc818daa4ba15d6_72.png
-                        image_96: https://143326534038rl8788_eb57dbc818daa4ba15d6_96.png
-                        image_original: >-
-                          https://143338rl8782653408_eb57dbc818daa4ba15d6_original.png
-                      id: A0FDLP8M2L
-                      is_app_directory_approved: true
-                      is_internal: false
-                      name: My Test App
-                      privacy_policy_url: https://example.com
-                    date_updated: 1574296721
-                    last_resolved_by:
-                      actor_id: W0G82LMFD
-                      actor_type: user
-                    scopes:
-                      - description: Upload, edit, and delete files on the user's behalf
-                        is_sensitive: true
-                        name: files:write:user
-                        token_type: user
+                - app:
+                    additional_info: ''
+                    app_directory_url: >-
+                      https://myteam.enterprise.slack.com/apps/A0FDLP8M2L-my-test-app
+                    app_homepage_url: https://example.com
+                    description: A fun test app for Slack
+                    help_url: https://example.com
+                    icons:
+                      image_1024: >-
+                        https://1433265338rl878408_eb57dbc818daa4ba15d6_1024.png
+                      image_128: https://4332653438rl87808_eb57dbc818daa4ba15d6_128.png
+                      image_192: https://4332653438rl87808_eb57dbc818daa4ba15d6_192.png
+                      image_32: https://143326534038rl8788_eb57dbc818daa4ba15d6_32.png
+                      image_36: https://143326534038rl8788_eb57dbc818daa4ba15d6_36.png
+                      image_48: https://143326534038rl8788_eb57dbc818daa4ba15d6_48.png
+                      image_512: https://4332653438rl87808_eb57dbc818daa4ba15d6_512.png
+                      image_64: https://143326534038rl8788_eb57dbc818daa4ba15d6_64.png
+                      image_72: https://143326534038rl8788_eb57dbc818daa4ba15d6_72.png
+                      image_96: https://143326534038rl8788_eb57dbc818daa4ba15d6_96.png
+                      image_original: >-
+                        https://143338rl8782653408_eb57dbc818daa4ba15d6_original.png
+                    id: A0FDLP8M2L
+                    is_app_directory_approved: true
+                    is_internal: false
+                    name: My Test App
+                    privacy_policy_url: https://example.com
+                  date_updated: 1574296721
+                  last_resolved_by:
+                    actor_id: W0G82LMFD
+                    actor_type: user
+                  scopes:
+                  - description: Upload, edit, and delete files on the user's behalf
+                    is_sensitive: true
+                    name: files:write:user
+                    token_type: user
         default:
           description: Typical error response
           content:
@@ -550,7 +566,7 @@ paths:
               schema:
                 title: Default error template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -563,39 +579,42 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - admin.apps:read
-      summary: Slack Get  Admin Apps Restricted List
+      - slackAuth:
+        - admin.apps:read
+      summary: Slack Get Admin Apps Restricted List
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /admin.conversations.archive:
     post:
       tags:
-        - Administrative
-        - Archive
-        - Conversations
-        - Post
+      - Administrative
+      - Archive
+      - Conversations
+      - Post
       description: Archive a public or private channel.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/admin.conversations.archive
       operationId: postAdminConversationsArchive
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `admin.conversations:write`'
-          required: true
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.conversations:write`'
+        required: true
+        schema:
+          type: string
       requestBody:
         content:
           application/x-www-form-urlencoded:
             schema:
               required:
-                - channel_id
+              - channel_id
               type: object
               properties:
                 channel_id:
@@ -604,7 +623,7 @@ paths:
           application/json:
             schema:
               required:
-                - channel_id
+              - channel_id
               type: object
               properties:
                 channel_id:
@@ -619,7 +638,7 @@ paths:
               schema:
                 title: admin.conversations.archive schema
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -635,21 +654,21 @@ paths:
               schema:
                 title: admin.conversations.archive error schema
                 required:
-                  - error
-                  - ok
+                - error
+                - ok
                 type: object
                 properties:
                   error:
                     type: string
                     enum:
-                      - feature_not_enabled
-                      - channel_not_found
-                      - channel_type_not_supported
-                      - default_org_wide_channel
-                      - already_archived
-                      - cant_archive_general
-                      - restricted_action
-                      - could_not_archive_channel
+                    - feature_not_enabled
+                    - channel_not_found
+                    - channel_type_not_supported
+                    - default_org_wide_channel
+                    - already_archived
+                    - cant_archive_general
+                    - restricted_action
+                    - could_not_archive_channel
                   ok:
                     $ref: '#/components/schemas/defs_ok_false'
                 additionalProperties: false
@@ -658,38 +677,41 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - admin.conversations:write
-      summary: Slack Post  Admin Conversations Archive
+      - slackAuth:
+        - admin.conversations:write
+      summary: Slack Post Admin Conversations Archive
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /admin.conversations.convertToPrivate:
     post:
       tags:
-        - Administrative
-        - Conversations
-        - Post
+      - Administrative
+      - Conversations
+      - Post
       description: Convert a public channel to a private channel.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/admin.conversations.convertToPrivate
       operationId: postAdminConversationsConverttoprivate
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `admin.conversations:write`'
-          required: true
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.conversations:write`'
+        required: true
+        schema:
+          type: string
       requestBody:
         content:
           application/x-www-form-urlencoded:
             schema:
               required:
-                - channel_id
+              - channel_id
               type: object
               properties:
                 channel_id:
@@ -698,7 +720,7 @@ paths:
           application/json:
             schema:
               required:
-                - channel_id
+              - channel_id
               type: object
               properties:
                 channel_id:
@@ -713,7 +735,7 @@ paths:
               schema:
                 title: admin.conversations.convertToPrivate schema
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -731,22 +753,22 @@ paths:
               schema:
                 title: admin.conversations.convertToPrivate error schema
                 required:
-                  - error
-                  - ok
+                - error
+                - ok
                 type: object
                 properties:
                   error:
                     type: string
                     enum:
-                      - feature_not_enabled
-                      - restricted_action
-                      - name_taken
-                      - channel_not_found
-                      - channel_type_not_supported
-                      - default_org_wide_channel
-                      - method_not_supported_for_channel_type
-                      - could_not_convert_channel
-                      - external_channel_migrating
+                    - feature_not_enabled
+                    - restricted_action
+                    - name_taken
+                    - channel_not_found
+                    - channel_type_not_supported
+                    - default_org_wide_channel
+                    - method_not_supported_for_channel_type
+                    - could_not_convert_channel
+                    - external_channel_migrating
                   ok:
                     $ref: '#/components/schemas/defs_ok_false'
                 additionalProperties: false
@@ -757,40 +779,43 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - admin.conversations:write
-      summary: Slack Post  Admin Conversations Converttoprivate
+      - slackAuth:
+        - admin.conversations:write
+      summary: Slack Post Admin Conversations Converttoprivate
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /admin.conversations.create:
     post:
       tags:
-        - Administrative
-        - Conversations
-        - Create
-        - Post
+      - Administrative
+      - Conversations
+      - Create
+      - Post
       description: Create a public or private channel-based conversation.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/admin.conversations.create
       operationId: postAdminConversationsCreate
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `admin.conversations:write`'
-          required: true
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.conversations:write`'
+        required: true
+        schema:
+          type: string
       requestBody:
         content:
           application/x-www-form-urlencoded:
             schema:
               required:
-                - is_private
-                - name
+              - is_private
+              - name
               type: object
               properties:
                 name:
@@ -818,8 +843,8 @@ paths:
           application/json:
             schema:
               required:
-                - is_private
-                - name
+              - is_private
+              - name
               type: object
               properties:
                 name:
@@ -853,7 +878,7 @@ paths:
               schema:
                 title: admin.conversations.create schema
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   channel_id:
@@ -872,21 +897,21 @@ paths:
               schema:
                 title: admin.conversations.create error schema
                 required:
-                  - error
-                  - ok
+                - error
+                - ok
                 type: object
                 properties:
                   error:
                     type: string
                     enum:
-                      - feature_not_enabled
-                      - name_taken
-                      - restricted_action
-                      - team_not_found
-                      - invalid_team
-                      - invalid_name
-                      - could_not_create_channel
-                      - team_id_or_org_required
+                    - feature_not_enabled
+                    - name_taken
+                    - restricted_action
+                    - team_not_found
+                    - invalid_team
+                    - invalid_name
+                    - could_not_create_channel
+                    - team_id_or_org_required
                   ok:
                     $ref: '#/components/schemas/defs_ok_false'
                 additionalProperties: false
@@ -895,39 +920,42 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - admin.conversations:write
-      summary: Slack Post  Admin Conversations Create
+      - slackAuth:
+        - admin.conversations:write
+      summary: Slack Post Admin Conversations Create
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /admin.conversations.delete:
     post:
       tags:
-        - Administrative
-        - Conversations
-        - Deletes
-        - Post
+      - Administrative
+      - Conversations
+      - Deletes
+      - Post
       description: Delete a public or private channel.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/admin.conversations.delete
       operationId: postAdminConversationsDelete
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `admin.conversations:write`'
-          required: true
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.conversations:write`'
+        required: true
+        schema:
+          type: string
       requestBody:
         content:
           application/x-www-form-urlencoded:
             schema:
               required:
-                - channel_id
+              - channel_id
               type: object
               properties:
                 channel_id:
@@ -936,7 +964,7 @@ paths:
           application/json:
             schema:
               required:
-                - channel_id
+              - channel_id
               type: object
               properties:
                 channel_id:
@@ -951,7 +979,7 @@ paths:
               schema:
                 title: admin.conversations.delete schema
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -967,21 +995,21 @@ paths:
               schema:
                 title: admin.conversations.delete error schema
                 required:
-                  - error
-                  - ok
+                - error
+                - ok
                 type: object
                 properties:
                   error:
                     type: string
                     enum:
-                      - feature_not_enabled
-                      - not_an_admin
-                      - channel_not_found
-                      - channel_type_not_supported
-                      - default_org_wide_channel
-                      - restricted_action
-                      - could_not_delete_channel
-                      - missing_scope
+                    - feature_not_enabled
+                    - not_an_admin
+                    - channel_not_found
+                    - channel_type_not_supported
+                    - default_org_wide_channel
+                    - restricted_action
+                    - could_not_delete_channel
+                    - missing_scope
                   ok:
                     $ref: '#/components/schemas/defs_ok_false'
                 additionalProperties: false
@@ -990,38 +1018,41 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - admin.conversations:write
-      summary: Slack Post  Admin Conversations Delete
+      - slackAuth:
+        - admin.conversations:write
+      summary: Slack Post Admin Conversations Delete
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /admin.conversations.disconnectShared:
     post:
       tags:
-        - Administrative
-        - Conversations
-        - Post
+      - Administrative
+      - Conversations
+      - Post
       description: Disconnect a connected channel from one or more workspaces.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/admin.conversations.disconnectShared
       operationId: postAdminConversationsDisconnectshared
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `admin.conversations:write`'
-          required: true
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.conversations:write`'
+        required: true
+        schema:
+          type: string
       requestBody:
         content:
           application/x-www-form-urlencoded:
             schema:
               required:
-                - channel_id
+              - channel_id
               type: object
               properties:
                 channel_id:
@@ -1035,7 +1066,7 @@ paths:
           application/json:
             schema:
               required:
-                - channel_id
+              - channel_id
               type: object
               properties:
                 channel_id:
@@ -1055,7 +1086,7 @@ paths:
               schema:
                 title: admin.conversations.rename schema
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -1073,26 +1104,26 @@ paths:
               schema:
                 title: admin.conversations.disconnectShared error schema
                 required:
-                  - error
-                  - ok
+                - error
+                - ok
                 type: object
                 properties:
                   error:
                     type: string
                     enum:
-                      - feature_not_enabled
-                      - not_an_admin
-                      - not_an_enterprise
-                      - channel_not_found
-                      - not_supported
-                      - team_not_found
-                      - restricted_action
-                      - missing_scope
-                      - leaving_team_not_in_channel
-                      - no_teams_to_disconnect
-                      - leaving_team_required
-                      - cannot_kick_team
-                      - cannot_kick_home_team
+                    - feature_not_enabled
+                    - not_an_admin
+                    - not_an_enterprise
+                    - channel_not_found
+                    - not_supported
+                    - team_not_found
+                    - restricted_action
+                    - missing_scope
+                    - leaving_team_not_in_channel
+                    - no_teams_to_disconnect
+                    - leaving_team_required
+                    - cannot_kick_team
+                    - cannot_kick_home_team
                   ok:
                     $ref: '#/components/schemas/defs_ok_false'
                 additionalProperties: false
@@ -1103,20 +1134,23 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - admin.conversations:write
-      summary: Slack Post  Admin Conversations Disconnectshared
+      - slackAuth:
+        - admin.conversations:write
+      summary: Slack Post Admin Conversations Disconnectshared
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /admin.conversations.ekm.listOriginalConnectedChannelInfo:
     get:
       tags:
-        - Administrative
-        - Conversations
-        - Get
+      - Administrative
+      - Conversations
+      - Get
       description: >-
         List all disconnected channels i.e., channels that were once connected
         to other workspaces and then disconnected and the corresponding original
@@ -1127,38 +1161,38 @@ paths:
           https://api.slack.com/methods/admin.conversations.ekm.listOriginalConnectedChannelInfo
       operationId: getAdminConversationsEkmListoriginalconnectedchannelinfo
       parameters:
-        - name: token
-          in: query
-          description: 'Authentication token. Requires scope: `admin.conversations:read`'
-          required: true
-          schema:
-            type: string
-        - name: channel_ids
-          in: query
-          description: A comma-separated list of channels to filter to.
-          schema:
-            type: string
-        - name: team_ids
-          in: query
-          description: >-
-            A comma-separated list of the workspaces to which the channels you
-            would like returned belong.
-          schema:
-            type: string
-        - name: limit
-          in: query
-          description: >-
-            The maximum number of items to return. Must be between 1 - 1000 both
-            inclusive.
-          schema:
-            type: integer
-        - name: cursor
-          in: query
-          description: >-
-            Set `cursor` to `next_cursor` returned by the previous call to list
-            items in the next page.
-          schema:
-            type: string
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `admin.conversations:read`'
+        required: true
+        schema:
+          type: string
+      - name: channel_ids
+        in: query
+        description: A comma-separated list of channels to filter to.
+        schema:
+          type: string
+      - name: team_ids
+        in: query
+        description: >-
+          A comma-separated list of the workspaces to which the channels you
+          would like returned belong.
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: >-
+          The maximum number of items to return. Must be between 1 - 1000 both
+          inclusive.
+        schema:
+          type: integer
+      - name: cursor
+        in: query
+        description: >-
+          Set `cursor` to `next_cursor` returned by the previous call to list
+          items in the next page.
+        schema:
+          type: string
       responses:
         '200':
           description: Typical success response
@@ -1167,7 +1201,7 @@ paths:
               schema:
                 title: Default success template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -1178,10 +1212,10 @@ paths:
                   verbose schema is not available for this method.
               example:
                 channels:
-                  - id: string
-                    internal_team_ids: array
-                    original_connected_channel_id: string
-                    original_connected_host_id: string
+                - id: string
+                  internal_team_ids: array
+                  original_connected_channel_id: string
+                  original_connected_host_id: string
                 ok: true
         default:
           description: Typical error response
@@ -1190,7 +1224,7 @@ paths:
               schema:
                 title: Default error template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -1203,38 +1237,41 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - admin.conversations:read
-      summary: Slack Get  Admin Conversations Ekm Listoriginalconnectedchannelinfo
+      - slackAuth:
+        - admin.conversations:read
+      summary: Slack Get Admin Conversations Ekm Listoriginalconnectedchannelinfo
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /admin.conversations.getConversationPrefs:
     get:
       tags:
-        - Administrative
-        - Conversations
-        - Get
+      - Administrative
+      - Conversations
+      - Get
       description: Get conversation preferences for a public or private channel.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/admin.conversations.getConversationPrefs
       operationId: getAdminConversationsGetconversationprefs
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `admin.conversations:read`'
-          required: true
-          schema:
-            type: string
-        - name: channel_id
-          in: query
-          description: The channel to get preferences for.
-          required: true
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.conversations:read`'
+        required: true
+        schema:
+          type: string
+      - name: channel_id
+        in: query
+        description: The channel to get preferences for.
+        required: true
+        schema:
+          type: string
       responses:
         '200':
           description: Typical success response
@@ -1243,7 +1280,7 @@ paths:
               schema:
                 title: admin.conversations.getConversationPrefs schema
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -1286,21 +1323,21 @@ paths:
               schema:
                 title: admin.conversations.unarchive error schema
                 required:
-                  - error
-                  - ok
+                - error
+                - ok
                 type: object
                 properties:
                   error:
                     type: string
                     enum:
-                      - feature_not_enabled
-                      - not_an_admin
-                      - not_an_enterprise
-                      - restricted_action
-                      - missing_scope
-                      - channel_not_found
-                      - channel_type_not_supported
-                      - could_not_get_conversation_prefs
+                    - feature_not_enabled
+                    - not_an_admin
+                    - not_an_enterprise
+                    - restricted_action
+                    - missing_scope
+                    - channel_not_found
+                    - channel_type_not_supported
+                    - could_not_get_conversation_prefs
                   ok:
                     $ref: '#/components/schemas/defs_ok_false'
                 additionalProperties: false
@@ -1311,20 +1348,23 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - admin.conversations:read
-      summary: Slack Get  Admin Conversations Getconversationprefs
+      - slackAuth:
+        - admin.conversations:read
+      summary: Slack Get Admin Conversations Getconversationprefs
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /admin.conversations.getTeams:
     get:
       tags:
-        - Administrative
-        - Conversations
-        - Get
+      - Administrative
+      - Conversations
+      - Get
       description: >-
         Get all the workspaces a given public or private channel is connected to
         within this Enterprise org.
@@ -1333,34 +1373,34 @@ paths:
         url: https://api.slack.com/methods/admin.conversations.getTeams
       operationId: getAdminConversationsGetteams
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `admin.conversations:read`'
-          required: true
-          schema:
-            type: string
-        - name: channel_id
-          in: query
-          description: >-
-            The channel to determine connected workspaces within the
-            organization for.
-          required: true
-          schema:
-            type: string
-        - name: cursor
-          in: query
-          description: >-
-            Set `cursor` to `next_cursor` returned by the previous call to list
-            items in the next page
-          schema:
-            type: string
-        - name: limit
-          in: query
-          description: >-
-            The maximum number of items to return. Must be between 1 - 1000 both
-            inclusive.
-          schema:
-            type: integer
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.conversations:read`'
+        required: true
+        schema:
+          type: string
+      - name: channel_id
+        in: query
+        description: >-
+          The channel to determine connected workspaces within the
+          organization for.
+        required: true
+        schema:
+          type: string
+      - name: cursor
+        in: query
+        description: >-
+          Set `cursor` to `next_cursor` returned by the previous call to list
+          items in the next page
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: >-
+          The maximum number of items to return. Must be between 1 - 1000 both
+          inclusive.
+        schema:
+          type: integer
       responses:
         '200':
           description: Typical success response
@@ -1369,8 +1409,8 @@ paths:
               schema:
                 title: admin.conversations.getTeams schema
                 required:
-                  - ok
-                  - team_ids
+                - ok
+                - team_ids
                 type: object
                 properties:
                   ok:
@@ -1387,8 +1427,8 @@ paths:
               example:
                 ok: true
                 teams:
-                  - T1234
-                  - T5678
+                - T1234
+                - T5678
         default:
           description: Typical error response
           content:
@@ -1396,21 +1436,21 @@ paths:
               schema:
                 title: admin.conversations.getTeams error schema
                 required:
-                  - error
-                  - ok
+                - error
+                - ok
                 type: object
                 properties:
                   error:
                     type: string
                     enum:
-                      - feature_not_enabled
-                      - channel_not_found
-                      - channel_type_not_supported
-                      - unsupported_team_type
-                      - restricted_action
-                      - could_not_get_teams
-                      - invalid_cursor
-                      - invalid_limit
+                    - feature_not_enabled
+                    - channel_not_found
+                    - channel_type_not_supported
+                    - unsupported_team_type
+                    - restricted_action
+                    - could_not_get_teams
+                    - invalid_cursor
+                    - invalid_limit
                   ok:
                     $ref: '#/components/schemas/defs_ok_false'
                 additionalProperties: false
@@ -1419,40 +1459,43 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - admin.conversations:read
-      summary: Slack Get  Admin Conversations Getteams
+      - slackAuth:
+        - admin.conversations:read
+      summary: Slack Get Admin Conversations Getteams
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /admin.conversations.invite:
     post:
       tags:
-        - Administrative
-        - Conversations
-        - Invites
-        - Post
+      - Administrative
+      - Conversations
+      - Invites
+      - Post
       description: Invite a user to a public or private channel.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/admin.conversations.invite
       operationId: postAdminConversationsInvite
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `admin.conversations:write`'
-          required: true
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.conversations:write`'
+        required: true
+        schema:
+          type: string
       requestBody:
         content:
           application/x-www-form-urlencoded:
             schema:
               required:
-                - channel_id
-                - user_ids
+              - channel_id
+              - user_ids
               type: object
               properties:
                 user_ids:
@@ -1464,8 +1507,8 @@ paths:
           application/json:
             schema:
               required:
-                - channel_id
-                - user_ids
+              - channel_id
+              - user_ids
               type: object
               properties:
                 user_ids:
@@ -1483,7 +1526,7 @@ paths:
               schema:
                 title: admin.conversations.invite schema
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -1499,20 +1542,20 @@ paths:
               schema:
                 title: admin.conversations.invite error schema
                 required:
-                  - error
-                  - ok
+                - error
+                - ok
                 type: object
                 properties:
                   error:
                     type: string
                     enum:
-                      - feature_not_enabled
-                      - channel_not_found
-                      - channel_type_not_supported
-                      - default_org_wide_channel
-                      - restricted_action
-                      - user_must_be_admin
-                      - failed_for_some_users
+                    - feature_not_enabled
+                    - channel_not_found
+                    - channel_type_not_supported
+                    - default_org_wide_channel
+                    - restricted_action
+                    - user_must_be_admin
+                    - failed_for_some_users
                   ok:
                     $ref: '#/components/schemas/defs_ok_false'
                 additionalProperties: true
@@ -1521,40 +1564,43 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - admin.conversations:write
-      summary: Slack Post  Admin Conversations Invite
+      - slackAuth:
+        - admin.conversations:write
+      summary: Slack Post Admin Conversations Invite
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /admin.conversations.rename:
     post:
       tags:
-        - Administrative
-        - Conversations
-        - Post
-        - Rename
+      - Administrative
+      - Conversations
+      - Post
+      - Rename
       description: Rename a public or private channel.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/admin.conversations.rename
       operationId: postAdminConversationsRename
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `admin.conversations:write`'
-          required: true
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.conversations:write`'
+        required: true
+        schema:
+          type: string
       requestBody:
         content:
           application/x-www-form-urlencoded:
             schema:
               required:
-                - channel_id
-                - name
+              - channel_id
+              - name
               type: object
               properties:
                 channel_id:
@@ -1565,8 +1611,8 @@ paths:
           application/json:
             schema:
               required:
-                - channel_id
-                - name
+              - channel_id
+              - name
               type: object
               properties:
                 channel_id:
@@ -1583,7 +1629,7 @@ paths:
               schema:
                 title: admin.conversations.rename schema
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -1599,20 +1645,20 @@ paths:
               schema:
                 title: admin.conversations.unarchive error schema
                 required:
-                  - error
-                  - ok
+                - error
+                - ok
                 type: object
                 properties:
                   error:
                     type: string
                     enum:
-                      - feature_not_enabled
-                      - channel_not_found
-                      - channel_type_not_supported
-                      - restricted_action
-                      - could_not_rename_channel
-                      - default_org_wide_channel
-                      - name_taken
+                    - feature_not_enabled
+                    - channel_not_found
+                    - channel_type_not_supported
+                    - restricted_action
+                    - could_not_rename_channel
+                    - default_org_wide_channel
+                    - name_taken
                   ok:
                     $ref: '#/components/schemas/defs_ok_false'
                 additionalProperties: false
@@ -1621,20 +1667,23 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - admin.conversations:write
-      summary: Slack Post  Admin Conversations Rename
+      - slackAuth:
+        - admin.conversations:write
+      summary: Slack Post Admin Conversations Rename
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /admin.conversations.restrictAccess.addGroup:
     post:
       tags:
-        - Administrative
-        - Conversations
-        - Post
+      - Administrative
+      - Conversations
+      - Post
       description: Add an allowlist of IDP groups for accessing a channel
       externalDocs:
         description: API method documentation
@@ -1646,9 +1695,9 @@ paths:
           application/x-www-form-urlencoded:
             schema:
               required:
-                - channel_id
-                - group_id
-                - token
+              - channel_id
+              - group_id
+              - token
               type: object
               properties:
                 token:
@@ -1681,7 +1730,7 @@ paths:
               schema:
                 title: Default success template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -1699,7 +1748,7 @@ paths:
               schema:
                 title: Default error template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -1712,20 +1761,23 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - admin.conversations:write
-      summary: Slack Post  Admin Conversations Restrictaccess Addgroup
+      - slackAuth:
+        - admin.conversations:write
+      summary: Slack Post Admin Conversations Restrictaccess Addgroup
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /admin.conversations.restrictAccess.listGroups:
     get:
       tags:
-        - Administrative
-        - Conversations
-        - Get
+      - Administrative
+      - Conversations
+      - Get
       description: List all IDP Groups linked to a channel
       externalDocs:
         description: API method documentation
@@ -1733,25 +1785,25 @@ paths:
           https://api.slack.com/methods/admin.conversations.restrictAccess.listGroups
       operationId: getAdminConversationsRestrictaccessListgroups
       parameters:
-        - name: token
-          in: query
-          description: 'Authentication token. Requires scope: `admin.conversations:read`'
-          required: true
-          schema:
-            type: string
-        - name: channel_id
-          in: query
-          required: true
-          schema:
-            type: string
-        - name: team_id
-          in: query
-          description: >-
-            The workspace where the channel exists. This argument is required
-            for channels only tied to one workspace, and optional for channels
-            that are shared across an organization.
-          schema:
-            type: string
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `admin.conversations:read`'
+        required: true
+        schema:
+          type: string
+      - name: channel_id
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: team_id
+        in: query
+        description: >-
+          The workspace where the channel exists. This argument is required
+          for channels only tied to one workspace, and optional for channels
+          that are shared across an organization.
+        schema:
+          type: string
       responses:
         '200':
           description: Typical success response
@@ -1760,7 +1812,7 @@ paths:
               schema:
                 title: Default success template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -1771,7 +1823,7 @@ paths:
                   verbose schema is not available for this method.
               example:
                 group_ids:
-                  - YOUR_GROUP_ID
+                - YOUR_GROUP_ID
                 ok: true
         default:
           description: Typical error response
@@ -1780,7 +1832,7 @@ paths:
               schema:
                 title: Default error template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -1793,20 +1845,23 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - admin.conversations:read
-      summary: Slack Get  Admin Conversations Restrictaccess Listgroups
+      - slackAuth:
+        - admin.conversations:read
+      summary: Slack Get Admin Conversations Restrictaccess Listgroups
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /admin.conversations.restrictAccess.removeGroup:
     post:
       tags:
-        - Administrative
-        - Conversations
-        - Post
+      - Administrative
+      - Conversations
+      - Post
       description: Remove a linked IDP group linked from a private channel
       externalDocs:
         description: API method documentation
@@ -1818,10 +1873,10 @@ paths:
           application/x-www-form-urlencoded:
             schema:
               required:
-                - channel_id
-                - group_id
-                - team_id
-                - token
+              - channel_id
+              - group_id
+              - team_id
+              - token
               type: object
               properties:
                 token:
@@ -1854,7 +1909,7 @@ paths:
               schema:
                 title: Default success template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -1872,7 +1927,7 @@ paths:
               schema:
                 title: Default error template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -1885,86 +1940,89 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - admin.conversations:write
-      summary: Slack Post  Admin Conversations Restrictaccess Removegroup
+      - slackAuth:
+        - admin.conversations:write
+      summary: Slack Post Admin Conversations Restrictaccess Removegroup
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /admin.conversations.search:
     get:
       tags:
-        - Administrative
-        - Conversations
-        - Get
-        - Search
+      - Administrative
+      - Conversations
+      - Get
+      - Search
       description: Search for public or private channels in an Enterprise organization.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/admin.conversations.search
       operationId: getAdminConversationsSearch
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `admin.conversations:read`'
-          required: true
-          schema:
-            type: string
-        - name: team_ids
-          in: query
-          description: >-
-            Comma separated string of team IDs, signifying the workspaces to
-            search through.
-          schema:
-            type: string
-        - name: query
-          in: query
-          description: Name of the the channel to query by.
-          schema:
-            type: string
-        - name: limit
-          in: query
-          description: >-
-            Maximum number of items to be returned. Must be between 1 - 20 both
-            inclusive. Default is 10.
-          schema:
-            type: integer
-        - name: cursor
-          in: query
-          description: >-
-            Set `cursor` to `next_cursor` returned by the previous call to list
-            items in the next page.
-          schema:
-            type: string
-        - name: search_channel_types
-          in: query
-          description: >-
-            The type of channel to include or exclude in the search. For example
-            `private` will search private channels, while `private_exclude` will
-            exclude them. For a full list of types, check the [Types
-            section](#types).
-          schema:
-            type: string
-        - name: sort
-          in: query
-          description: >-
-            Possible values are `relevant` (search ranking based on what we
-            think is closest), `name` (alphabetical), `member_count` (number of
-            users in the channel), and `created` (date channel was created). You
-            can optionally pair this with the `sort_dir` arg to change how it is
-            sorted 
-          schema:
-            type: string
-        - name: sort_dir
-          in: query
-          description: >-
-            Sort direction. Possible values are `asc` for ascending order like
-            (1, 2, 3) or (a, b, c), and `desc` for descending order like (3, 2,
-            1) or (c, b, a)
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.conversations:read`'
+        required: true
+        schema:
+          type: string
+      - name: team_ids
+        in: query
+        description: >-
+          Comma separated string of team IDs, signifying the workspaces to
+          search through.
+        schema:
+          type: string
+      - name: query
+        in: query
+        description: Name of the the channel to query by.
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: >-
+          Maximum number of items to be returned. Must be between 1 - 20 both
+          inclusive. Default is 10.
+        schema:
+          type: integer
+      - name: cursor
+        in: query
+        description: >-
+          Set `cursor` to `next_cursor` returned by the previous call to list
+          items in the next page.
+        schema:
+          type: string
+      - name: search_channel_types
+        in: query
+        description: >-
+          The type of channel to include or exclude in the search. For example
+          `private` will search private channels, while `private_exclude` will
+          exclude them. For a full list of types, check the [Types
+          section](#types).
+        schema:
+          type: string
+      - name: sort
+        in: query
+        description: >-
+          Possible values are `relevant` (search ranking based on what we
+          think is closest), `name` (alphabetical), `member_count` (number of
+          users in the channel), and `created` (date channel was created). You
+          can optionally pair this with the `sort_dir` arg to change how it is
+          sorted 
+        schema:
+          type: string
+      - name: sort_dir
+        in: query
+        description: >-
+          Sort direction. Possible values are `asc` for ascending order like
+          (1, 2, 3) or (a, b, c), and `desc` for descending order like (3, 2,
+          1) or (c, b, a)
+        schema:
+          type: string
       responses:
         '200':
           description: Typical success response
@@ -1973,8 +2031,8 @@ paths:
               schema:
                 title: admin.conversations.search schema
                 required:
-                  - channels
-                  - next_cursor
+                - channels
+                - next_cursor
                 type: object
                 properties:
                   channels:
@@ -1987,37 +2045,37 @@ paths:
                 description: Schema for successful response of admin.conversations.search
               example:
                 channels:
-                  - created: 1449252889
-                    creator: U012A3CDE
-                    id: C012AB3CD
-                    is_archived: false
-                    is_channel: true
-                    is_ext_shared: false
-                    is_general: true
-                    is_group: false
-                    is_im: false
-                    is_member: true
-                    is_mpim: false
-                    is_org_shared: false
-                    is_pending_ext_shared: false
-                    is_private: false
-                    is_shared: false
-                    name: general
-                    name_normalized: general
-                    num_members: 4
-                    pending_shared: []
-                    previous_names: []
-                    purpose:
-                      creator: ''
-                      last_set: 0
-                      value: >-
-                        This channel is for team-wide communication and
-                        announcements. All team members are in this channel.
-                    topic:
-                      creator: ''
-                      last_set: 0
-                      value: Company-wide announcements and work-based matters
-                    unlinked: 0
+                - created: 1449252889
+                  creator: U012A3CDE
+                  id: C012AB3CD
+                  is_archived: false
+                  is_channel: true
+                  is_ext_shared: false
+                  is_general: true
+                  is_group: false
+                  is_im: false
+                  is_member: true
+                  is_mpim: false
+                  is_org_shared: false
+                  is_pending_ext_shared: false
+                  is_private: false
+                  is_shared: false
+                  name: general
+                  name_normalized: general
+                  num_members: 4
+                  pending_shared: []
+                  previous_names: []
+                  purpose:
+                    creator: ''
+                    last_set: 0
+                    value: >-
+                      This channel is for team-wide communication and
+                      announcements. All team members are in this channel.
+                  topic:
+                    creator: ''
+                    last_set: 0
+                    value: Company-wide announcements and work-based matters
+                  unlinked: 0
                 ok: true
                 response_metadata:
                   next_cursor: dGVhbTpDMDYxRkE1UEI=
@@ -2028,23 +2086,23 @@ paths:
               schema:
                 title: admin.conversations.search error schema
                 required:
-                  - error
-                  - ok
+                - error
+                - ok
                 type: object
                 properties:
                   error:
                     type: string
                     enum:
-                      - feature_not_enabled
-                      - not_an_admin
-                      - not_an_enterprise
-                      - team_not_found
-                      - not_allowed
-                      - invalid_auth
-                      - invalid_cursor
-                      - invalid_search_channel_type
-                      - invalid_sort
-                      - invalid_sort_dir
+                    - feature_not_enabled
+                    - not_an_admin
+                    - not_an_enterprise
+                    - team_not_found
+                    - not_allowed
+                    - invalid_auth
+                    - invalid_cursor
+                    - invalid_search_channel_type
+                    - invalid_sort
+                    - invalid_sort_dir
                   ok:
                     $ref: '#/components/schemas/defs_ok_false'
                 additionalProperties: false
@@ -2053,39 +2111,42 @@ paths:
                 error: not_an_enterprise
                 ok: false
       security:
-        - slackAuth:
-            - admin.conversations:read
-      summary: Slack Get  Admin Conversations Search
+      - slackAuth:
+        - admin.conversations:read
+      summary: Slack Get Admin Conversations Search
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /admin.conversations.setConversationPrefs:
     post:
       tags:
-        - Administrative
-        - Conversations
-        - Post
+      - Administrative
+      - Conversations
+      - Post
       description: Set the posting permissions for a public or private channel.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/admin.conversations.setConversationPrefs
       operationId: postAdminConversationsSetconversationprefs
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `admin.conversations:write`'
-          required: true
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.conversations:write`'
+        required: true
+        schema:
+          type: string
       requestBody:
         content:
           application/x-www-form-urlencoded:
             schema:
               required:
-                - channel_id
-                - prefs
+              - channel_id
+              - prefs
               type: object
               properties:
                 channel_id:
@@ -2097,8 +2158,8 @@ paths:
           application/json:
             schema:
               required:
-                - channel_id
-                - prefs
+              - channel_id
+              - prefs
               type: object
               properties:
                 channel_id:
@@ -2116,7 +2177,7 @@ paths:
               schema:
                 title: admin.conversations.setConversationPrefs schema
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -2134,21 +2195,21 @@ paths:
               schema:
                 title: admin.conversations.setConversationPrefs error schema
                 required:
-                  - error
-                  - ok
+                - error
+                - ok
                 type: object
                 properties:
                   error:
                     type: string
                     enum:
-                      - feature_not_enabled
-                      - not_an_admin
-                      - channel_not_found
-                      - channel_type_not_supported
-                      - restricted_action
-                      - missing_scope
-                      - could_not_set_channel_pref
-                      - default_org_wide_channel
+                    - feature_not_enabled
+                    - not_an_admin
+                    - channel_not_found
+                    - channel_type_not_supported
+                    - restricted_action
+                    - missing_scope
+                    - could_not_set_channel_pref
+                    - default_org_wide_channel
                   ok:
                     $ref: '#/components/schemas/defs_ok_false'
                 additionalProperties: false
@@ -2159,20 +2220,23 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - admin.conversations:write
-      summary: Slack Post  Admin Conversations Setconversationprefs
+      - slackAuth:
+        - admin.conversations:write
+      summary: Slack Post Admin Conversations Setconversationprefs
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /admin.conversations.setTeams:
     post:
       tags:
-        - Administrative
-        - Conversations
-        - Post
+      - Administrative
+      - Conversations
+      - Post
       description: >-
         Set the workspaces in an Enterprise grid org that connect to a public or
         private channel.
@@ -2181,18 +2245,18 @@ paths:
         url: https://api.slack.com/methods/admin.conversations.setTeams
       operationId: postAdminConversationsSetteams
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `admin.conversations:write`'
-          required: true
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.conversations:write`'
+        required: true
+        schema:
+          type: string
       requestBody:
         content:
           application/x-www-form-urlencoded:
             schema:
               required:
-                - channel_id
+              - channel_id
               type: object
               properties:
                 channel_id:
@@ -2215,7 +2279,7 @@ paths:
           application/json:
             schema:
               required:
-                - channel_id
+              - channel_id
               type: object
               properties:
                 channel_id:
@@ -2244,7 +2308,7 @@ paths:
               schema:
                 title: Default success template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -2262,7 +2326,7 @@ paths:
               schema:
                 title: Default error template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -2275,39 +2339,42 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - admin.conversations:write
-      summary: Slack Post  Admin Conversations Setteams
+      - slackAuth:
+        - admin.conversations:write
+      summary: Slack Post Admin Conversations Setteams
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /admin.conversations.unarchive:
     post:
       tags:
-        - Administrative
-        - Conversations
-        - Post
-        - Unarchive
+      - Administrative
+      - Conversations
+      - Post
+      - Unarchive
       description: Unarchive a public or private channel.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/admin.conversations.unarchive
       operationId: postAdminConversationsUnarchive
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `admin.conversations:write`'
-          required: true
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.conversations:write`'
+        required: true
+        schema:
+          type: string
       requestBody:
         content:
           application/x-www-form-urlencoded:
             schema:
               required:
-                - channel_id
+              - channel_id
               type: object
               properties:
                 channel_id:
@@ -2316,7 +2383,7 @@ paths:
           application/json:
             schema:
               required:
-                - channel_id
+              - channel_id
               type: object
               properties:
                 channel_id:
@@ -2331,7 +2398,7 @@ paths:
               schema:
                 title: admin.conversations.unarchive schema
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -2349,21 +2416,21 @@ paths:
               schema:
                 title: admin.conversations.unarchive error schema
                 required:
-                  - error
-                  - ok
+                - error
+                - ok
                 type: object
                 properties:
                   error:
                     type: string
                     enum:
-                      - feature_not_enabled
-                      - channel_not_found
-                      - channel_not_archived
-                      - channel_type_not_supported
-                      - restricted_action
-                      - could_not_unarchive_channel
-                      - default_org_wide_channel
-                      - missing_scope
+                    - feature_not_enabled
+                    - channel_not_found
+                    - channel_not_archived
+                    - channel_type_not_supported
+                    - restricted_action
+                    - could_not_unarchive_channel
+                    - default_org_wide_channel
+                    - missing_scope
                   ok:
                     $ref: '#/components/schemas/defs_ok_false'
                 additionalProperties: false
@@ -2372,20 +2439,23 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - admin.conversations:write
-      summary: Slack Post  Admin Conversations Unarchive
+      - slackAuth:
+        - admin.conversations:write
+      summary: Slack Post Admin Conversations Unarchive
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /admin.emoji.add:
     post:
       tags:
-        - Add
-        - Administrative
-        - Post
+      - Add
+      - Administrative
+      - Post
       description: Add an emoji.
       externalDocs:
         description: API method documentation
@@ -2396,9 +2466,9 @@ paths:
           application/x-www-form-urlencoded:
             schema:
               required:
-                - name
-                - token
-                - url
+              - name
+              - token
+              - url
               type: object
               properties:
                 token:
@@ -2425,7 +2495,7 @@ paths:
               schema:
                 title: Default success template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -2443,7 +2513,7 @@ paths:
               schema:
                 title: Default error template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -2456,19 +2526,22 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - admin.teams:write
-      summary: Slack Post  Admin Emoji Add
+      - slackAuth:
+        - admin.teams:write
+      summary: Slack Post Admin Emoji Add
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /admin.emoji.addAlias:
     post:
       tags:
-        - Administrative
-        - Post
+      - Administrative
+      - Post
       description: Add an emoji alias.
       externalDocs:
         description: API method documentation
@@ -2479,9 +2552,9 @@ paths:
           application/x-www-form-urlencoded:
             schema:
               required:
-                - alias_for
-                - name
-                - token
+              - alias_for
+              - name
+              - token
               type: object
               properties:
                 token:
@@ -2505,7 +2578,7 @@ paths:
               schema:
                 title: Default success template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -2523,7 +2596,7 @@ paths:
               schema:
                 title: Default error template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -2536,46 +2609,49 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - admin.teams:write
-      summary: Slack Post  Admin Emoji Addalias
+      - slackAuth:
+        - admin.teams:write
+      summary: Slack Post Admin Emoji Addalias
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /admin.emoji.list:
     get:
       tags:
-        - Administrative
-        - Get
-        - Lists
+      - Administrative
+      - Get
+      - Lists
       description: List emoji for an Enterprise Grid organization.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/admin.emoji.list
       operationId: getAdminEmojiList
       parameters:
-        - name: token
-          in: query
-          description: 'Authentication token. Requires scope: `admin.teams:read`'
-          required: true
-          schema:
-            type: string
-        - name: cursor
-          in: query
-          description: >-
-            Set `cursor` to `next_cursor` returned by the previous call to list
-            items in the next page
-          schema:
-            type: string
-        - name: limit
-          in: query
-          description: >-
-            The maximum number of items to return. Must be between 1 - 1000 both
-            inclusive.
-          schema:
-            type: integer
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `admin.teams:read`'
+        required: true
+        schema:
+          type: string
+      - name: cursor
+        in: query
+        description: >-
+          Set `cursor` to `next_cursor` returned by the previous call to list
+          items in the next page
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: >-
+          The maximum number of items to return. Must be between 1 - 1000 both
+          inclusive.
+        schema:
+          type: integer
       responses:
         '200':
           description: Typical success response
@@ -2584,7 +2660,7 @@ paths:
               schema:
                 title: Default success template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -2596,12 +2672,12 @@ paths:
               example:
                 cache_ts: '1575283387.000000'
                 categories:
-                  - emoji_names:
-                      - grinning
-                      - grin
-                      - joy
-                      - etc etc ...
-                    name: Smileys & People
+                - emoji_names:
+                  - grinning
+                  - grin
+                  - joy
+                  - etc etc ...
+                  name: Smileys & People
                 categories_version: '5'
                 emoji:
                   black_square: alias:black_large_square
@@ -2636,7 +2712,7 @@ paths:
               schema:
                 title: Default error template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -2649,20 +2725,23 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - admin.teams:read
-      summary: Slack Get  Admin Emoji List
+      - slackAuth:
+        - admin.teams:read
+      summary: Slack Get Admin Emoji List
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /admin.emoji.remove:
     post:
       tags:
-        - Administrative
-        - Post
-        - Remove
+      - Administrative
+      - Post
+      - Remove
       description: Remove an emoji across an Enterprise Grid organization
       externalDocs:
         description: API method documentation
@@ -2673,8 +2752,8 @@ paths:
           application/x-www-form-urlencoded:
             schema:
               required:
-                - name
-                - token
+              - name
+              - token
               type: object
               properties:
                 token:
@@ -2695,7 +2774,7 @@ paths:
               schema:
                 title: Default success template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -2713,7 +2792,7 @@ paths:
               schema:
                 title: Default error template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -2726,20 +2805,23 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - admin.teams:write
-      summary: Slack Post  Admin Emoji Remove
+      - slackAuth:
+        - admin.teams:write
+      summary: Slack Post Admin Emoji Remove
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /admin.emoji.rename:
     post:
       tags:
-        - Administrative
-        - Post
-        - Rename
+      - Administrative
+      - Post
+      - Rename
       description: Rename an emoji.
       externalDocs:
         description: API method documentation
@@ -2750,9 +2832,9 @@ paths:
           application/x-www-form-urlencoded:
             schema:
               required:
-                - name
-                - new_name
-                - token
+              - name
+              - new_name
+              - token
               type: object
               properties:
                 token:
@@ -2776,7 +2858,7 @@ paths:
               schema:
                 title: Default success template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -2794,7 +2876,7 @@ paths:
               schema:
                 title: Default error template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -2807,38 +2889,41 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - admin.teams:write
-      summary: Slack Post  Admin Emoji Rename
+      - slackAuth:
+        - admin.teams:write
+      summary: Slack Post Admin Emoji Rename
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /admin.inviteRequests.approve:
     post:
       tags:
-        - Administrative
-        - Approve
-        - Post
+      - Administrative
+      - Approve
+      - Post
       description: Approve a workspace invite request.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/admin.inviteRequests.approve
       operationId: postAdminInviterequestsApprove
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `admin.invites:write`'
-          required: true
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.invites:write`'
+        required: true
+        schema:
+          type: string
       requestBody:
         content:
           application/x-www-form-urlencoded:
             schema:
               required:
-                - invite_request_id
+              - invite_request_id
               type: object
               properties:
                 team_id:
@@ -2850,7 +2935,7 @@ paths:
           application/json:
             schema:
               required:
-                - invite_request_id
+              - invite_request_id
               type: object
               properties:
                 team_id:
@@ -2868,7 +2953,7 @@ paths:
               schema:
                 title: Default success template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -2886,7 +2971,7 @@ paths:
               schema:
                 title: Default error template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -2899,52 +2984,55 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - admin.invites:write
-      summary: Slack Post  Admin Inviterequests Approve
+      - slackAuth:
+        - admin.invites:write
+      summary: Slack Post Admin Inviterequests Approve
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /admin.inviteRequests.approved.list:
     get:
       tags:
-        - Administrative
-        - Approved
-        - Get
-        - Lists
+      - Administrative
+      - Approved
+      - Get
+      - Lists
       description: List all approved workspace invite requests.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/admin.inviteRequests.approved.list
       operationId: getAdminInviterequestsApprovedList
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `admin.invites:read`'
-          required: true
-          schema:
-            type: string
-        - name: team_id
-          in: query
-          description: ID for the workspace where the invite requests were made.
-          schema:
-            type: string
-        - name: cursor
-          in: query
-          description: >-
-            Value of the `next_cursor` field sent as part of the previous API
-            response
-          schema:
-            type: string
-        - name: limit
-          in: query
-          description: >-
-            The number of results that will be returned by the API on each
-            invocation. Must be between 1 - 1000, both inclusive
-          schema:
-            type: integer
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.invites:read`'
+        required: true
+        schema:
+          type: string
+      - name: team_id
+        in: query
+        description: ID for the workspace where the invite requests were made.
+        schema:
+          type: string
+      - name: cursor
+        in: query
+        description: >-
+          Value of the `next_cursor` field sent as part of the previous API
+          response
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: >-
+          The number of results that will be returned by the API on each
+          invocation. Must be between 1 - 1000, both inclusive
+        schema:
+          type: integer
       responses:
         '200':
           description: Typical success response
@@ -2953,7 +3041,7 @@ paths:
               schema:
                 title: Default success template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -2971,7 +3059,7 @@ paths:
               schema:
                 title: Default error template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -2984,51 +3072,54 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - admin.invites:read
-      summary: Slack Get  Admin Inviterequests Approved List
+      - slackAuth:
+        - admin.invites:read
+      summary: Slack Get Admin Inviterequests Approved List
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /admin.inviteRequests.denied.list:
     get:
       tags:
-        - Administrative
-        - Get
-        - Lists
+      - Administrative
+      - Get
+      - Lists
       description: List all denied workspace invite requests.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/admin.inviteRequests.denied.list
       operationId: getAdminInviterequestsDeniedList
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `admin.invites:read`'
-          required: true
-          schema:
-            type: string
-        - name: team_id
-          in: query
-          description: ID for the workspace where the invite requests were made.
-          schema:
-            type: string
-        - name: cursor
-          in: query
-          description: >-
-            Value of the `next_cursor` field sent as part of the previous api
-            response
-          schema:
-            type: string
-        - name: limit
-          in: query
-          description: >-
-            The number of results that will be returned by the API on each
-            invocation. Must be between 1 - 1000 both inclusive
-          schema:
-            type: integer
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.invites:read`'
+        required: true
+        schema:
+          type: string
+      - name: team_id
+        in: query
+        description: ID for the workspace where the invite requests were made.
+        schema:
+          type: string
+      - name: cursor
+        in: query
+        description: >-
+          Value of the `next_cursor` field sent as part of the previous api
+          response
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: >-
+          The number of results that will be returned by the API on each
+          invocation. Must be between 1 - 1000 both inclusive
+        schema:
+          type: integer
       responses:
         '200':
           description: Typical success response
@@ -3037,7 +3128,7 @@ paths:
               schema:
                 title: Default success template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -3055,7 +3146,7 @@ paths:
               schema:
                 title: Default error template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -3068,38 +3159,41 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - admin.invites:read
-      summary: Slack Get  Admin Inviterequests Denied List
+      - slackAuth:
+        - admin.invites:read
+      summary: Slack Get Admin Inviterequests Denied List
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /admin.inviteRequests.deny:
     post:
       tags:
-        - Administrative
-        - Deny
-        - Post
+      - Administrative
+      - Deny
+      - Post
       description: Deny a workspace invite request.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/admin.inviteRequests.deny
       operationId: postAdminInviterequestsDeny
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `admin.invites:write`'
-          required: true
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.invites:write`'
+        required: true
+        schema:
+          type: string
       requestBody:
         content:
           application/x-www-form-urlencoded:
             schema:
               required:
-                - invite_request_id
+              - invite_request_id
               type: object
               properties:
                 team_id:
@@ -3111,7 +3205,7 @@ paths:
           application/json:
             schema:
               required:
-                - invite_request_id
+              - invite_request_id
               type: object
               properties:
                 team_id:
@@ -3129,7 +3223,7 @@ paths:
               schema:
                 title: Default success template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -3147,7 +3241,7 @@ paths:
               schema:
                 title: Default error template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -3160,51 +3254,54 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - admin.invites:write
-      summary: Slack Post  Admin Inviterequests Deny
+      - slackAuth:
+        - admin.invites:write
+      summary: Slack Post Admin Inviterequests Deny
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /admin.inviteRequests.list:
     get:
       tags:
-        - Administrative
-        - Get
-        - Lists
+      - Administrative
+      - Get
+      - Lists
       description: List all pending workspace invite requests.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/admin.inviteRequests.list
       operationId: getAdminInviterequestsList
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `admin.invites:read`'
-          required: true
-          schema:
-            type: string
-        - name: team_id
-          in: query
-          description: ID for the workspace where the invite requests were made.
-          schema:
-            type: string
-        - name: cursor
-          in: query
-          description: >-
-            Value of the `next_cursor` field sent as part of the previous API
-            response
-          schema:
-            type: string
-        - name: limit
-          in: query
-          description: >-
-            The number of results that will be returned by the API on each
-            invocation. Must be between 1 - 1000, both inclusive
-          schema:
-            type: integer
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.invites:read`'
+        required: true
+        schema:
+          type: string
+      - name: team_id
+        in: query
+        description: ID for the workspace where the invite requests were made.
+        schema:
+          type: string
+      - name: cursor
+        in: query
+        description: >-
+          Value of the `next_cursor` field sent as part of the previous API
+          response
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: >-
+          The number of results that will be returned by the API on each
+          invocation. Must be between 1 - 1000, both inclusive
+        schema:
+          type: integer
       responses:
         '200':
           description: Typical success response
@@ -3213,7 +3310,7 @@ paths:
               schema:
                 title: Default success template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -3231,7 +3328,7 @@ paths:
               schema:
                 title: Default error template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -3244,50 +3341,53 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - admin.invites:read
-      summary: Slack Get  Admin Inviterequests List
+      - slackAuth:
+        - admin.invites:read
+      summary: Slack Get Admin Inviterequests List
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /admin.teams.admins.list:
     get:
       tags:
-        - Administrative
-        - Get
-        - Lists
-        - Teams
+      - Administrative
+      - Get
+      - Lists
+      - Teams
       description: List all of the admins on a given workspace.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/admin.teams.admins.list
       operationId: getAdminTeamsAdminsList
       parameters:
-        - name: token
-          in: query
-          description: 'Authentication token. Requires scope: `admin.teams:read`'
-          required: true
-          schema:
-            type: string
-        - name: limit
-          in: query
-          description: The maximum number of items to return.
-          schema:
-            type: integer
-        - name: cursor
-          in: query
-          description: >-
-            Set `cursor` to `next_cursor` returned by the previous call to list
-            items in the next page.
-          schema:
-            type: string
-        - name: team_id
-          in: query
-          required: true
-          schema:
-            type: string
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `admin.teams:read`'
+        required: true
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: The maximum number of items to return.
+        schema:
+          type: integer
+      - name: cursor
+        in: query
+        description: >-
+          Set `cursor` to `next_cursor` returned by the previous call to list
+          items in the next page.
+        schema:
+          type: string
+      - name: team_id
+        in: query
+        required: true
+        schema:
+          type: string
       responses:
         '200':
           description: Typical success response
@@ -3296,7 +3396,7 @@ paths:
               schema:
                 title: Default success template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -3307,7 +3407,7 @@ paths:
                   verbose schema is not available for this method.
               example:
                 admin_ids:
-                  - U1234
+                - U1234
                 ok: true
         default:
           description: Typical error response
@@ -3316,7 +3416,7 @@ paths:
               schema:
                 title: Default error template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -3329,40 +3429,43 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - admin.teams:read
-      summary: Slack Get  Admin Teams Admins List
+      - slackAuth:
+        - admin.teams:read
+      summary: Slack Get Admin Teams Admins List
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /admin.teams.create:
     post:
       tags:
-        - Administrative
-        - Create
-        - Post
-        - Teams
+      - Administrative
+      - Create
+      - Post
+      - Teams
       description: Create an Enterprise team.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/admin.teams.create
       operationId: postAdminTeamsCreate
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `admin.teams:write`'
-          required: true
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.teams:write`'
+        required: true
+        schema:
+          type: string
       requestBody:
         content:
           application/x-www-form-urlencoded:
             schema:
               required:
-                - team_domain
-                - team_name
+              - team_domain
+              - team_name
               type: object
               properties:
                 team_domain:
@@ -3382,8 +3485,8 @@ paths:
           application/json:
             schema:
               required:
-                - team_domain
-                - team_name
+              - team_domain
+              - team_name
               type: object
               properties:
                 team_domain:
@@ -3409,7 +3512,7 @@ paths:
               schema:
                 title: Default success template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -3428,7 +3531,7 @@ paths:
               schema:
                 title: Default error template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -3441,47 +3544,50 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - admin.teams:write
-      summary: Slack Post  Admin Teams Create
+      - slackAuth:
+        - admin.teams:write
+      summary: Slack Post Admin Teams Create
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /admin.teams.list:
     get:
       tags:
-        - Administrative
-        - Get
-        - Lists
-        - Teams
+      - Administrative
+      - Get
+      - Lists
+      - Teams
       description: List all teams on an Enterprise organization
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/admin.teams.list
       operationId: getAdminTeamsList
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `admin.teams:read`'
-          required: true
-          schema:
-            type: string
-        - name: limit
-          in: query
-          description: >-
-            The maximum number of items to return. Must be between 1 - 100 both
-            inclusive.
-          schema:
-            type: integer
-        - name: cursor
-          in: query
-          description: >-
-            Set `cursor` to `next_cursor` returned by the previous call to list
-            items in the next page.
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.teams:read`'
+        required: true
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: >-
+          The maximum number of items to return. Must be between 1 - 100 both
+          inclusive.
+        schema:
+          type: integer
+      - name: cursor
+        in: query
+        description: >-
+          Set `cursor` to `next_cursor` returned by the previous call to list
+          items in the next page.
+        schema:
+          type: string
       responses:
         '200':
           description: Typical success response
@@ -3490,7 +3596,7 @@ paths:
               schema:
                 title: Default success template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -3502,13 +3608,13 @@ paths:
               example:
                 ok: true
                 teams:
-                  - discoverability: hidden
-                    id: T1234
-                    name: My Team
-                    primary_owner:
-                      email: bront@slack.com
-                      user_id: W1234
-                    team_url: https://subarachnoid.slack.com/
+                - discoverability: hidden
+                  id: T1234
+                  name: My Team
+                  primary_owner:
+                    email: bront@slack.com
+                    user_id: W1234
+                  team_url: https://subarachnoid.slack.com/
         default:
           description: Typical error response
           content:
@@ -3516,7 +3622,7 @@ paths:
               schema:
                 title: Default error template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -3529,53 +3635,56 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - admin.teams:read
-      summary: Slack Get  Admin Teams List
+      - slackAuth:
+        - admin.teams:read
+      summary: Slack Get Admin Teams List
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /admin.teams.owners.list:
     get:
       tags:
-        - Administrative
-        - Get
-        - Lists
-        - Owners
-        - Teams
+      - Administrative
+      - Get
+      - Lists
+      - Owners
+      - Teams
       description: List all of the owners on a given workspace.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/admin.teams.owners.list
       operationId: getAdminTeamsOwnersList
       parameters:
-        - name: token
-          in: query
-          description: 'Authentication token. Requires scope: `admin.teams:read`'
-          required: true
-          schema:
-            type: string
-        - name: team_id
-          in: query
-          required: true
-          schema:
-            type: string
-        - name: limit
-          in: query
-          description: >-
-            The maximum number of items to return. Must be between 1 - 1000 both
-            inclusive.
-          schema:
-            type: integer
-        - name: cursor
-          in: query
-          description: >-
-            Set `cursor` to `next_cursor` returned by the previous call to list
-            items in the next page.
-          schema:
-            type: string
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `admin.teams:read`'
+        required: true
+        schema:
+          type: string
+      - name: team_id
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: >-
+          The maximum number of items to return. Must be between 1 - 1000 both
+          inclusive.
+        schema:
+          type: integer
+      - name: cursor
+        in: query
+        description: >-
+          Set `cursor` to `next_cursor` returned by the previous call to list
+          items in the next page.
+        schema:
+          type: string
       responses:
         '200':
           description: Typical success response
@@ -3584,7 +3693,7 @@ paths:
               schema:
                 title: Default success template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -3596,7 +3705,7 @@ paths:
               example:
                 ok: true
                 owner_ids:
-                  - U1234
+                - U1234
         default:
           description: Typical error response
           content:
@@ -3604,7 +3713,7 @@ paths:
               schema:
                 title: Default error template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -3617,39 +3726,42 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - admin.teams:read
-      summary: Slack Get  Admin Teams Owners List
+      - slackAuth:
+        - admin.teams:read
+      summary: Slack Get Admin Teams Owners List
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /admin.teams.settings.info:
     get:
       tags:
-        - Administrative
-        - Get
-        - Info
-        - Settings
-        - Teams
+      - Administrative
+      - Get
+      - Info
+      - Settings
+      - Teams
       description: Fetch information about settings in a workspace
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/admin.teams.settings.info
       operationId: getAdminTeamsSettingsInfo
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `admin.teams:read`'
-          required: true
-          schema:
-            type: string
-        - name: team_id
-          in: query
-          required: true
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.teams:read`'
+        required: true
+        schema:
+          type: string
+      - name: team_id
+        in: query
+        required: true
+        schema:
+          type: string
       responses:
         '200':
           description: Typical success response
@@ -3658,7 +3770,7 @@ paths:
               schema:
                 title: Default success template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -3685,7 +3797,7 @@ paths:
               schema:
                 title: Default error template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -3698,21 +3810,24 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - admin.teams:read
-      summary: Slack Get  Admin Teams Settings Info
+      - slackAuth:
+        - admin.teams:read
+      summary: Slack Get Admin Teams Settings Info
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /admin.teams.settings.setDefaultChannels:
     post:
       tags:
-        - Administrative
-        - Post
-        - Settings
-        - Teams
+      - Administrative
+      - Post
+      - Settings
+      - Teams
       description: Set the default channels of a workspace.
       externalDocs:
         description: API method documentation
@@ -3723,9 +3838,9 @@ paths:
           application/x-www-form-urlencoded:
             schema:
               required:
-                - channel_ids
-                - team_id
-                - token
+              - channel_ids
+              - team_id
+              - token
               type: object
               properties:
                 token:
@@ -3746,7 +3861,7 @@ paths:
               schema:
                 title: Default success template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -3764,7 +3879,7 @@ paths:
               schema:
                 title: Default error template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -3777,40 +3892,43 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - admin.teams:write
-      summary: Slack Post  Admin Teams Settings Setdefaultchannels
+      - slackAuth:
+        - admin.teams:write
+      summary: Slack Post Admin Teams Settings Setdefaultchannels
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /admin.teams.settings.setDescription:
     post:
       tags:
-        - Administrative
-        - Post
-        - Settings
-        - Teams
+      - Administrative
+      - Post
+      - Settings
+      - Teams
       description: Set the description of a given workspace.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/admin.teams.settings.setDescription
       operationId: postAdminTeamsSettingsSetdescription
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `admin.teams:write`'
-          required: true
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.teams:write`'
+        required: true
+        schema:
+          type: string
       requestBody:
         content:
           application/x-www-form-urlencoded:
             schema:
               required:
-                - description
-                - team_id
+              - description
+              - team_id
               type: object
               properties:
                 team_id:
@@ -3822,8 +3940,8 @@ paths:
           application/json:
             schema:
               required:
-                - description
-                - team_id
+              - description
+              - team_id
               type: object
               properties:
                 team_id:
@@ -3841,7 +3959,7 @@ paths:
               schema:
                 title: Default success template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -3859,7 +3977,7 @@ paths:
               schema:
                 title: Default error template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -3872,21 +3990,24 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - admin.teams:write
-      summary: Slack Post  Admin Teams Settings Setdescription
+      - slackAuth:
+        - admin.teams:write
+      summary: Slack Post Admin Teams Settings Setdescription
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /admin.teams.settings.setDiscoverability:
     post:
       tags:
-        - Administrative
-        - Post
-        - Settings
-        - Teams
+      - Administrative
+      - Post
+      - Settings
+      - Teams
       description: >-
         An API method that allows admins to set the discoverability of a given
         workspace
@@ -3895,19 +4016,19 @@ paths:
         url: https://api.slack.com/methods/admin.teams.settings.setDiscoverability
       operationId: postAdminTeamsSettingsSetdiscoverability
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `admin.teams:write`'
-          required: true
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.teams:write`'
+        required: true
+        schema:
+          type: string
       requestBody:
         content:
           application/x-www-form-urlencoded:
             schema:
               required:
-                - discoverability
-                - team_id
+              - discoverability
+              - team_id
               type: object
               properties:
                 team_id:
@@ -3921,8 +4042,8 @@ paths:
           application/json:
             schema:
               required:
-                - discoverability
-                - team_id
+              - discoverability
+              - team_id
               type: object
               properties:
                 team_id:
@@ -3942,7 +4063,7 @@ paths:
               schema:
                 title: Default success template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -3960,7 +4081,7 @@ paths:
               schema:
                 title: Default error template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -3973,21 +4094,24 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - admin.teams:write
-      summary: Slack Post  Admin Teams Settings Setdiscoverability
+      - slackAuth:
+        - admin.teams:write
+      summary: Slack Post Admin Teams Settings Setdiscoverability
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /admin.teams.settings.setIcon:
     post:
       tags:
-        - Administrative
-        - Post
-        - Settings
-        - Teams
+      - Administrative
+      - Post
+      - Settings
+      - Teams
       description: Sets the icon of a workspace.
       externalDocs:
         description: API method documentation
@@ -3998,9 +4122,9 @@ paths:
           application/x-www-form-urlencoded:
             schema:
               required:
-                - image_url
-                - team_id
-                - token
+              - image_url
+              - team_id
+              - token
               type: object
               properties:
                 token:
@@ -4021,7 +4145,7 @@ paths:
               schema:
                 title: Default success template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -4039,7 +4163,7 @@ paths:
               schema:
                 title: Default error template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -4052,40 +4176,43 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - admin.teams:write
-      summary: Slack Post  Admin Teams Settings Seticon
+      - slackAuth:
+        - admin.teams:write
+      summary: Slack Post Admin Teams Settings Seticon
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /admin.teams.settings.setName:
     post:
       tags:
-        - Administrative
-        - Post
-        - Settings
-        - Teams
+      - Administrative
+      - Post
+      - Settings
+      - Teams
       description: Set the name of a given workspace.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/admin.teams.settings.setName
       operationId: postAdminTeamsSettingsSetname
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `admin.teams:write`'
-          required: true
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.teams:write`'
+        required: true
+        schema:
+          type: string
       requestBody:
         content:
           application/x-www-form-urlencoded:
             schema:
               required:
-                - name
-                - team_id
+              - name
+              - team_id
               type: object
               properties:
                 team_id:
@@ -4097,8 +4224,8 @@ paths:
           application/json:
             schema:
               required:
-                - name
-                - team_id
+              - name
+              - team_id
               type: object
               properties:
                 team_id:
@@ -4116,7 +4243,7 @@ paths:
               schema:
                 title: Default success template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -4134,7 +4261,7 @@ paths:
               schema:
                 title: Default error template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -4147,38 +4274,41 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - admin.teams:write
-      summary: Slack Post  Admin Teams Settings Setname
+      - slackAuth:
+        - admin.teams:write
+      summary: Slack Post Admin Teams Settings Setname
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /admin.usergroups.addChannels:
     post:
       tags:
-        - Administrative
-        - Post
+      - Administrative
+      - Post
       description: Add one or more default channels to an IDP group.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/admin.usergroups.addChannels
       operationId: postAdminUsergroupsAddchannels
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `admin.usergroups:write`'
-          required: true
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.usergroups:write`'
+        required: true
+        schema:
+          type: string
       requestBody:
         content:
           application/x-www-form-urlencoded:
             schema:
               required:
-                - channel_ids
-                - usergroup_id
+              - channel_ids
+              - usergroup_id
               type: object
               properties:
                 usergroup_id:
@@ -4193,8 +4323,8 @@ paths:
           application/json:
             schema:
               required:
-                - channel_ids
-                - usergroup_id
+              - channel_ids
+              - usergroup_id
               type: object
               properties:
                 usergroup_id:
@@ -4215,7 +4345,7 @@ paths:
               schema:
                 title: Default success template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -4235,7 +4365,7 @@ paths:
               schema:
                 title: Default error template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -4248,19 +4378,22 @@ paths:
                 error: not_an_admin
                 ok: false
       security:
-        - slackAuth:
-            - admin.usergroups:write
-      summary: Slack Post  Admin Usergroups Addchannels
+      - slackAuth:
+        - admin.usergroups:write
+      summary: Slack Post Admin Usergroups Addchannels
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /admin.usergroups.addTeams:
     post:
       tags:
-        - Administrative
-        - Post
+      - Administrative
+      - Post
       description: >-
         Associate one or more default workspaces with an organization-wide IDP
         group.
@@ -4269,19 +4402,19 @@ paths:
         url: https://api.slack.com/methods/admin.usergroups.addTeams
       operationId: postAdminUsergroupsAddteams
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `admin.teams:write`'
-          required: true
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.teams:write`'
+        required: true
+        schema:
+          type: string
       requestBody:
         content:
           application/x-www-form-urlencoded:
             schema:
               required:
-                - team_ids
-                - usergroup_id
+              - team_ids
+              - usergroup_id
               type: object
               properties:
                 usergroup_id:
@@ -4301,8 +4434,8 @@ paths:
           application/json:
             schema:
               required:
-                - team_ids
-                - usergroup_id
+              - team_ids
+              - usergroup_id
               type: object
               properties:
                 usergroup_id:
@@ -4328,7 +4461,7 @@ paths:
               schema:
                 title: Default success template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -4346,7 +4479,7 @@ paths:
               schema:
                 title: Default error template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -4359,47 +4492,50 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - admin.teams:write
-      summary: Slack Post  Admin Usergroups Addteams
+      - slackAuth:
+        - admin.teams:write
+      summary: Slack Post Admin Usergroups Addteams
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /admin.usergroups.listChannels:
     get:
       tags:
-        - Administrative
-        - Get
+      - Administrative
+      - Get
       description: List the channels linked to an org-level IDP group (user group).
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/admin.usergroups.listChannels
       operationId: getAdminUsergroupsListchannels
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `admin.usergroups:read`'
-          required: true
-          schema:
-            type: string
-        - name: usergroup_id
-          in: query
-          description: ID of the IDP group to list default channels for.
-          required: true
-          schema:
-            type: string
-        - name: team_id
-          in: query
-          description: ID of the the workspace.
-          schema:
-            type: string
-        - name: include_num_members
-          in: query
-          description: Flag to include or exclude the count of members per channel.
-          schema:
-            type: boolean
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.usergroups:read`'
+        required: true
+        schema:
+          type: string
+      - name: usergroup_id
+        in: query
+        description: ID of the IDP group to list default channels for.
+        required: true
+        schema:
+          type: string
+      - name: team_id
+        in: query
+        description: ID of the the workspace.
+        schema:
+          type: string
+      - name: include_num_members
+        in: query
+        description: Flag to include or exclude the count of members per channel.
+        schema:
+          type: boolean
       responses:
         '200':
           description: Typical success response
@@ -4408,7 +4544,7 @@ paths:
               schema:
                 title: Default success template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -4419,21 +4555,21 @@ paths:
                   verbose schema is not available for this method.
               example:
                 channels:
-                  - id: C024BE91L
-                    name: fun
-                    num_members: 34
-                    team_id: T024BE911
-                  - id: C024BE91K
-                    name: more fun
-                    team_id: T024BE912
-                  - id: C024BE91M
-                    is_redacted: true
-                    name: public-channel
-                    num_members: 34
-                    team_id: T024BE911
-                  - id: C024BE91N
-                    name: some more fun
-                    team_id: T024BE921
+                - id: C024BE91L
+                  name: fun
+                  num_members: 34
+                  team_id: T024BE911
+                - id: C024BE91K
+                  name: more fun
+                  team_id: T024BE912
+                - id: C024BE91M
+                  is_redacted: true
+                  name: public-channel
+                  num_members: 34
+                  team_id: T024BE911
+                - id: C024BE91N
+                  name: some more fun
+                  team_id: T024BE921
                 ok: true
         default:
           description: >-
@@ -4444,7 +4580,7 @@ paths:
               schema:
                 title: Default error template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -4457,19 +4593,22 @@ paths:
                 error: not_an_admin
                 ok: false
       security:
-        - slackAuth:
-            - admin.usergroups:read
-      summary: Slack Get  Admin Usergroups Listchannels
+      - slackAuth:
+        - admin.usergroups:read
+      summary: Slack Get Admin Usergroups Listchannels
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /admin.usergroups.removeChannels:
     post:
       tags:
-        - Administrative
-        - Post
+      - Administrative
+      - Post
       description: >-
         Remove one or more default channels from an org-level IDP group (user
         group).
@@ -4478,19 +4617,19 @@ paths:
         url: https://api.slack.com/methods/admin.usergroups.removeChannels
       operationId: postAdminUsergroupsRemovechannels
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `admin.usergroups:write`'
-          required: true
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.usergroups:write`'
+        required: true
+        schema:
+          type: string
       requestBody:
         content:
           application/x-www-form-urlencoded:
             schema:
               required:
-                - channel_ids
-                - usergroup_id
+              - channel_ids
+              - usergroup_id
               type: object
               properties:
                 usergroup_id:
@@ -4502,8 +4641,8 @@ paths:
           application/json:
             schema:
               required:
-                - channel_ids
-                - usergroup_id
+              - channel_ids
+              - usergroup_id
               type: object
               properties:
                 usergroup_id:
@@ -4521,7 +4660,7 @@ paths:
               schema:
                 title: Default success template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -4541,7 +4680,7 @@ paths:
               schema:
                 title: Default error template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -4554,40 +4693,43 @@ paths:
                 error: not_an_admin
                 ok: false
       security:
-        - slackAuth:
-            - admin.usergroups:write
-      summary: Slack Post  Admin Usergroups Removechannels
+      - slackAuth:
+        - admin.usergroups:write
+      summary: Slack Post Admin Usergroups Removechannels
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /admin.users.assign:
     post:
       tags:
-        - Administrative
-        - Assign
-        - Post
-        - Users
+      - Administrative
+      - Assign
+      - Post
+      - Users
       description: Add an Enterprise user to a workspace.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/admin.users.assign
       operationId: postAdminUsersAssign
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `admin.users:write`'
-          required: true
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.users:write`'
+        required: true
+        schema:
+          type: string
       requestBody:
         content:
           application/x-www-form-urlencoded:
             schema:
               required:
-                - team_id
-                - user_id
+              - team_id
+              - user_id
               type: object
               properties:
                 team_id:
@@ -4612,8 +4754,8 @@ paths:
           application/json:
             schema:
               required:
-                - team_id
-                - user_id
+              - team_id
+              - user_id
               type: object
               properties:
                 team_id:
@@ -4644,7 +4786,7 @@ paths:
               schema:
                 title: Default success template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -4662,7 +4804,7 @@ paths:
               schema:
                 title: Default error template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -4675,41 +4817,44 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - admin.users:write
-      summary: Slack Post  Admin Users Assign
+      - slackAuth:
+        - admin.users:write
+      summary: Slack Post Admin Users Assign
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /admin.users.invite:
     post:
       tags:
-        - Administrative
-        - Invites
-        - Post
-        - Users
+      - Administrative
+      - Invites
+      - Post
+      - Users
       description: Invite a user to a workspace.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/admin.users.invite
       operationId: postAdminUsersInvite
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `admin.users:write`'
-          required: true
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.users:write`'
+        required: true
+        schema:
+          type: string
       requestBody:
         content:
           application/x-www-form-urlencoded:
             schema:
               required:
-                - channel_ids
-                - email
-                - team_id
+              - channel_ids
+              - email
+              - team_id
               type: object
               properties:
                 team_id:
@@ -4749,9 +4894,9 @@ paths:
           application/json:
             schema:
               required:
-                - channel_ids
-                - email
-                - team_id
+              - channel_ids
+              - email
+              - team_id
               type: object
               properties:
                 team_id:
@@ -4797,7 +4942,7 @@ paths:
               schema:
                 title: Default success template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -4815,7 +4960,7 @@ paths:
               schema:
                 title: Default error template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -4828,51 +4973,54 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - admin.users:write
-      summary: Slack Post  Admin Users Invite
+      - slackAuth:
+        - admin.users:write
+      summary: Slack Post Admin Users Invite
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /admin.users.list:
     get:
       tags:
-        - Administrative
-        - Get
-        - Lists
-        - Users
+      - Administrative
+      - Get
+      - Lists
+      - Users
       description: List users on a workspace
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/admin.users.list
       operationId: getAdminUsersList
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `admin.users:read`'
-          required: true
-          schema:
-            type: string
-        - name: team_id
-          in: query
-          description: The ID (`T1234`) of the workspace.
-          required: true
-          schema:
-            type: string
-        - name: cursor
-          in: query
-          description: >-
-            Set `cursor` to `next_cursor` returned by the previous call to list
-            items in the next page.
-          schema:
-            type: string
-        - name: limit
-          in: query
-          description: Limit for how many users to be retrieved per page
-          schema:
-            type: integer
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.users:read`'
+        required: true
+        schema:
+          type: string
+      - name: team_id
+        in: query
+        description: The ID (`T1234`) of the workspace.
+        required: true
+        schema:
+          type: string
+      - name: cursor
+        in: query
+        description: >-
+          Set `cursor` to `next_cursor` returned by the previous call to list
+          items in the next page.
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: Limit for how many users to be retrieved per page
+        schema:
+          type: integer
       responses:
         '200':
           description: Typical success response
@@ -4881,7 +5029,7 @@ paths:
               schema:
                 title: Default success template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -4893,14 +5041,14 @@ paths:
               example:
                 ok: true
                 users:
-                  - email: bront@slack.com
-                    id: T1234
-                    is_admin: false
-                    is_bot: false
-                    is_owner: false
-                    is_primary_owner: false
-                    is_restricted: false
-                    is_ultra_restricted: false
+                - email: bront@slack.com
+                  id: T1234
+                  is_admin: false
+                  is_bot: false
+                  is_owner: false
+                  is_primary_owner: false
+                  is_restricted: false
+                  is_ultra_restricted: false
         default:
           description: Typical error response
           content:
@@ -4908,7 +5056,7 @@ paths:
               schema:
                 title: Default error template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -4921,40 +5069,43 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - admin.users:read
-      summary: Slack Get  Admin Users List
+      - slackAuth:
+        - admin.users:read
+      summary: Slack Get Admin Users List
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /admin.users.remove:
     post:
       tags:
-        - Administrative
-        - Post
-        - Remove
-        - Users
+      - Administrative
+      - Post
+      - Remove
+      - Users
       description: Remove a user from a workspace.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/admin.users.remove
       operationId: postAdminUsersRemove
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `admin.users:write`'
-          required: true
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.users:write`'
+        required: true
+        schema:
+          type: string
       requestBody:
         content:
           application/x-www-form-urlencoded:
             schema:
               required:
-                - team_id
-                - user_id
+              - team_id
+              - user_id
               type: object
               properties:
                 team_id:
@@ -4966,8 +5117,8 @@ paths:
           application/json:
             schema:
               required:
-                - team_id
-                - user_id
+              - team_id
+              - user_id
               type: object
               properties:
                 team_id:
@@ -4985,7 +5136,7 @@ paths:
               schema:
                 title: Default success template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -5003,7 +5154,7 @@ paths:
               schema:
                 title: Default error template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -5016,41 +5167,44 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - admin.users:write
-      summary: Slack Post  Admin Users Remove
+      - slackAuth:
+        - admin.users:write
+      summary: Slack Post Admin Users Remove
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /admin.users.session.invalidate:
     post:
       tags:
-        - Administrative
-        - Invalidate
-        - Post
-        - Sessions
-        - Users
+      - Administrative
+      - Invalidate
+      - Post
+      - Sessions
+      - Users
       description: Invalidate a single session for a user by session_id
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/admin.users.session.invalidate
       operationId: postAdminUsersSessionInvalidate
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `admin.users:write`'
-          required: true
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.users:write`'
+        required: true
+        schema:
+          type: string
       requestBody:
         content:
           application/x-www-form-urlencoded:
             schema:
               required:
-                - session_id
-                - team_id
+              - session_id
+              - team_id
               type: object
               properties:
                 team_id:
@@ -5062,8 +5216,8 @@ paths:
           application/json:
             schema:
               required:
-                - session_id
-                - team_id
+              - session_id
+              - team_id
               type: object
               properties:
                 team_id:
@@ -5081,7 +5235,7 @@ paths:
               schema:
                 title: Default success template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -5099,7 +5253,7 @@ paths:
               schema:
                 title: Default error template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -5112,40 +5266,43 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - admin.users:write
-      summary: Slack Post  Admin Users Session Invalidate
+      - slackAuth:
+        - admin.users:write
+      summary: Slack Post Admin Users Session Invalidate
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /admin.users.session.reset:
     post:
       tags:
-        - Administrative
-        - Post
-        - Reset
-        - Sessions
-        - Users
+      - Administrative
+      - Post
+      - Reset
+      - Sessions
+      - Users
       description: Wipes all valid sessions on all devices for a given user
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/admin.users.session.reset
       operationId: postAdminUsersSessionReset
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `admin.users:write`'
-          required: true
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.users:write`'
+        required: true
+        schema:
+          type: string
       requestBody:
         content:
           application/x-www-form-urlencoded:
             schema:
               required:
-                - user_id
+              - user_id
               type: object
               properties:
                 user_id:
@@ -5160,7 +5317,7 @@ paths:
           application/json:
             schema:
               required:
-                - user_id
+              - user_id
               type: object
               properties:
                 user_id:
@@ -5181,7 +5338,7 @@ paths:
               schema:
                 title: Default success template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -5199,7 +5356,7 @@ paths:
               schema:
                 title: Default error template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -5212,39 +5369,42 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - admin.users:write
-      summary: Slack Post  Admin Users Session Reset
+      - slackAuth:
+        - admin.users:write
+      summary: Slack Post Admin Users Session Reset
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /admin.users.setAdmin:
     post:
       tags:
-        - Administrative
-        - Post
-        - Users
+      - Administrative
+      - Post
+      - Users
       description: Set an existing guest, regular user, or owner to be an admin user.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/admin.users.setAdmin
       operationId: postAdminUsersSetadmin
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `admin.users:write`'
-          required: true
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.users:write`'
+        required: true
+        schema:
+          type: string
       requestBody:
         content:
           application/x-www-form-urlencoded:
             schema:
               required:
-                - team_id
-                - user_id
+              - team_id
+              - user_id
               type: object
               properties:
                 team_id:
@@ -5256,8 +5416,8 @@ paths:
           application/json:
             schema:
               required:
-                - team_id
-                - user_id
+              - team_id
+              - user_id
               type: object
               properties:
                 team_id:
@@ -5275,7 +5435,7 @@ paths:
               schema:
                 title: Default success template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -5293,7 +5453,7 @@ paths:
               schema:
                 title: Default error template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -5306,40 +5466,43 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - admin.users:write
-      summary: Slack Post  Admin Users Setadmin
+      - slackAuth:
+        - admin.users:write
+      summary: Slack Post Admin Users Setadmin
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /admin.users.setExpiration:
     post:
       tags:
-        - Administrative
-        - Post
-        - Users
+      - Administrative
+      - Post
+      - Users
       description: Set an expiration for a guest user
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/admin.users.setExpiration
       operationId: postAdminUsersSetexpiration
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `admin.users:write`'
-          required: true
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.users:write`'
+        required: true
+        schema:
+          type: string
       requestBody:
         content:
           application/x-www-form-urlencoded:
             schema:
               required:
-                - expiration_ts
-                - team_id
-                - user_id
+              - expiration_ts
+              - team_id
+              - user_id
               type: object
               properties:
                 team_id:
@@ -5355,9 +5518,9 @@ paths:
           application/json:
             schema:
               required:
-                - expiration_ts
-                - team_id
-                - user_id
+              - expiration_ts
+              - team_id
+              - user_id
               type: object
               properties:
                 team_id:
@@ -5379,7 +5542,7 @@ paths:
               schema:
                 title: Default success template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -5397,7 +5560,7 @@ paths:
               schema:
                 title: Default error template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -5410,20 +5573,23 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - admin.users:write
-      summary: Slack Post  Admin Users Setexpiration
+      - slackAuth:
+        - admin.users:write
+      summary: Slack Post Admin Users Setexpiration
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /admin.users.setOwner:
     post:
       tags:
-        - Administrative
-        - Post
-        - Users
+      - Administrative
+      - Post
+      - Users
       description: >-
         Set an existing guest, regular user, or admin user to be a workspace
         owner.
@@ -5432,19 +5598,19 @@ paths:
         url: https://api.slack.com/methods/admin.users.setOwner
       operationId: postAdminUsersSetowner
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `admin.users:write`'
-          required: true
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.users:write`'
+        required: true
+        schema:
+          type: string
       requestBody:
         content:
           application/x-www-form-urlencoded:
             schema:
               required:
-                - team_id
-                - user_id
+              - team_id
+              - user_id
               type: object
               properties:
                 team_id:
@@ -5456,8 +5622,8 @@ paths:
           application/json:
             schema:
               required:
-                - team_id
-                - user_id
+              - team_id
+              - user_id
               type: object
               properties:
                 team_id:
@@ -5475,7 +5641,7 @@ paths:
               schema:
                 title: Default success template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -5493,7 +5659,7 @@ paths:
               schema:
                 title: Default error template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -5506,39 +5672,42 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - admin.users:write
-      summary: Slack Post  Admin Users Setowner
+      - slackAuth:
+        - admin.users:write
+      summary: Slack Post Admin Users Setowner
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /admin.users.setRegular:
     post:
       tags:
-        - Administrative
-        - Post
-        - Users
+      - Administrative
+      - Post
+      - Users
       description: Set an existing guest user, admin user, or owner to be a regular user.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/admin.users.setRegular
       operationId: postAdminUsersSetregular
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `admin.users:write`'
-          required: true
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.users:write`'
+        required: true
+        schema:
+          type: string
       requestBody:
         content:
           application/x-www-form-urlencoded:
             schema:
               required:
-                - team_id
-                - user_id
+              - team_id
+              - user_id
               type: object
               properties:
                 team_id:
@@ -5550,8 +5719,8 @@ paths:
           application/json:
             schema:
               required:
-                - team_id
-                - user_id
+              - team_id
+              - user_id
               type: object
               properties:
                 team_id:
@@ -5569,7 +5738,7 @@ paths:
               schema:
                 title: Default success template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -5587,7 +5756,7 @@ paths:
               schema:
                 title: Default error template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -5600,44 +5769,47 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - admin.users:write
-      summary: Slack Post  Admin Users Setregular
+      - slackAuth:
+        - admin.users:write
+      summary: Slack Post Admin Users Setregular
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
 components:
   schemas: {}
 tags:
-  - name: Add
-  - name: Administrative
-  - name: Applications
-  - name: Approve
-  - name: Approved
-  - name: Archive
-  - name: Assign
-  - name: Conversations
-  - name: Create
-  - name: Deletes
-  - name: Deny
-  - name: Get
-  - name: Info
-  - name: Invalidate
-  - name: Invites
-  - name: Lists
-  - name: Owners
-  - name: Post
-  - name: Remove
-  - name: Rename
-  - name: Requests
-  - name: Reset
-  - name: Restrict
-  - name: Restricted
-  - name: Search
-  - name: Sessions
-  - name: Settings
-  - name: Teams
-  - name: Unarchive
-  - name: Users
+- name: Add
+- name: Administrative
+- name: Applications
+- name: Approve
+- name: Approved
+- name: Archive
+- name: Assign
+- name: Conversations
+- name: Create
+- name: Deletes
+- name: Deny
+- name: Get
+- name: Info
+- name: Invalidate
+- name: Invites
+- name: Lists
+- name: Owners
+- name: Post
+- name: Remove
+- name: Rename
+- name: Requests
+- name: Reset
+- name: Restrict
+- name: Restricted
+- name: Search
+- name: Sessions
+- name: Settings
+- name: Teams
+- name: Unarchive
+- name: Users

@@ -6,34 +6,34 @@ paths:
   /workflows.stepCompleted:
     get:
       tags:
-        - Workflows
+      - Workflows
       description: Indicate that an app's step in a workflow completed execution.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/workflows.stepCompleted
       operationId: getWorkflowsStepcompleted
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `workflow.steps:execute`'
-          required: true
-          schema:
-            type: string
-        - name: workflow_step_execute_id
-          in: query
-          description: Context identifier that maps to the correct workflow step execution.
-          required: true
-          schema:
-            type: string
-        - name: outputs
-          in: query
-          description: >-
-            Key-value object of outputs from your step. Keys of this object
-            reflect the configured `key` properties of your
-            [`outputs`](/reference/workflows/workflow_step#output) array from
-            your `workflow_step` object.
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `workflow.steps:execute`'
+        required: true
+        schema:
+          type: string
+      - name: workflow_step_execute_id
+        in: query
+        description: Context identifier that maps to the correct workflow step execution.
+        required: true
+        schema:
+          type: string
+      - name: outputs
+        in: query
+        description: >-
+          Key-value object of outputs from your step. Keys of this object
+          reflect the configured `key` properties of your
+          [`outputs`](/reference/workflows/workflow_step#output) array from
+          your `workflow_step` object.
+        schema:
+          type: string
       responses:
         '200':
           description: Typical success response
@@ -42,7 +42,7 @@ paths:
               schema:
                 title: Default success template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -60,7 +60,7 @@ paths:
               schema:
                 title: Default error template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -73,43 +73,46 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - workflow.steps:execute
-      summary: Slack Get  Workflows Stepcompleted
+      - slackAuth:
+        - workflow.steps:execute
+      summary: Slack Get Workflows Stepcompleted
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /workflows.stepFailed:
     get:
       tags:
-        - Workflows
+      - Workflows
       description: Indicate that an app's step in a workflow failed to execute.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/workflows.stepFailed
       operationId: getWorkflowsStepfailed
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `workflow.steps:execute`'
-          required: true
-          schema:
-            type: string
-        - name: workflow_step_execute_id
-          in: query
-          description: Context identifier that maps to the correct workflow step execution.
-          required: true
-          schema:
-            type: string
-        - name: error
-          in: query
-          description: >-
-            A JSON-based object with a `message` property that should contain a
-            human readable error message.
-          required: true
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `workflow.steps:execute`'
+        required: true
+        schema:
+          type: string
+      - name: workflow_step_execute_id
+        in: query
+        description: Context identifier that maps to the correct workflow step execution.
+        required: true
+        schema:
+          type: string
+      - name: error
+        in: query
+        description: >-
+          A JSON-based object with a `message` property that should contain a
+          human readable error message.
+        required: true
+        schema:
+          type: string
       responses:
         '200':
           description: Typical success response
@@ -118,7 +121,7 @@ paths:
               schema:
                 title: Default success template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -136,7 +139,7 @@ paths:
               schema:
                 title: Default error template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -149,70 +152,73 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - workflow.steps:execute
-      summary: Slack Get  Workflows Stepfailed
+      - slackAuth:
+        - workflow.steps:execute
+      summary: Slack Get Workflows Stepfailed
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /workflows.updateStep:
     get:
       tags:
-        - Workflows
+      - Workflows
       description: Update the configuration for a workflow extension step.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/workflows.updateStep
       operationId: getWorkflowsUpdatestep
       parameters:
-        - name: token
-          in: header
-          description: 'Authentication token. Requires scope: `workflow.steps:execute`'
-          required: true
-          schema:
-            type: string
-        - name: workflow_step_edit_id
-          in: query
-          description: >-
-            A context identifier provided with `view_submission` payloads used
-            to call back to `workflows.updateStep`.
-          required: true
-          schema:
-            type: string
-        - name: inputs
-          in: query
-          description: >-
-            A JSON key-value map of inputs required from a user during
-            configuration. This is the data your app expects to receive when the
-            workflow step starts. **Please note**: the embedded variable format
-            is set and replaced by the workflow system. You cannot create custom
-            variables that will be replaced at runtime. [Read more about
-            variables in workflow steps here](/workflows/steps#variables).
-          schema:
-            type: string
-        - name: outputs
-          in: query
-          description: >-
-            An JSON array of output objects used during step execution. This is
-            the data your app agrees to provide when your workflow step was
-            executed.
-          schema:
-            type: string
-        - name: step_name
-          in: query
-          description: >-
-            An optional field that can be used to override the step name that is
-            shown in the Workflow Builder.
-          schema:
-            type: string
-        - name: step_image_url
-          in: query
-          description: >-
-            An optional field that can be used to override app image that is
-            shown in the Workflow Builder.
-          schema:
-            type: string
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `workflow.steps:execute`'
+        required: true
+        schema:
+          type: string
+      - name: workflow_step_edit_id
+        in: query
+        description: >-
+          A context identifier provided with `view_submission` payloads used
+          to call back to `workflows.updateStep`.
+        required: true
+        schema:
+          type: string
+      - name: inputs
+        in: query
+        description: >-
+          A JSON key-value map of inputs required from a user during
+          configuration. This is the data your app expects to receive when the
+          workflow step starts. **Please note**: the embedded variable format
+          is set and replaced by the workflow system. You cannot create custom
+          variables that will be replaced at runtime. [Read more about
+          variables in workflow steps here](/workflows/steps#variables).
+        schema:
+          type: string
+      - name: outputs
+        in: query
+        description: >-
+          An JSON array of output objects used during step execution. This is
+          the data your app agrees to provide when your workflow step was
+          executed.
+        schema:
+          type: string
+      - name: step_name
+        in: query
+        description: >-
+          An optional field that can be used to override the step name that is
+          shown in the Workflow Builder.
+        schema:
+          type: string
+      - name: step_image_url
+        in: query
+        description: >-
+          An optional field that can be used to override app image that is
+          shown in the Workflow Builder.
+        schema:
+          type: string
       responses:
         '200':
           description: Typical success response
@@ -221,7 +227,7 @@ paths:
               schema:
                 title: Default success template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -239,7 +245,7 @@ paths:
               schema:
                 title: Default error template
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -252,14 +258,17 @@ paths:
                 error: invalid_auth
                 ok: false
       security:
-        - slackAuth:
-            - workflow.steps:execute
-      summary: Slack Get  Workflows Updatestep
+      - slackAuth:
+        - workflow.steps:execute
+      summary: Slack Get Workflows Updatestep
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
 components:
   schemas: {}
 tags:
-  - name: Workflows
+- name: Workflows

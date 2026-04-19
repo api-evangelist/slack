@@ -1,0 +1,198 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Slack Messaging and Communication"
+  description: "Unified workflow for messaging and communication including posting messages, managing conversations, sharing files, reacting, searching, and organizing with pins and stars. Used by app developers building communication integrations."
+  tags:
+    - Slack
+    - Messaging
+    - Communication
+    - Chat
+  created: "2026-04-18"
+  modified: "2026-04-18"
+
+binds:
+  - namespace: env
+    keys:
+      SLACK_BOT_TOKEN: SLACK_BOT_TOKEN
+
+capability:
+  consumes:
+    - import: slack-chat
+      location: ./shared/chat.yaml
+    - import: slack-conversations
+      location: ./shared/conversations.yaml
+    - import: slack-files
+      location: ./shared/files.yaml
+    - import: slack-pins
+      location: ./shared/pins.yaml
+    - import: slack-reactions
+      location: ./shared/reactions.yaml
+    - import: slack-stars
+      location: ./shared/stars.yaml
+    - import: slack-search
+      location: ./shared/search.yaml
+    - import: slack-emoji
+      location: ./shared/emoji.yaml
+    - import: slack-bookmarks
+      location: ./shared/bookmarks.yaml
+    - import: slack-canvases
+      location: ./shared/canvases.yaml
+    - import: slack-lists
+      location: ./shared/lists.yaml
+    - import: slack-reminders
+      location: ./shared/reminders.yaml
+
+  exposes:
+    - type: rest
+      port: 8080
+      namespace: messaging-api
+      description: "Unified REST API for Slack messaging and communication."
+      resources:
+        - path: /v1/messages
+          name: messages
+          description: "Message management."
+          operations:
+            - method: POST
+              name: post-message
+              description: "Post a message."
+              call: "slack-chat.list"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/conversations
+          name: conversations
+          description: "Conversation management."
+          operations:
+            - method: GET
+              name: list-conversations
+              description: "List conversations."
+              call: "slack-conversations.list"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/files
+          name: files
+          description: "File management."
+          operations:
+            - method: GET
+              name: list-files
+              description: "List files."
+              call: "slack-files.list"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/search
+          name: search
+          description: "Search messages and files."
+          operations:
+            - method: GET
+              name: search
+              description: "Search workspace."
+              call: "slack-search.list"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9080
+      namespace: messaging-mcp
+      transport: http
+      description: "MCP server for AI-assisted Slack messaging."
+      tools:
+        - name: post-message
+          description: "Post a message to a channel."
+          hints:
+            readOnly: false
+          call: "slack-chat.list"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-conversations
+          description: "List conversations."
+          hints:
+            readOnly: true
+          call: "slack-conversations.list"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-files
+          description: "List files."
+          hints:
+            readOnly: true
+          call: "slack-files.list"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: add-pin
+          description: "Pin a message."
+          hints:
+            readOnly: false
+          call: "slack-pins.list"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: add-reaction
+          description: "Add a reaction."
+          hints:
+            readOnly: false
+          call: "slack-reactions.list"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-stars
+          description: "List starred items."
+          hints:
+            readOnly: true
+          call: "slack-stars.list"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: search-messages
+          description: "Search messages and files."
+          hints:
+            readOnly: true
+          call: "slack-search.list"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-emoji
+          description: "List custom emoji."
+          hints:
+            readOnly: true
+          call: "slack-emoji.list"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: manage-bookmarks
+          description: "Manage channel bookmarks."
+          hints:
+            readOnly: false
+          call: "slack-bookmarks.list"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: manage-canvases
+          description: "Manage canvases."
+          hints:
+            readOnly: false
+          call: "slack-canvases.list"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: manage-lists
+          description: "Manage lists."
+          hints:
+            readOnly: false
+          call: "slack-lists.list"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: manage-reminders
+          description: "Manage reminders."
+          hints:
+            readOnly: false
+          call: "slack-reminders.list"
+          outputParameters:
+            - type: object
+              mapping: "$."

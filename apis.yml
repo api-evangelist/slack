@@ -691,7 +691,7 @@ apis:
       - url: json-schema/slack-channel-schema.json
         type: JSONSchema
       - url: json-ld/slack-context.jsonld
-        type: JSON-LD
+        type: JSONLD
     description: >-
       The Slack Web API is an HTTP-based interface that provides access to all of
       Slack's platform features. It consists of over 200 methods organized by functional
@@ -792,7 +792,7 @@ access: 3rd-Party
 common:
   - url: https://slack-status.com/
     name: Status
-    type: Status
+    type: StatusPage
   - url: https://api.slack.com/
     name: Unlock your productivity potential with Slack Platform | Slack
     type: Portal
@@ -803,7 +803,7 @@ common:
     description: 'null'
   - url: https://api.slack.com/samples
     name: Samples and templates | Slack
-    type: Templates
+    type: CodeExamples
     description: 'null'
   - url: https://api.slack.com/docs/developer-sandbox
     name: Developer sandboxes | Slack
@@ -1072,17 +1072,17 @@ common:
   - url: https://api.slack.com/authentication/oauth-v2
     type: OAuth
   - url: https://slack.com/apps
-    type: App Directory
+    type: Marketplace
   - url: https://api.slack.com/community
     type: Community
   - url: https://api.slack.com/support
     type: Support
   - url: https://slack.com/privacy-policy
-    type: Privacy Policy
+    type: PrivacyPolicy
   - url: https://api.slack.com/changelog
-    type: Changelog
+    type: ChangeLog
   - url: https://api.slack.com/tools
-    type: SDKs
+    type: SDK
   - url: https://docs.slack.dev/apis/web-api/rate-limits
     type: RateLimits
   - url: https://docs.slack.dev/security
@@ -1104,15 +1104,32 @@ common:
   - url: https://github.com/slackapi
     type: GitHubOrganization
   - url: https://github.com/slackapi/python-slack-sdk
-    type: PythonSDK
+    type: SDK
+    title: Python SDK
   - url: https://github.com/slackapi/node-slack-sdk
-    type: NodeSDK
+    type: SDK
+    title: Node.js SDK
   - url: https://github.com/slackapi/java-slack-sdk
-    type: JavaSDK
-  - url: https://docs.slack.dev/tools/bolt-python
-    type: BoltPythonSDK
-  - url: https://tools.slack.dev/bolt-js
-    type: BoltJavaScriptSDK
+    type: SDK
+    title: Java SDK
+  - url: https://github.com/slackapi/bolt-python
+    type: SDK
+    title: Bolt for Python
+  - url: https://github.com/slackapi/bolt-js
+    type: SDK
+    title: Bolt for JavaScript
+  - url: https://github.com/slackapi/deno-slack-sdk
+    type: SDK
+    title: Deno SDK
+  - url: https://github.com/slackapi/slack-mcp-plugin
+    type: Resources
+    title: MCP Plugin
+  - url: https://github.com/slackapi/slack-github-action
+    type: Resources
+    title: GitHub Action
+  - url: https://github.com/slackapi/manifest-schema
+    type: Resources
+    title: Manifest Schema
   - url: https://api.slack.com/developer-program
     type: DeveloperProgram
   - url: https://api.slack.com/apps
@@ -1140,7 +1157,7 @@ common:
   - url: https://docs.slack.dev/developer-support
     type: DeveloperSupport
   - url: https://api.slack.com/developer-program/join
-    type: Signup
+    type: SignUp
   - url: https://slack.com/terms-of-service/api
     type: TermsOfService
   - url: https://docs.slack.dev/changelog
@@ -1155,8 +1172,51 @@ common:
     type: AuditLogsAPIReference
   - url: https://docs.slack.dev/reference/scim-api
     type: SCIMAPIReference
+  - type: Features
+    data:
+      - name: Real-time messaging with channels, threads, and direct messages
+      - name: Block Kit interactive UI framework for rich message formatting
+      - name: Workflow Builder for no-code and custom automation steps
+      - name: Events API and Socket Mode for real-time event-driven integrations
+      - name: Slash commands and interactive components for user-triggered actions
+      - name: Canvas and Lists surfaces for structured document collaboration
+      - name: Enterprise Grid with organization-wide admin controls and SCIM provisioning
+      - name: Audit Logs API for security monitoring and compliance
+      - name: AI assistant framework for building conversational agents in Slack
+      - name: Incoming and outgoing webhooks for simple integrations
+  - type: UseCases
+    data:
+      - name: DevOps teams automating deployment notifications and incident response
+      - name: Customer support teams routing tickets and managing escalations
+      - name: HR teams onboarding employees with automated workflows and reminders
+      - name: Sales teams receiving CRM alerts and managing deal updates in channels
+      - name: Engineering teams integrating CI/CD pipelines and code review notifications
+      - name: IT admins provisioning users and managing workspace security at scale
+      - name: Product teams collecting feedback with interactive surveys and polls
+  - type: Integrations
+    data:
+      - name: Python Slack SDK for building bots and web API clients
+      - name: Node.js Bolt framework for rapid app development
+      - name: Java Slack SDK for enterprise Java applications
+      - name: Deno Slack SDK for serverless Slack functions
+      - name: Slack CLI for local development and app deployment
+      - name: Incoming Webhooks for simple message posting from external systems
+      - name: SCIM API for identity provider integration and user provisioning
+  - url: rules/slack-spectral-rules.yml
+    type: SpectralRules
+  - url: vocabulary/slack-vocabulary.yaml
+    type: Vocabulary
+  - url: capabilities/messaging-communication.yaml
+    type: NaftikoCapability
+    title: Messaging and Communication
+  - url: capabilities/workspace-administration.yaml
+    type: NaftikoCapability
+    title: Workspace Administration
+  - url: capabilities/app-platform.yaml
+    type: NaftikoCapability
+    title: App Platform
 created: '2024-04-04'
-modified: '2026-03-03'
+modified: '2026-04-18'
 position: Consuming
 description: Slack is a cloud-based team collaboration platform that provides chat, file sharing, and integrations with other tools and services.
 maintainers:

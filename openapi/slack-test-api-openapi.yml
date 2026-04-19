@@ -1,29 +1,32 @@
 openapi: 3.1.0
 info:
   title: Slack Tests API
-  description: "I\x19m not aware of an official Slack product literally called \x1CTests API.\x1D Typically, when people say \x1CSlack Tests API,\x1D they mean using Slack\x19s existing APIs and SDK tooling to automate tests for Slack apps. In practice, developers call Slack\x19s Web API to set up test data (channels, users, messages), craft Events API and interactive payloads to exercise handlers, and use SDK-provided mocks to assert responses and error handling in CI. This approach lets teams verify permissions, rate-limit behavior, and message/Block Kit rendering, so bots, workflows, and functions behave correctly before deployment. If you meant a specific third-party tool or a particular Slack feature by that name, let me know and I can tailor the description."
+  description: "I\x19m not aware of an official Slack product literally called \x1CTests API.\x1D Typically, when people say \x1CSlack Tests API,\x1D they mean using Slack\x19s existing APIs and SDK tooling
+    to automate tests for Slack apps. In practice, developers call Slack\x19s Web API to set up test data (channels, users, messages), craft Events API and interactive payloads to exercise handlers, and
+    use SDK-provided mocks to assert responses and error handling in CI. This approach lets teams verify permissions, rate-limit behavior, and message/Block Kit rendering, so bots, workflows, and functions
+    behave correctly before deployment. If you meant a specific third-party tool or a particular Slack feature by that name, let me know and I can tailor the description."
 paths:
   /api.test:
     get:
       tags:
-        - Get
-        - Tests
+      - Get
+      - Tests
       description: Checks API calling code.
       externalDocs:
         description: API method documentation
         url: https://api.slack.com/methods/api.test
       operationId: getApiTest
       parameters:
-        - name: error
-          in: query
-          description: Error response to return
-          schema:
-            type: string
-        - name: foo
-          in: query
-          description: example property to return
-          schema:
-            type: string
+      - name: error
+        in: query
+        description: Error response to return
+        schema:
+          type: string
+      - name: foo
+        in: query
+        description: example property to return
+        schema:
+          type: string
       responses:
         '200':
           description: Standard success response
@@ -32,7 +35,7 @@ paths:
               schema:
                 title: api.test success schema
                 required:
-                  - ok
+                - ok
                 type: object
                 properties:
                   ok:
@@ -50,8 +53,8 @@ paths:
               schema:
                 title: api.test error schema
                 required:
-                  - error
-                  - ok
+                - error
+                - ok
                 type: object
                 properties:
                   error:
@@ -68,17 +71,20 @@ paths:
                 error: my_error
                 ok: false
       security:
-        - slackAuth:
-            - none
-      summary: Slack Get  Api Test
+      - slackAuth:
+        - none
+      summary: Slack Get Api Test
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
         CaselCaseOperationIds: true
         PullTagsFromSummary: true
         ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
 components:
   schemas: {}
 tags:
-  - name: Get
-  - name: Tests
+- name: Get
+- name: Tests

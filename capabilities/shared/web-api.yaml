@@ -1,0 +1,63 @@
+naftiko: "1.0.0-alpha1"
+info:
+  label: "Slack Chat"
+  description: "Message posting, updating, deleting, and scheduling."
+  tags: [Slack, Messaging]
+  created: "2026-04-18"
+  modified: "2026-04-18"
+binds:
+  - namespace: env
+    keys:
+      SLACK_BOT_TOKEN: SLACK_BOT_TOKEN
+capability:
+  consumes:
+    - type: http
+      namespace: slack-chat
+      baseUri: https://slack.com/api
+      description: "Message posting, updating, deleting, and scheduling."
+      authentication:
+        type: bearer
+        token: "{{SLACK_BOT_TOKEN}}"
+      resources:
+        - name: api
+          path: /
+          description: "Chat API resources."
+          operations:
+            - name: list
+              method: POST
+              description: "Access Chat resources."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+  exposes:
+    - type: rest
+      port: 8108
+      namespace: slack-chat-api
+      resources:
+        - path: /v1/chat
+          name: chat
+          description: "Chat resources."
+          operations:
+            - method: GET
+              name: list
+              description: "Access Chat resources."
+              call: "slack-chat.list"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+    - type: mcp
+      port: 9108
+      namespace: slack-chat-mcp
+      transport: http
+      tools:
+        - name: list
+          description: "Access Chat resources."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "slack-chat.list"
+          outputParameters:
+            - type: object
+              mapping: "$."
