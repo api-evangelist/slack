@@ -1,0 +1,424 @@
+openapi: 3.1.0
+info:
+  title: Slack Lists API
+  description: >-
+    The Slack Lists API provides methods for programmatically creating and managing
+    Lists, a structured data surface in Slack for tracking work items, tasks, and
+    records. Methods include slackLists.create and slackLists.update for managing
+    lists, slackLists.items.create, slackLists.items.update, slackLists.items.delete,
+    and slackLists.items.deleteMultiple for managing individual records, slackLists.items.list
+    and slackLists.items.info for retrieving records, and slackLists.download.start
+    for exporting list data.
+  version: 1.0.0
+  contact:
+    name: Slack Developer Relations
+    url: https://docs.slack.dev
+servers:
+  - url: https://slack.com/api
+paths:
+  /slackLists.create:
+    post:
+      tags:
+        - Lists
+        - Create
+        - Project Management
+      summary: Create List
+      description: Creates a new Slack List for tracking work items, tasks, or records.
+      operationId: postSlackListsCreate
+      parameters:
+        - name: token
+          in: header
+          description: 'Authentication token. Requires scope: `lists:write`'
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+                - title
+                - channel_id
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: Title of the list.
+                channel_id:
+                  type: string
+                  description: Channel to create the list in.
+                columns:
+                  type: array
+                  description: Column definitions for the list.
+                  items:
+                    type: object
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  list:
+                    type: object
+              example:
+                ok: true
+        default:
+          description: Error response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  error:
+                    type: string
+              example:
+                ok: false
+                error: invalid_auth
+      security:
+        - slackAuth:
+            - lists:write
+  /slackLists.update:
+    post:
+      tags:
+        - Lists
+        - Update
+        - Project Management
+      summary: Update List
+      description: Updates an existing Slack List's title or column configuration.
+      operationId: postSlackListsUpdate
+      parameters:
+        - name: token
+          in: header
+          description: 'Authentication token. Requires scope: `lists:write`'
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+                - list_id
+              type: object
+              properties:
+                list_id:
+                  type: string
+                  description: ID of the list to update.
+                title:
+                  type: string
+                  description: New title of the list.
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+              example:
+                ok: true
+        default:
+          description: Error response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  error:
+                    type: string
+              example:
+                ok: false
+                error: list_not_found
+      security:
+        - slackAuth:
+            - lists:write
+  /slackLists.items.create:
+    post:
+      tags:
+        - Lists
+        - Items
+        - Create
+        - Project Management
+      summary: Create List Item
+      description: Creates a new item (row) in a Slack List.
+      operationId: postSlackListsItemsCreate
+      parameters:
+        - name: token
+          in: header
+          description: 'Authentication token. Requires scope: `lists:write`'
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+                - list_id
+                - column_values
+              type: object
+              properties:
+                list_id:
+                  type: string
+                  description: ID of the list to add the item to.
+                column_values:
+                  type: object
+                  description: Map of column IDs to their values for the new item.
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  item:
+                    type: object
+              example:
+                ok: true
+        default:
+          description: Error response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  error:
+                    type: string
+              example:
+                ok: false
+                error: list_not_found
+      security:
+        - slackAuth:
+            - lists:write
+  /slackLists.items.update:
+    post:
+      tags:
+        - Lists
+        - Items
+        - Update
+        - Project Management
+      summary: Update List Item
+      description: Updates an existing item (row) in a Slack List.
+      operationId: postSlackListsItemsUpdate
+      parameters:
+        - name: token
+          in: header
+          description: 'Authentication token. Requires scope: `lists:write`'
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+                - list_id
+                - item_id
+                - column_values
+              type: object
+              properties:
+                list_id:
+                  type: string
+                  description: ID of the list.
+                item_id:
+                  type: string
+                  description: ID of the item to update.
+                column_values:
+                  type: object
+                  description: Map of column IDs to their new values.
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+              example:
+                ok: true
+        default:
+          description: Error response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  error:
+                    type: string
+              example:
+                ok: false
+                error: item_not_found
+      security:
+        - slackAuth:
+            - lists:write
+  /slackLists.items.delete:
+    post:
+      tags:
+        - Lists
+        - Items
+        - Delete
+        - Project Management
+      summary: Delete List Item
+      description: Deletes a single item (row) from a Slack List.
+      operationId: postSlackListsItemsDelete
+      parameters:
+        - name: token
+          in: header
+          description: 'Authentication token. Requires scope: `lists:write`'
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+                - list_id
+                - item_id
+              type: object
+              properties:
+                list_id:
+                  type: string
+                  description: ID of the list.
+                item_id:
+                  type: string
+                  description: ID of the item to delete.
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+              example:
+                ok: true
+        default:
+          description: Error response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  error:
+                    type: string
+              example:
+                ok: false
+                error: item_not_found
+      security:
+        - slackAuth:
+            - lists:write
+  /slackLists.items.list:
+    get:
+      tags:
+        - Lists
+        - Items
+        - Project Management
+      summary: List Items
+      description: Lists all items in a Slack List with optional filtering and pagination.
+      operationId: getSlackListsItemsList
+      parameters:
+        - name: token
+          in: query
+          description: 'Authentication token. Requires scope: `lists:read`'
+          required: true
+          schema:
+            type: string
+        - name: list_id
+          in: query
+          description: ID of the list to retrieve items from.
+          required: true
+          schema:
+            type: string
+        - name: cursor
+          in: query
+          description: Pagination cursor for retrieving additional pages.
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: Maximum number of items to return.
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  items:
+                    type: array
+                    items:
+                      type: object
+                  response_metadata:
+                    type: object
+              example:
+                ok: true
+                items: []
+        default:
+          description: Error response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  error:
+                    type: string
+              example:
+                ok: false
+                error: list_not_found
+      security:
+        - slackAuth:
+            - lists:read
+components:
+  securitySchemes:
+    slackAuth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://slack.com/oauth/v2/authorize
+          tokenUrl: https://slack.com/api/oauth.v2.access
+          scopes:
+            lists:read: Read lists data
+            lists:write: Write lists data
+tags:
+  - name: Create
+  - name: Delete
+  - name: Items
+  - name: Lists
+  - name: Project Management
+  - name: Update

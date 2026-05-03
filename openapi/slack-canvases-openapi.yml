@@ -1,0 +1,421 @@
+openapi: 3.1.0
+info:
+  title: Slack Canvases API
+  description: >-
+    The Slack Canvases API lets apps programmatically create, edit, delete, and
+    manage access to Slack Canvases, which are rich document surfaces embedded within
+    Slack. Key methods include canvases.create for creating standalone canvases,
+    canvases.edit for modifying content with operations like insert, replace, and
+    delete, canvases.delete for removing canvases, and canvases.access.set and
+    canvases.access.delete for managing who can view or edit a canvas.
+  version: 1.0.0
+  contact:
+    name: Slack Developer Relations
+    url: https://docs.slack.dev
+servers:
+  - url: https://slack.com/api
+paths:
+  /canvases.create:
+    post:
+      tags:
+        - Canvases
+        - Create
+        - Documents
+      summary: Create Canvas
+      description: Creates a Slack Canvas.
+      operationId: postCanvasesCreate
+      parameters:
+        - name: token
+          in: header
+          description: 'Authentication token. Requires scope: `canvases:write`'
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: Title of the canvas.
+                document_content:
+                  type: object
+                  description: Initial content for the canvas.
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  canvas_id:
+                    type: string
+              example:
+                ok: true
+                canvas_id: F123ABC
+        default:
+          description: Error response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  error:
+                    type: string
+              example:
+                ok: false
+                error: invalid_auth
+      security:
+        - slackAuth:
+            - canvases:write
+  /canvases.delete:
+    post:
+      tags:
+        - Canvases
+        - Delete
+        - Documents
+      summary: Delete Canvas
+      description: Deletes a Slack Canvas.
+      operationId: postCanvasesDelete
+      parameters:
+        - name: token
+          in: header
+          description: 'Authentication token. Requires scope: `canvases:write`'
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+                - canvas_id
+              type: object
+              properties:
+                canvas_id:
+                  type: string
+                  description: ID of the canvas to delete.
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+              example:
+                ok: true
+        default:
+          description: Error response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  error:
+                    type: string
+              example:
+                ok: false
+                error: canvas_not_found
+      security:
+        - slackAuth:
+            - canvases:write
+  /canvases.edit:
+    post:
+      tags:
+        - Canvases
+        - Edit
+        - Documents
+      summary: Edit Canvas
+      description: Edits a Slack Canvas by inserting, replacing, or deleting content sections.
+      operationId: postCanvasesEdit
+      parameters:
+        - name: token
+          in: header
+          description: 'Authentication token. Requires scope: `canvases:write`'
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+                - canvas_id
+                - changes
+              type: object
+              properties:
+                canvas_id:
+                  type: string
+                  description: ID of the canvas to edit.
+                changes:
+                  type: array
+                  description: Array of change operations (insert_at_start, insert_at_end, insert_after, insert_before, replace, delete).
+                  items:
+                    type: object
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+              example:
+                ok: true
+        default:
+          description: Error response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  error:
+                    type: string
+              example:
+                ok: false
+                error: canvas_not_found
+      security:
+        - slackAuth:
+            - canvases:write
+  /canvases.access.delete:
+    post:
+      tags:
+        - Canvases
+        - Access
+        - Delete
+      summary: Delete Canvas Access
+      description: Removes access to a canvas for specified users or groups.
+      operationId: postCanvasesAccessDelete
+      parameters:
+        - name: token
+          in: header
+          description: 'Authentication token. Requires scope: `canvases:write`'
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+                - canvas_id
+              type: object
+              properties:
+                canvas_id:
+                  type: string
+                  description: ID of the canvas.
+                user_ids:
+                  type: array
+                  description: User IDs to remove access for.
+                  items:
+                    type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+              example:
+                ok: true
+        default:
+          description: Error response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  error:
+                    type: string
+              example:
+                ok: false
+                error: canvas_not_found
+      security:
+        - slackAuth:
+            - canvases:write
+  /canvases.access.set:
+    post:
+      tags:
+        - Canvases
+        - Access
+        - Set
+      summary: Set Canvas Access
+      description: Sets access controls for a canvas, granting view or edit access to users or groups.
+      operationId: postCanvasesAccessSet
+      parameters:
+        - name: token
+          in: header
+          description: 'Authentication token. Requires scope: `canvases:write`'
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+                - canvas_id
+                - access_level
+              type: object
+              properties:
+                canvas_id:
+                  type: string
+                  description: ID of the canvas.
+                access_level:
+                  type: string
+                  description: Access level to grant (read, write).
+                  enum:
+                    - read
+                    - write
+                user_ids:
+                  type: array
+                  description: User IDs to grant access to.
+                  items:
+                    type: string
+                channel_ids:
+                  type: array
+                  description: Channel IDs to grant access to.
+                  items:
+                    type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+              example:
+                ok: true
+        default:
+          description: Error response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  error:
+                    type: string
+              example:
+                ok: false
+                error: canvas_not_found
+      security:
+        - slackAuth:
+            - canvases:write
+  /canvases.sections.lookup:
+    post:
+      tags:
+        - Canvases
+        - Sections
+        - Lookup
+      summary: Lookup Canvas Sections
+      description: Looks up sections in a canvas by type or criteria.
+      operationId: postCanvasesSectionsLookup
+      parameters:
+        - name: token
+          in: header
+          description: 'Authentication token. Requires scope: `canvases:read`'
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+                - canvas_id
+                - criteria
+              type: object
+              properties:
+                canvas_id:
+                  type: string
+                  description: ID of the canvas to search in.
+                criteria:
+                  type: object
+                  description: Search criteria for finding sections.
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  sections:
+                    type: array
+                    items:
+                      type: object
+              example:
+                ok: true
+                sections: []
+        default:
+          description: Error response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  error:
+                    type: string
+              example:
+                ok: false
+                error: canvas_not_found
+      security:
+        - slackAuth:
+            - canvases:read
+components:
+  securitySchemes:
+    slackAuth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://slack.com/oauth/v2/authorize
+          tokenUrl: https://slack.com/api/oauth.v2.access
+          scopes:
+            canvases:read: Read canvases
+            canvases:write: Write canvases
+tags:
+  - name: Access
+  - name: Canvases
+  - name: Create
+  - name: Delete
+  - name: Documents
+  - name: Edit
+  - name: Lookup
+  - name: Sections
+  - name: Set

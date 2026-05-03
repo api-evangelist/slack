@@ -1,0 +1,92 @@
+openapi: 3.1.0
+info:
+  title: Slack Emoji API
+  description: >-
+    Slack's Emoji API lets apps discover and manage a workspace's custom emoji.
+    The core method, emoji.list (requires the emoji:read scope), returns a name-to-URL
+    map of all custom emoji along with aliases (noted as alias:other_name) and a
+    cache timestamp to help clients sync efficiently. Apps can also subscribe to
+    the emoji_changed event to stay up to date when emoji are added, renamed, or
+    removed.
+  version: 1.0.0
+  contact:
+    name: Slack Developer Relations
+    url: https://docs.slack.dev
+servers:
+  - url: https://slack.com/api
+paths:
+  /emoji.list:
+    get:
+      tags:
+        - Emoji
+        - Lists
+      summary: List Emoji
+      description: Lists custom emoji for a team.
+      operationId: getEmojiList
+      parameters:
+        - name: token
+          in: query
+          description: 'Authentication token. Requires scope: `emoji:read`'
+          required: true
+          schema:
+            type: string
+        - name: include_categories
+          in: query
+          description: If true, includes emoji categories.
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: Successful response returning custom emoji map
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  emoji:
+                    type: object
+                    description: A map of emoji names to their image URLs or aliases.
+                    additionalProperties:
+                      type: string
+                  cache_ts:
+                    type: string
+                    description: A timestamp for caching purposes.
+              example:
+                ok: true
+                emoji:
+                  bowtie: https://emoji.slack-edge.com/T123/bowtie/a1234.png
+                  squirrel: https://emoji.slack-edge.com/T123/squirrel/b5678.png
+                  glitch_crab: alias:crab
+                cache_ts: '1449272148.xxxxxxx'
+        default:
+          description: Error response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  error:
+                    type: string
+              example:
+                ok: false
+                error: not_authed
+      security:
+        - slackAuth:
+            - emoji:read
+components:
+  securitySchemes:
+    slackAuth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://slack.com/oauth/v2/authorize
+          tokenUrl: https://slack.com/api/oauth.v2.access
+          scopes:
+            emoji:read: Access emoji data
+tags:
+  - name: Emoji
+  - name: Lists

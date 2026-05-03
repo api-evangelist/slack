@@ -1,0 +1,196 @@
+openapi: 3.1.0
+info:
+  title: Slack OpenID Connect API
+  description: >-
+    The Slack OpenID Connect API implements the Sign in with Slack flow based on
+    the OpenID Connect standard built on top of OAuth 2.0. It includes openid.connect.token
+    for exchanging an authorization code for an access token and a standard JWT
+    id_token, and openid.connect.userInfo for retrieving identity information about
+    a user who has authenticated via Sign in with Slack.
+  version: 1.0.0
+  contact:
+    name: Slack Developer Relations
+    url: https://docs.slack.dev
+servers:
+  - url: https://slack.com/api
+paths:
+  /openid.connect.token:
+    post:
+      tags:
+        - Authentication
+        - Identity
+        - OpenID Connect
+      summary: Exchange OpenID Connect Token
+      description: Exchanges an authorization code for an OpenID Connect access token and ID token.
+      operationId: postOpenIdConnectToken
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+                - client_id
+                - client_secret
+                - code
+              type: object
+              properties:
+                client_id:
+                  type: string
+                  description: The Slack app's client ID.
+                client_secret:
+                  type: string
+                  description: The Slack app's client secret.
+                code:
+                  type: string
+                  description: The authorization code received from the Sign in with Slack flow.
+                redirect_uri:
+                  type: string
+                  description: The redirect URI that was used in the authorization request.
+                grant_type:
+                  type: string
+                  description: The grant type, must be "authorization_code".
+                  enum:
+                    - authorization_code
+                    - refresh_token
+                refresh_token:
+                  type: string
+                  description: The refresh token, required when grant_type is refresh_token.
+      responses:
+        '200':
+          description: Successful response with tokens
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  access_token:
+                    type: string
+                    description: The OpenID Connect access token.
+                  token_type:
+                    type: string
+                    description: The token type (Bearer).
+                  id_token:
+                    type: string
+                    description: A signed JWT ID token containing the user's identity claims.
+                  refresh_token:
+                    type: string
+                    description: A refresh token for obtaining new access tokens.
+                  expires_in:
+                    type: integer
+                    description: Token expiration time in seconds.
+              example:
+                ok: true
+                access_token: xoxp-1234
+                token_type: Bearer
+                id_token: eyJhbGciOiJSUzI1NiJ9.example
+        default:
+          description: Error response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  error:
+                    type: string
+              example:
+                ok: false
+                error: invalid_client_id
+  /openid.connect.userInfo:
+    get:
+      tags:
+        - Authentication
+        - Identity
+        - OpenID Connect
+        - Users
+      summary: Get OpenID Connect User Info
+      description: Retrieves identity information about a user authenticated via Sign in with Slack.
+      operationId: getOpenIdConnectUserInfo
+      parameters:
+        - name: token
+          in: query
+          description: OpenID Connect access token.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response with user identity
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  sub:
+                    type: string
+                    description: Subject identifier (the user's Slack ID).
+                  https://slack.com/user_id:
+                    type: string
+                    description: The user's Slack user ID.
+                  https://slack.com/team_id:
+                    type: string
+                    description: The user's team ID.
+                  email:
+                    type: string
+                    description: The user's email address.
+                  email_verified:
+                    type: boolean
+                    description: Whether the email address has been verified.
+                  name:
+                    type: string
+                    description: The user's display name.
+                  picture:
+                    type: string
+                    description: URL to the user's profile picture.
+                  given_name:
+                    type: string
+                    description: The user's given name.
+                  family_name:
+                    type: string
+                    description: The user's family name.
+              example:
+                ok: true
+                sub: U0R7JM
+                email: krane@example.com
+                email_verified: true
+                name: Krane
+                picture: https://secure.gravatar.com/avatar/example.jpg
+        default:
+          description: Error response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  error:
+                    type: string
+              example:
+                ok: false
+                error: not_authed
+      security:
+        - slackAuth:
+            - openid
+components:
+  securitySchemes:
+    slackAuth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://slack.com/openid/connect/authorize
+          tokenUrl: https://slack.com/api/openid.connect.token
+          scopes:
+            openid: Authenticate using Sign in with Slack
+            email: Access user email address
+            profile: Access user profile information
+tags:
+  - name: Authentication
+  - name: Identity
+  - name: OpenID Connect
+  - name: Users

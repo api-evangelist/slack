@@ -12,7 +12,7 @@ Slack is a cloud-based team collaboration platform that provides chat, file shar
 ## Timestamps
 
 - **Created:** 2024-04-04
-- **Modified:** 2026-04-18
+- **Modified:** 2026-05-02
 
 ## APIs
 
@@ -201,7 +201,7 @@ Machine-readable API specifications organized by format.
 
 ### OpenAPI
 
-25 OpenAPI specifications covering admin, messaging, conversations, users, files, workflows, and all Slack Web API method families.
+32 OpenAPI specifications covering admin, messaging, conversations, users, files, workflows, assistant, bookmarks, canvases, emoji, functions, lists, OpenID Connect, and all Slack Web API method families.
 
 ### AsyncAPI
 

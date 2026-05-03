@@ -1,0 +1,232 @@
+openapi: 3.1.0
+info:
+  title: Slack Assistant API
+  description: >-
+    The Slack Assistant API provides the assistant.threads.* Web API methods that
+    let apps building AI-powered assistants manage threaded conversations in Slack.
+    It includes methods to set the status of an assistant thread (e.g., showing
+    a thinking indicator), set suggested prompts for users to choose from, and set
+    the title of an assistant thread. These methods help apps set user expectations
+    during potentially slow AI responses and guide users with contextual prompt
+    suggestions.
+  version: 1.0.0
+  contact:
+    name: Slack Developer Relations
+    url: https://docs.slack.dev
+servers:
+  - url: https://slack.com/api
+paths:
+  /assistant.threads.setStatus:
+    post:
+      tags:
+        - AI
+        - Assistants
+        - Status
+      summary: Set Assistant Thread Status
+      description: Sets the status of a Slack AI assistant thread, for example showing a thinking indicator.
+      operationId: postAssistantThreadsSetStatus
+      parameters:
+        - name: token
+          in: header
+          description: 'Authentication token. Requires scope: `assistant:write`'
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+                - channel_id
+                - thread_ts
+                - status
+              type: object
+              properties:
+                channel_id:
+                  type: string
+                  description: The channel ID of the assistant thread.
+                thread_ts:
+                  type: string
+                  description: The thread timestamp of the assistant thread.
+                status:
+                  type: string
+                  description: The status of the assistant thread (e.g., "is thinking...").
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+              example:
+                ok: true
+        default:
+          description: Error response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  error:
+                    type: string
+              example:
+                ok: false
+                error: invalid_auth
+      security:
+        - slackAuth:
+            - assistant:write
+  /assistant.threads.setSuggestedPrompts:
+    post:
+      tags:
+        - AI
+        - Assistants
+        - Prompts
+      summary: Set Assistant Thread Suggested Prompts
+      description: Sets the suggested prompts for a Slack AI assistant thread.
+      operationId: postAssistantThreadsSetSuggestedPrompts
+      parameters:
+        - name: token
+          in: header
+          description: 'Authentication token. Requires scope: `assistant:write`'
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+                - channel_id
+                - thread_ts
+                - prompts
+              type: object
+              properties:
+                channel_id:
+                  type: string
+                  description: The channel ID of the assistant thread.
+                thread_ts:
+                  type: string
+                  description: The thread timestamp of the assistant thread.
+                prompts:
+                  type: string
+                  description: JSON-encoded array of suggested prompt objects with title and message fields.
+                title:
+                  type: string
+                  description: An optional title to show above the suggested prompts.
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+              example:
+                ok: true
+        default:
+          description: Error response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  error:
+                    type: string
+              example:
+                ok: false
+                error: invalid_auth
+      security:
+        - slackAuth:
+            - assistant:write
+  /assistant.threads.setTitle:
+    post:
+      tags:
+        - AI
+        - Assistants
+        - Titles
+      summary: Set Assistant Thread Title
+      description: Sets the title of a Slack AI assistant thread.
+      operationId: postAssistantThreadsSetTitle
+      parameters:
+        - name: token
+          in: header
+          description: 'Authentication token. Requires scope: `assistant:write`'
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+                - channel_id
+                - thread_ts
+                - title
+              type: object
+              properties:
+                channel_id:
+                  type: string
+                  description: The channel ID of the assistant thread.
+                thread_ts:
+                  type: string
+                  description: The thread timestamp of the assistant thread.
+                title:
+                  type: string
+                  description: The title to set for the assistant thread.
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+              example:
+                ok: true
+        default:
+          description: Error response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  error:
+                    type: string
+              example:
+                ok: false
+                error: invalid_auth
+      security:
+        - slackAuth:
+            - assistant:write
+components:
+  securitySchemes:
+    slackAuth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://slack.com/oauth/v2/authorize
+          tokenUrl: https://slack.com/api/oauth.v2.access
+          scopes:
+            assistant:write: Write access to assistant threads
+tags:
+  - name: AI
+  - name: Assistants
+  - name: Prompts
+  - name: Status
+  - name: Titles
