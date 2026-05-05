@@ -1,0 +1,118 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Slack
+providerId: slack
+created: '2026-05-04'
+modified: '2026-05-04'
+reconciled: true
+tags:
+  - Collaboration
+  - Messaging
+  - Productivity
+description: Slack per-user-per-month pricing across Free, Pro, Business+, and Enterprise Grid.
+sources:
+  - https://slack.com/pricing
+plans:
+  - id: slack-free
+    name: Free
+    type: freemium
+    description: 90 days message history; basic Slack.
+    entries:
+      - label: Per user
+        name: seat
+        type: subscription
+        metric: user
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: true
+    elements:
+      - name: 90-day message history
+      - name: 10 integrations
+      - name: 1:1 huddles
+  - id: slack-pro
+    name: Pro
+    type: paid
+    description: $8.75/user/mo monthly or $7.25/user/mo annual.
+    entries:
+      - label: Per user (annual)
+        name: seat_annual
+        type: subscription
+        metric: user
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '7.25'
+        userMultiplied: true
+      - label: Per user (monthly)
+        name: seat_monthly
+        type: subscription
+        metric: user
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '8.75'
+        userMultiplied: true
+    elements:
+      - name: Unlimited message history
+      - name: Unlimited integrations
+      - name: Group huddles
+      - name: Conversation summaries
+      - name: Huddle notes
+  - id: slack-business-plus
+    name: Business+
+    type: paid
+    description: $15/user/mo annual or $18/user/mo monthly. Adds SSO, compliance.
+    entries:
+      - label: Per user (annual)
+        name: seat_annual
+        type: subscription
+        metric: user
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '15.00'
+        userMultiplied: true
+      - label: Per user (monthly)
+        name: seat_monthly
+        type: subscription
+        metric: user
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '18.00'
+        userMultiplied: true
+    elements:
+      - name: SAML SSO
+      - name: Compliance exports
+      - name: 99.99% uptime SLA
+      - name: Full Slack AI suite
+      - name: User provisioning (SCIM)
+  - id: slack-enterprise-grid
+    name: Enterprise Grid
+    type: enterprise
+    description: Custom pricing for large organizations (typically 500+ users).
+    entries:
+      - label: Per user (custom)
+        name: seat
+        type: subscription
+        metric: user
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: custom
+        userMultiplied: true
+    elements:
+      - name: Multi-workspace organization
+      - name: Enterprise Key Management
+      - name: Designated customer success manager
+      - name: Full Slack AI suite
+      - name: Data Loss Prevention

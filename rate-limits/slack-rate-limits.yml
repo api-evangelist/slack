@@ -1,0 +1,53 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Slack
+providerId: slack
+created: '2026-05-04'
+modified: '2026-05-04'
+reconciled: true
+tags:
+  - Rate Limiting
+  - Messaging
+description: Slack Web API uses per-method tiered rate limits. App-scoped, with overall limit varying
+  by method tier.
+sources:
+  - https://slack.com/pricing
+  - https://api.slack.com/docs/rate-limits
+headers:
+  retryAfter: Retry-After
+responseCodes:
+  throttled: 429
+limits:
+  - name: Tier 1 methods (e.g., admin.*)
+    scope: app/workspace
+    metric: requests_per_minute
+    limit: 1
+    timeFrame: minute
+  - name: Tier 2 methods (e.g., conversations.history)
+    scope: app/workspace
+    metric: requests_per_minute
+    limit: 20
+    timeFrame: minute
+  - name: Tier 3 methods (e.g., conversations.list)
+    scope: app/workspace
+    metric: requests_per_minute
+    limit: 50
+    timeFrame: minute
+  - name: Tier 4 methods (most common)
+    scope: app/workspace
+    metric: requests_per_minute
+    limit: 100
+    timeFrame: minute
+  - name: chat.postMessage (special)
+    scope: app/workspace/channel
+    metric: messages_per_second
+    limit: 1
+    timeFrame: second
+    notes: 1 message per second per channel; short bursts of up to 17/min allowed.
+  - name: Events API delivery
+    scope: app
+    metric: events_per_second
+    limit: 30000
+    timeFrame: hour
+    notes: 30k events per hour per workspace per app; beyond, events are dropped.
