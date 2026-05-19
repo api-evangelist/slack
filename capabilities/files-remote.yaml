@@ -1,0 +1,347 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Slack Files API — Remote
+  description: 'Slack Files API — Remote. 6 operations. Lead operation: Slack Post Files Remote Add. Self-contained Naftiko
+    capability covering one Slack business surface.'
+  tags:
+  - Slack
+  - Remote
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SLACK_API_KEY: SLACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: files-remote
+    baseUri: ''
+    description: Slack Files API — Remote business capability. Self-contained, no shared references.
+    resources:
+    - name: files.remote.add
+      path: /files.remote.add
+      operations:
+      - name: postfilesremoteadd
+        method: POST
+        description: Slack Post Files Remote Add
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: files.remote.info
+      path: /files.remote.info
+      operations:
+      - name: getfilesremoteinfo
+        method: GET
+        description: Slack Get Files Remote Info
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: query
+          type: string
+          description: 'Authentication token. Requires scope: `remote_files:read`'
+        - name: file
+          in: query
+          type: string
+          description: Specify a file by providing its ID.
+        - name: external_id
+          in: query
+          type: string
+          description: Creator defined GUID for the file.
+    - name: files.remote.list
+      path: /files.remote.list
+      operations:
+      - name: getfilesremotelist
+        method: GET
+        description: Slack Get Files Remote List
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: query
+          type: string
+          description: 'Authentication token. Requires scope: `remote_files:read`'
+        - name: channel
+          in: query
+          type: string
+          description: Filter files appearing in a specific channel, indicated by its ID.
+        - name: ts_from
+          in: query
+          type: number
+          description: Filter files created after this timestamp (inclusive).
+        - name: ts_to
+          in: query
+          type: number
+          description: Filter files created before this timestamp (inclusive).
+        - name: limit
+          in: query
+          type: integer
+          description: The maximum number of items to return.
+        - name: cursor
+          in: query
+          type: string
+          description: Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute
+            returned by a previous request's `response_metadata`. Defaul
+    - name: files.remote.remove
+      path: /files.remote.remove
+      operations:
+      - name: postfilesremoteremove
+        method: POST
+        description: Slack Post Files Remote Remove
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: files.remote.share
+      path: /files.remote.share
+      operations:
+      - name: getfilesremoteshare
+        method: GET
+        description: Slack Get Files Remote Share
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: query
+          type: string
+          description: 'Authentication token. Requires scope: `remote_files:share`'
+        - name: file
+          in: query
+          type: string
+          description: Specify a file registered with Slack by providing its ID. Either this field or `external_id` or both
+            are required.
+        - name: external_id
+          in: query
+          type: string
+          description: The globally unique identifier (GUID) for the file, as set by the app registering the file with Slack.  Either
+            this field or `file` or both are required.
+        - name: channels
+          in: query
+          type: string
+          description: Comma-separated list of channel IDs where the file will be shared.
+    - name: files.remote.update
+      path: /files.remote.update
+      operations:
+      - name: postfilesremoteupdate
+        method: POST
+        description: Slack Post Files Remote Update
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+  exposes:
+  - type: rest
+    namespace: files-remote-rest
+    port: 8080
+    description: REST adapter for Slack Files API — Remote. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/files-remote-add
+      name: files-remote-add
+      description: REST surface for files.remote.add.
+      operations:
+      - method: POST
+        name: postfilesremoteadd
+        description: Slack Post Files Remote Add
+        call: files-remote.postfilesremoteadd
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/files-remote-info
+      name: files-remote-info
+      description: REST surface for files.remote.info.
+      operations:
+      - method: GET
+        name: getfilesremoteinfo
+        description: Slack Get Files Remote Info
+        call: files-remote.getfilesremoteinfo
+        with:
+          token: rest.token
+          file: rest.file
+          external_id: rest.external_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/files-remote-list
+      name: files-remote-list
+      description: REST surface for files.remote.list.
+      operations:
+      - method: GET
+        name: getfilesremotelist
+        description: Slack Get Files Remote List
+        call: files-remote.getfilesremotelist
+        with:
+          token: rest.token
+          channel: rest.channel
+          ts_from: rest.ts_from
+          ts_to: rest.ts_to
+          limit: rest.limit
+          cursor: rest.cursor
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/files-remote-remove
+      name: files-remote-remove
+      description: REST surface for files.remote.remove.
+      operations:
+      - method: POST
+        name: postfilesremoteremove
+        description: Slack Post Files Remote Remove
+        call: files-remote.postfilesremoteremove
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/files-remote-share
+      name: files-remote-share
+      description: REST surface for files.remote.share.
+      operations:
+      - method: GET
+        name: getfilesremoteshare
+        description: Slack Get Files Remote Share
+        call: files-remote.getfilesremoteshare
+        with:
+          token: rest.token
+          file: rest.file
+          external_id: rest.external_id
+          channels: rest.channels
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/files-remote-update
+      name: files-remote-update
+      description: REST surface for files.remote.update.
+      operations:
+      - method: POST
+        name: postfilesremoteupdate
+        description: Slack Post Files Remote Update
+        call: files-remote.postfilesremoteupdate
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: files-remote-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Slack Files API — Remote. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: slack-post-files-remote-add
+      description: Slack Post Files Remote Add
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: files-remote.postfilesremoteadd
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-get-files-remote-info
+      description: Slack Get Files Remote Info
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: files-remote.getfilesremoteinfo
+      with:
+        token: tools.token
+        file: tools.file
+        external_id: tools.external_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-get-files-remote-list
+      description: Slack Get Files Remote List
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: files-remote.getfilesremotelist
+      with:
+        token: tools.token
+        channel: tools.channel
+        ts_from: tools.ts_from
+        ts_to: tools.ts_to
+        limit: tools.limit
+        cursor: tools.cursor
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-post-files-remote-remove
+      description: Slack Post Files Remote Remove
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: files-remote.postfilesremoteremove
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-get-files-remote-share
+      description: Slack Get Files Remote Share
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: files-remote.getfilesremoteshare
+      with:
+        token: tools.token
+        file: tools.file
+        external_id: tools.external_id
+        channels: tools.channels
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-post-files-remote-update
+      description: Slack Post Files Remote Update
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: files-remote.postfilesremoteupdate
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

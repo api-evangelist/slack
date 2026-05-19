@@ -1,0 +1,76 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Slack Reminders API — Lists
+  description: 'Slack Reminders API — Lists. 1 operations. Lead operation: Slack Get Reminders List. Self-contained Naftiko
+    capability covering one Slack business surface.'
+  tags:
+  - Slack
+  - Lists
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SLACK_API_KEY: SLACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: reminders-lists
+    baseUri: ''
+    description: Slack Reminders API — Lists business capability. Self-contained, no shared references.
+    resources:
+    - name: reminders.list
+      path: /reminders.list
+      operations:
+      - name: getreminderslist
+        method: GET
+        description: Slack Get Reminders List
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: query
+          type: string
+          description: 'Authentication token. Requires scope: `reminders:read`'
+  exposes:
+  - type: rest
+    namespace: reminders-lists-rest
+    port: 8080
+    description: REST adapter for Slack Reminders API — Lists. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/reminders-list
+      name: reminders-list
+      description: REST surface for reminders.list.
+      operations:
+      - method: GET
+        name: getreminderslist
+        description: Slack Get Reminders List
+        call: reminders-lists.getreminderslist
+        with:
+          token: rest.token
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: reminders-lists-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Slack Reminders API — Lists. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: slack-get-reminders-list
+      description: Slack Get Reminders List
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: reminders-lists.getreminderslist
+      with:
+        token: tools.token
+      outputParameters:
+      - type: object
+        mapping: $.

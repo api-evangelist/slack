@@ -1,0 +1,77 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Slack Auth API — Tests
+  description: 'Slack Auth API — Tests. 1 operations. Lead operation: Slack Get Auth Test. Self-contained Naftiko capability
+    covering one Slack business surface.'
+  tags:
+  - Slack
+  - Tests
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SLACK_API_KEY: SLACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: auth-tests
+    baseUri: ''
+    description: Slack Auth API — Tests business capability. Self-contained, no shared references.
+    resources:
+    - name: auth.test
+      path: /auth.test
+      operations:
+      - name: getauthtest
+        method: GET
+        description: Slack Get Auth Test
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `none`'
+          required: true
+  exposes:
+  - type: rest
+    namespace: auth-tests-rest
+    port: 8080
+    description: REST adapter for Slack Auth API — Tests. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/auth-test
+      name: auth-test
+      description: REST surface for auth.test.
+      operations:
+      - method: GET
+        name: getauthtest
+        description: Slack Get Auth Test
+        call: auth-tests.getauthtest
+        with:
+          token: rest.token
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: auth-tests-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Slack Auth API — Tests. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: slack-get-auth-test
+      description: Slack Get Auth Test
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: auth-tests.getauthtest
+      with:
+        token: tools.token
+      outputParameters:
+      - type: object
+        mapping: $.

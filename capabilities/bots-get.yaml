@@ -1,0 +1,83 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Slack Bots API — Get
+  description: 'Slack Bots API — Get. 1 operations. Lead operation: Slack Get Bots Info. Self-contained Naftiko capability
+    covering one Slack business surface.'
+  tags:
+  - Slack
+  - Get
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SLACK_API_KEY: SLACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: bots-get
+    baseUri: ''
+    description: Slack Bots API — Get business capability. Self-contained, no shared references.
+    resources:
+    - name: bots.info
+      path: /bots.info
+      operations:
+      - name: getbotsinfo
+        method: GET
+        description: Slack Get Bots Info
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: query
+          type: string
+          description: 'Authentication token. Requires scope: `users:read`'
+          required: true
+        - name: bot
+          in: query
+          type: string
+          description: Bot user to get info on
+  exposes:
+  - type: rest
+    namespace: bots-get-rest
+    port: 8080
+    description: REST adapter for Slack Bots API — Get. One Spectral-compliant resource per consumed operation, prefixed with
+      /v1.
+    resources:
+    - path: /v1/bots-info
+      name: bots-info
+      description: REST surface for bots.info.
+      operations:
+      - method: GET
+        name: getbotsinfo
+        description: Slack Get Bots Info
+        call: bots-get.getbotsinfo
+        with:
+          token: rest.token
+          bot: rest.bot
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: bots-get-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Slack Bots API — Get. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: slack-get-bots-info
+      description: Slack Get Bots Info
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: bots-get.getbotsinfo
+      with:
+        token: tools.token
+        bot: tools.bot
+      outputParameters:
+      - type: object
+        mapping: $.

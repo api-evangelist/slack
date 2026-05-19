@@ -1,0 +1,255 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Slack DND API — Do
+  description: 'Slack DND API — Do. 5 operations. Lead operation: Slack Post End Do Not Disturb. Self-contained Naftiko capability
+    covering one Slack business surface.'
+  tags:
+  - Slack
+  - Do
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SLACK_API_KEY: SLACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: dnd-do
+    baseUri: ''
+    description: Slack DND API — Do business capability. Self-contained, no shared references.
+    resources:
+    - name: dnd.endDnd
+      path: /dnd.endDnd
+      operations:
+      - name: postdndenddnd
+        method: POST
+        description: Slack Post End Do Not Disturb
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `dnd:write`'
+          required: true
+    - name: dnd.endSnooze
+      path: /dnd.endSnooze
+      operations:
+      - name: postdndendsnooze
+        method: POST
+        description: Slack Post End Do Not Disturb Snooze
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `dnd:write`'
+          required: true
+    - name: dnd.info
+      path: /dnd.info
+      operations:
+      - name: getdndinfo
+        method: GET
+        description: Slack Get Do Not Disturb Info
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: query
+          type: string
+          description: 'Authentication token. Requires scope: `dnd:read`'
+        - name: user
+          in: query
+          type: string
+          description: User to fetch status for (defaults to current user)
+    - name: dnd.setSnooze
+      path: /dnd.setSnooze
+      operations:
+      - name: postdndsetsnooze
+        method: POST
+        description: Slack Post Do Not Disturb Snooze
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: dnd.teamInfo
+      path: /dnd.teamInfo
+      operations:
+      - name: getdndteaminfo
+        method: GET
+        description: Slack Get Do Not Disturb Team Information
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: query
+          type: string
+          description: 'Authentication token. Requires scope: `dnd:read`'
+        - name: users
+          in: query
+          type: string
+          description: Comma-separated list of users to fetch Do Not Disturb status for
+  exposes:
+  - type: rest
+    namespace: dnd-do-rest
+    port: 8080
+    description: REST adapter for Slack DND API — Do. One Spectral-compliant resource per consumed operation, prefixed with
+      /v1.
+    resources:
+    - path: /v1/dnd-enddnd
+      name: dnd-enddnd
+      description: REST surface for dnd.endDnd.
+      operations:
+      - method: POST
+        name: postdndenddnd
+        description: Slack Post End Do Not Disturb
+        call: dnd-do.postdndenddnd
+        with:
+          token: rest.token
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/dnd-endsnooze
+      name: dnd-endsnooze
+      description: REST surface for dnd.endSnooze.
+      operations:
+      - method: POST
+        name: postdndendsnooze
+        description: Slack Post End Do Not Disturb Snooze
+        call: dnd-do.postdndendsnooze
+        with:
+          token: rest.token
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/dnd-info
+      name: dnd-info
+      description: REST surface for dnd.info.
+      operations:
+      - method: GET
+        name: getdndinfo
+        description: Slack Get Do Not Disturb Info
+        call: dnd-do.getdndinfo
+        with:
+          token: rest.token
+          user: rest.user
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/dnd-setsnooze
+      name: dnd-setsnooze
+      description: REST surface for dnd.setSnooze.
+      operations:
+      - method: POST
+        name: postdndsetsnooze
+        description: Slack Post Do Not Disturb Snooze
+        call: dnd-do.postdndsetsnooze
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/dnd-teaminfo
+      name: dnd-teaminfo
+      description: REST surface for dnd.teamInfo.
+      operations:
+      - method: GET
+        name: getdndteaminfo
+        description: Slack Get Do Not Disturb Team Information
+        call: dnd-do.getdndteaminfo
+        with:
+          token: rest.token
+          users: rest.users
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: dnd-do-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Slack DND API — Do. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: slack-post-end-do-not
+      description: Slack Post End Do Not Disturb
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: dnd-do.postdndenddnd
+      with:
+        token: tools.token
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-post-end-do-not-2
+      description: Slack Post End Do Not Disturb Snooze
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: dnd-do.postdndendsnooze
+      with:
+        token: tools.token
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-get-do-not-disturb
+      description: Slack Get Do Not Disturb Info
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: dnd-do.getdndinfo
+      with:
+        token: tools.token
+        user: tools.user
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-post-do-not-disturb
+      description: Slack Post Do Not Disturb Snooze
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: dnd-do.postdndsetsnooze
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-get-do-not-disturb-2
+      description: Slack Get Do Not Disturb Team Information
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: dnd-do.getdndteaminfo
+      with:
+        token: tools.token
+        users: tools.users
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,84 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Slack Admin API — Deletes
+  description: 'Slack Admin API — Deletes. 1 operations. Lead operation: Slack Post Admin Conversations Delete. Self-contained
+    Naftiko capability covering one Slack business surface.'
+  tags:
+  - Slack
+  - Deletes
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SLACK_API_KEY: SLACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: admin-deletes
+    baseUri: ''
+    description: Slack Admin API — Deletes business capability. Self-contained, no shared references.
+    resources:
+    - name: admin.conversations.delete
+      path: /admin.conversations.delete
+      operations:
+      - name: postadminconversationsdelete
+        method: POST
+        description: Slack Post Admin Conversations Delete
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `admin.conversations:write`'
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+  exposes:
+  - type: rest
+    namespace: admin-deletes-rest
+    port: 8080
+    description: REST adapter for Slack Admin API — Deletes. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/admin-conversations-delete
+      name: admin-conversations-delete
+      description: REST surface for admin.conversations.delete.
+      operations:
+      - method: POST
+        name: postadminconversationsdelete
+        description: Slack Post Admin Conversations Delete
+        call: admin-deletes.postadminconversationsdelete
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: admin-deletes-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Slack Admin API — Deletes. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: slack-post-admin-conversations-delete
+      description: Slack Post Admin Conversations Delete
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: admin-deletes.postadminconversationsdelete
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

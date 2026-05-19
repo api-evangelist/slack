@@ -1,0 +1,185 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Slack Reactions API — Get
+  description: 'Slack Reactions API — Get. 2 operations. Lead operation: Slack Get Reactions Get. Self-contained Naftiko capability
+    covering one Slack business surface.'
+  tags:
+  - Slack
+  - Get
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SLACK_API_KEY: SLACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: reactions-get
+    baseUri: ''
+    description: Slack Reactions API — Get business capability. Self-contained, no shared references.
+    resources:
+    - name: reactions.get
+      path: /reactions.get
+      operations:
+      - name: getreactionsget
+        method: GET
+        description: Slack Get Reactions Get
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: query
+          type: string
+          description: 'Authentication token. Requires scope: `reactions:read`'
+          required: true
+        - name: channel
+          in: query
+          type: string
+          description: Channel where the message to get reactions for was posted.
+        - name: file
+          in: query
+          type: string
+          description: File to get reactions for.
+        - name: file_comment
+          in: query
+          type: string
+          description: File comment to get reactions for.
+        - name: full
+          in: query
+          type: boolean
+          description: If true always return the complete reaction list.
+        - name: timestamp
+          in: query
+          type: string
+          description: Timestamp of the message to get reactions for.
+    - name: reactions.list
+      path: /reactions.list
+      operations:
+      - name: getreactionslist
+        method: GET
+        description: Slack Get Reactions List
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: query
+          type: string
+          description: 'Authentication token. Requires scope: `reactions:read`'
+          required: true
+        - name: user
+          in: query
+          type: string
+          description: Show reactions made by this user. Defaults to the authed user.
+        - name: full
+          in: query
+          type: boolean
+          description: If true always return the complete reaction list.
+        - name: count
+          in: query
+          type: integer
+        - name: page
+          in: query
+          type: integer
+        - name: cursor
+          in: query
+          type: string
+          description: 'Parameter for pagination. Set `cursor` equal to the `next_cursor` attribute returned by the previous
+            request''s `response_metadata`. This parameter is optional, '
+        - name: limit
+          in: query
+          type: integer
+          description: The maximum number of items to return. Fewer than the requested number of items may be returned, even
+            if the end of the list hasn't been reached.
+  exposes:
+  - type: rest
+    namespace: reactions-get-rest
+    port: 8080
+    description: REST adapter for Slack Reactions API — Get. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/reactions-get
+      name: reactions-get
+      description: REST surface for reactions.get.
+      operations:
+      - method: GET
+        name: getreactionsget
+        description: Slack Get Reactions Get
+        call: reactions-get.getreactionsget
+        with:
+          token: rest.token
+          channel: rest.channel
+          file: rest.file
+          file_comment: rest.file_comment
+          full: rest.full
+          timestamp: rest.timestamp
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/reactions-list
+      name: reactions-list
+      description: REST surface for reactions.list.
+      operations:
+      - method: GET
+        name: getreactionslist
+        description: Slack Get Reactions List
+        call: reactions-get.getreactionslist
+        with:
+          token: rest.token
+          user: rest.user
+          full: rest.full
+          count: rest.count
+          page: rest.page
+          cursor: rest.cursor
+          limit: rest.limit
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: reactions-get-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Slack Reactions API — Get. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: slack-get-reactions-get
+      description: Slack Get Reactions Get
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: reactions-get.getreactionsget
+      with:
+        token: tools.token
+        channel: tools.channel
+        file: tools.file
+        file_comment: tools.file_comment
+        full: tools.full
+        timestamp: tools.timestamp
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-get-reactions-list
+      description: Slack Get Reactions List
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: reactions-get.getreactionslist
+      with:
+        token: tools.token
+        user: tools.user
+        full: tools.full
+        count: tools.count
+        page: tools.page
+        cursor: tools.cursor
+        limit: tools.limit
+      outputParameters:
+      - type: object
+        mapping: $.

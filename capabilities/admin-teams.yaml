@@ -1,0 +1,537 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Slack Admin API — Teams
+  description: 'Slack Admin API — Teams. 10 operations. Lead operation: Slack Get Admin Teams Admins List. Self-contained
+    Naftiko capability covering one Slack business surface.'
+  tags:
+  - Slack
+  - Teams
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SLACK_API_KEY: SLACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: admin-teams
+    baseUri: ''
+    description: Slack Admin API — Teams business capability. Self-contained, no shared references.
+    resources:
+    - name: admin.teams.admins.list
+      path: /admin.teams.admins.list
+      operations:
+      - name: getadminteamsadminslist
+        method: GET
+        description: Slack Get Admin Teams Admins List
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: query
+          type: string
+          description: 'Authentication token. Requires scope: `admin.teams:read`'
+          required: true
+        - name: limit
+          in: query
+          type: integer
+          description: The maximum number of items to return.
+        - name: cursor
+          in: query
+          type: string
+          description: Set `cursor` to `next_cursor` returned by the previous call to list items in the next page.
+        - name: team_id
+          in: query
+          type: string
+          required: true
+    - name: admin.teams.create
+      path: /admin.teams.create
+      operations:
+      - name: postadminteamscreate
+        method: POST
+        description: Slack Post Admin Teams Create
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `admin.teams:write`'
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: admin.teams.list
+      path: /admin.teams.list
+      operations:
+      - name: getadminteamslist
+        method: GET
+        description: Slack Get Admin Teams List
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `admin.teams:read`'
+          required: true
+        - name: limit
+          in: query
+          type: integer
+          description: The maximum number of items to return. Must be between 1 - 100 both inclusive.
+        - name: cursor
+          in: query
+          type: string
+          description: Set `cursor` to `next_cursor` returned by the previous call to list items in the next page.
+    - name: admin.teams.owners.list
+      path: /admin.teams.owners.list
+      operations:
+      - name: getadminteamsownerslist
+        method: GET
+        description: Slack Get Admin Teams Owners List
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: query
+          type: string
+          description: 'Authentication token. Requires scope: `admin.teams:read`'
+          required: true
+        - name: team_id
+          in: query
+          type: string
+          required: true
+        - name: limit
+          in: query
+          type: integer
+          description: The maximum number of items to return. Must be between 1 - 1000 both inclusive.
+        - name: cursor
+          in: query
+          type: string
+          description: Set `cursor` to `next_cursor` returned by the previous call to list items in the next page.
+    - name: admin.teams.settings.info
+      path: /admin.teams.settings.info
+      operations:
+      - name: getadminteamssettingsinfo
+        method: GET
+        description: Slack Get Admin Teams Settings Info
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `admin.teams:read`'
+          required: true
+        - name: team_id
+          in: query
+          type: string
+          required: true
+    - name: admin.teams.settings.setDefaultChannels
+      path: /admin.teams.settings.setDefaultChannels
+      operations:
+      - name: postadminteamssettingssetdefaultchannels
+        method: POST
+        description: Slack Post Admin Teams Settings Setdefaultchannels
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: admin.teams.settings.setDescription
+      path: /admin.teams.settings.setDescription
+      operations:
+      - name: postadminteamssettingssetdescription
+        method: POST
+        description: Slack Post Admin Teams Settings Setdescription
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `admin.teams:write`'
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: admin.teams.settings.setDiscoverability
+      path: /admin.teams.settings.setDiscoverability
+      operations:
+      - name: postadminteamssettingssetdiscoverability
+        method: POST
+        description: Slack Post Admin Teams Settings Setdiscoverability
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `admin.teams:write`'
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: admin.teams.settings.setIcon
+      path: /admin.teams.settings.setIcon
+      operations:
+      - name: postadminteamssettingsseticon
+        method: POST
+        description: Slack Post Admin Teams Settings Seticon
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: admin.teams.settings.setName
+      path: /admin.teams.settings.setName
+      operations:
+      - name: postadminteamssettingssetname
+        method: POST
+        description: Slack Post Admin Teams Settings Setname
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `admin.teams:write`'
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+  exposes:
+  - type: rest
+    namespace: admin-teams-rest
+    port: 8080
+    description: REST adapter for Slack Admin API — Teams. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/admin-teams-admins-list
+      name: admin-teams-admins-list
+      description: REST surface for admin.teams.admins.list.
+      operations:
+      - method: GET
+        name: getadminteamsadminslist
+        description: Slack Get Admin Teams Admins List
+        call: admin-teams.getadminteamsadminslist
+        with:
+          token: rest.token
+          limit: rest.limit
+          cursor: rest.cursor
+          team_id: rest.team_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin-teams-create
+      name: admin-teams-create
+      description: REST surface for admin.teams.create.
+      operations:
+      - method: POST
+        name: postadminteamscreate
+        description: Slack Post Admin Teams Create
+        call: admin-teams.postadminteamscreate
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin-teams-list
+      name: admin-teams-list
+      description: REST surface for admin.teams.list.
+      operations:
+      - method: GET
+        name: getadminteamslist
+        description: Slack Get Admin Teams List
+        call: admin-teams.getadminteamslist
+        with:
+          token: rest.token
+          limit: rest.limit
+          cursor: rest.cursor
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin-teams-owners-list
+      name: admin-teams-owners-list
+      description: REST surface for admin.teams.owners.list.
+      operations:
+      - method: GET
+        name: getadminteamsownerslist
+        description: Slack Get Admin Teams Owners List
+        call: admin-teams.getadminteamsownerslist
+        with:
+          token: rest.token
+          team_id: rest.team_id
+          limit: rest.limit
+          cursor: rest.cursor
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin-teams-settings-info
+      name: admin-teams-settings-info
+      description: REST surface for admin.teams.settings.info.
+      operations:
+      - method: GET
+        name: getadminteamssettingsinfo
+        description: Slack Get Admin Teams Settings Info
+        call: admin-teams.getadminteamssettingsinfo
+        with:
+          token: rest.token
+          team_id: rest.team_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin-teams-settings-setdefaultchannels
+      name: admin-teams-settings-setdefaultchannels
+      description: REST surface for admin.teams.settings.setDefaultChannels.
+      operations:
+      - method: POST
+        name: postadminteamssettingssetdefaultchannels
+        description: Slack Post Admin Teams Settings Setdefaultchannels
+        call: admin-teams.postadminteamssettingssetdefaultchannels
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin-teams-settings-setdescription
+      name: admin-teams-settings-setdescription
+      description: REST surface for admin.teams.settings.setDescription.
+      operations:
+      - method: POST
+        name: postadminteamssettingssetdescription
+        description: Slack Post Admin Teams Settings Setdescription
+        call: admin-teams.postadminteamssettingssetdescription
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin-teams-settings-setdiscoverability
+      name: admin-teams-settings-setdiscoverability
+      description: REST surface for admin.teams.settings.setDiscoverability.
+      operations:
+      - method: POST
+        name: postadminteamssettingssetdiscoverability
+        description: Slack Post Admin Teams Settings Setdiscoverability
+        call: admin-teams.postadminteamssettingssetdiscoverability
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin-teams-settings-seticon
+      name: admin-teams-settings-seticon
+      description: REST surface for admin.teams.settings.setIcon.
+      operations:
+      - method: POST
+        name: postadminteamssettingsseticon
+        description: Slack Post Admin Teams Settings Seticon
+        call: admin-teams.postadminteamssettingsseticon
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin-teams-settings-setname
+      name: admin-teams-settings-setname
+      description: REST surface for admin.teams.settings.setName.
+      operations:
+      - method: POST
+        name: postadminteamssettingssetname
+        description: Slack Post Admin Teams Settings Setname
+        call: admin-teams.postadminteamssettingssetname
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: admin-teams-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Slack Admin API — Teams. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: slack-get-admin-teams-admins
+      description: Slack Get Admin Teams Admins List
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: admin-teams.getadminteamsadminslist
+      with:
+        token: tools.token
+        limit: tools.limit
+        cursor: tools.cursor
+        team_id: tools.team_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-post-admin-teams-create
+      description: Slack Post Admin Teams Create
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: admin-teams.postadminteamscreate
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-get-admin-teams-list
+      description: Slack Get Admin Teams List
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: admin-teams.getadminteamslist
+      with:
+        token: tools.token
+        limit: tools.limit
+        cursor: tools.cursor
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-get-admin-teams-owners
+      description: Slack Get Admin Teams Owners List
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: admin-teams.getadminteamsownerslist
+      with:
+        token: tools.token
+        team_id: tools.team_id
+        limit: tools.limit
+        cursor: tools.cursor
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-get-admin-teams-settings
+      description: Slack Get Admin Teams Settings Info
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: admin-teams.getadminteamssettingsinfo
+      with:
+        token: tools.token
+        team_id: tools.team_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-post-admin-teams-settings
+      description: Slack Post Admin Teams Settings Setdefaultchannels
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: admin-teams.postadminteamssettingssetdefaultchannels
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-post-admin-teams-settings-2
+      description: Slack Post Admin Teams Settings Setdescription
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: admin-teams.postadminteamssettingssetdescription
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-post-admin-teams-settings-3
+      description: Slack Post Admin Teams Settings Setdiscoverability
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: admin-teams.postadminteamssettingssetdiscoverability
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-post-admin-teams-settings-4
+      description: Slack Post Admin Teams Settings Seticon
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: admin-teams.postadminteamssettingsseticon
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-post-admin-teams-settings-5
+      description: Slack Post Admin Teams Settings Setname
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: admin-teams.postadminteamssettingssetname
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

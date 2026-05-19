@@ -1,0 +1,133 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Slack Calls API — Add
+  description: 'Slack Calls API — Add. 2 operations. Lead operation: Slack Post Calls Add. Self-contained Naftiko capability
+    covering one Slack business surface.'
+  tags:
+  - Slack
+  - Add
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SLACK_API_KEY: SLACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: calls-add
+    baseUri: ''
+    description: Slack Calls API — Add business capability. Self-contained, no shared references.
+    resources:
+    - name: calls.add
+      path: /calls.add
+      operations:
+      - name: callsadd
+        method: POST
+        description: Slack Post Calls Add
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `calls:write`'
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: calls.participants.add
+      path: /calls.participants.add
+      operations:
+      - name: callsparticipantsadd
+        method: POST
+        description: Slack Post Calls Participants Add
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `calls:write`'
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+  exposes:
+  - type: rest
+    namespace: calls-add-rest
+    port: 8080
+    description: REST adapter for Slack Calls API — Add. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/calls-add
+      name: calls-add
+      description: REST surface for calls.add.
+      operations:
+      - method: POST
+        name: callsadd
+        description: Slack Post Calls Add
+        call: calls-add.callsadd
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/calls-participants-add
+      name: calls-participants-add
+      description: REST surface for calls.participants.add.
+      operations:
+      - method: POST
+        name: callsparticipantsadd
+        description: Slack Post Calls Participants Add
+        call: calls-add.callsparticipantsadd
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: calls-add-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Slack Calls API — Add. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: slack-post-calls-add
+      description: Slack Post Calls Add
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: calls-add.callsadd
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-post-calls-participants-add
+      description: Slack Post Calls Participants Add
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: calls-add.callsparticipantsadd
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

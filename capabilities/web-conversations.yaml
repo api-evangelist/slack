@@ -1,0 +1,742 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Slack Web API — Conversations
+  description: 'Slack Web API — Conversations. 14 operations. Lead operation: Slack Archive a Channel. Self-contained Naftiko
+    capability covering one Slack business surface.'
+  tags:
+  - Slack
+  - Conversations
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SLACK_API_KEY: SLACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: web-conversations
+    baseUri: https://slack.com/api
+    description: Slack Web API — Conversations business capability. Self-contained, no shared references.
+    resources:
+    - name: conversations.archive
+      path: /conversations.archive
+      operations:
+      - name: conversationsarchive
+        method: POST
+        description: Slack Archive a Channel
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: conversations.create
+      path: /conversations.create
+      operations:
+      - name: conversationscreate
+        method: POST
+        description: Slack Create a Channel
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: conversations.history
+      path: /conversations.history
+      operations:
+      - name: conversationshistory
+        method: GET
+        description: Slack Fetch Message History
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: channel
+          in: query
+          type: string
+          description: Conversation ID to fetch history for.
+          required: true
+        - name: cursor
+          in: query
+          type: string
+          description: Paginate through collections by setting the cursor parameter to a next_cursor attribute returned by
+            a previous request.
+        - name: inclusive
+          in: query
+          type: boolean
+          description: Include messages with oldest or latest timestamps in results.
+        - name: latest
+          in: query
+          type: string
+          description: Only messages before this Unix timestamp will be included. Default is the current time.
+        - name: limit
+          in: query
+          type: integer
+          description: The maximum number of items to return. Default 100, max 999.
+        - name: oldest
+          in: query
+          type: string
+          description: Only messages after this Unix timestamp will be included. Default is 0.
+        - name: include_all_metadata
+          in: query
+          type: boolean
+          description: Return all metadata associated with messages.
+    - name: conversations.info
+      path: /conversations.info
+      operations:
+      - name: conversationsinfo
+        method: GET
+        description: Slack Get Information About a Channel
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: channel
+          in: query
+          type: string
+          description: The conversation ID to get info on.
+          required: true
+        - name: include_locale
+          in: query
+          type: boolean
+          description: Set to true to receive the locale for this conversation.
+        - name: include_num_members
+          in: query
+          type: boolean
+          description: Set to true to include the member count.
+    - name: conversations.invite
+      path: /conversations.invite
+      operations:
+      - name: conversationsinvite
+        method: POST
+        description: Slack Invite Users to a Channel
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: conversations.join
+      path: /conversations.join
+      operations:
+      - name: conversationsjoin
+        method: POST
+        description: Slack Join an Existing Conversation
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: conversations.leave
+      path: /conversations.leave
+      operations:
+      - name: conversationsleave
+        method: POST
+        description: Slack Leave a Conversation
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: conversations.list
+      path: /conversations.list
+      operations:
+      - name: conversationslist
+        method: GET
+        description: Slack List All Channels
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: cursor
+          in: query
+          type: string
+          description: Paginate through collections by setting the cursor parameter to a next_cursor attribute returned by
+            a previous request.
+        - name: exclude_archived
+          in: query
+          type: boolean
+          description: Set to true to exclude archived channels from the list.
+        - name: limit
+          in: query
+          type: integer
+          description: The maximum number of items to return. Fewer than the requested number of items may be returned, even
+            if the end of the list hasn't been reached. Maximum of 100
+        - name: team_id
+          in: query
+          type: string
+          description: Required for org-wide app tokens. A single team ID to list channels in.
+        - name: types
+          in: query
+          type: string
+          description: 'Mix and match channel types by providing a comma-separated list. Options: public_channel, private_channel,
+            mpim, im.'
+    - name: conversations.members
+      path: /conversations.members
+      operations:
+      - name: conversationsmembers
+        method: GET
+        description: Slack List Members of a Conversation
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: channel
+          in: query
+          type: string
+          description: ID of the conversation to retrieve members for.
+          required: true
+        - name: cursor
+          in: query
+          type: string
+        - name: limit
+          in: query
+          type: integer
+    - name: conversations.rename
+      path: /conversations.rename
+      operations:
+      - name: conversationsrename
+        method: POST
+        description: Slack Rename a Conversation
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: conversations.replies
+      path: /conversations.replies
+      operations:
+      - name: conversationsreplies
+        method: GET
+        description: Slack Retrieve a Thread of Messages
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: channel
+          in: query
+          type: string
+          required: true
+        - name: ts
+          in: query
+          type: string
+          description: Unique identifier of the parent message. This is the ts value of the parent message.
+          required: true
+        - name: cursor
+          in: query
+          type: string
+        - name: inclusive
+          in: query
+          type: boolean
+        - name: latest
+          in: query
+          type: string
+        - name: limit
+          in: query
+          type: integer
+        - name: oldest
+          in: query
+          type: string
+    - name: conversations.setPurpose
+      path: /conversations.setPurpose
+      operations:
+      - name: conversationssetpurpose
+        method: POST
+        description: Slack Set the Purpose of a Conversation
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: conversations.setTopic
+      path: /conversations.setTopic
+      operations:
+      - name: conversationssettopic
+        method: POST
+        description: Slack Set the Topic of a Conversation
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: conversations.unarchive
+      path: /conversations.unarchive
+      operations:
+      - name: conversationsunarchive
+        method: POST
+        description: Slack Unarchive a Channel
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.SLACK_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: web-conversations-rest
+    port: 8080
+    description: REST adapter for Slack Web API — Conversations. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/conversations-archive
+      name: conversations-archive
+      description: REST surface for conversations.archive.
+      operations:
+      - method: POST
+        name: conversationsarchive
+        description: Slack Archive a Channel
+        call: web-conversations.conversationsarchive
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/conversations-create
+      name: conversations-create
+      description: REST surface for conversations.create.
+      operations:
+      - method: POST
+        name: conversationscreate
+        description: Slack Create a Channel
+        call: web-conversations.conversationscreate
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/conversations-history
+      name: conversations-history
+      description: REST surface for conversations.history.
+      operations:
+      - method: GET
+        name: conversationshistory
+        description: Slack Fetch Message History
+        call: web-conversations.conversationshistory
+        with:
+          channel: rest.channel
+          cursor: rest.cursor
+          inclusive: rest.inclusive
+          latest: rest.latest
+          limit: rest.limit
+          oldest: rest.oldest
+          include_all_metadata: rest.include_all_metadata
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/conversations-info
+      name: conversations-info
+      description: REST surface for conversations.info.
+      operations:
+      - method: GET
+        name: conversationsinfo
+        description: Slack Get Information About a Channel
+        call: web-conversations.conversationsinfo
+        with:
+          channel: rest.channel
+          include_locale: rest.include_locale
+          include_num_members: rest.include_num_members
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/conversations-invite
+      name: conversations-invite
+      description: REST surface for conversations.invite.
+      operations:
+      - method: POST
+        name: conversationsinvite
+        description: Slack Invite Users to a Channel
+        call: web-conversations.conversationsinvite
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/conversations-join
+      name: conversations-join
+      description: REST surface for conversations.join.
+      operations:
+      - method: POST
+        name: conversationsjoin
+        description: Slack Join an Existing Conversation
+        call: web-conversations.conversationsjoin
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/conversations-leave
+      name: conversations-leave
+      description: REST surface for conversations.leave.
+      operations:
+      - method: POST
+        name: conversationsleave
+        description: Slack Leave a Conversation
+        call: web-conversations.conversationsleave
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/conversations-list
+      name: conversations-list
+      description: REST surface for conversations.list.
+      operations:
+      - method: GET
+        name: conversationslist
+        description: Slack List All Channels
+        call: web-conversations.conversationslist
+        with:
+          cursor: rest.cursor
+          exclude_archived: rest.exclude_archived
+          limit: rest.limit
+          team_id: rest.team_id
+          types: rest.types
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/conversations-members
+      name: conversations-members
+      description: REST surface for conversations.members.
+      operations:
+      - method: GET
+        name: conversationsmembers
+        description: Slack List Members of a Conversation
+        call: web-conversations.conversationsmembers
+        with:
+          channel: rest.channel
+          cursor: rest.cursor
+          limit: rest.limit
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/conversations-rename
+      name: conversations-rename
+      description: REST surface for conversations.rename.
+      operations:
+      - method: POST
+        name: conversationsrename
+        description: Slack Rename a Conversation
+        call: web-conversations.conversationsrename
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/conversations-replies
+      name: conversations-replies
+      description: REST surface for conversations.replies.
+      operations:
+      - method: GET
+        name: conversationsreplies
+        description: Slack Retrieve a Thread of Messages
+        call: web-conversations.conversationsreplies
+        with:
+          channel: rest.channel
+          ts: rest.ts
+          cursor: rest.cursor
+          inclusive: rest.inclusive
+          latest: rest.latest
+          limit: rest.limit
+          oldest: rest.oldest
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/conversations-setpurpose
+      name: conversations-setpurpose
+      description: REST surface for conversations.setPurpose.
+      operations:
+      - method: POST
+        name: conversationssetpurpose
+        description: Slack Set the Purpose of a Conversation
+        call: web-conversations.conversationssetpurpose
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/conversations-settopic
+      name: conversations-settopic
+      description: REST surface for conversations.setTopic.
+      operations:
+      - method: POST
+        name: conversationssettopic
+        description: Slack Set the Topic of a Conversation
+        call: web-conversations.conversationssettopic
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/conversations-unarchive
+      name: conversations-unarchive
+      description: REST surface for conversations.unarchive.
+      operations:
+      - method: POST
+        name: conversationsunarchive
+        description: Slack Unarchive a Channel
+        call: web-conversations.conversationsunarchive
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: web-conversations-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Slack Web API — Conversations. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: slack-archive-channel
+      description: Slack Archive a Channel
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: web-conversations.conversationsarchive
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-create-channel
+      description: Slack Create a Channel
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: web-conversations.conversationscreate
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-fetch-message-history
+      description: Slack Fetch Message History
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: web-conversations.conversationshistory
+      with:
+        channel: tools.channel
+        cursor: tools.cursor
+        inclusive: tools.inclusive
+        latest: tools.latest
+        limit: tools.limit
+        oldest: tools.oldest
+        include_all_metadata: tools.include_all_metadata
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-get-information-about-channel
+      description: Slack Get Information About a Channel
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: web-conversations.conversationsinfo
+      with:
+        channel: tools.channel
+        include_locale: tools.include_locale
+        include_num_members: tools.include_num_members
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-invite-users-channel
+      description: Slack Invite Users to a Channel
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: web-conversations.conversationsinvite
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-join-existing-conversation
+      description: Slack Join an Existing Conversation
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: web-conversations.conversationsjoin
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-leave-conversation
+      description: Slack Leave a Conversation
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: web-conversations.conversationsleave
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-list-all-channels
+      description: Slack List All Channels
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: web-conversations.conversationslist
+      with:
+        cursor: tools.cursor
+        exclude_archived: tools.exclude_archived
+        limit: tools.limit
+        team_id: tools.team_id
+        types: tools.types
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-list-members-conversation
+      description: Slack List Members of a Conversation
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: web-conversations.conversationsmembers
+      with:
+        channel: tools.channel
+        cursor: tools.cursor
+        limit: tools.limit
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-rename-conversation
+      description: Slack Rename a Conversation
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: web-conversations.conversationsrename
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-retrieve-thread-messages
+      description: Slack Retrieve a Thread of Messages
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: web-conversations.conversationsreplies
+      with:
+        channel: tools.channel
+        ts: tools.ts
+        cursor: tools.cursor
+        inclusive: tools.inclusive
+        latest: tools.latest
+        limit: tools.limit
+        oldest: tools.oldest
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-set-purpose-conversation
+      description: Slack Set the Purpose of a Conversation
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: web-conversations.conversationssetpurpose
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-set-topic-conversation
+      description: Slack Set the Topic of a Conversation
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: web-conversations.conversationssettopic
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-unarchive-channel
+      description: Slack Unarchive a Channel
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: web-conversations.conversationsunarchive
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,131 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Slack Files API — Deletes
+  description: 'Slack Files API — Deletes. 2 operations. Lead operation: Slack Post Files Comments Delete. Self-contained
+    Naftiko capability covering one Slack business surface.'
+  tags:
+  - Slack
+  - Deletes
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SLACK_API_KEY: SLACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: files-deletes
+    baseUri: ''
+    description: Slack Files API — Deletes business capability. Self-contained, no shared references.
+    resources:
+    - name: files.comments.delete
+      path: /files.comments.delete
+      operations:
+      - name: postfilescommentsdelete
+        method: POST
+        description: Slack Post Files Comments Delete
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `files:write:user`'
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: files.delete
+      path: /files.delete
+      operations:
+      - name: postfilesdelete
+        method: POST
+        description: Slack Post Files Delete
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `files:write:user`'
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+  exposes:
+  - type: rest
+    namespace: files-deletes-rest
+    port: 8080
+    description: REST adapter for Slack Files API — Deletes. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/files-comments-delete
+      name: files-comments-delete
+      description: REST surface for files.comments.delete.
+      operations:
+      - method: POST
+        name: postfilescommentsdelete
+        description: Slack Post Files Comments Delete
+        call: files-deletes.postfilescommentsdelete
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/files-delete
+      name: files-delete
+      description: REST surface for files.delete.
+      operations:
+      - method: POST
+        name: postfilesdelete
+        description: Slack Post Files Delete
+        call: files-deletes.postfilesdelete
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: files-deletes-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Slack Files API — Deletes. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: slack-post-files-comments-delete
+      description: Slack Post Files Comments Delete
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: files-deletes.postfilescommentsdelete
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-post-files-delete
+      description: Slack Post Files Delete
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: files-deletes.postfilesdelete
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

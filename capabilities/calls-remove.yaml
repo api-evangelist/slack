@@ -1,0 +1,84 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Slack Calls API — Remove
+  description: 'Slack Calls API — Remove. 1 operations. Lead operation: Slack Post Calls Participants Remove. Self-contained
+    Naftiko capability covering one Slack business surface.'
+  tags:
+  - Slack
+  - Remove
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SLACK_API_KEY: SLACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: calls-remove
+    baseUri: ''
+    description: Slack Calls API — Remove business capability. Self-contained, no shared references.
+    resources:
+    - name: calls.participants.remove
+      path: /calls.participants.remove
+      operations:
+      - name: callsparticipantsremove
+        method: POST
+        description: Slack Post Calls Participants Remove
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `calls:write`'
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+  exposes:
+  - type: rest
+    namespace: calls-remove-rest
+    port: 8080
+    description: REST adapter for Slack Calls API — Remove. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/calls-participants-remove
+      name: calls-participants-remove
+      description: REST surface for calls.participants.remove.
+      operations:
+      - method: POST
+        name: callsparticipantsremove
+        description: Slack Post Calls Participants Remove
+        call: calls-remove.callsparticipantsremove
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: calls-remove-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Slack Calls API — Remove. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: slack-post-calls-participants-remove
+      description: Slack Post Calls Participants Remove
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: calls-remove.callsparticipantsremove
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

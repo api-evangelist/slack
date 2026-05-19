@@ -1,0 +1,84 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Slack Chat API — Update
+  description: 'Slack Chat API — Update. 1 operations. Lead operation: Slack Post Chat Update. Self-contained Naftiko capability
+    covering one Slack business surface.'
+  tags:
+  - Slack
+  - Update
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SLACK_API_KEY: SLACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: chat-update
+    baseUri: ''
+    description: Slack Chat API — Update business capability. Self-contained, no shared references.
+    resources:
+    - name: chat.update
+      path: /chat.update
+      operations:
+      - name: postchatupdate
+        method: POST
+        description: Slack Post Chat Update
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `chat:write`'
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+  exposes:
+  - type: rest
+    namespace: chat-update-rest
+    port: 8080
+    description: REST adapter for Slack Chat API — Update. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/chat-update
+      name: chat-update
+      description: REST surface for chat.update.
+      operations:
+      - method: POST
+        name: postchatupdate
+        description: Slack Post Chat Update
+        call: chat-update.postchatupdate
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: chat-update-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Slack Chat API — Update. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: slack-post-chat-update
+      description: Slack Post Chat Update
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: chat-update.postchatupdate
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

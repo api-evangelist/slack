@@ -1,0 +1,77 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Slack Apps API — Scopes
+  description: 'Slack Apps API — Scopes. 1 operations. Lead operation: Slack Get Apps Permissions Scopes List. Self-contained
+    Naftiko capability covering one Slack business surface.'
+  tags:
+  - Slack
+  - Scopes
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SLACK_API_KEY: SLACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: apps-scopes
+    baseUri: ''
+    description: Slack Apps API — Scopes business capability. Self-contained, no shared references.
+    resources:
+    - name: apps.permissions.scopes.list
+      path: /apps.permissions.scopes.list
+      operations:
+      - name: getappspermissionsscopeslist
+        method: GET
+        description: Slack Get Apps Permissions Scopes List
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: query
+          type: string
+          description: 'Authentication token. Requires scope: `none`'
+          required: true
+  exposes:
+  - type: rest
+    namespace: apps-scopes-rest
+    port: 8080
+    description: REST adapter for Slack Apps API — Scopes. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/apps-permissions-scopes-list
+      name: apps-permissions-scopes-list
+      description: REST surface for apps.permissions.scopes.list.
+      operations:
+      - method: GET
+        name: getappspermissionsscopeslist
+        description: Slack Get Apps Permissions Scopes List
+        call: apps-scopes.getappspermissionsscopeslist
+        with:
+          token: rest.token
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: apps-scopes-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Slack Apps API — Scopes. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: slack-get-apps-permissions-scopes
+      description: Slack Get Apps Permissions Scopes List
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: apps-scopes.getappspermissionsscopeslist
+      with:
+        token: tools.token
+      outputParameters:
+      - type: object
+        mapping: $.

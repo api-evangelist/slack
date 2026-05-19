@@ -1,0 +1,87 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Slack Canvases API — Edit
+  description: 'Slack Canvases API — Edit. 1 operations. Lead operation: Edit Canvas. Self-contained Naftiko capability covering
+    one Slack business surface.'
+  tags:
+  - Slack
+  - Edit
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SLACK_API_KEY: SLACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: canvases-edit
+    baseUri: https://slack.com/api
+    description: Slack Canvases API — Edit business capability. Self-contained, no shared references.
+    resources:
+    - name: canvases.edit
+      path: /canvases.edit
+      operations:
+      - name: postcanvasesedit
+        method: POST
+        description: Edit Canvas
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `canvases:write`'
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.SLACK_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: canvases-edit-rest
+    port: 8080
+    description: REST adapter for Slack Canvases API — Edit. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/canvases-edit
+      name: canvases-edit
+      description: REST surface for canvases.edit.
+      operations:
+      - method: POST
+        name: postcanvasesedit
+        description: Edit Canvas
+        call: canvases-edit.postcanvasesedit
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: canvases-edit-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Slack Canvases API — Edit. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: edit-canvas
+      description: Edit Canvas
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: canvases-edit.postcanvasesedit
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

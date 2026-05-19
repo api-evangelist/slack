@@ -1,0 +1,91 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Slack Dialog API — Open
+  description: 'Slack Dialog API — Open. 1 operations. Lead operation: Slack Get Dialog Open. Self-contained Naftiko capability
+    covering one Slack business surface.'
+  tags:
+  - Slack
+  - Open
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SLACK_API_KEY: SLACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: dialog-open
+    baseUri: ''
+    description: Slack Dialog API — Open business capability. Self-contained, no shared references.
+    resources:
+    - name: dialog.open
+      path: /dialog.open
+      operations:
+      - name: getdialogopen
+        method: GET
+        description: Slack Get Dialog Open
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `none`'
+          required: true
+        - name: dialog
+          in: query
+          type: string
+          description: The dialog definition. This must be a JSON-encoded string.
+          required: true
+        - name: trigger_id
+          in: query
+          type: string
+          description: Exchange a trigger to post to the user.
+          required: true
+  exposes:
+  - type: rest
+    namespace: dialog-open-rest
+    port: 8080
+    description: REST adapter for Slack Dialog API — Open. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/dialog-open
+      name: dialog-open
+      description: REST surface for dialog.open.
+      operations:
+      - method: GET
+        name: getdialogopen
+        description: Slack Get Dialog Open
+        call: dialog-open.getdialogopen
+        with:
+          token: rest.token
+          dialog: rest.dialog
+          trigger_id: rest.trigger_id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: dialog-open-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Slack Dialog API — Open. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: slack-get-dialog-open
+      description: Slack Get Dialog Open
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: dialog-open.getdialogopen
+      with:
+        token: tools.token
+        dialog: tools.dialog
+        trigger_id: tools.trigger_id
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,388 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Slack Conversations API — Get
+  description: 'Slack Conversations API — Get. 5 operations. Lead operation: Slack Get Conversations History. Self-contained
+    Naftiko capability covering one Slack business surface.'
+  tags:
+  - Slack
+  - Get
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SLACK_API_KEY: SLACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: conversations-get
+    baseUri: ''
+    description: Slack Conversations API — Get business capability. Self-contained, no shared references.
+    resources:
+    - name: conversations.history
+      path: /conversations.history
+      operations:
+      - name: getconversationshistory
+        method: GET
+        description: Slack Get Conversations History
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: query
+          type: string
+          description: 'Authentication token. Requires scope: `conversations:history`'
+        - name: channel
+          in: query
+          type: string
+          description: Conversation ID to fetch history for.
+        - name: latest
+          in: query
+          type: number
+          description: End of time range of messages to include in results.
+        - name: oldest
+          in: query
+          type: number
+          description: Start of time range of messages to include in results.
+        - name: inclusive
+          in: query
+          type: boolean
+          description: Include messages with latest or oldest timestamp in results only when either timestamp is specified.
+        - name: limit
+          in: query
+          type: integer
+          description: The maximum number of items to return. Fewer than the requested number of items may be returned, even
+            if the end of the users list hasn't been reached.
+        - name: cursor
+          in: query
+          type: string
+          description: Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute
+            returned by a previous request's `response_metadata`. Defaul
+    - name: conversations.info
+      path: /conversations.info
+      operations:
+      - name: getconversationsinfo
+        method: GET
+        description: Slack Get Conversations Info
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: query
+          type: string
+          description: 'Authentication token. Requires scope: `conversations:read`'
+        - name: channel
+          in: query
+          type: string
+          description: Conversation ID to learn more about
+        - name: include_locale
+          in: query
+          type: boolean
+          description: Set this to `true` to receive the locale for this conversation. Defaults to `false`
+        - name: include_num_members
+          in: query
+          type: boolean
+          description: Set to `true` to include the member count for the specified conversation. Defaults to `false`
+    - name: conversations.list
+      path: /conversations.list
+      operations:
+      - name: getconversationslist
+        method: GET
+        description: Slack Get Conversations List
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: query
+          type: string
+          description: 'Authentication token. Requires scope: `conversations:read`'
+        - name: exclude_archived
+          in: query
+          type: boolean
+          description: Set to `true` to exclude archived channels from the list
+        - name: types
+          in: query
+          type: string
+          description: Mix and match channel types by providing a comma-separated list of any combination of `public_channel`,
+            `private_channel`, `mpim`, `im`
+        - name: limit
+          in: query
+          type: integer
+          description: The maximum number of items to return. Fewer than the requested number of items may be returned, even
+            if the end of the list hasn't been reached. Must be an int
+        - name: cursor
+          in: query
+          type: string
+          description: Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute
+            returned by a previous request's `response_metadata`. Defaul
+    - name: conversations.members
+      path: /conversations.members
+      operations:
+      - name: getconversationsmembers
+        method: GET
+        description: Slack Get Conversations Members
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: query
+          type: string
+          description: 'Authentication token. Requires scope: `conversations:read`'
+        - name: channel
+          in: query
+          type: string
+          description: ID of the conversation to retrieve members for
+        - name: limit
+          in: query
+          type: integer
+          description: The maximum number of items to return. Fewer than the requested number of items may be returned, even
+            if the end of the users list hasn't been reached.
+        - name: cursor
+          in: query
+          type: string
+          description: Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute
+            returned by a previous request's `response_metadata`. Defaul
+    - name: conversations.replies
+      path: /conversations.replies
+      operations:
+      - name: getconversationsreplies
+        method: GET
+        description: Slack Get Conversations Replies
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: query
+          type: string
+          description: 'Authentication token. Requires scope: `conversations:history`'
+        - name: channel
+          in: query
+          type: string
+          description: Conversation ID to fetch thread from.
+        - name: ts
+          in: query
+          type: number
+          description: 'Unique identifier of a thread''s parent message. `ts` must be the timestamp of an existing message
+            with 0 or more replies. If there are no replies then just the '
+        - name: latest
+          in: query
+          type: number
+          description: End of time range of messages to include in results.
+        - name: oldest
+          in: query
+          type: number
+          description: Start of time range of messages to include in results.
+        - name: inclusive
+          in: query
+          type: boolean
+          description: Include messages with latest or oldest timestamp in results only when either timestamp is specified.
+        - name: limit
+          in: query
+          type: integer
+          description: The maximum number of items to return. Fewer than the requested number of items may be returned, even
+            if the end of the users list hasn't been reached.
+        - name: cursor
+          in: query
+          type: string
+          description: Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute
+            returned by a previous request's `response_metadata`. Defaul
+  exposes:
+  - type: rest
+    namespace: conversations-get-rest
+    port: 8080
+    description: REST adapter for Slack Conversations API — Get. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/conversations-history
+      name: conversations-history
+      description: REST surface for conversations.history.
+      operations:
+      - method: GET
+        name: getconversationshistory
+        description: Slack Get Conversations History
+        call: conversations-get.getconversationshistory
+        with:
+          token: rest.token
+          channel: rest.channel
+          latest: rest.latest
+          oldest: rest.oldest
+          inclusive: rest.inclusive
+          limit: rest.limit
+          cursor: rest.cursor
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/conversations-info
+      name: conversations-info
+      description: REST surface for conversations.info.
+      operations:
+      - method: GET
+        name: getconversationsinfo
+        description: Slack Get Conversations Info
+        call: conversations-get.getconversationsinfo
+        with:
+          token: rest.token
+          channel: rest.channel
+          include_locale: rest.include_locale
+          include_num_members: rest.include_num_members
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/conversations-list
+      name: conversations-list
+      description: REST surface for conversations.list.
+      operations:
+      - method: GET
+        name: getconversationslist
+        description: Slack Get Conversations List
+        call: conversations-get.getconversationslist
+        with:
+          token: rest.token
+          exclude_archived: rest.exclude_archived
+          types: rest.types
+          limit: rest.limit
+          cursor: rest.cursor
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/conversations-members
+      name: conversations-members
+      description: REST surface for conversations.members.
+      operations:
+      - method: GET
+        name: getconversationsmembers
+        description: Slack Get Conversations Members
+        call: conversations-get.getconversationsmembers
+        with:
+          token: rest.token
+          channel: rest.channel
+          limit: rest.limit
+          cursor: rest.cursor
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/conversations-replies
+      name: conversations-replies
+      description: REST surface for conversations.replies.
+      operations:
+      - method: GET
+        name: getconversationsreplies
+        description: Slack Get Conversations Replies
+        call: conversations-get.getconversationsreplies
+        with:
+          token: rest.token
+          channel: rest.channel
+          ts: rest.ts
+          latest: rest.latest
+          oldest: rest.oldest
+          inclusive: rest.inclusive
+          limit: rest.limit
+          cursor: rest.cursor
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: conversations-get-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Slack Conversations API — Get. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: slack-get-conversations-history
+      description: Slack Get Conversations History
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: conversations-get.getconversationshistory
+      with:
+        token: tools.token
+        channel: tools.channel
+        latest: tools.latest
+        oldest: tools.oldest
+        inclusive: tools.inclusive
+        limit: tools.limit
+        cursor: tools.cursor
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-get-conversations-info
+      description: Slack Get Conversations Info
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: conversations-get.getconversationsinfo
+      with:
+        token: tools.token
+        channel: tools.channel
+        include_locale: tools.include_locale
+        include_num_members: tools.include_num_members
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-get-conversations-list
+      description: Slack Get Conversations List
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: conversations-get.getconversationslist
+      with:
+        token: tools.token
+        exclude_archived: tools.exclude_archived
+        types: tools.types
+        limit: tools.limit
+        cursor: tools.cursor
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-get-conversations-members
+      description: Slack Get Conversations Members
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: conversations-get.getconversationsmembers
+      with:
+        token: tools.token
+        channel: tools.channel
+        limit: tools.limit
+        cursor: tools.cursor
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-get-conversations-replies
+      description: Slack Get Conversations Replies
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: conversations-get.getconversationsreplies
+      with:
+        token: tools.token
+        channel: tools.channel
+        ts: tools.ts
+        latest: tools.latest
+        oldest: tools.oldest
+        inclusive: tools.inclusive
+        limit: tools.limit
+        cursor: tools.cursor
+      outputParameters:
+      - type: object
+        mapping: $.

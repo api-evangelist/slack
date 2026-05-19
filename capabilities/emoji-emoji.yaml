@@ -1,0 +1,86 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Slack Emoji API — Emoji
+  description: 'Slack Emoji API — Emoji. 1 operations. Lead operation: List Emoji. Self-contained Naftiko capability covering
+    one Slack business surface.'
+  tags:
+  - Slack
+  - Emoji
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SLACK_API_KEY: SLACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: emoji-emoji
+    baseUri: https://slack.com/api
+    description: Slack Emoji API — Emoji business capability. Self-contained, no shared references.
+    resources:
+    - name: emoji.list
+      path: /emoji.list
+      operations:
+      - name: getemojilist
+        method: GET
+        description: List Emoji
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: query
+          type: string
+          description: 'Authentication token. Requires scope: `emoji:read`'
+          required: true
+        - name: include_categories
+          in: query
+          type: boolean
+          description: If true, includes emoji categories.
+    authentication:
+      type: bearer
+      token: '{{env.SLACK_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: emoji-emoji-rest
+    port: 8080
+    description: REST adapter for Slack Emoji API — Emoji. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/emoji-list
+      name: emoji-list
+      description: REST surface for emoji.list.
+      operations:
+      - method: GET
+        name: getemojilist
+        description: List Emoji
+        call: emoji-emoji.getemojilist
+        with:
+          token: rest.token
+          include_categories: rest.include_categories
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: emoji-emoji-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Slack Emoji API — Emoji. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: list-emoji
+      description: List Emoji
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: emoji-emoji.getemojilist
+      with:
+        token: tools.token
+        include_categories: tools.include_categories
+      outputParameters:
+      - type: object
+        mapping: $.

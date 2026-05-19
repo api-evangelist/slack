@@ -1,0 +1,458 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Slack Apps API — Applications
+  description: 'Slack Apps API — Applications. 8 operations. Lead operation: Slack Get Apps Event Authorizations List. Self-contained
+    Naftiko capability covering one Slack business surface.'
+  tags:
+  - Slack
+  - Applications
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SLACK_API_KEY: SLACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: apps-applications
+    baseUri: ''
+    description: Slack Apps API — Applications business capability. Self-contained, no shared references.
+    resources:
+    - name: apps.event.authorizations.list
+      path: /apps.event.authorizations.list
+      operations:
+      - name: getappseventauthorizationslist
+        method: GET
+        description: Slack Get Apps Event Authorizations List
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `authorizations:read`'
+          required: true
+        - name: event_context
+          in: query
+          type: string
+          required: true
+        - name: cursor
+          in: query
+          type: string
+        - name: limit
+          in: query
+          type: integer
+    - name: apps.permissions.info
+      path: /apps.permissions.info
+      operations:
+      - name: getappspermissionsinfo
+        method: GET
+        description: Slack Get Apps Permissions Info
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: query
+          type: string
+          description: 'Authentication token. Requires scope: `none`'
+    - name: apps.permissions.request
+      path: /apps.permissions.request
+      operations:
+      - name: getappspermissionsrequest
+        method: GET
+        description: Slack Get Apps Permissions Request
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: query
+          type: string
+          description: 'Authentication token. Requires scope: `none`'
+          required: true
+        - name: scopes
+          in: query
+          type: string
+          description: A comma separated list of scopes to request for
+          required: true
+        - name: trigger_id
+          in: query
+          type: string
+          description: Token used to trigger the permissions API
+          required: true
+    - name: apps.permissions.resources.list
+      path: /apps.permissions.resources.list
+      operations:
+      - name: getappspermissionsresourceslist
+        method: GET
+        description: Slack Get Apps Permissions Resources List
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: query
+          type: string
+          description: 'Authentication token. Requires scope: `none`'
+          required: true
+        - name: cursor
+          in: query
+          type: string
+          description: Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute
+            returned by a previous request's `response_metadata`. Defaul
+        - name: limit
+          in: query
+          type: integer
+          description: The maximum number of items to return.
+    - name: apps.permissions.scopes.list
+      path: /apps.permissions.scopes.list
+      operations:
+      - name: getappspermissionsscopeslist
+        method: GET
+        description: Slack Get Apps Permissions Scopes List
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: query
+          type: string
+          description: 'Authentication token. Requires scope: `none`'
+          required: true
+    - name: apps.permissions.users.list
+      path: /apps.permissions.users.list
+      operations:
+      - name: getappspermissionsuserslist
+        method: GET
+        description: Slack Get Apps Permissions Users List
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: query
+          type: string
+          description: 'Authentication token. Requires scope: `none`'
+          required: true
+        - name: cursor
+          in: query
+          type: string
+          description: Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute
+            returned by a previous request's `response_metadata`. Defaul
+        - name: limit
+          in: query
+          type: integer
+          description: The maximum number of items to return.
+    - name: apps.permissions.users.request
+      path: /apps.permissions.users.request
+      operations:
+      - name: getappspermissionsusersrequest
+        method: GET
+        description: Slack Get Apps Permissions Users Request
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: query
+          type: string
+          description: 'Authentication token. Requires scope: `none`'
+          required: true
+        - name: scopes
+          in: query
+          type: string
+          description: A comma separated list of user scopes to request for
+          required: true
+        - name: trigger_id
+          in: query
+          type: string
+          description: Token used to trigger the request
+          required: true
+        - name: user
+          in: query
+          type: string
+          description: The user this scope is being requested for
+          required: true
+    - name: apps.uninstall
+      path: /apps.uninstall
+      operations:
+      - name: getappsuninstall
+        method: GET
+        description: Slack Get Apps Uninstall
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: query
+          type: string
+          description: 'Authentication token. Requires scope: `none`'
+        - name: client_id
+          in: query
+          type: string
+          description: Issued when you created your application.
+        - name: client_secret
+          in: query
+          type: string
+          description: Issued when you created your application.
+  exposes:
+  - type: rest
+    namespace: apps-applications-rest
+    port: 8080
+    description: REST adapter for Slack Apps API — Applications. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/apps-event-authorizations-list
+      name: apps-event-authorizations-list
+      description: REST surface for apps.event.authorizations.list.
+      operations:
+      - method: GET
+        name: getappseventauthorizationslist
+        description: Slack Get Apps Event Authorizations List
+        call: apps-applications.getappseventauthorizationslist
+        with:
+          token: rest.token
+          event_context: rest.event_context
+          cursor: rest.cursor
+          limit: rest.limit
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/apps-permissions-info
+      name: apps-permissions-info
+      description: REST surface for apps.permissions.info.
+      operations:
+      - method: GET
+        name: getappspermissionsinfo
+        description: Slack Get Apps Permissions Info
+        call: apps-applications.getappspermissionsinfo
+        with:
+          token: rest.token
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/apps-permissions-request
+      name: apps-permissions-request
+      description: REST surface for apps.permissions.request.
+      operations:
+      - method: GET
+        name: getappspermissionsrequest
+        description: Slack Get Apps Permissions Request
+        call: apps-applications.getappspermissionsrequest
+        with:
+          token: rest.token
+          scopes: rest.scopes
+          trigger_id: rest.trigger_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/apps-permissions-resources-list
+      name: apps-permissions-resources-list
+      description: REST surface for apps.permissions.resources.list.
+      operations:
+      - method: GET
+        name: getappspermissionsresourceslist
+        description: Slack Get Apps Permissions Resources List
+        call: apps-applications.getappspermissionsresourceslist
+        with:
+          token: rest.token
+          cursor: rest.cursor
+          limit: rest.limit
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/apps-permissions-scopes-list
+      name: apps-permissions-scopes-list
+      description: REST surface for apps.permissions.scopes.list.
+      operations:
+      - method: GET
+        name: getappspermissionsscopeslist
+        description: Slack Get Apps Permissions Scopes List
+        call: apps-applications.getappspermissionsscopeslist
+        with:
+          token: rest.token
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/apps-permissions-users-list
+      name: apps-permissions-users-list
+      description: REST surface for apps.permissions.users.list.
+      operations:
+      - method: GET
+        name: getappspermissionsuserslist
+        description: Slack Get Apps Permissions Users List
+        call: apps-applications.getappspermissionsuserslist
+        with:
+          token: rest.token
+          cursor: rest.cursor
+          limit: rest.limit
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/apps-permissions-users-request
+      name: apps-permissions-users-request
+      description: REST surface for apps.permissions.users.request.
+      operations:
+      - method: GET
+        name: getappspermissionsusersrequest
+        description: Slack Get Apps Permissions Users Request
+        call: apps-applications.getappspermissionsusersrequest
+        with:
+          token: rest.token
+          scopes: rest.scopes
+          trigger_id: rest.trigger_id
+          user: rest.user
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/apps-uninstall
+      name: apps-uninstall
+      description: REST surface for apps.uninstall.
+      operations:
+      - method: GET
+        name: getappsuninstall
+        description: Slack Get Apps Uninstall
+        call: apps-applications.getappsuninstall
+        with:
+          token: rest.token
+          client_id: rest.client_id
+          client_secret: rest.client_secret
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: apps-applications-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Slack Apps API — Applications. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: slack-get-apps-event-authorizations
+      description: Slack Get Apps Event Authorizations List
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: apps-applications.getappseventauthorizationslist
+      with:
+        token: tools.token
+        event_context: tools.event_context
+        cursor: tools.cursor
+        limit: tools.limit
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-get-apps-permissions-info
+      description: Slack Get Apps Permissions Info
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: apps-applications.getappspermissionsinfo
+      with:
+        token: tools.token
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-get-apps-permissions-request
+      description: Slack Get Apps Permissions Request
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: apps-applications.getappspermissionsrequest
+      with:
+        token: tools.token
+        scopes: tools.scopes
+        trigger_id: tools.trigger_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-get-apps-permissions-resources
+      description: Slack Get Apps Permissions Resources List
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: apps-applications.getappspermissionsresourceslist
+      with:
+        token: tools.token
+        cursor: tools.cursor
+        limit: tools.limit
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-get-apps-permissions-scopes
+      description: Slack Get Apps Permissions Scopes List
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: apps-applications.getappspermissionsscopeslist
+      with:
+        token: tools.token
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-get-apps-permissions-users
+      description: Slack Get Apps Permissions Users List
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: apps-applications.getappspermissionsuserslist
+      with:
+        token: tools.token
+        cursor: tools.cursor
+        limit: tools.limit
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-get-apps-permissions-users-2
+      description: Slack Get Apps Permissions Users Request
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: apps-applications.getappspermissionsusersrequest
+      with:
+        token: tools.token
+        scopes: tools.scopes
+        trigger_id: tools.trigger_id
+        user: tools.user
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-get-apps-uninstall
+      description: Slack Get Apps Uninstall
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: apps-applications.getappsuninstall
+      with:
+        token: tools.token
+        client_id: tools.client_id
+        client_secret: tools.client_secret
+      outputParameters:
+      - type: object
+        mapping: $.

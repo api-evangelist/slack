@@ -1,0 +1,91 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Slack Views API — Push
+  description: 'Slack Views API — Push. 1 operations. Lead operation: Slack Get Views Push. Self-contained Naftiko capability
+    covering one Slack business surface.'
+  tags:
+  - Slack
+  - Push
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SLACK_API_KEY: SLACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: views-push
+    baseUri: ''
+    description: Slack Views API — Push business capability. Self-contained, no shared references.
+    resources:
+    - name: views.push
+      path: /views.push
+      operations:
+      - name: getviewspush
+        method: GET
+        description: Slack Get Views Push
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `none`'
+          required: true
+        - name: trigger_id
+          in: query
+          type: string
+          description: Exchange a trigger to post to the user.
+          required: true
+        - name: view
+          in: query
+          type: string
+          description: A [view payload](/reference/surfaces/views). This must be a JSON-encoded string.
+          required: true
+  exposes:
+  - type: rest
+    namespace: views-push-rest
+    port: 8080
+    description: REST adapter for Slack Views API — Push. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/views-push
+      name: views-push
+      description: REST surface for views.push.
+      operations:
+      - method: GET
+        name: getviewspush
+        description: Slack Get Views Push
+        call: views-push.getviewspush
+        with:
+          token: rest.token
+          trigger_id: rest.trigger_id
+          view: rest.view
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: views-push-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Slack Views API — Push. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: slack-get-views-push
+      description: Slack Get Views Push
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: views-push.getviewspush
+      with:
+        token: tools.token
+        trigger_id: tools.trigger_id
+        view: tools.view
+      outputParameters:
+      - type: object
+        mapping: $.

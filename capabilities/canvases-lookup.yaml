@@ -1,0 +1,87 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Slack Canvases API — Lookup
+  description: 'Slack Canvases API — Lookup. 1 operations. Lead operation: Lookup Canvas Sections. Self-contained Naftiko
+    capability covering one Slack business surface.'
+  tags:
+  - Slack
+  - Lookup
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SLACK_API_KEY: SLACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: canvases-lookup
+    baseUri: https://slack.com/api
+    description: Slack Canvases API — Lookup business capability. Self-contained, no shared references.
+    resources:
+    - name: canvases.sections.lookup
+      path: /canvases.sections.lookup
+      operations:
+      - name: postcanvasessectionslookup
+        method: POST
+        description: Lookup Canvas Sections
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `canvases:read`'
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.SLACK_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: canvases-lookup-rest
+    port: 8080
+    description: REST adapter for Slack Canvases API — Lookup. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/canvases-sections-lookup
+      name: canvases-sections-lookup
+      description: REST surface for canvases.sections.lookup.
+      operations:
+      - method: POST
+        name: postcanvasessectionslookup
+        description: Lookup Canvas Sections
+        call: canvases-lookup.postcanvasessectionslookup
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: canvases-lookup-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Slack Canvases API — Lookup. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: lookup-canvas-sections
+      description: Lookup Canvas Sections
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: canvases-lookup.postcanvasessectionslookup
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

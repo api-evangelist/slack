@@ -1,0 +1,82 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Slack Tests API — Get
+  description: 'Slack Tests API — Get. 1 operations. Lead operation: Slack Get Api Test. Self-contained Naftiko capability
+    covering one Slack business surface.'
+  tags:
+  - Slack
+  - Get
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SLACK_API_KEY: SLACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: test-get
+    baseUri: ''
+    description: Slack Tests API — Get business capability. Self-contained, no shared references.
+    resources:
+    - name: api.test
+      path: /api.test
+      operations:
+      - name: getapitest
+        method: GET
+        description: Slack Get Api Test
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: error
+          in: query
+          type: string
+          description: Error response to return
+        - name: foo
+          in: query
+          type: string
+          description: example property to return
+  exposes:
+  - type: rest
+    namespace: test-get-rest
+    port: 8080
+    description: REST adapter for Slack Tests API — Get. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/api-test
+      name: api-test
+      description: REST surface for api.test.
+      operations:
+      - method: GET
+        name: getapitest
+        description: Slack Get Api Test
+        call: test-get.getapitest
+        with:
+          error: rest.error
+          foo: rest.foo
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: test-get-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Slack Tests API — Get. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: slack-get-api-test
+      description: Slack Get Api Test
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: test-get.getapitest
+      with:
+        error: tools.error
+        foo: tools.foo
+      outputParameters:
+      - type: object
+        mapping: $.

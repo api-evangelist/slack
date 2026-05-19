@@ -1,0 +1,84 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Slack Pins API — Remove
+  description: 'Slack Pins API — Remove. 1 operations. Lead operation: Slack Post Pins Remove. Self-contained Naftiko capability
+    covering one Slack business surface.'
+  tags:
+  - Slack
+  - Remove
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SLACK_API_KEY: SLACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: pins-remove
+    baseUri: ''
+    description: Slack Pins API — Remove business capability. Self-contained, no shared references.
+    resources:
+    - name: pins.remove
+      path: /pins.remove
+      operations:
+      - name: postpinsremove
+        method: POST
+        description: Slack Post Pins Remove
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `pins:write`'
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+  exposes:
+  - type: rest
+    namespace: pins-remove-rest
+    port: 8080
+    description: REST adapter for Slack Pins API — Remove. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/pins-remove
+      name: pins-remove
+      description: REST surface for pins.remove.
+      operations:
+      - method: POST
+        name: postpinsremove
+        description: Slack Post Pins Remove
+        call: pins-remove.postpinsremove
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: pins-remove-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Slack Pins API — Remove. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: slack-post-pins-remove
+      description: Slack Post Pins Remove
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: pins-remove.postpinsremove
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

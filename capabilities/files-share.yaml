@@ -1,0 +1,96 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Slack Files API — Share
+  description: 'Slack Files API — Share. 1 operations. Lead operation: Slack Get Files Remote Share. Self-contained Naftiko
+    capability covering one Slack business surface.'
+  tags:
+  - Slack
+  - Share
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SLACK_API_KEY: SLACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: files-share
+    baseUri: ''
+    description: Slack Files API — Share business capability. Self-contained, no shared references.
+    resources:
+    - name: files.remote.share
+      path: /files.remote.share
+      operations:
+      - name: getfilesremoteshare
+        method: GET
+        description: Slack Get Files Remote Share
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: query
+          type: string
+          description: 'Authentication token. Requires scope: `remote_files:share`'
+        - name: file
+          in: query
+          type: string
+          description: Specify a file registered with Slack by providing its ID. Either this field or `external_id` or both
+            are required.
+        - name: external_id
+          in: query
+          type: string
+          description: The globally unique identifier (GUID) for the file, as set by the app registering the file with Slack.  Either
+            this field or `file` or both are required.
+        - name: channels
+          in: query
+          type: string
+          description: Comma-separated list of channel IDs where the file will be shared.
+  exposes:
+  - type: rest
+    namespace: files-share-rest
+    port: 8080
+    description: REST adapter for Slack Files API — Share. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/files-remote-share
+      name: files-remote-share
+      description: REST surface for files.remote.share.
+      operations:
+      - method: GET
+        name: getfilesremoteshare
+        description: Slack Get Files Remote Share
+        call: files-share.getfilesremoteshare
+        with:
+          token: rest.token
+          file: rest.file
+          external_id: rest.external_id
+          channels: rest.channels
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: files-share-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Slack Files API — Share. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: slack-get-files-remote-share
+      description: Slack Get Files Remote Share
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: files-share.getfilesremoteshare
+      with:
+        token: tools.token
+        file: tools.file
+        external_id: tools.external_id
+        channels: tools.channels
+      outputParameters:
+      - type: object
+        mapping: $.

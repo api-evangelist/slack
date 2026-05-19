@@ -1,0 +1,76 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Slack Apps API — Info
+  description: 'Slack Apps API — Info. 1 operations. Lead operation: Slack Get Apps Permissions Info. Self-contained Naftiko
+    capability covering one Slack business surface.'
+  tags:
+  - Slack
+  - Info
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SLACK_API_KEY: SLACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: apps-info
+    baseUri: ''
+    description: Slack Apps API — Info business capability. Self-contained, no shared references.
+    resources:
+    - name: apps.permissions.info
+      path: /apps.permissions.info
+      operations:
+      - name: getappspermissionsinfo
+        method: GET
+        description: Slack Get Apps Permissions Info
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: query
+          type: string
+          description: 'Authentication token. Requires scope: `none`'
+  exposes:
+  - type: rest
+    namespace: apps-info-rest
+    port: 8080
+    description: REST adapter for Slack Apps API — Info. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/apps-permissions-info
+      name: apps-permissions-info
+      description: REST surface for apps.permissions.info.
+      operations:
+      - method: GET
+        name: getappspermissionsinfo
+        description: Slack Get Apps Permissions Info
+        call: apps-info.getappspermissionsinfo
+        with:
+          token: rest.token
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: apps-info-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Slack Apps API — Info. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: slack-get-apps-permissions-info
+      description: Slack Get Apps Permissions Info
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: apps-info.getappspermissionsinfo
+      with:
+        token: tools.token
+      outputParameters:
+      - type: object
+        mapping: $.

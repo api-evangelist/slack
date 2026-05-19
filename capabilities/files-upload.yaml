@@ -1,0 +1,77 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Slack Files API — Upload
+  description: 'Slack Files API — Upload. 1 operations. Lead operation: Slack Post Files Upload. Self-contained Naftiko capability
+    covering one Slack business surface.'
+  tags:
+  - Slack
+  - Upload
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SLACK_API_KEY: SLACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: files-upload
+    baseUri: ''
+    description: Slack Files API — Upload business capability. Self-contained, no shared references.
+    resources:
+    - name: files.upload
+      path: /files.upload
+      operations:
+      - name: postfilesupload
+        method: POST
+        description: Slack Post Files Upload
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+  exposes:
+  - type: rest
+    namespace: files-upload-rest
+    port: 8080
+    description: REST adapter for Slack Files API — Upload. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/files-upload
+      name: files-upload
+      description: REST surface for files.upload.
+      operations:
+      - method: POST
+        name: postfilesupload
+        description: Slack Post Files Upload
+        call: files-upload.postfilesupload
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: files-upload-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Slack Files API — Upload. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: slack-post-files-upload
+      description: Slack Post Files Upload
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: files-upload.postfilesupload
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,83 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Slack Reminders API — Complete
+  description: 'Slack Reminders API — Complete. 1 operations. Lead operation: Slack Post Reminders Complete. Self-contained
+    Naftiko capability covering one Slack business surface.'
+  tags:
+  - Slack
+  - Complete
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SLACK_API_KEY: SLACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: reminders-complete
+    baseUri: ''
+    description: Slack Reminders API — Complete business capability. Self-contained, no shared references.
+    resources:
+    - name: reminders.complete
+      path: /reminders.complete
+      operations:
+      - name: postreminderscomplete
+        method: POST
+        description: Slack Post Reminders Complete
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `reminders:write`'
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+  exposes:
+  - type: rest
+    namespace: reminders-complete-rest
+    port: 8080
+    description: REST adapter for Slack Reminders API — Complete. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/reminders-complete
+      name: reminders-complete
+      description: REST surface for reminders.complete.
+      operations:
+      - method: POST
+        name: postreminderscomplete
+        description: Slack Post Reminders Complete
+        call: reminders-complete.postreminderscomplete
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: reminders-complete-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Slack Reminders API — Complete. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: slack-post-reminders-complete
+      description: Slack Post Reminders Complete
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: reminders-complete.postreminderscomplete
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

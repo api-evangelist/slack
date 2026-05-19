@@ -1,0 +1,83 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Slack Admin API — Info
+  description: 'Slack Admin API — Info. 1 operations. Lead operation: Slack Get Admin Teams Settings Info. Self-contained
+    Naftiko capability covering one Slack business surface.'
+  tags:
+  - Slack
+  - Info
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SLACK_API_KEY: SLACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: admin-info
+    baseUri: ''
+    description: Slack Admin API — Info business capability. Self-contained, no shared references.
+    resources:
+    - name: admin.teams.settings.info
+      path: /admin.teams.settings.info
+      operations:
+      - name: getadminteamssettingsinfo
+        method: GET
+        description: Slack Get Admin Teams Settings Info
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `admin.teams:read`'
+          required: true
+        - name: team_id
+          in: query
+          type: string
+          required: true
+  exposes:
+  - type: rest
+    namespace: admin-info-rest
+    port: 8080
+    description: REST adapter for Slack Admin API — Info. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/admin-teams-settings-info
+      name: admin-teams-settings-info
+      description: REST surface for admin.teams.settings.info.
+      operations:
+      - method: GET
+        name: getadminteamssettingsinfo
+        description: Slack Get Admin Teams Settings Info
+        call: admin-info.getadminteamssettingsinfo
+        with:
+          token: rest.token
+          team_id: rest.team_id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: admin-info-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Slack Admin API — Info. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: slack-get-admin-teams-settings
+      description: Slack Get Admin Teams Settings Info
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: admin-info.getadminteamssettingsinfo
+      with:
+        token: tools.token
+        team_id: tools.team_id
+      outputParameters:
+      - type: object
+        mapping: $.

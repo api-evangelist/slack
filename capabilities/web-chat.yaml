@@ -1,0 +1,362 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Slack Web API — Chat
+  description: 'Slack Web API — Chat. 7 operations. Lead operation: Slack Delete a Message. Self-contained Naftiko capability
+    covering one Slack business surface.'
+  tags:
+  - Slack
+  - Chat
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SLACK_API_KEY: SLACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: web-chat
+    baseUri: https://slack.com/api
+    description: Slack Web API — Chat business capability. Self-contained, no shared references.
+    resources:
+    - name: chat.delete
+      path: /chat.delete
+      operations:
+      - name: chatdelete
+        method: POST
+        description: Slack Delete a Message
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: chat:write'
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: chat.getPermalink
+      path: /chat.getPermalink
+      operations:
+      - name: chatgetpermalink
+        method: GET
+        description: Slack Get a Permalink for a Message
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: channel
+          in: query
+          type: string
+          description: The ID of the conversation or channel containing the message.
+          required: true
+        - name: message_ts
+          in: query
+          type: string
+          description: A message's ts value.
+          required: true
+    - name: chat.postEphemeral
+      path: /chat.postEphemeral
+      operations:
+      - name: chatpostephemeral
+        method: POST
+        description: Slack Send an Ephemeral Message
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: chat.postMessage
+      path: /chat.postMessage
+      operations:
+      - name: chatpostmessage
+        method: POST
+        description: Slack Send a Message to a Channel
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: chat:write'
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: chat.scheduleMessage
+      path: /chat.scheduleMessage
+      operations:
+      - name: chatschedulemessage
+        method: POST
+        description: Slack Schedule a Message for Later
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: chat.unfurl
+      path: /chat.unfurl
+      operations:
+      - name: chatunfurl
+        method: POST
+        description: Slack Provide Custom Unfurl Behavior
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: chat.update
+      path: /chat.update
+      operations:
+      - name: chatupdate
+        method: POST
+        description: Slack Update an Existing Message
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: chat:write'
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.SLACK_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: web-chat-rest
+    port: 8080
+    description: REST adapter for Slack Web API — Chat. One Spectral-compliant resource per consumed operation, prefixed with
+      /v1.
+    resources:
+    - path: /v1/chat-delete
+      name: chat-delete
+      description: REST surface for chat.delete.
+      operations:
+      - method: POST
+        name: chatdelete
+        description: Slack Delete a Message
+        call: web-chat.chatdelete
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/chat-getpermalink
+      name: chat-getpermalink
+      description: REST surface for chat.getPermalink.
+      operations:
+      - method: GET
+        name: chatgetpermalink
+        description: Slack Get a Permalink for a Message
+        call: web-chat.chatgetpermalink
+        with:
+          channel: rest.channel
+          message_ts: rest.message_ts
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/chat-postephemeral
+      name: chat-postephemeral
+      description: REST surface for chat.postEphemeral.
+      operations:
+      - method: POST
+        name: chatpostephemeral
+        description: Slack Send an Ephemeral Message
+        call: web-chat.chatpostephemeral
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/chat-postmessage
+      name: chat-postmessage
+      description: REST surface for chat.postMessage.
+      operations:
+      - method: POST
+        name: chatpostmessage
+        description: Slack Send a Message to a Channel
+        call: web-chat.chatpostmessage
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/chat-schedulemessage
+      name: chat-schedulemessage
+      description: REST surface for chat.scheduleMessage.
+      operations:
+      - method: POST
+        name: chatschedulemessage
+        description: Slack Schedule a Message for Later
+        call: web-chat.chatschedulemessage
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/chat-unfurl
+      name: chat-unfurl
+      description: REST surface for chat.unfurl.
+      operations:
+      - method: POST
+        name: chatunfurl
+        description: Slack Provide Custom Unfurl Behavior
+        call: web-chat.chatunfurl
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/chat-update
+      name: chat-update
+      description: REST surface for chat.update.
+      operations:
+      - method: POST
+        name: chatupdate
+        description: Slack Update an Existing Message
+        call: web-chat.chatupdate
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: web-chat-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Slack Web API — Chat. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: slack-delete-message
+      description: Slack Delete a Message
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: web-chat.chatdelete
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-get-permalink-message
+      description: Slack Get a Permalink for a Message
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: web-chat.chatgetpermalink
+      with:
+        channel: tools.channel
+        message_ts: tools.message_ts
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-send-ephemeral-message
+      description: Slack Send an Ephemeral Message
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: web-chat.chatpostephemeral
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-send-message-channel
+      description: Slack Send a Message to a Channel
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: web-chat.chatpostmessage
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-schedule-message-later
+      description: Slack Schedule a Message for Later
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: web-chat.chatschedulemessage
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-provide-custom-unfurl-behavior
+      description: Slack Provide Custom Unfurl Behavior
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: web-chat.chatunfurl
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-update-existing-message
+      description: Slack Update an Existing Message
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: web-chat.chatupdate
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

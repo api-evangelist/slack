@@ -1,0 +1,84 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Slack Admin API — Assign
+  description: 'Slack Admin API — Assign. 1 operations. Lead operation: Slack Post Admin Users Assign. Self-contained Naftiko
+    capability covering one Slack business surface.'
+  tags:
+  - Slack
+  - Assign
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SLACK_API_KEY: SLACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: admin-assign
+    baseUri: ''
+    description: Slack Admin API — Assign business capability. Self-contained, no shared references.
+    resources:
+    - name: admin.users.assign
+      path: /admin.users.assign
+      operations:
+      - name: postadminusersassign
+        method: POST
+        description: Slack Post Admin Users Assign
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `admin.users:write`'
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+  exposes:
+  - type: rest
+    namespace: admin-assign-rest
+    port: 8080
+    description: REST adapter for Slack Admin API — Assign. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/admin-users-assign
+      name: admin-users-assign
+      description: REST surface for admin.users.assign.
+      operations:
+      - method: POST
+        name: postadminusersassign
+        description: Slack Post Admin Users Assign
+        call: admin-assign.postadminusersassign
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: admin-assign-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Slack Admin API — Assign. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: slack-post-admin-users-assign
+      description: Slack Post Admin Users Assign
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: admin-assign.postadminusersassign
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

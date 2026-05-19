@@ -1,0 +1,259 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Slack Web API — Files
+  description: 'Slack Web API — Files. 4 operations. Lead operation: Slack Delete a File. Self-contained Naftiko capability
+    covering one Slack business surface.'
+  tags:
+  - Slack
+  - Files
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SLACK_API_KEY: SLACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: web-files
+    baseUri: https://slack.com/api
+    description: Slack Web API — Files business capability. Self-contained, no shared references.
+    resources:
+    - name: files.delete
+      path: /files.delete
+      operations:
+      - name: filesdelete
+        method: POST
+        description: Slack Delete a File
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: files.info
+      path: /files.info
+      operations:
+      - name: filesinfo
+        method: GET
+        description: Slack Get Information About a File
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: file
+          in: query
+          type: string
+          description: Specify a file by providing its ID.
+          required: true
+        - name: count
+          in: query
+          type: integer
+        - name: cursor
+          in: query
+          type: string
+        - name: limit
+          in: query
+          type: integer
+        - name: page
+          in: query
+          type: integer
+    - name: files.list
+      path: /files.list
+      operations:
+      - name: fileslist
+        method: GET
+        description: Slack List Files
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: channel
+          in: query
+          type: string
+          description: Filter files appearing in a specific channel.
+        - name: count
+          in: query
+          type: integer
+        - name: page
+          in: query
+          type: integer
+        - name: ts_from
+          in: query
+          type: string
+          description: Filter files created after this timestamp.
+        - name: ts_to
+          in: query
+          type: string
+          description: Filter files created before this timestamp.
+        - name: types
+          in: query
+          type: string
+          description: 'Filter files by type: all, spaces, snippets, images, gdocs, zips, pdfs.'
+        - name: user
+          in: query
+          type: string
+          description: Filter files created by a single user.
+    - name: files.upload
+      path: /files.upload
+      operations:
+      - name: filesupload
+        method: POST
+        description: Slack Upload a File
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    authentication:
+      type: bearer
+      token: '{{env.SLACK_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: web-files-rest
+    port: 8080
+    description: REST adapter for Slack Web API — Files. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/files-delete
+      name: files-delete
+      description: REST surface for files.delete.
+      operations:
+      - method: POST
+        name: filesdelete
+        description: Slack Delete a File
+        call: web-files.filesdelete
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/files-info
+      name: files-info
+      description: REST surface for files.info.
+      operations:
+      - method: GET
+        name: filesinfo
+        description: Slack Get Information About a File
+        call: web-files.filesinfo
+        with:
+          file: rest.file
+          count: rest.count
+          cursor: rest.cursor
+          limit: rest.limit
+          page: rest.page
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/files-list
+      name: files-list
+      description: REST surface for files.list.
+      operations:
+      - method: GET
+        name: fileslist
+        description: Slack List Files
+        call: web-files.fileslist
+        with:
+          channel: rest.channel
+          count: rest.count
+          page: rest.page
+          ts_from: rest.ts_from
+          ts_to: rest.ts_to
+          types: rest.types
+          user: rest.user
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/files-upload
+      name: files-upload
+      description: REST surface for files.upload.
+      operations:
+      - method: POST
+        name: filesupload
+        description: Slack Upload a File
+        call: web-files.filesupload
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: web-files-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Slack Web API — Files. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: slack-delete-file
+      description: Slack Delete a File
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: web-files.filesdelete
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-get-information-about-file
+      description: Slack Get Information About a File
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: web-files.filesinfo
+      with:
+        file: tools.file
+        count: tools.count
+        cursor: tools.cursor
+        limit: tools.limit
+        page: tools.page
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-list-files
+      description: Slack List Files
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: web-files.fileslist
+      with:
+        channel: tools.channel
+        count: tools.count
+        page: tools.page
+        ts_from: tools.ts_from
+        ts_to: tools.ts_to
+        types: tools.types
+        user: tools.user
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-upload-file
+      description: Slack Upload a File
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: web-files.filesupload
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

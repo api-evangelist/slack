@@ -1,0 +1,314 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Slack Admin API — Settings
+  description: 'Slack Admin API — Settings. 6 operations. Lead operation: Slack Get Admin Teams Settings Info. Self-contained
+    Naftiko capability covering one Slack business surface.'
+  tags:
+  - Slack
+  - Settings
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SLACK_API_KEY: SLACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: admin-settings
+    baseUri: ''
+    description: Slack Admin API — Settings business capability. Self-contained, no shared references.
+    resources:
+    - name: admin.teams.settings.info
+      path: /admin.teams.settings.info
+      operations:
+      - name: getadminteamssettingsinfo
+        method: GET
+        description: Slack Get Admin Teams Settings Info
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `admin.teams:read`'
+          required: true
+        - name: team_id
+          in: query
+          type: string
+          required: true
+    - name: admin.teams.settings.setDefaultChannels
+      path: /admin.teams.settings.setDefaultChannels
+      operations:
+      - name: postadminteamssettingssetdefaultchannels
+        method: POST
+        description: Slack Post Admin Teams Settings Setdefaultchannels
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: admin.teams.settings.setDescription
+      path: /admin.teams.settings.setDescription
+      operations:
+      - name: postadminteamssettingssetdescription
+        method: POST
+        description: Slack Post Admin Teams Settings Setdescription
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `admin.teams:write`'
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: admin.teams.settings.setDiscoverability
+      path: /admin.teams.settings.setDiscoverability
+      operations:
+      - name: postadminteamssettingssetdiscoverability
+        method: POST
+        description: Slack Post Admin Teams Settings Setdiscoverability
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `admin.teams:write`'
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: admin.teams.settings.setIcon
+      path: /admin.teams.settings.setIcon
+      operations:
+      - name: postadminteamssettingsseticon
+        method: POST
+        description: Slack Post Admin Teams Settings Seticon
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: admin.teams.settings.setName
+      path: /admin.teams.settings.setName
+      operations:
+      - name: postadminteamssettingssetname
+        method: POST
+        description: Slack Post Admin Teams Settings Setname
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `admin.teams:write`'
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+  exposes:
+  - type: rest
+    namespace: admin-settings-rest
+    port: 8080
+    description: REST adapter for Slack Admin API — Settings. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/admin-teams-settings-info
+      name: admin-teams-settings-info
+      description: REST surface for admin.teams.settings.info.
+      operations:
+      - method: GET
+        name: getadminteamssettingsinfo
+        description: Slack Get Admin Teams Settings Info
+        call: admin-settings.getadminteamssettingsinfo
+        with:
+          token: rest.token
+          team_id: rest.team_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin-teams-settings-setdefaultchannels
+      name: admin-teams-settings-setdefaultchannels
+      description: REST surface for admin.teams.settings.setDefaultChannels.
+      operations:
+      - method: POST
+        name: postadminteamssettingssetdefaultchannels
+        description: Slack Post Admin Teams Settings Setdefaultchannels
+        call: admin-settings.postadminteamssettingssetdefaultchannels
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin-teams-settings-setdescription
+      name: admin-teams-settings-setdescription
+      description: REST surface for admin.teams.settings.setDescription.
+      operations:
+      - method: POST
+        name: postadminteamssettingssetdescription
+        description: Slack Post Admin Teams Settings Setdescription
+        call: admin-settings.postadminteamssettingssetdescription
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin-teams-settings-setdiscoverability
+      name: admin-teams-settings-setdiscoverability
+      description: REST surface for admin.teams.settings.setDiscoverability.
+      operations:
+      - method: POST
+        name: postadminteamssettingssetdiscoverability
+        description: Slack Post Admin Teams Settings Setdiscoverability
+        call: admin-settings.postadminteamssettingssetdiscoverability
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin-teams-settings-seticon
+      name: admin-teams-settings-seticon
+      description: REST surface for admin.teams.settings.setIcon.
+      operations:
+      - method: POST
+        name: postadminteamssettingsseticon
+        description: Slack Post Admin Teams Settings Seticon
+        call: admin-settings.postadminteamssettingsseticon
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin-teams-settings-setname
+      name: admin-teams-settings-setname
+      description: REST surface for admin.teams.settings.setName.
+      operations:
+      - method: POST
+        name: postadminteamssettingssetname
+        description: Slack Post Admin Teams Settings Setname
+        call: admin-settings.postadminteamssettingssetname
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: admin-settings-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Slack Admin API — Settings. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: slack-get-admin-teams-settings
+      description: Slack Get Admin Teams Settings Info
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: admin-settings.getadminteamssettingsinfo
+      with:
+        token: tools.token
+        team_id: tools.team_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-post-admin-teams-settings
+      description: Slack Post Admin Teams Settings Setdefaultchannels
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: admin-settings.postadminteamssettingssetdefaultchannels
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-post-admin-teams-settings-2
+      description: Slack Post Admin Teams Settings Setdescription
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: admin-settings.postadminteamssettingssetdescription
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-post-admin-teams-settings-3
+      description: Slack Post Admin Teams Settings Setdiscoverability
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: admin-settings.postadminteamssettingssetdiscoverability
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-post-admin-teams-settings-4
+      description: Slack Post Admin Teams Settings Seticon
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: admin-settings.postadminteamssettingsseticon
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-post-admin-teams-settings-5
+      description: Slack Post Admin Teams Settings Setname
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: admin-settings.postadminteamssettingssetname
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,332 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Slack Canvases API — Canvases
+  description: 'Slack Canvases API — Canvases. 6 operations. Lead operation: Delete Canvas Access. Self-contained Naftiko
+    capability covering one Slack business surface.'
+  tags:
+  - Slack
+  - Canvases
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SLACK_API_KEY: SLACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: canvases-canvases
+    baseUri: https://slack.com/api
+    description: Slack Canvases API — Canvases business capability. Self-contained, no shared references.
+    resources:
+    - name: canvases.access.delete
+      path: /canvases.access.delete
+      operations:
+      - name: postcanvasesaccessdelete
+        method: POST
+        description: Delete Canvas Access
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `canvases:write`'
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: canvases.access.set
+      path: /canvases.access.set
+      operations:
+      - name: postcanvasesaccessset
+        method: POST
+        description: Set Canvas Access
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `canvases:write`'
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: canvases.create
+      path: /canvases.create
+      operations:
+      - name: postcanvasescreate
+        method: POST
+        description: Create Canvas
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `canvases:write`'
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: canvases.delete
+      path: /canvases.delete
+      operations:
+      - name: postcanvasesdelete
+        method: POST
+        description: Delete Canvas
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `canvases:write`'
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: canvases.edit
+      path: /canvases.edit
+      operations:
+      - name: postcanvasesedit
+        method: POST
+        description: Edit Canvas
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `canvases:write`'
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: canvases.sections.lookup
+      path: /canvases.sections.lookup
+      operations:
+      - name: postcanvasessectionslookup
+        method: POST
+        description: Lookup Canvas Sections
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `canvases:read`'
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.SLACK_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: canvases-canvases-rest
+    port: 8080
+    description: REST adapter for Slack Canvases API — Canvases. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/canvases-access-delete
+      name: canvases-access-delete
+      description: REST surface for canvases.access.delete.
+      operations:
+      - method: POST
+        name: postcanvasesaccessdelete
+        description: Delete Canvas Access
+        call: canvases-canvases.postcanvasesaccessdelete
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/canvases-access-set
+      name: canvases-access-set
+      description: REST surface for canvases.access.set.
+      operations:
+      - method: POST
+        name: postcanvasesaccessset
+        description: Set Canvas Access
+        call: canvases-canvases.postcanvasesaccessset
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/canvases-create
+      name: canvases-create
+      description: REST surface for canvases.create.
+      operations:
+      - method: POST
+        name: postcanvasescreate
+        description: Create Canvas
+        call: canvases-canvases.postcanvasescreate
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/canvases-delete
+      name: canvases-delete
+      description: REST surface for canvases.delete.
+      operations:
+      - method: POST
+        name: postcanvasesdelete
+        description: Delete Canvas
+        call: canvases-canvases.postcanvasesdelete
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/canvases-edit
+      name: canvases-edit
+      description: REST surface for canvases.edit.
+      operations:
+      - method: POST
+        name: postcanvasesedit
+        description: Edit Canvas
+        call: canvases-canvases.postcanvasesedit
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/canvases-sections-lookup
+      name: canvases-sections-lookup
+      description: REST surface for canvases.sections.lookup.
+      operations:
+      - method: POST
+        name: postcanvasessectionslookup
+        description: Lookup Canvas Sections
+        call: canvases-canvases.postcanvasessectionslookup
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: canvases-canvases-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Slack Canvases API — Canvases. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: delete-canvas-access
+      description: Delete Canvas Access
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: canvases-canvases.postcanvasesaccessdelete
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: set-canvas-access
+      description: Set Canvas Access
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: canvases-canvases.postcanvasesaccessset
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-canvas
+      description: Create Canvas
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: canvases-canvases.postcanvasescreate
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-canvas
+      description: Delete Canvas
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: canvases-canvases.postcanvasesdelete
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: edit-canvas
+      description: Edit Canvas
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: canvases-canvases.postcanvasesedit
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: lookup-canvas-sections
+      description: Lookup Canvas Sections
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: canvases-canvases.postcanvasessectionslookup
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

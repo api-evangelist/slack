@@ -1,0 +1,136 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Slack Canvases API — Delete
+  description: 'Slack Canvases API — Delete. 2 operations. Lead operation: Delete Canvas Access. Self-contained Naftiko capability
+    covering one Slack business surface.'
+  tags:
+  - Slack
+  - Delete
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SLACK_API_KEY: SLACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: canvases-delete
+    baseUri: https://slack.com/api
+    description: Slack Canvases API — Delete business capability. Self-contained, no shared references.
+    resources:
+    - name: canvases.access.delete
+      path: /canvases.access.delete
+      operations:
+      - name: postcanvasesaccessdelete
+        method: POST
+        description: Delete Canvas Access
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `canvases:write`'
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: canvases.delete
+      path: /canvases.delete
+      operations:
+      - name: postcanvasesdelete
+        method: POST
+        description: Delete Canvas
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `canvases:write`'
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.SLACK_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: canvases-delete-rest
+    port: 8080
+    description: REST adapter for Slack Canvases API — Delete. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/canvases-access-delete
+      name: canvases-access-delete
+      description: REST surface for canvases.access.delete.
+      operations:
+      - method: POST
+        name: postcanvasesaccessdelete
+        description: Delete Canvas Access
+        call: canvases-delete.postcanvasesaccessdelete
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/canvases-delete
+      name: canvases-delete
+      description: REST surface for canvases.delete.
+      operations:
+      - method: POST
+        name: postcanvasesdelete
+        description: Delete Canvas
+        call: canvases-delete.postcanvasesdelete
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: canvases-delete-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Slack Canvases API — Delete. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: delete-canvas-access
+      description: Delete Canvas Access
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: canvases-delete.postcanvasesaccessdelete
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-canvas
+      description: Delete Canvas
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: canvases-delete.postcanvasesdelete
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

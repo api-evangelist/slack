@@ -1,0 +1,417 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Slack Users API — Get
+  description: 'Slack Users API — Get. 7 operations. Lead operation: Slack Get Users Conversations. Self-contained Naftiko
+    capability covering one Slack business surface.'
+  tags:
+  - Slack
+  - Get
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SLACK_API_KEY: SLACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: users-get
+    baseUri: ''
+    description: Slack Users API — Get business capability. Self-contained, no shared references.
+    resources:
+    - name: users.conversations
+      path: /users.conversations
+      operations:
+      - name: getusersconversations
+        method: GET
+        description: Slack Get Users Conversations
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: query
+          type: string
+          description: 'Authentication token. Requires scope: `conversations:read`'
+        - name: user
+          in: query
+          type: string
+          description: Browse conversations by a specific user ID's membership. Non-public channels are restricted to those
+            where the calling user shares membership.
+        - name: types
+          in: query
+          type: string
+          description: Mix and match channel types by providing a comma-separated list of any combination of `public_channel`,
+            `private_channel`, `mpim`, `im`
+        - name: exclude_archived
+          in: query
+          type: boolean
+          description: Set to `true` to exclude archived channels from the list
+        - name: limit
+          in: query
+          type: integer
+          description: The maximum number of items to return. Fewer than the requested number of items may be returned, even
+            if the end of the list hasn't been reached. Must be an int
+        - name: cursor
+          in: query
+          type: string
+          description: Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute
+            returned by a previous request's `response_metadata`. Defaul
+    - name: users.getPresence
+      path: /users.getPresence
+      operations:
+      - name: getusersgetpresence
+        method: GET
+        description: Slack Get Users Getpresence
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: query
+          type: string
+          description: 'Authentication token. Requires scope: `users:read`'
+          required: true
+        - name: user
+          in: query
+          type: string
+          description: User to get presence info on. Defaults to the authed user.
+    - name: users.identity
+      path: /users.identity
+      operations:
+      - name: getusersidentity
+        method: GET
+        description: Slack Get Users Identity
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: query
+          type: string
+          description: 'Authentication token. Requires scope: `identity.basic`'
+    - name: users.info
+      path: /users.info
+      operations:
+      - name: getusersinfo
+        method: GET
+        description: Slack Get Users Info
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: query
+          type: string
+          description: 'Authentication token. Requires scope: `users:read`'
+          required: true
+        - name: include_locale
+          in: query
+          type: boolean
+          description: Set this to `true` to receive the locale for this user. Defaults to `false`
+        - name: user
+          in: query
+          type: string
+          description: User to get info on
+    - name: users.list
+      path: /users.list
+      operations:
+      - name: getuserslist
+        method: GET
+        description: Slack Get Users List
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: query
+          type: string
+          description: 'Authentication token. Requires scope: `users:read`'
+        - name: limit
+          in: query
+          type: integer
+          description: The maximum number of items to return. Fewer than the requested number of items may be returned, even
+            if the end of the users list hasn't been reached. Providin
+        - name: cursor
+          in: query
+          type: string
+          description: Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute
+            returned by a previous request's `response_metadata`. Defaul
+        - name: include_locale
+          in: query
+          type: boolean
+          description: Set this to `true` to receive the locale for users. Defaults to `false`
+    - name: users.lookupByEmail
+      path: /users.lookupByEmail
+      operations:
+      - name: getuserslookupbyemail
+        method: GET
+        description: Slack Get Users Lookupbyemail
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: query
+          type: string
+          description: 'Authentication token. Requires scope: `users:read.email`'
+          required: true
+        - name: email
+          in: query
+          type: string
+          description: An email address belonging to a user in the workspace
+          required: true
+    - name: users.profile.get
+      path: /users.profile.get
+      operations:
+      - name: getusersprofileget
+        method: GET
+        description: Slack Get Users Profile Get
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: query
+          type: string
+          description: 'Authentication token. Requires scope: `users.profile:read`'
+          required: true
+        - name: include_labels
+          in: query
+          type: boolean
+          description: Include labels for each ID in custom profile fields
+        - name: user
+          in: query
+          type: string
+          description: User to retrieve profile info for
+  exposes:
+  - type: rest
+    namespace: users-get-rest
+    port: 8080
+    description: REST adapter for Slack Users API — Get. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/users-conversations
+      name: users-conversations
+      description: REST surface for users.conversations.
+      operations:
+      - method: GET
+        name: getusersconversations
+        description: Slack Get Users Conversations
+        call: users-get.getusersconversations
+        with:
+          token: rest.token
+          user: rest.user
+          types: rest.types
+          exclude_archived: rest.exclude_archived
+          limit: rest.limit
+          cursor: rest.cursor
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/users-getpresence
+      name: users-getpresence
+      description: REST surface for users.getPresence.
+      operations:
+      - method: GET
+        name: getusersgetpresence
+        description: Slack Get Users Getpresence
+        call: users-get.getusersgetpresence
+        with:
+          token: rest.token
+          user: rest.user
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/users-identity
+      name: users-identity
+      description: REST surface for users.identity.
+      operations:
+      - method: GET
+        name: getusersidentity
+        description: Slack Get Users Identity
+        call: users-get.getusersidentity
+        with:
+          token: rest.token
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/users-info
+      name: users-info
+      description: REST surface for users.info.
+      operations:
+      - method: GET
+        name: getusersinfo
+        description: Slack Get Users Info
+        call: users-get.getusersinfo
+        with:
+          token: rest.token
+          include_locale: rest.include_locale
+          user: rest.user
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/users-list
+      name: users-list
+      description: REST surface for users.list.
+      operations:
+      - method: GET
+        name: getuserslist
+        description: Slack Get Users List
+        call: users-get.getuserslist
+        with:
+          token: rest.token
+          limit: rest.limit
+          cursor: rest.cursor
+          include_locale: rest.include_locale
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/users-lookupbyemail
+      name: users-lookupbyemail
+      description: REST surface for users.lookupByEmail.
+      operations:
+      - method: GET
+        name: getuserslookupbyemail
+        description: Slack Get Users Lookupbyemail
+        call: users-get.getuserslookupbyemail
+        with:
+          token: rest.token
+          email: rest.email
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/users-profile-get
+      name: users-profile-get
+      description: REST surface for users.profile.get.
+      operations:
+      - method: GET
+        name: getusersprofileget
+        description: Slack Get Users Profile Get
+        call: users-get.getusersprofileget
+        with:
+          token: rest.token
+          include_labels: rest.include_labels
+          user: rest.user
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: users-get-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Slack Users API — Get. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: slack-get-users-conversations
+      description: Slack Get Users Conversations
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: users-get.getusersconversations
+      with:
+        token: tools.token
+        user: tools.user
+        types: tools.types
+        exclude_archived: tools.exclude_archived
+        limit: tools.limit
+        cursor: tools.cursor
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-get-users-getpresence
+      description: Slack Get Users Getpresence
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: users-get.getusersgetpresence
+      with:
+        token: tools.token
+        user: tools.user
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-get-users-identity
+      description: Slack Get Users Identity
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: users-get.getusersidentity
+      with:
+        token: tools.token
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-get-users-info
+      description: Slack Get Users Info
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: users-get.getusersinfo
+      with:
+        token: tools.token
+        include_locale: tools.include_locale
+        user: tools.user
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-get-users-list
+      description: Slack Get Users List
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: users-get.getuserslist
+      with:
+        token: tools.token
+        limit: tools.limit
+        cursor: tools.cursor
+        include_locale: tools.include_locale
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-get-users-lookupbyemail
+      description: Slack Get Users Lookupbyemail
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: users-get.getuserslookupbyemail
+      with:
+        token: tools.token
+        email: tools.email
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-get-users-profile-get
+      description: Slack Get Users Profile Get
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: users-get.getusersprofileget
+      with:
+        token: tools.token
+        include_labels: tools.include_labels
+        user: tools.user
+      outputParameters:
+      - type: object
+        mapping: $.

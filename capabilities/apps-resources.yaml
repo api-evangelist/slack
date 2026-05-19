@@ -1,0 +1,90 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Slack Apps API — Resources
+  description: 'Slack Apps API — Resources. 1 operations. Lead operation: Slack Get Apps Permissions Resources List. Self-contained
+    Naftiko capability covering one Slack business surface.'
+  tags:
+  - Slack
+  - Resources
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SLACK_API_KEY: SLACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: apps-resources
+    baseUri: ''
+    description: Slack Apps API — Resources business capability. Self-contained, no shared references.
+    resources:
+    - name: apps.permissions.resources.list
+      path: /apps.permissions.resources.list
+      operations:
+      - name: getappspermissionsresourceslist
+        method: GET
+        description: Slack Get Apps Permissions Resources List
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: query
+          type: string
+          description: 'Authentication token. Requires scope: `none`'
+          required: true
+        - name: cursor
+          in: query
+          type: string
+          description: Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute
+            returned by a previous request's `response_metadata`. Defaul
+        - name: limit
+          in: query
+          type: integer
+          description: The maximum number of items to return.
+  exposes:
+  - type: rest
+    namespace: apps-resources-rest
+    port: 8080
+    description: REST adapter for Slack Apps API — Resources. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/apps-permissions-resources-list
+      name: apps-permissions-resources-list
+      description: REST surface for apps.permissions.resources.list.
+      operations:
+      - method: GET
+        name: getappspermissionsresourceslist
+        description: Slack Get Apps Permissions Resources List
+        call: apps-resources.getappspermissionsresourceslist
+        with:
+          token: rest.token
+          cursor: rest.cursor
+          limit: rest.limit
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: apps-resources-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Slack Apps API — Resources. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: slack-get-apps-permissions-resources
+      description: Slack Get Apps Permissions Resources List
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: apps-resources.getappspermissionsresourceslist
+      with:
+        token: tools.token
+        cursor: tools.cursor
+        limit: tools.limit
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,119 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Slack DND API — Snooze
+  description: 'Slack DND API — Snooze. 2 operations. Lead operation: Slack Post End Do Not Disturb Snooze. Self-contained
+    Naftiko capability covering one Slack business surface.'
+  tags:
+  - Slack
+  - Snooze
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SLACK_API_KEY: SLACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: dnd-snooze
+    baseUri: ''
+    description: Slack DND API — Snooze business capability. Self-contained, no shared references.
+    resources:
+    - name: dnd.endSnooze
+      path: /dnd.endSnooze
+      operations:
+      - name: postdndendsnooze
+        method: POST
+        description: Slack Post End Do Not Disturb Snooze
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `dnd:write`'
+          required: true
+    - name: dnd.setSnooze
+      path: /dnd.setSnooze
+      operations:
+      - name: postdndsetsnooze
+        method: POST
+        description: Slack Post Do Not Disturb Snooze
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+  exposes:
+  - type: rest
+    namespace: dnd-snooze-rest
+    port: 8080
+    description: REST adapter for Slack DND API — Snooze. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/dnd-endsnooze
+      name: dnd-endsnooze
+      description: REST surface for dnd.endSnooze.
+      operations:
+      - method: POST
+        name: postdndendsnooze
+        description: Slack Post End Do Not Disturb Snooze
+        call: dnd-snooze.postdndendsnooze
+        with:
+          token: rest.token
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/dnd-setsnooze
+      name: dnd-setsnooze
+      description: REST surface for dnd.setSnooze.
+      operations:
+      - method: POST
+        name: postdndsetsnooze
+        description: Slack Post Do Not Disturb Snooze
+        call: dnd-snooze.postdndsetsnooze
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: dnd-snooze-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Slack DND API — Snooze. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: slack-post-end-do-not
+      description: Slack Post End Do Not Disturb Snooze
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: dnd-snooze.postdndendsnooze
+      with:
+        token: tools.token
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-post-do-not-disturb
+      description: Slack Post Do Not Disturb Snooze
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: dnd-snooze.postdndsetsnooze
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

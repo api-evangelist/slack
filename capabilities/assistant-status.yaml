@@ -1,0 +1,87 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Slack Assistant API — Status
+  description: 'Slack Assistant API — Status. 1 operations. Lead operation: Set Assistant Thread Status. Self-contained Naftiko
+    capability covering one Slack business surface.'
+  tags:
+  - Slack
+  - Status
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SLACK_API_KEY: SLACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: assistant-status
+    baseUri: https://slack.com/api
+    description: Slack Assistant API — Status business capability. Self-contained, no shared references.
+    resources:
+    - name: assistant.threads.setStatus
+      path: /assistant.threads.setStatus
+      operations:
+      - name: postassistantthreadssetstatus
+        method: POST
+        description: Set Assistant Thread Status
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `assistant:write`'
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.SLACK_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: assistant-status-rest
+    port: 8080
+    description: REST adapter for Slack Assistant API — Status. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/assistant-threads-setstatus
+      name: assistant-threads-setstatus
+      description: REST surface for assistant.threads.setStatus.
+      operations:
+      - method: POST
+        name: postassistantthreadssetstatus
+        description: Set Assistant Thread Status
+        call: assistant-status.postassistantthreadssetstatus
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: assistant-status-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Slack Assistant API — Status. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: set-assistant-thread-status
+      description: Set Assistant Thread Status
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: assistant-status.postassistantthreadssetstatus
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

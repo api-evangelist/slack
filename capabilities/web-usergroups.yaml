@@ -1,0 +1,88 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Slack Web API — Usergroups
+  description: 'Slack Web API — Usergroups. 1 operations. Lead operation: Slack List All User Groups. Self-contained Naftiko
+    capability covering one Slack business surface.'
+  tags:
+  - Slack
+  - Usergroups
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SLACK_API_KEY: SLACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: web-usergroups
+    baseUri: https://slack.com/api
+    description: Slack Web API — Usergroups business capability. Self-contained, no shared references.
+    resources:
+    - name: usergroups.list
+      path: /usergroups.list
+      operations:
+      - name: usergroupslist
+        method: GET
+        description: Slack List All User Groups
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: include_count
+          in: query
+          type: boolean
+        - name: include_disabled
+          in: query
+          type: boolean
+        - name: include_users
+          in: query
+          type: boolean
+    authentication:
+      type: bearer
+      token: '{{env.SLACK_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: web-usergroups-rest
+    port: 8080
+    description: REST adapter for Slack Web API — Usergroups. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/usergroups-list
+      name: usergroups-list
+      description: REST surface for usergroups.list.
+      operations:
+      - method: GET
+        name: usergroupslist
+        description: Slack List All User Groups
+        call: web-usergroups.usergroupslist
+        with:
+          include_count: rest.include_count
+          include_disabled: rest.include_disabled
+          include_users: rest.include_users
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: web-usergroups-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Slack Web API — Usergroups. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: slack-list-all-user-groups
+      description: Slack List All User Groups
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: web-usergroups.usergroupslist
+      with:
+        include_count: tools.include_count
+        include_disabled: tools.include_disabled
+        include_users: tools.include_users
+      outputParameters:
+      - type: object
+        mapping: $.

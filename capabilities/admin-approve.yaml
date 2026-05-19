@@ -1,0 +1,133 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Slack Admin API — Approve
+  description: 'Slack Admin API — Approve. 2 operations. Lead operation: Slack Post Admin Apps Approve. Self-contained Naftiko
+    capability covering one Slack business surface.'
+  tags:
+  - Slack
+  - Approve
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SLACK_API_KEY: SLACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: admin-approve
+    baseUri: ''
+    description: Slack Admin API — Approve business capability. Self-contained, no shared references.
+    resources:
+    - name: admin.apps.approve
+      path: /admin.apps.approve
+      operations:
+      - name: postadminappsapprove
+        method: POST
+        description: Slack Post Admin Apps Approve
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `admin.apps:write`'
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: admin.inviteRequests.approve
+      path: /admin.inviteRequests.approve
+      operations:
+      - name: postadmininviterequestsapprove
+        method: POST
+        description: Slack Post Admin Inviterequests Approve
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `admin.invites:write`'
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+  exposes:
+  - type: rest
+    namespace: admin-approve-rest
+    port: 8080
+    description: REST adapter for Slack Admin API — Approve. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/admin-apps-approve
+      name: admin-apps-approve
+      description: REST surface for admin.apps.approve.
+      operations:
+      - method: POST
+        name: postadminappsapprove
+        description: Slack Post Admin Apps Approve
+        call: admin-approve.postadminappsapprove
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin-inviterequests-approve
+      name: admin-inviterequests-approve
+      description: REST surface for admin.inviteRequests.approve.
+      operations:
+      - method: POST
+        name: postadmininviterequestsapprove
+        description: Slack Post Admin Inviterequests Approve
+        call: admin-approve.postadmininviterequestsapprove
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: admin-approve-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Slack Admin API — Approve. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: slack-post-admin-apps-approve
+      description: Slack Post Admin Apps Approve
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: admin-approve.postadminappsapprove
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-post-admin-inviterequests-approve
+      description: Slack Post Admin Inviterequests Approve
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: admin-approve.postadmininviterequestsapprove
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

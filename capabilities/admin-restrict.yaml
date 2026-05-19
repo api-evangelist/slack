@@ -1,0 +1,84 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Slack Admin API — Restrict
+  description: 'Slack Admin API — Restrict. 1 operations. Lead operation: Slack Post Admin Apps Restrict. Self-contained Naftiko
+    capability covering one Slack business surface.'
+  tags:
+  - Slack
+  - Restrict
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SLACK_API_KEY: SLACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: admin-restrict
+    baseUri: ''
+    description: Slack Admin API — Restrict business capability. Self-contained, no shared references.
+    resources:
+    - name: admin.apps.restrict
+      path: /admin.apps.restrict
+      operations:
+      - name: postadminappsrestrict
+        method: POST
+        description: Slack Post Admin Apps Restrict
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `admin.apps:write`'
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+  exposes:
+  - type: rest
+    namespace: admin-restrict-rest
+    port: 8080
+    description: REST adapter for Slack Admin API — Restrict. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/admin-apps-restrict
+      name: admin-apps-restrict
+      description: REST surface for admin.apps.restrict.
+      operations:
+      - method: POST
+        name: postadminappsrestrict
+        description: Slack Post Admin Apps Restrict
+        call: admin-restrict.postadminappsrestrict
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: admin-restrict-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Slack Admin API — Restrict. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: slack-post-admin-apps-restrict
+      description: Slack Post Admin Apps Restrict
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: admin-restrict.postadminappsrestrict
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

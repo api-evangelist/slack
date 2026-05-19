@@ -1,0 +1,1841 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Slack Admin API — Post
+  description: 'Slack Admin API — Post. 38 operations. Lead operation: Slack Post Admin Apps Approve. Self-contained Naftiko
+    capability covering one Slack business surface.'
+  tags:
+  - Slack
+  - Post
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SLACK_API_KEY: SLACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: admin-post
+    baseUri: ''
+    description: Slack Admin API — Post business capability. Self-contained, no shared references.
+    resources:
+    - name: admin.apps.approve
+      path: /admin.apps.approve
+      operations:
+      - name: postadminappsapprove
+        method: POST
+        description: Slack Post Admin Apps Approve
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `admin.apps:write`'
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: admin.apps.restrict
+      path: /admin.apps.restrict
+      operations:
+      - name: postadminappsrestrict
+        method: POST
+        description: Slack Post Admin Apps Restrict
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `admin.apps:write`'
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: admin.conversations.archive
+      path: /admin.conversations.archive
+      operations:
+      - name: postadminconversationsarchive
+        method: POST
+        description: Slack Post Admin Conversations Archive
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `admin.conversations:write`'
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: admin.conversations.convertToPrivate
+      path: /admin.conversations.convertToPrivate
+      operations:
+      - name: postadminconversationsconverttoprivate
+        method: POST
+        description: Slack Post Admin Conversations Converttoprivate
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `admin.conversations:write`'
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: admin.conversations.create
+      path: /admin.conversations.create
+      operations:
+      - name: postadminconversationscreate
+        method: POST
+        description: Slack Post Admin Conversations Create
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `admin.conversations:write`'
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: admin.conversations.delete
+      path: /admin.conversations.delete
+      operations:
+      - name: postadminconversationsdelete
+        method: POST
+        description: Slack Post Admin Conversations Delete
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `admin.conversations:write`'
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: admin.conversations.disconnectShared
+      path: /admin.conversations.disconnectShared
+      operations:
+      - name: postadminconversationsdisconnectshared
+        method: POST
+        description: Slack Post Admin Conversations Disconnectshared
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `admin.conversations:write`'
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: admin.conversations.invite
+      path: /admin.conversations.invite
+      operations:
+      - name: postadminconversationsinvite
+        method: POST
+        description: Slack Post Admin Conversations Invite
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `admin.conversations:write`'
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: admin.conversations.rename
+      path: /admin.conversations.rename
+      operations:
+      - name: postadminconversationsrename
+        method: POST
+        description: Slack Post Admin Conversations Rename
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `admin.conversations:write`'
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: admin.conversations.restrictAccess.addGroup
+      path: /admin.conversations.restrictAccess.addGroup
+      operations:
+      - name: postadminconversationsrestrictaccessaddgroup
+        method: POST
+        description: Slack Post Admin Conversations Restrictaccess Addgroup
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: admin.conversations.restrictAccess.removeGroup
+      path: /admin.conversations.restrictAccess.removeGroup
+      operations:
+      - name: postadminconversationsrestrictaccessremovegroup
+        method: POST
+        description: Slack Post Admin Conversations Restrictaccess Removegroup
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: admin.conversations.setConversationPrefs
+      path: /admin.conversations.setConversationPrefs
+      operations:
+      - name: postadminconversationssetconversationprefs
+        method: POST
+        description: Slack Post Admin Conversations Setconversationprefs
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `admin.conversations:write`'
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: admin.conversations.setTeams
+      path: /admin.conversations.setTeams
+      operations:
+      - name: postadminconversationssetteams
+        method: POST
+        description: Slack Post Admin Conversations Setteams
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `admin.conversations:write`'
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: admin.conversations.unarchive
+      path: /admin.conversations.unarchive
+      operations:
+      - name: postadminconversationsunarchive
+        method: POST
+        description: Slack Post Admin Conversations Unarchive
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `admin.conversations:write`'
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: admin.emoji.add
+      path: /admin.emoji.add
+      operations:
+      - name: postadminemojiadd
+        method: POST
+        description: Slack Post Admin Emoji Add
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: admin.emoji.addAlias
+      path: /admin.emoji.addAlias
+      operations:
+      - name: postadminemojiaddalias
+        method: POST
+        description: Slack Post Admin Emoji Addalias
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: admin.emoji.remove
+      path: /admin.emoji.remove
+      operations:
+      - name: postadminemojiremove
+        method: POST
+        description: Slack Post Admin Emoji Remove
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: admin.emoji.rename
+      path: /admin.emoji.rename
+      operations:
+      - name: postadminemojirename
+        method: POST
+        description: Slack Post Admin Emoji Rename
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: admin.inviteRequests.approve
+      path: /admin.inviteRequests.approve
+      operations:
+      - name: postadmininviterequestsapprove
+        method: POST
+        description: Slack Post Admin Inviterequests Approve
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `admin.invites:write`'
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: admin.inviteRequests.deny
+      path: /admin.inviteRequests.deny
+      operations:
+      - name: postadmininviterequestsdeny
+        method: POST
+        description: Slack Post Admin Inviterequests Deny
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `admin.invites:write`'
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: admin.teams.create
+      path: /admin.teams.create
+      operations:
+      - name: postadminteamscreate
+        method: POST
+        description: Slack Post Admin Teams Create
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `admin.teams:write`'
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: admin.teams.settings.setDefaultChannels
+      path: /admin.teams.settings.setDefaultChannels
+      operations:
+      - name: postadminteamssettingssetdefaultchannels
+        method: POST
+        description: Slack Post Admin Teams Settings Setdefaultchannels
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: admin.teams.settings.setDescription
+      path: /admin.teams.settings.setDescription
+      operations:
+      - name: postadminteamssettingssetdescription
+        method: POST
+        description: Slack Post Admin Teams Settings Setdescription
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `admin.teams:write`'
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: admin.teams.settings.setDiscoverability
+      path: /admin.teams.settings.setDiscoverability
+      operations:
+      - name: postadminteamssettingssetdiscoverability
+        method: POST
+        description: Slack Post Admin Teams Settings Setdiscoverability
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `admin.teams:write`'
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: admin.teams.settings.setIcon
+      path: /admin.teams.settings.setIcon
+      operations:
+      - name: postadminteamssettingsseticon
+        method: POST
+        description: Slack Post Admin Teams Settings Seticon
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: admin.teams.settings.setName
+      path: /admin.teams.settings.setName
+      operations:
+      - name: postadminteamssettingssetname
+        method: POST
+        description: Slack Post Admin Teams Settings Setname
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `admin.teams:write`'
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: admin.usergroups.addChannels
+      path: /admin.usergroups.addChannels
+      operations:
+      - name: postadminusergroupsaddchannels
+        method: POST
+        description: Slack Post Admin Usergroups Addchannels
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `admin.usergroups:write`'
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: admin.usergroups.addTeams
+      path: /admin.usergroups.addTeams
+      operations:
+      - name: postadminusergroupsaddteams
+        method: POST
+        description: Slack Post Admin Usergroups Addteams
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `admin.teams:write`'
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: admin.usergroups.removeChannels
+      path: /admin.usergroups.removeChannels
+      operations:
+      - name: postadminusergroupsremovechannels
+        method: POST
+        description: Slack Post Admin Usergroups Removechannels
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `admin.usergroups:write`'
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: admin.users.assign
+      path: /admin.users.assign
+      operations:
+      - name: postadminusersassign
+        method: POST
+        description: Slack Post Admin Users Assign
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `admin.users:write`'
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: admin.users.invite
+      path: /admin.users.invite
+      operations:
+      - name: postadminusersinvite
+        method: POST
+        description: Slack Post Admin Users Invite
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `admin.users:write`'
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: admin.users.remove
+      path: /admin.users.remove
+      operations:
+      - name: postadminusersremove
+        method: POST
+        description: Slack Post Admin Users Remove
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `admin.users:write`'
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: admin.users.session.invalidate
+      path: /admin.users.session.invalidate
+      operations:
+      - name: postadminuserssessioninvalidate
+        method: POST
+        description: Slack Post Admin Users Session Invalidate
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `admin.users:write`'
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: admin.users.session.reset
+      path: /admin.users.session.reset
+      operations:
+      - name: postadminuserssessionreset
+        method: POST
+        description: Slack Post Admin Users Session Reset
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `admin.users:write`'
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: admin.users.setAdmin
+      path: /admin.users.setAdmin
+      operations:
+      - name: postadminuserssetadmin
+        method: POST
+        description: Slack Post Admin Users Setadmin
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `admin.users:write`'
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: admin.users.setExpiration
+      path: /admin.users.setExpiration
+      operations:
+      - name: postadminuserssetexpiration
+        method: POST
+        description: Slack Post Admin Users Setexpiration
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `admin.users:write`'
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: admin.users.setOwner
+      path: /admin.users.setOwner
+      operations:
+      - name: postadminuserssetowner
+        method: POST
+        description: Slack Post Admin Users Setowner
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `admin.users:write`'
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: admin.users.setRegular
+      path: /admin.users.setRegular
+      operations:
+      - name: postadminuserssetregular
+        method: POST
+        description: Slack Post Admin Users Setregular
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `admin.users:write`'
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+  exposes:
+  - type: rest
+    namespace: admin-post-rest
+    port: 8080
+    description: REST adapter for Slack Admin API — Post. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/admin-apps-approve
+      name: admin-apps-approve
+      description: REST surface for admin.apps.approve.
+      operations:
+      - method: POST
+        name: postadminappsapprove
+        description: Slack Post Admin Apps Approve
+        call: admin-post.postadminappsapprove
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin-apps-restrict
+      name: admin-apps-restrict
+      description: REST surface for admin.apps.restrict.
+      operations:
+      - method: POST
+        name: postadminappsrestrict
+        description: Slack Post Admin Apps Restrict
+        call: admin-post.postadminappsrestrict
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin-conversations-archive
+      name: admin-conversations-archive
+      description: REST surface for admin.conversations.archive.
+      operations:
+      - method: POST
+        name: postadminconversationsarchive
+        description: Slack Post Admin Conversations Archive
+        call: admin-post.postadminconversationsarchive
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin-conversations-converttoprivate
+      name: admin-conversations-converttoprivate
+      description: REST surface for admin.conversations.convertToPrivate.
+      operations:
+      - method: POST
+        name: postadminconversationsconverttoprivate
+        description: Slack Post Admin Conversations Converttoprivate
+        call: admin-post.postadminconversationsconverttoprivate
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin-conversations-create
+      name: admin-conversations-create
+      description: REST surface for admin.conversations.create.
+      operations:
+      - method: POST
+        name: postadminconversationscreate
+        description: Slack Post Admin Conversations Create
+        call: admin-post.postadminconversationscreate
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin-conversations-delete
+      name: admin-conversations-delete
+      description: REST surface for admin.conversations.delete.
+      operations:
+      - method: POST
+        name: postadminconversationsdelete
+        description: Slack Post Admin Conversations Delete
+        call: admin-post.postadminconversationsdelete
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin-conversations-disconnectshared
+      name: admin-conversations-disconnectshared
+      description: REST surface for admin.conversations.disconnectShared.
+      operations:
+      - method: POST
+        name: postadminconversationsdisconnectshared
+        description: Slack Post Admin Conversations Disconnectshared
+        call: admin-post.postadminconversationsdisconnectshared
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin-conversations-invite
+      name: admin-conversations-invite
+      description: REST surface for admin.conversations.invite.
+      operations:
+      - method: POST
+        name: postadminconversationsinvite
+        description: Slack Post Admin Conversations Invite
+        call: admin-post.postadminconversationsinvite
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin-conversations-rename
+      name: admin-conversations-rename
+      description: REST surface for admin.conversations.rename.
+      operations:
+      - method: POST
+        name: postadminconversationsrename
+        description: Slack Post Admin Conversations Rename
+        call: admin-post.postadminconversationsrename
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin-conversations-restrictaccess-addgroup
+      name: admin-conversations-restrictaccess-addgroup
+      description: REST surface for admin.conversations.restrictAccess.addGroup.
+      operations:
+      - method: POST
+        name: postadminconversationsrestrictaccessaddgroup
+        description: Slack Post Admin Conversations Restrictaccess Addgroup
+        call: admin-post.postadminconversationsrestrictaccessaddgroup
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin-conversations-restrictaccess-removegroup
+      name: admin-conversations-restrictaccess-removegroup
+      description: REST surface for admin.conversations.restrictAccess.removeGroup.
+      operations:
+      - method: POST
+        name: postadminconversationsrestrictaccessremovegroup
+        description: Slack Post Admin Conversations Restrictaccess Removegroup
+        call: admin-post.postadminconversationsrestrictaccessremovegroup
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin-conversations-setconversationprefs
+      name: admin-conversations-setconversationprefs
+      description: REST surface for admin.conversations.setConversationPrefs.
+      operations:
+      - method: POST
+        name: postadminconversationssetconversationprefs
+        description: Slack Post Admin Conversations Setconversationprefs
+        call: admin-post.postadminconversationssetconversationprefs
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin-conversations-setteams
+      name: admin-conversations-setteams
+      description: REST surface for admin.conversations.setTeams.
+      operations:
+      - method: POST
+        name: postadminconversationssetteams
+        description: Slack Post Admin Conversations Setteams
+        call: admin-post.postadminconversationssetteams
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin-conversations-unarchive
+      name: admin-conversations-unarchive
+      description: REST surface for admin.conversations.unarchive.
+      operations:
+      - method: POST
+        name: postadminconversationsunarchive
+        description: Slack Post Admin Conversations Unarchive
+        call: admin-post.postadminconversationsunarchive
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin-emoji-add
+      name: admin-emoji-add
+      description: REST surface for admin.emoji.add.
+      operations:
+      - method: POST
+        name: postadminemojiadd
+        description: Slack Post Admin Emoji Add
+        call: admin-post.postadminemojiadd
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin-emoji-addalias
+      name: admin-emoji-addalias
+      description: REST surface for admin.emoji.addAlias.
+      operations:
+      - method: POST
+        name: postadminemojiaddalias
+        description: Slack Post Admin Emoji Addalias
+        call: admin-post.postadminemojiaddalias
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin-emoji-remove
+      name: admin-emoji-remove
+      description: REST surface for admin.emoji.remove.
+      operations:
+      - method: POST
+        name: postadminemojiremove
+        description: Slack Post Admin Emoji Remove
+        call: admin-post.postadminemojiremove
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin-emoji-rename
+      name: admin-emoji-rename
+      description: REST surface for admin.emoji.rename.
+      operations:
+      - method: POST
+        name: postadminemojirename
+        description: Slack Post Admin Emoji Rename
+        call: admin-post.postadminemojirename
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin-inviterequests-approve
+      name: admin-inviterequests-approve
+      description: REST surface for admin.inviteRequests.approve.
+      operations:
+      - method: POST
+        name: postadmininviterequestsapprove
+        description: Slack Post Admin Inviterequests Approve
+        call: admin-post.postadmininviterequestsapprove
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin-inviterequests-deny
+      name: admin-inviterequests-deny
+      description: REST surface for admin.inviteRequests.deny.
+      operations:
+      - method: POST
+        name: postadmininviterequestsdeny
+        description: Slack Post Admin Inviterequests Deny
+        call: admin-post.postadmininviterequestsdeny
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin-teams-create
+      name: admin-teams-create
+      description: REST surface for admin.teams.create.
+      operations:
+      - method: POST
+        name: postadminteamscreate
+        description: Slack Post Admin Teams Create
+        call: admin-post.postadminteamscreate
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin-teams-settings-setdefaultchannels
+      name: admin-teams-settings-setdefaultchannels
+      description: REST surface for admin.teams.settings.setDefaultChannels.
+      operations:
+      - method: POST
+        name: postadminteamssettingssetdefaultchannels
+        description: Slack Post Admin Teams Settings Setdefaultchannels
+        call: admin-post.postadminteamssettingssetdefaultchannels
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin-teams-settings-setdescription
+      name: admin-teams-settings-setdescription
+      description: REST surface for admin.teams.settings.setDescription.
+      operations:
+      - method: POST
+        name: postadminteamssettingssetdescription
+        description: Slack Post Admin Teams Settings Setdescription
+        call: admin-post.postadminteamssettingssetdescription
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin-teams-settings-setdiscoverability
+      name: admin-teams-settings-setdiscoverability
+      description: REST surface for admin.teams.settings.setDiscoverability.
+      operations:
+      - method: POST
+        name: postadminteamssettingssetdiscoverability
+        description: Slack Post Admin Teams Settings Setdiscoverability
+        call: admin-post.postadminteamssettingssetdiscoverability
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin-teams-settings-seticon
+      name: admin-teams-settings-seticon
+      description: REST surface for admin.teams.settings.setIcon.
+      operations:
+      - method: POST
+        name: postadminteamssettingsseticon
+        description: Slack Post Admin Teams Settings Seticon
+        call: admin-post.postadminteamssettingsseticon
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin-teams-settings-setname
+      name: admin-teams-settings-setname
+      description: REST surface for admin.teams.settings.setName.
+      operations:
+      - method: POST
+        name: postadminteamssettingssetname
+        description: Slack Post Admin Teams Settings Setname
+        call: admin-post.postadminteamssettingssetname
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin-usergroups-addchannels
+      name: admin-usergroups-addchannels
+      description: REST surface for admin.usergroups.addChannels.
+      operations:
+      - method: POST
+        name: postadminusergroupsaddchannels
+        description: Slack Post Admin Usergroups Addchannels
+        call: admin-post.postadminusergroupsaddchannels
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin-usergroups-addteams
+      name: admin-usergroups-addteams
+      description: REST surface for admin.usergroups.addTeams.
+      operations:
+      - method: POST
+        name: postadminusergroupsaddteams
+        description: Slack Post Admin Usergroups Addteams
+        call: admin-post.postadminusergroupsaddteams
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin-usergroups-removechannels
+      name: admin-usergroups-removechannels
+      description: REST surface for admin.usergroups.removeChannels.
+      operations:
+      - method: POST
+        name: postadminusergroupsremovechannels
+        description: Slack Post Admin Usergroups Removechannels
+        call: admin-post.postadminusergroupsremovechannels
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin-users-assign
+      name: admin-users-assign
+      description: REST surface for admin.users.assign.
+      operations:
+      - method: POST
+        name: postadminusersassign
+        description: Slack Post Admin Users Assign
+        call: admin-post.postadminusersassign
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin-users-invite
+      name: admin-users-invite
+      description: REST surface for admin.users.invite.
+      operations:
+      - method: POST
+        name: postadminusersinvite
+        description: Slack Post Admin Users Invite
+        call: admin-post.postadminusersinvite
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin-users-remove
+      name: admin-users-remove
+      description: REST surface for admin.users.remove.
+      operations:
+      - method: POST
+        name: postadminusersremove
+        description: Slack Post Admin Users Remove
+        call: admin-post.postadminusersremove
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin-users-session-invalidate
+      name: admin-users-session-invalidate
+      description: REST surface for admin.users.session.invalidate.
+      operations:
+      - method: POST
+        name: postadminuserssessioninvalidate
+        description: Slack Post Admin Users Session Invalidate
+        call: admin-post.postadminuserssessioninvalidate
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin-users-session-reset
+      name: admin-users-session-reset
+      description: REST surface for admin.users.session.reset.
+      operations:
+      - method: POST
+        name: postadminuserssessionreset
+        description: Slack Post Admin Users Session Reset
+        call: admin-post.postadminuserssessionreset
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin-users-setadmin
+      name: admin-users-setadmin
+      description: REST surface for admin.users.setAdmin.
+      operations:
+      - method: POST
+        name: postadminuserssetadmin
+        description: Slack Post Admin Users Setadmin
+        call: admin-post.postadminuserssetadmin
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin-users-setexpiration
+      name: admin-users-setexpiration
+      description: REST surface for admin.users.setExpiration.
+      operations:
+      - method: POST
+        name: postadminuserssetexpiration
+        description: Slack Post Admin Users Setexpiration
+        call: admin-post.postadminuserssetexpiration
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin-users-setowner
+      name: admin-users-setowner
+      description: REST surface for admin.users.setOwner.
+      operations:
+      - method: POST
+        name: postadminuserssetowner
+        description: Slack Post Admin Users Setowner
+        call: admin-post.postadminuserssetowner
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin-users-setregular
+      name: admin-users-setregular
+      description: REST surface for admin.users.setRegular.
+      operations:
+      - method: POST
+        name: postadminuserssetregular
+        description: Slack Post Admin Users Setregular
+        call: admin-post.postadminuserssetregular
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: admin-post-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Slack Admin API — Post. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: slack-post-admin-apps-approve
+      description: Slack Post Admin Apps Approve
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: admin-post.postadminappsapprove
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-post-admin-apps-restrict
+      description: Slack Post Admin Apps Restrict
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: admin-post.postadminappsrestrict
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-post-admin-conversations-archive
+      description: Slack Post Admin Conversations Archive
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: admin-post.postadminconversationsarchive
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-post-admin-conversations-converttoprivate
+      description: Slack Post Admin Conversations Converttoprivate
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: admin-post.postadminconversationsconverttoprivate
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-post-admin-conversations-create
+      description: Slack Post Admin Conversations Create
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: admin-post.postadminconversationscreate
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-post-admin-conversations-delete
+      description: Slack Post Admin Conversations Delete
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: admin-post.postadminconversationsdelete
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-post-admin-conversations-disconnectshared
+      description: Slack Post Admin Conversations Disconnectshared
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: admin-post.postadminconversationsdisconnectshared
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-post-admin-conversations-invite
+      description: Slack Post Admin Conversations Invite
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: admin-post.postadminconversationsinvite
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-post-admin-conversations-rename
+      description: Slack Post Admin Conversations Rename
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: admin-post.postadminconversationsrename
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-post-admin-conversations-restrictaccess
+      description: Slack Post Admin Conversations Restrictaccess Addgroup
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: admin-post.postadminconversationsrestrictaccessaddgroup
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-post-admin-conversations-restrictaccess-2
+      description: Slack Post Admin Conversations Restrictaccess Removegroup
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: admin-post.postadminconversationsrestrictaccessremovegroup
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-post-admin-conversations-setconversationprefs
+      description: Slack Post Admin Conversations Setconversationprefs
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: admin-post.postadminconversationssetconversationprefs
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-post-admin-conversations-setteams
+      description: Slack Post Admin Conversations Setteams
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: admin-post.postadminconversationssetteams
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-post-admin-conversations-unarchive
+      description: Slack Post Admin Conversations Unarchive
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: admin-post.postadminconversationsunarchive
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-post-admin-emoji-add
+      description: Slack Post Admin Emoji Add
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: admin-post.postadminemojiadd
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-post-admin-emoji-addalias
+      description: Slack Post Admin Emoji Addalias
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: admin-post.postadminemojiaddalias
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-post-admin-emoji-remove
+      description: Slack Post Admin Emoji Remove
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: admin-post.postadminemojiremove
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-post-admin-emoji-rename
+      description: Slack Post Admin Emoji Rename
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: admin-post.postadminemojirename
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-post-admin-inviterequests-approve
+      description: Slack Post Admin Inviterequests Approve
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: admin-post.postadmininviterequestsapprove
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-post-admin-inviterequests-deny
+      description: Slack Post Admin Inviterequests Deny
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: admin-post.postadmininviterequestsdeny
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-post-admin-teams-create
+      description: Slack Post Admin Teams Create
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: admin-post.postadminteamscreate
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-post-admin-teams-settings
+      description: Slack Post Admin Teams Settings Setdefaultchannels
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: admin-post.postadminteamssettingssetdefaultchannels
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-post-admin-teams-settings-2
+      description: Slack Post Admin Teams Settings Setdescription
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: admin-post.postadminteamssettingssetdescription
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-post-admin-teams-settings-3
+      description: Slack Post Admin Teams Settings Setdiscoverability
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: admin-post.postadminteamssettingssetdiscoverability
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-post-admin-teams-settings-4
+      description: Slack Post Admin Teams Settings Seticon
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: admin-post.postadminteamssettingsseticon
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-post-admin-teams-settings-5
+      description: Slack Post Admin Teams Settings Setname
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: admin-post.postadminteamssettingssetname
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-post-admin-usergroups-addchannels
+      description: Slack Post Admin Usergroups Addchannels
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: admin-post.postadminusergroupsaddchannels
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-post-admin-usergroups-addteams
+      description: Slack Post Admin Usergroups Addteams
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: admin-post.postadminusergroupsaddteams
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-post-admin-usergroups-removechannels
+      description: Slack Post Admin Usergroups Removechannels
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: admin-post.postadminusergroupsremovechannels
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-post-admin-users-assign
+      description: Slack Post Admin Users Assign
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: admin-post.postadminusersassign
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-post-admin-users-invite
+      description: Slack Post Admin Users Invite
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: admin-post.postadminusersinvite
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-post-admin-users-remove
+      description: Slack Post Admin Users Remove
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: admin-post.postadminusersremove
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-post-admin-users-session
+      description: Slack Post Admin Users Session Invalidate
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: admin-post.postadminuserssessioninvalidate
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-post-admin-users-session-2
+      description: Slack Post Admin Users Session Reset
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: admin-post.postadminuserssessionreset
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-post-admin-users-setadmin
+      description: Slack Post Admin Users Setadmin
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: admin-post.postadminuserssetadmin
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-post-admin-users-setexpiration
+      description: Slack Post Admin Users Setexpiration
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: admin-post.postadminuserssetexpiration
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-post-admin-users-setowner
+      description: Slack Post Admin Users Setowner
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: admin-post.postadminuserssetowner
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-post-admin-users-setregular
+      description: Slack Post Admin Users Setregular
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: admin-post.postadminuserssetregular
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

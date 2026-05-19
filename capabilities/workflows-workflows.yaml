@@ -1,0 +1,222 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Slack Workflows — Workflows
+  description: 'Slack Workflows — Workflows. 3 operations. Lead operation: Slack Get Workflows Stepcompleted. Self-contained
+    Naftiko capability covering one Slack business surface.'
+  tags:
+  - Slack
+  - Workflows
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SLACK_API_KEY: SLACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: workflows-workflows
+    baseUri: ''
+    description: Slack Workflows — Workflows business capability. Self-contained, no shared references.
+    resources:
+    - name: workflows.stepCompleted
+      path: /workflows.stepCompleted
+      operations:
+      - name: getworkflowsstepcompleted
+        method: GET
+        description: Slack Get Workflows Stepcompleted
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `workflow.steps:execute`'
+          required: true
+        - name: workflow_step_execute_id
+          in: query
+          type: string
+          description: Context identifier that maps to the correct workflow step execution.
+          required: true
+        - name: outputs
+          in: query
+          type: string
+          description: Key-value object of outputs from your step. Keys of this object reflect the configured `key` properties
+            of your [`outputs`](/reference/workflows/workflow_step#o
+    - name: workflows.stepFailed
+      path: /workflows.stepFailed
+      operations:
+      - name: getworkflowsstepfailed
+        method: GET
+        description: Slack Get Workflows Stepfailed
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `workflow.steps:execute`'
+          required: true
+        - name: workflow_step_execute_id
+          in: query
+          type: string
+          description: Context identifier that maps to the correct workflow step execution.
+          required: true
+        - name: error
+          in: query
+          type: string
+          description: A JSON-based object with a `message` property that should contain a human readable error message.
+          required: true
+    - name: workflows.updateStep
+      path: /workflows.updateStep
+      operations:
+      - name: getworkflowsupdatestep
+        method: GET
+        description: Slack Get Workflows Updatestep
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `workflow.steps:execute`'
+          required: true
+        - name: workflow_step_edit_id
+          in: query
+          type: string
+          description: A context identifier provided with `view_submission` payloads used to call back to `workflows.updateStep`.
+          required: true
+        - name: inputs
+          in: query
+          type: string
+          description: A JSON key-value map of inputs required from a user during configuration. This is the data your app
+            expects to receive when the workflow step starts. **Please n
+        - name: outputs
+          in: query
+          type: string
+          description: An JSON array of output objects used during step execution. This is the data your app agrees to provide
+            when your workflow step was executed.
+        - name: step_name
+          in: query
+          type: string
+          description: An optional field that can be used to override the step name that is shown in the Workflow Builder.
+        - name: step_image_url
+          in: query
+          type: string
+          description: An optional field that can be used to override app image that is shown in the Workflow Builder.
+  exposes:
+  - type: rest
+    namespace: workflows-workflows-rest
+    port: 8080
+    description: REST adapter for Slack Workflows — Workflows. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/workflows-stepcompleted
+      name: workflows-stepcompleted
+      description: REST surface for workflows.stepCompleted.
+      operations:
+      - method: GET
+        name: getworkflowsstepcompleted
+        description: Slack Get Workflows Stepcompleted
+        call: workflows-workflows.getworkflowsstepcompleted
+        with:
+          token: rest.token
+          workflow_step_execute_id: rest.workflow_step_execute_id
+          outputs: rest.outputs
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/workflows-stepfailed
+      name: workflows-stepfailed
+      description: REST surface for workflows.stepFailed.
+      operations:
+      - method: GET
+        name: getworkflowsstepfailed
+        description: Slack Get Workflows Stepfailed
+        call: workflows-workflows.getworkflowsstepfailed
+        with:
+          token: rest.token
+          workflow_step_execute_id: rest.workflow_step_execute_id
+          error: rest.error
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/workflows-updatestep
+      name: workflows-updatestep
+      description: REST surface for workflows.updateStep.
+      operations:
+      - method: GET
+        name: getworkflowsupdatestep
+        description: Slack Get Workflows Updatestep
+        call: workflows-workflows.getworkflowsupdatestep
+        with:
+          token: rest.token
+          workflow_step_edit_id: rest.workflow_step_edit_id
+          inputs: rest.inputs
+          outputs: rest.outputs
+          step_name: rest.step_name
+          step_image_url: rest.step_image_url
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: workflows-workflows-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Slack Workflows — Workflows. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: slack-get-workflows-stepcompleted
+      description: Slack Get Workflows Stepcompleted
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: workflows-workflows.getworkflowsstepcompleted
+      with:
+        token: tools.token
+        workflow_step_execute_id: tools.workflow_step_execute_id
+        outputs: tools.outputs
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-get-workflows-stepfailed
+      description: Slack Get Workflows Stepfailed
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: workflows-workflows.getworkflowsstepfailed
+      with:
+        token: tools.token
+        workflow_step_execute_id: tools.workflow_step_execute_id
+        error: tools.error
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-get-workflows-updatestep
+      description: Slack Get Workflows Updatestep
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: workflows-workflows.getworkflowsupdatestep
+      with:
+        token: tools.token
+        workflow_step_edit_id: tools.workflow_step_edit_id
+        inputs: tools.inputs
+        outputs: tools.outputs
+        step_name: tools.step_name
+        step_image_url: tools.step_image_url
+      outputParameters:
+      - type: object
+        mapping: $.

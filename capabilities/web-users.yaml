@@ -1,0 +1,226 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Slack Web API — Users
+  description: 'Slack Web API — Users. 4 operations. Lead operation: Slack Get User Presence Information. Self-contained Naftiko
+    capability covering one Slack business surface.'
+  tags:
+  - Slack
+  - Users
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SLACK_API_KEY: SLACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: web-users
+    baseUri: https://slack.com/api
+    description: Slack Web API — Users business capability. Self-contained, no shared references.
+    resources:
+    - name: users.getPresence
+      path: /users.getPresence
+      operations:
+      - name: usersgetpresence
+        method: GET
+        description: Slack Get User Presence Information
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: user
+          in: query
+          type: string
+          required: true
+    - name: users.info
+      path: /users.info
+      operations:
+      - name: usersinfo
+        method: GET
+        description: Slack Get Information About a User
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: user
+          in: query
+          type: string
+          description: User to get info on.
+          required: true
+        - name: include_locale
+          in: query
+          type: boolean
+          description: Set to true to receive the locale for this user.
+    - name: users.list
+      path: /users.list
+      operations:
+      - name: userslist
+        method: GET
+        description: Slack List All Users
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: cursor
+          in: query
+          type: string
+        - name: include_locale
+          in: query
+          type: boolean
+          description: Set to true to receive the locale for users.
+        - name: limit
+          in: query
+          type: integer
+        - name: team_id
+          in: query
+          type: string
+          description: Required for org-wide app tokens.
+    - name: users.lookupByEmail
+      path: /users.lookupByEmail
+      operations:
+      - name: userslookupbyemail
+        method: GET
+        description: Slack Find a User by Email Address
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: email
+          in: query
+          type: string
+          description: An email address belonging to a user in the workspace.
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.SLACK_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: web-users-rest
+    port: 8080
+    description: REST adapter for Slack Web API — Users. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/users-getpresence
+      name: users-getpresence
+      description: REST surface for users.getPresence.
+      operations:
+      - method: GET
+        name: usersgetpresence
+        description: Slack Get User Presence Information
+        call: web-users.usersgetpresence
+        with:
+          user: rest.user
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/users-info
+      name: users-info
+      description: REST surface for users.info.
+      operations:
+      - method: GET
+        name: usersinfo
+        description: Slack Get Information About a User
+        call: web-users.usersinfo
+        with:
+          user: rest.user
+          include_locale: rest.include_locale
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/users-list
+      name: users-list
+      description: REST surface for users.list.
+      operations:
+      - method: GET
+        name: userslist
+        description: Slack List All Users
+        call: web-users.userslist
+        with:
+          cursor: rest.cursor
+          include_locale: rest.include_locale
+          limit: rest.limit
+          team_id: rest.team_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/users-lookupbyemail
+      name: users-lookupbyemail
+      description: REST surface for users.lookupByEmail.
+      operations:
+      - method: GET
+        name: userslookupbyemail
+        description: Slack Find a User by Email Address
+        call: web-users.userslookupbyemail
+        with:
+          email: rest.email
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: web-users-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Slack Web API — Users. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: slack-get-user-presence-information
+      description: Slack Get User Presence Information
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: web-users.usersgetpresence
+      with:
+        user: tools.user
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-get-information-about-user
+      description: Slack Get Information About a User
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: web-users.usersinfo
+      with:
+        user: tools.user
+        include_locale: tools.include_locale
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-list-all-users
+      description: Slack List All Users
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: web-users.userslist
+      with:
+        cursor: tools.cursor
+        include_locale: tools.include_locale
+        limit: tools.limit
+        team_id: tools.team_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-find-user-email-address
+      description: Slack Find a User by Email Address
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: web-users.userslookupbyemail
+      with:
+        email: tools.email
+      outputParameters:
+      - type: object
+        mapping: $.

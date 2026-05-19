@@ -1,0 +1,84 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Slack Calls API — Update
+  description: 'Slack Calls API — Update. 1 operations. Lead operation: Slack Post Calls Update. Self-contained Naftiko capability
+    covering one Slack business surface.'
+  tags:
+  - Slack
+  - Update
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SLACK_API_KEY: SLACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: calls-update
+    baseUri: ''
+    description: Slack Calls API — Update business capability. Self-contained, no shared references.
+    resources:
+    - name: calls.update
+      path: /calls.update
+      operations:
+      - name: callsupdate
+        method: POST
+        description: Slack Post Calls Update
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `calls:write`'
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+  exposes:
+  - type: rest
+    namespace: calls-update-rest
+    port: 8080
+    description: REST adapter for Slack Calls API — Update. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/calls-update
+      name: calls-update
+      description: REST surface for calls.update.
+      operations:
+      - method: POST
+        name: callsupdate
+        description: Slack Post Calls Update
+        call: calls-update.callsupdate
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: calls-update-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Slack Calls API — Update. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: slack-post-calls-update
+      description: Slack Post Calls Update
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: calls-update.callsupdate
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

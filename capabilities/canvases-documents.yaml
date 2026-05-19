@@ -1,0 +1,185 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Slack Canvases API — Documents
+  description: 'Slack Canvases API — Documents. 3 operations. Lead operation: Create Canvas. Self-contained Naftiko capability
+    covering one Slack business surface.'
+  tags:
+  - Slack
+  - Documents
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SLACK_API_KEY: SLACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: canvases-documents
+    baseUri: https://slack.com/api
+    description: Slack Canvases API — Documents business capability. Self-contained, no shared references.
+    resources:
+    - name: canvases.create
+      path: /canvases.create
+      operations:
+      - name: postcanvasescreate
+        method: POST
+        description: Create Canvas
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `canvases:write`'
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: canvases.delete
+      path: /canvases.delete
+      operations:
+      - name: postcanvasesdelete
+        method: POST
+        description: Delete Canvas
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `canvases:write`'
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: canvases.edit
+      path: /canvases.edit
+      operations:
+      - name: postcanvasesedit
+        method: POST
+        description: Edit Canvas
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `canvases:write`'
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.SLACK_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: canvases-documents-rest
+    port: 8080
+    description: REST adapter for Slack Canvases API — Documents. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/canvases-create
+      name: canvases-create
+      description: REST surface for canvases.create.
+      operations:
+      - method: POST
+        name: postcanvasescreate
+        description: Create Canvas
+        call: canvases-documents.postcanvasescreate
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/canvases-delete
+      name: canvases-delete
+      description: REST surface for canvases.delete.
+      operations:
+      - method: POST
+        name: postcanvasesdelete
+        description: Delete Canvas
+        call: canvases-documents.postcanvasesdelete
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/canvases-edit
+      name: canvases-edit
+      description: REST surface for canvases.edit.
+      operations:
+      - method: POST
+        name: postcanvasesedit
+        description: Edit Canvas
+        call: canvases-documents.postcanvasesedit
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: canvases-documents-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Slack Canvases API — Documents. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: create-canvas
+      description: Create Canvas
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: canvases-documents.postcanvasescreate
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-canvas
+      description: Delete Canvas
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: canvases-documents.postcanvasesdelete
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: edit-canvas
+      description: Edit Canvas
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: canvases-documents.postcanvasesedit
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

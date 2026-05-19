@@ -1,0 +1,96 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Slack Users API — Lists
+  description: 'Slack Users API — Lists. 1 operations. Lead operation: Slack Get Users List. Self-contained Naftiko capability
+    covering one Slack business surface.'
+  tags:
+  - Slack
+  - Lists
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SLACK_API_KEY: SLACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: users-lists
+    baseUri: ''
+    description: Slack Users API — Lists business capability. Self-contained, no shared references.
+    resources:
+    - name: users.list
+      path: /users.list
+      operations:
+      - name: getuserslist
+        method: GET
+        description: Slack Get Users List
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: query
+          type: string
+          description: 'Authentication token. Requires scope: `users:read`'
+        - name: limit
+          in: query
+          type: integer
+          description: The maximum number of items to return. Fewer than the requested number of items may be returned, even
+            if the end of the users list hasn't been reached. Providin
+        - name: cursor
+          in: query
+          type: string
+          description: Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute
+            returned by a previous request's `response_metadata`. Defaul
+        - name: include_locale
+          in: query
+          type: boolean
+          description: Set this to `true` to receive the locale for users. Defaults to `false`
+  exposes:
+  - type: rest
+    namespace: users-lists-rest
+    port: 8080
+    description: REST adapter for Slack Users API — Lists. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/users-list
+      name: users-list
+      description: REST surface for users.list.
+      operations:
+      - method: GET
+        name: getuserslist
+        description: Slack Get Users List
+        call: users-lists.getuserslist
+        with:
+          token: rest.token
+          limit: rest.limit
+          cursor: rest.cursor
+          include_locale: rest.include_locale
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: users-lists-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Slack Users API — Lists. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: slack-get-users-list
+      description: Slack Get Users List
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: users-lists.getuserslist
+      with:
+        token: tools.token
+        limit: tools.limit
+        cursor: tools.cursor
+        include_locale: tools.include_locale
+      outputParameters:
+      - type: object
+        mapping: $.

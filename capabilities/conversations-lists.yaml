@@ -1,0 +1,103 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Slack Conversations API — Lists
+  description: 'Slack Conversations API — Lists. 1 operations. Lead operation: Slack Get Conversations List. Self-contained
+    Naftiko capability covering one Slack business surface.'
+  tags:
+  - Slack
+  - Lists
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SLACK_API_KEY: SLACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: conversations-lists
+    baseUri: ''
+    description: Slack Conversations API — Lists business capability. Self-contained, no shared references.
+    resources:
+    - name: conversations.list
+      path: /conversations.list
+      operations:
+      - name: getconversationslist
+        method: GET
+        description: Slack Get Conversations List
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: query
+          type: string
+          description: 'Authentication token. Requires scope: `conversations:read`'
+        - name: exclude_archived
+          in: query
+          type: boolean
+          description: Set to `true` to exclude archived channels from the list
+        - name: types
+          in: query
+          type: string
+          description: Mix and match channel types by providing a comma-separated list of any combination of `public_channel`,
+            `private_channel`, `mpim`, `im`
+        - name: limit
+          in: query
+          type: integer
+          description: The maximum number of items to return. Fewer than the requested number of items may be returned, even
+            if the end of the list hasn't been reached. Must be an int
+        - name: cursor
+          in: query
+          type: string
+          description: Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute
+            returned by a previous request's `response_metadata`. Defaul
+  exposes:
+  - type: rest
+    namespace: conversations-lists-rest
+    port: 8080
+    description: REST adapter for Slack Conversations API — Lists. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/conversations-list
+      name: conversations-list
+      description: REST surface for conversations.list.
+      operations:
+      - method: GET
+        name: getconversationslist
+        description: Slack Get Conversations List
+        call: conversations-lists.getconversationslist
+        with:
+          token: rest.token
+          exclude_archived: rest.exclude_archived
+          types: rest.types
+          limit: rest.limit
+          cursor: rest.cursor
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: conversations-lists-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Slack Conversations API — Lists. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: slack-get-conversations-list
+      description: Slack Get Conversations List
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: conversations-lists.getconversationslist
+      with:
+        token: tools.token
+        exclude_archived: tools.exclude_archived
+        types: tools.types
+        limit: tools.limit
+        cursor: tools.cursor
+      outputParameters:
+      - type: object
+        mapping: $.

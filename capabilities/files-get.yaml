@@ -1,0 +1,381 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Slack Files API — Get
+  description: 'Slack Files API — Get. 5 operations. Lead operation: Slack Get Files Info. Self-contained Naftiko capability
+    covering one Slack business surface.'
+  tags:
+  - Slack
+  - Get
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SLACK_API_KEY: SLACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: files-get
+    baseUri: ''
+    description: Slack Files API — Get business capability. Self-contained, no shared references.
+    resources:
+    - name: files.info
+      path: /files.info
+      operations:
+      - name: getfilesinfo
+        method: GET
+        description: Slack Get Files Info
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: query
+          type: string
+          description: 'Authentication token. Requires scope: `files:read`'
+        - name: file
+          in: query
+          type: string
+          description: Specify a file by providing its ID.
+        - name: count
+          in: query
+          type: string
+        - name: page
+          in: query
+          type: string
+        - name: limit
+          in: query
+          type: integer
+          description: The maximum number of items to return. Fewer than the requested number of items may be returned, even
+            if the end of the list hasn't been reached.
+        - name: cursor
+          in: query
+          type: string
+          description: Parameter for pagination. File comments are paginated for a single file. Set `cursor` equal to the
+            `next_cursor` attribute returned by the previous request's `r
+    - name: files.list
+      path: /files.list
+      operations:
+      - name: getfileslist
+        method: GET
+        description: Slack Get Files List
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: query
+          type: string
+          description: 'Authentication token. Requires scope: `files:read`'
+        - name: user
+          in: query
+          type: string
+          description: Filter files created by a single user.
+        - name: channel
+          in: query
+          type: string
+          description: Filter files appearing in a specific channel, indicated by its ID.
+        - name: ts_from
+          in: query
+          type: number
+          description: Filter files created after this timestamp (inclusive).
+        - name: ts_to
+          in: query
+          type: number
+          description: Filter files created before this timestamp (inclusive).
+        - name: types
+          in: query
+          type: string
+          description: Filter files by type ([see below](#file_types)). You can pass multiple values in the types argument,
+            like `types=spaces,snippets`.The default value is `all`, wh
+        - name: count
+          in: query
+          type: string
+        - name: page
+          in: query
+          type: string
+        - name: show_files_hidden_by_limit
+          in: query
+          type: boolean
+          description: Show truncated file info for files hidden due to being too old, and the team who owns the file being
+            over the file limit.
+    - name: files.remote.info
+      path: /files.remote.info
+      operations:
+      - name: getfilesremoteinfo
+        method: GET
+        description: Slack Get Files Remote Info
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: query
+          type: string
+          description: 'Authentication token. Requires scope: `remote_files:read`'
+        - name: file
+          in: query
+          type: string
+          description: Specify a file by providing its ID.
+        - name: external_id
+          in: query
+          type: string
+          description: Creator defined GUID for the file.
+    - name: files.remote.list
+      path: /files.remote.list
+      operations:
+      - name: getfilesremotelist
+        method: GET
+        description: Slack Get Files Remote List
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: query
+          type: string
+          description: 'Authentication token. Requires scope: `remote_files:read`'
+        - name: channel
+          in: query
+          type: string
+          description: Filter files appearing in a specific channel, indicated by its ID.
+        - name: ts_from
+          in: query
+          type: number
+          description: Filter files created after this timestamp (inclusive).
+        - name: ts_to
+          in: query
+          type: number
+          description: Filter files created before this timestamp (inclusive).
+        - name: limit
+          in: query
+          type: integer
+          description: The maximum number of items to return.
+        - name: cursor
+          in: query
+          type: string
+          description: Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute
+            returned by a previous request's `response_metadata`. Defaul
+    - name: files.remote.share
+      path: /files.remote.share
+      operations:
+      - name: getfilesremoteshare
+        method: GET
+        description: Slack Get Files Remote Share
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: query
+          type: string
+          description: 'Authentication token. Requires scope: `remote_files:share`'
+        - name: file
+          in: query
+          type: string
+          description: Specify a file registered with Slack by providing its ID. Either this field or `external_id` or both
+            are required.
+        - name: external_id
+          in: query
+          type: string
+          description: The globally unique identifier (GUID) for the file, as set by the app registering the file with Slack.  Either
+            this field or `file` or both are required.
+        - name: channels
+          in: query
+          type: string
+          description: Comma-separated list of channel IDs where the file will be shared.
+  exposes:
+  - type: rest
+    namespace: files-get-rest
+    port: 8080
+    description: REST adapter for Slack Files API — Get. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/files-info
+      name: files-info
+      description: REST surface for files.info.
+      operations:
+      - method: GET
+        name: getfilesinfo
+        description: Slack Get Files Info
+        call: files-get.getfilesinfo
+        with:
+          token: rest.token
+          file: rest.file
+          count: rest.count
+          page: rest.page
+          limit: rest.limit
+          cursor: rest.cursor
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/files-list
+      name: files-list
+      description: REST surface for files.list.
+      operations:
+      - method: GET
+        name: getfileslist
+        description: Slack Get Files List
+        call: files-get.getfileslist
+        with:
+          token: rest.token
+          user: rest.user
+          channel: rest.channel
+          ts_from: rest.ts_from
+          ts_to: rest.ts_to
+          types: rest.types
+          count: rest.count
+          page: rest.page
+          show_files_hidden_by_limit: rest.show_files_hidden_by_limit
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/files-remote-info
+      name: files-remote-info
+      description: REST surface for files.remote.info.
+      operations:
+      - method: GET
+        name: getfilesremoteinfo
+        description: Slack Get Files Remote Info
+        call: files-get.getfilesremoteinfo
+        with:
+          token: rest.token
+          file: rest.file
+          external_id: rest.external_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/files-remote-list
+      name: files-remote-list
+      description: REST surface for files.remote.list.
+      operations:
+      - method: GET
+        name: getfilesremotelist
+        description: Slack Get Files Remote List
+        call: files-get.getfilesremotelist
+        with:
+          token: rest.token
+          channel: rest.channel
+          ts_from: rest.ts_from
+          ts_to: rest.ts_to
+          limit: rest.limit
+          cursor: rest.cursor
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/files-remote-share
+      name: files-remote-share
+      description: REST surface for files.remote.share.
+      operations:
+      - method: GET
+        name: getfilesremoteshare
+        description: Slack Get Files Remote Share
+        call: files-get.getfilesremoteshare
+        with:
+          token: rest.token
+          file: rest.file
+          external_id: rest.external_id
+          channels: rest.channels
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: files-get-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Slack Files API — Get. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: slack-get-files-info
+      description: Slack Get Files Info
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: files-get.getfilesinfo
+      with:
+        token: tools.token
+        file: tools.file
+        count: tools.count
+        page: tools.page
+        limit: tools.limit
+        cursor: tools.cursor
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-get-files-list
+      description: Slack Get Files List
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: files-get.getfileslist
+      with:
+        token: tools.token
+        user: tools.user
+        channel: tools.channel
+        ts_from: tools.ts_from
+        ts_to: tools.ts_to
+        types: tools.types
+        count: tools.count
+        page: tools.page
+        show_files_hidden_by_limit: tools.show_files_hidden_by_limit
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-get-files-remote-info
+      description: Slack Get Files Remote Info
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: files-get.getfilesremoteinfo
+      with:
+        token: tools.token
+        file: tools.file
+        external_id: tools.external_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-get-files-remote-list
+      description: Slack Get Files Remote List
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: files-get.getfilesremotelist
+      with:
+        token: tools.token
+        channel: tools.channel
+        ts_from: tools.ts_from
+        ts_to: tools.ts_to
+        limit: tools.limit
+        cursor: tools.cursor
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-get-files-remote-share
+      description: Slack Get Files Remote Share
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: files-get.getfilesremoteshare
+      with:
+        token: tools.token
+        file: tools.file
+        external_id: tools.external_id
+        channels: tools.channels
+      outputParameters:
+      - type: object
+        mapping: $.

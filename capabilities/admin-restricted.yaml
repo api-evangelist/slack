@@ -1,0 +1,99 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Slack Admin API — Restricted
+  description: 'Slack Admin API — Restricted. 1 operations. Lead operation: Slack Get Admin Apps Restricted List. Self-contained
+    Naftiko capability covering one Slack business surface.'
+  tags:
+  - Slack
+  - Restricted
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SLACK_API_KEY: SLACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: admin-restricted
+    baseUri: ''
+    description: Slack Admin API — Restricted business capability. Self-contained, no shared references.
+    resources:
+    - name: admin.apps.restricted.list
+      path: /admin.apps.restricted.list
+      operations:
+      - name: getadminappsrestrictedlist
+        method: GET
+        description: Slack Get Admin Apps Restricted List
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: query
+          type: string
+          description: 'Authentication token. Requires scope: `admin.apps:read`'
+          required: true
+        - name: limit
+          in: query
+          type: integer
+          description: The maximum number of items to return. Must be between 1 - 1000 both inclusive.
+        - name: cursor
+          in: query
+          type: string
+          description: Set `cursor` to `next_cursor` returned by the previous call to list items in the next page
+        - name: team_id
+          in: query
+          type: string
+        - name: enterprise_id
+          in: query
+          type: string
+  exposes:
+  - type: rest
+    namespace: admin-restricted-rest
+    port: 8080
+    description: REST adapter for Slack Admin API — Restricted. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/admin-apps-restricted-list
+      name: admin-apps-restricted-list
+      description: REST surface for admin.apps.restricted.list.
+      operations:
+      - method: GET
+        name: getadminappsrestrictedlist
+        description: Slack Get Admin Apps Restricted List
+        call: admin-restricted.getadminappsrestrictedlist
+        with:
+          token: rest.token
+          limit: rest.limit
+          cursor: rest.cursor
+          team_id: rest.team_id
+          enterprise_id: rest.enterprise_id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: admin-restricted-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Slack Admin API — Restricted. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: slack-get-admin-apps-restricted
+      description: Slack Get Admin Apps Restricted List
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: admin-restricted.getadminappsrestrictedlist
+      with:
+        token: tools.token
+        limit: tools.limit
+        cursor: tools.cursor
+        team_id: tools.team_id
+        enterprise_id: tools.enterprise_id
+      outputParameters:
+      - type: object
+        mapping: $.

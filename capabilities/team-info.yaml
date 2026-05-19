@@ -1,0 +1,84 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Slack Team API — Info
+  description: 'Slack Team API — Info. 1 operations. Lead operation: Slack Get Team Info. Self-contained Naftiko capability
+    covering one Slack business surface.'
+  tags:
+  - Slack
+  - Info
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SLACK_API_KEY: SLACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: team-info
+    baseUri: ''
+    description: Slack Team API — Info business capability. Self-contained, no shared references.
+    resources:
+    - name: team.info
+      path: /team.info
+      operations:
+      - name: getteaminfo
+        method: GET
+        description: Slack Get Team Info
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: query
+          type: string
+          description: 'Authentication token. Requires scope: `team:read`'
+          required: true
+        - name: team
+          in: query
+          type: string
+          description: Team to get info on, if omitted, will return information about the current team. Will only return team
+            that the authenticated token is allowed to see through ex
+  exposes:
+  - type: rest
+    namespace: team-info-rest
+    port: 8080
+    description: REST adapter for Slack Team API — Info. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/team-info
+      name: team-info
+      description: REST surface for team.info.
+      operations:
+      - method: GET
+        name: getteaminfo
+        description: Slack Get Team Info
+        call: team-info.getteaminfo
+        with:
+          token: rest.token
+          team: rest.team
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: team-info-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Slack Team API — Info. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: slack-get-team-info
+      description: Slack Get Team Info
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: team-info.getteaminfo
+      with:
+        token: tools.token
+        team: tools.team
+      outputParameters:
+      - type: object
+        mapping: $.

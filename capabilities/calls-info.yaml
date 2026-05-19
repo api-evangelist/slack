@@ -1,0 +1,84 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Slack Calls API — Info
+  description: 'Slack Calls API — Info. 1 operations. Lead operation: Slack Get Calls Info. Self-contained Naftiko capability
+    covering one Slack business surface.'
+  tags:
+  - Slack
+  - Info
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SLACK_API_KEY: SLACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: calls-info
+    baseUri: ''
+    description: Slack Calls API — Info business capability. Self-contained, no shared references.
+    resources:
+    - name: calls.info
+      path: /calls.info
+      operations:
+      - name: callsinfo
+        method: GET
+        description: Slack Get Calls Info
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `calls:read`'
+          required: true
+        - name: id
+          in: query
+          type: string
+          description: '`id` of the Call returned by the [`calls.add`](/methods/calls.add) method.'
+          required: true
+  exposes:
+  - type: rest
+    namespace: calls-info-rest
+    port: 8080
+    description: REST adapter for Slack Calls API — Info. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/calls-info
+      name: calls-info
+      description: REST surface for calls.info.
+      operations:
+      - method: GET
+        name: callsinfo
+        description: Slack Get Calls Info
+        call: calls-info.callsinfo
+        with:
+          token: rest.token
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: calls-info-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Slack Calls API — Info. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: slack-get-calls-info
+      description: Slack Get Calls Info
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: calls-info.callsinfo
+      with:
+        token: tools.token
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,84 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Slack Auth API — Revoke
+  description: 'Slack Auth API — Revoke. 1 operations. Lead operation: Slack Get Auth Revoke. Self-contained Naftiko capability
+    covering one Slack business surface.'
+  tags:
+  - Slack
+  - Revoke
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SLACK_API_KEY: SLACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: auth-revoke
+    baseUri: ''
+    description: Slack Auth API — Revoke business capability. Self-contained, no shared references.
+    resources:
+    - name: auth.revoke
+      path: /auth.revoke
+      operations:
+      - name: getauthrevoke
+        method: GET
+        description: Slack Get Auth Revoke
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: query
+          type: string
+          description: 'Authentication token. Requires scope: `none`'
+          required: true
+        - name: test
+          in: query
+          type: boolean
+          description: Setting this parameter to `1` triggers a _testing mode_ where the specified token will not actually
+            be revoked.
+  exposes:
+  - type: rest
+    namespace: auth-revoke-rest
+    port: 8080
+    description: REST adapter for Slack Auth API — Revoke. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/auth-revoke
+      name: auth-revoke
+      description: REST surface for auth.revoke.
+      operations:
+      - method: GET
+        name: getauthrevoke
+        description: Slack Get Auth Revoke
+        call: auth-revoke.getauthrevoke
+        with:
+          token: rest.token
+          test: rest.test
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: auth-revoke-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Slack Auth API — Revoke. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: slack-get-auth-revoke
+      description: Slack Get Auth Revoke
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: auth-revoke.getauthrevoke
+      with:
+        token: tools.token
+        test: tools.test
+      outputParameters:
+      - type: object
+        mapping: $.

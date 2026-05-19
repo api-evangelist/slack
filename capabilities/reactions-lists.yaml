@@ -1,0 +1,113 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Slack Reactions API — Lists
+  description: 'Slack Reactions API — Lists. 1 operations. Lead operation: Slack Get Reactions List. Self-contained Naftiko
+    capability covering one Slack business surface.'
+  tags:
+  - Slack
+  - Lists
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SLACK_API_KEY: SLACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: reactions-lists
+    baseUri: ''
+    description: Slack Reactions API — Lists business capability. Self-contained, no shared references.
+    resources:
+    - name: reactions.list
+      path: /reactions.list
+      operations:
+      - name: getreactionslist
+        method: GET
+        description: Slack Get Reactions List
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: query
+          type: string
+          description: 'Authentication token. Requires scope: `reactions:read`'
+          required: true
+        - name: user
+          in: query
+          type: string
+          description: Show reactions made by this user. Defaults to the authed user.
+        - name: full
+          in: query
+          type: boolean
+          description: If true always return the complete reaction list.
+        - name: count
+          in: query
+          type: integer
+        - name: page
+          in: query
+          type: integer
+        - name: cursor
+          in: query
+          type: string
+          description: 'Parameter for pagination. Set `cursor` equal to the `next_cursor` attribute returned by the previous
+            request''s `response_metadata`. This parameter is optional, '
+        - name: limit
+          in: query
+          type: integer
+          description: The maximum number of items to return. Fewer than the requested number of items may be returned, even
+            if the end of the list hasn't been reached.
+  exposes:
+  - type: rest
+    namespace: reactions-lists-rest
+    port: 8080
+    description: REST adapter for Slack Reactions API — Lists. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/reactions-list
+      name: reactions-list
+      description: REST surface for reactions.list.
+      operations:
+      - method: GET
+        name: getreactionslist
+        description: Slack Get Reactions List
+        call: reactions-lists.getreactionslist
+        with:
+          token: rest.token
+          user: rest.user
+          full: rest.full
+          count: rest.count
+          page: rest.page
+          cursor: rest.cursor
+          limit: rest.limit
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: reactions-lists-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Slack Reactions API — Lists. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: slack-get-reactions-list
+      description: Slack Get Reactions List
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: reactions-lists.getreactionslist
+      with:
+        token: tools.token
+        user: tools.user
+        full: tools.full
+        count: tools.count
+        page: tools.page
+        cursor: tools.cursor
+        limit: tools.limit
+      outputParameters:
+      - type: object
+        mapping: $.

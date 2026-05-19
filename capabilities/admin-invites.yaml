@@ -1,0 +1,133 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Slack Admin API — Invites
+  description: 'Slack Admin API — Invites. 2 operations. Lead operation: Slack Post Admin Conversations Invite. Self-contained
+    Naftiko capability covering one Slack business surface.'
+  tags:
+  - Slack
+  - Invites
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SLACK_API_KEY: SLACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: admin-invites
+    baseUri: ''
+    description: Slack Admin API — Invites business capability. Self-contained, no shared references.
+    resources:
+    - name: admin.conversations.invite
+      path: /admin.conversations.invite
+      operations:
+      - name: postadminconversationsinvite
+        method: POST
+        description: Slack Post Admin Conversations Invite
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `admin.conversations:write`'
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: admin.users.invite
+      path: /admin.users.invite
+      operations:
+      - name: postadminusersinvite
+        method: POST
+        description: Slack Post Admin Users Invite
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `admin.users:write`'
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+  exposes:
+  - type: rest
+    namespace: admin-invites-rest
+    port: 8080
+    description: REST adapter for Slack Admin API — Invites. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/admin-conversations-invite
+      name: admin-conversations-invite
+      description: REST surface for admin.conversations.invite.
+      operations:
+      - method: POST
+        name: postadminconversationsinvite
+        description: Slack Post Admin Conversations Invite
+        call: admin-invites.postadminconversationsinvite
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin-users-invite
+      name: admin-users-invite
+      description: REST surface for admin.users.invite.
+      operations:
+      - method: POST
+        name: postadminusersinvite
+        description: Slack Post Admin Users Invite
+        call: admin-invites.postadminusersinvite
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: admin-invites-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Slack Admin API — Invites. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: slack-post-admin-conversations-invite
+      description: Slack Post Admin Conversations Invite
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: admin-invites.postadminconversationsinvite
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-post-admin-users-invite
+      description: Slack Post Admin Users Invite
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: admin-invites.postadminusersinvite
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

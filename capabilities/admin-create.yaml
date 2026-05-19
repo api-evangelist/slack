@@ -1,0 +1,133 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Slack Admin API — Create
+  description: 'Slack Admin API — Create. 2 operations. Lead operation: Slack Post Admin Conversations Create. Self-contained
+    Naftiko capability covering one Slack business surface.'
+  tags:
+  - Slack
+  - Create
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SLACK_API_KEY: SLACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: admin-create
+    baseUri: ''
+    description: Slack Admin API — Create business capability. Self-contained, no shared references.
+    resources:
+    - name: admin.conversations.create
+      path: /admin.conversations.create
+      operations:
+      - name: postadminconversationscreate
+        method: POST
+        description: Slack Post Admin Conversations Create
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `admin.conversations:write`'
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: admin.teams.create
+      path: /admin.teams.create
+      operations:
+      - name: postadminteamscreate
+        method: POST
+        description: Slack Post Admin Teams Create
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `admin.teams:write`'
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+  exposes:
+  - type: rest
+    namespace: admin-create-rest
+    port: 8080
+    description: REST adapter for Slack Admin API — Create. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/admin-conversations-create
+      name: admin-conversations-create
+      description: REST surface for admin.conversations.create.
+      operations:
+      - method: POST
+        name: postadminconversationscreate
+        description: Slack Post Admin Conversations Create
+        call: admin-create.postadminconversationscreate
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin-teams-create
+      name: admin-teams-create
+      description: REST surface for admin.teams.create.
+      operations:
+      - method: POST
+        name: postadminteamscreate
+        description: Slack Post Admin Teams Create
+        call: admin-create.postadminteamscreate
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: admin-create-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Slack Admin API — Create. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: slack-post-admin-conversations-create
+      description: Slack Post Admin Conversations Create
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: admin-create.postadminconversationscreate
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-post-admin-teams-create
+      description: Slack Post Admin Teams Create
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: admin-create.postadminteamscreate
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

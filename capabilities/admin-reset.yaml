@@ -1,0 +1,84 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Slack Admin API — Reset
+  description: 'Slack Admin API — Reset. 1 operations. Lead operation: Slack Post Admin Users Session Reset. Self-contained
+    Naftiko capability covering one Slack business surface.'
+  tags:
+  - Slack
+  - Reset
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SLACK_API_KEY: SLACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: admin-reset
+    baseUri: ''
+    description: Slack Admin API — Reset business capability. Self-contained, no shared references.
+    resources:
+    - name: admin.users.session.reset
+      path: /admin.users.session.reset
+      operations:
+      - name: postadminuserssessionreset
+        method: POST
+        description: Slack Post Admin Users Session Reset
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `admin.users:write`'
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+  exposes:
+  - type: rest
+    namespace: admin-reset-rest
+    port: 8080
+    description: REST adapter for Slack Admin API — Reset. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/admin-users-session-reset
+      name: admin-users-session-reset
+      description: REST surface for admin.users.session.reset.
+      operations:
+      - method: POST
+        name: postadminuserssessionreset
+        description: Slack Post Admin Users Session Reset
+        call: admin-reset.postadminuserssessionreset
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: admin-reset-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Slack Admin API — Reset. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: slack-post-admin-users-session
+      description: Slack Post Admin Users Session Reset
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: admin-reset.postadminuserssessionreset
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

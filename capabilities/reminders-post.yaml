@@ -1,0 +1,180 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Slack Reminders API — Post
+  description: 'Slack Reminders API — Post. 3 operations. Lead operation: Slack Post Reminders Add. Self-contained Naftiko
+    capability covering one Slack business surface.'
+  tags:
+  - Slack
+  - Post
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SLACK_API_KEY: SLACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: reminders-post
+    baseUri: ''
+    description: Slack Reminders API — Post business capability. Self-contained, no shared references.
+    resources:
+    - name: reminders.add
+      path: /reminders.add
+      operations:
+      - name: postremindersadd
+        method: POST
+        description: Slack Post Reminders Add
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `reminders:write`'
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: reminders.complete
+      path: /reminders.complete
+      operations:
+      - name: postreminderscomplete
+        method: POST
+        description: Slack Post Reminders Complete
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `reminders:write`'
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: reminders.delete
+      path: /reminders.delete
+      operations:
+      - name: postremindersdelete
+        method: POST
+        description: Slack Post Reminders Delete
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token
+          in: header
+          type: string
+          description: 'Authentication token. Requires scope: `reminders:write`'
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+  exposes:
+  - type: rest
+    namespace: reminders-post-rest
+    port: 8080
+    description: REST adapter for Slack Reminders API — Post. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/reminders-add
+      name: reminders-add
+      description: REST surface for reminders.add.
+      operations:
+      - method: POST
+        name: postremindersadd
+        description: Slack Post Reminders Add
+        call: reminders-post.postremindersadd
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/reminders-complete
+      name: reminders-complete
+      description: REST surface for reminders.complete.
+      operations:
+      - method: POST
+        name: postreminderscomplete
+        description: Slack Post Reminders Complete
+        call: reminders-post.postreminderscomplete
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/reminders-delete
+      name: reminders-delete
+      description: REST surface for reminders.delete.
+      operations:
+      - method: POST
+        name: postremindersdelete
+        description: Slack Post Reminders Delete
+        call: reminders-post.postremindersdelete
+        with:
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: reminders-post-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Slack Reminders API — Post. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: slack-post-reminders-add
+      description: Slack Post Reminders Add
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: reminders-post.postremindersadd
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-post-reminders-complete
+      description: Slack Post Reminders Complete
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: reminders-post.postreminderscomplete
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-post-reminders-delete
+      description: Slack Post Reminders Delete
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: reminders-post.postremindersdelete
+      with:
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

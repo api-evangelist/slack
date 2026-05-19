@@ -1,0 +1,225 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Slack OAuth API — Oauth
+  description: 'Slack OAuth API — Oauth. 3 operations. Lead operation: Slack Get Oauth Access. Self-contained Naftiko capability
+    covering one Slack business surface.'
+  tags:
+  - Slack
+  - Oauth
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SLACK_API_KEY: SLACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: oauth-oauth
+    baseUri: ''
+    description: Slack OAuth API — Oauth business capability. Self-contained, no shared references.
+    resources:
+    - name: oauth.access
+      path: /oauth.access
+      operations:
+      - name: getoauthaccess
+        method: GET
+        description: Slack Get Oauth Access
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: client_id
+          in: query
+          type: string
+          description: Issued when you created your application.
+        - name: client_secret
+          in: query
+          type: string
+          description: Issued when you created your application.
+        - name: code
+          in: query
+          type: string
+          description: The `code` param returned via the OAuth callback.
+        - name: redirect_uri
+          in: query
+          type: string
+          description: This must match the originally submitted URI (if one was sent).
+        - name: single_channel
+          in: query
+          type: boolean
+          description: Request the user to add your app only to a single channel. Only valid with a [legacy workspace app](https://api.slack.com/legacy-workspace-apps).
+    - name: oauth.token
+      path: /oauth.token
+      operations:
+      - name: getoauthtoken
+        method: GET
+        description: Slack Get Oauth Token
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: client_id
+          in: query
+          type: string
+          description: Issued when you created your application.
+        - name: client_secret
+          in: query
+          type: string
+          description: Issued when you created your application.
+        - name: code
+          in: query
+          type: string
+          description: The `code` param returned via the OAuth callback.
+        - name: redirect_uri
+          in: query
+          type: string
+          description: This must match the originally submitted URI (if one was sent).
+        - name: single_channel
+          in: query
+          type: boolean
+          description: Request the user to add your app only to a single channel.
+    - name: oauth.v2.access
+      path: /oauth.v2.access
+      operations:
+      - name: getoauthaccess
+        method: GET
+        description: Slack Get Oauth Access
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: client_id
+          in: query
+          type: string
+          description: Issued when you created your application.
+        - name: client_secret
+          in: query
+          type: string
+          description: Issued when you created your application.
+        - name: code
+          in: query
+          type: string
+          description: The `code` param returned via the OAuth callback.
+          required: true
+        - name: redirect_uri
+          in: query
+          type: string
+          description: This must match the originally submitted URI (if one was sent).
+  exposes:
+  - type: rest
+    namespace: oauth-oauth-rest
+    port: 8080
+    description: REST adapter for Slack OAuth API — Oauth. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/oauth-access
+      name: oauth-access
+      description: REST surface for oauth.access.
+      operations:
+      - method: GET
+        name: getoauthaccess
+        description: Slack Get Oauth Access
+        call: oauth-oauth.getoauthaccess
+        with:
+          client_id: rest.client_id
+          client_secret: rest.client_secret
+          code: rest.code
+          redirect_uri: rest.redirect_uri
+          single_channel: rest.single_channel
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/oauth-token
+      name: oauth-token
+      description: REST surface for oauth.token.
+      operations:
+      - method: GET
+        name: getoauthtoken
+        description: Slack Get Oauth Token
+        call: oauth-oauth.getoauthtoken
+        with:
+          client_id: rest.client_id
+          client_secret: rest.client_secret
+          code: rest.code
+          redirect_uri: rest.redirect_uri
+          single_channel: rest.single_channel
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/oauth-v2-access
+      name: oauth-v2-access
+      description: REST surface for oauth.v2.access.
+      operations:
+      - method: GET
+        name: getoauthaccess
+        description: Slack Get Oauth Access
+        call: oauth-oauth.getoauthaccess
+        with:
+          client_id: rest.client_id
+          client_secret: rest.client_secret
+          code: rest.code
+          redirect_uri: rest.redirect_uri
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: oauth-oauth-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Slack OAuth API — Oauth. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: slack-get-oauth-access
+      description: Slack Get Oauth Access
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: oauth-oauth.getoauthaccess
+      with:
+        client_id: tools.client_id
+        client_secret: tools.client_secret
+        code: tools.code
+        redirect_uri: tools.redirect_uri
+        single_channel: tools.single_channel
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-get-oauth-token
+      description: Slack Get Oauth Token
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: oauth-oauth.getoauthtoken
+      with:
+        client_id: tools.client_id
+        client_secret: tools.client_secret
+        code: tools.code
+        redirect_uri: tools.redirect_uri
+        single_channel: tools.single_channel
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: slack-get-oauth-access-2
+      description: Slack Get Oauth Access
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: oauth-oauth.getoauthaccess
+      with:
+        client_id: tools.client_id
+        client_secret: tools.client_secret
+        code: tools.code
+        redirect_uri: tools.redirect_uri
+      outputParameters:
+      - type: object
+        mapping: $.
