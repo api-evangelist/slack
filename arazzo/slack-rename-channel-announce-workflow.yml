@@ -1,0 +1,79 @@
+arazzo: 1.0.1
+info:
+  title: Slack Rename a Channel and Announce the Change
+  summary: Rename a channel and post a message announcing the new name.
+  description: >-
+    A housekeeping pattern that renames a channel and keeps members informed.
+    The workflow renames the channel to a new name, captures the updated channel
+    record, and posts a message announcing the change so members are not caught
+    off guard. Every step spells out its request inline so the flow can be read
+    and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: conversationsApi
+  url: ../openapi/slack-conversations-openapi.yml
+  type: openapi
+- name: chatApi
+  url: ../openapi/slack-chat-openapi.yml
+  type: openapi
+workflows:
+- workflowId: rename-channel-announce
+  summary: Rename a channel and announce the new name.
+  description: >-
+    Renames a channel to a new name and posts an announcement message into it.
+  inputs:
+    type: object
+    required:
+    - channel
+    - name
+    - announcement
+    properties:
+      channel:
+        type: string
+        description: The ID of the conversation to rename.
+      name:
+        type: string
+        description: The new name for the conversation.
+      announcement:
+        type: string
+        description: The message announcing the rename.
+  steps:
+  - stepId: renameChannel
+    description: >-
+      Rename the channel to the supplied new name and capture the updated
+      channel record.
+    operationId: postConversationsRename
+    requestBody:
+      contentType: application/x-www-form-urlencoded
+      payload:
+        channel: $inputs.channel
+        name: $inputs.name
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.ok == true
+      type: jsonpath
+    outputs:
+      channelId: $response.body#/channel/id
+      channelName: $response.body#/channel/name
+  - stepId: announceRename
+    description: >-
+      Post an announcement message into the renamed channel so members know the
+      name changed.
+    operationId: postChatPostmessage
+    requestBody:
+      contentType: application/x-www-form-urlencoded
+      payload:
+        channel: $steps.renameChannel.outputs.channelId
+        text: $inputs.announcement
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.ok == true
+      type: jsonpath
+    outputs:
+      messageTs: $response.body#/ts
+  outputs:
+    channelId: $steps.renameChannel.outputs.channelId
+    channelName: $steps.renameChannel.outputs.channelName
+    messageTs: $steps.announceRename.outputs.messageTs

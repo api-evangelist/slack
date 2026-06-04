@@ -1,0 +1,90 @@
+arazzo: 1.0.1
+info:
+  title: Slack Upload a File and Announce It
+  summary: Upload a file to a channel and post a follow up message referencing it.
+  description: >-
+    A file sharing pattern that uploads content into Slack and draws attention
+    to it. The workflow uploads the file with an initial comment into the target
+    channel, then posts a follow up message that references the uploaded file by
+    its permalink so members can find it quickly. Every step spells out its
+    request inline so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: filesApi
+  url: ../openapi/slack-files-openapi.yml
+  type: openapi
+- name: chatApi
+  url: ../openapi/slack-chat-openapi.yml
+  type: openapi
+workflows:
+- workflowId: upload-file-share
+  summary: Upload a file to a channel and post a message linking to it.
+  description: >-
+    Uploads file content to a channel with an initial comment, then posts a
+    follow up message referencing the uploaded file's permalink.
+  inputs:
+    type: object
+    required:
+    - channel
+    - content
+    - filename
+    properties:
+      channel:
+        type: string
+        description: The channel ID to upload and share the file into.
+      content:
+        type: string
+        description: The file contents to upload as a POST variable.
+      filename:
+        type: string
+        description: The filename for the uploaded file.
+      title:
+        type: string
+        description: An optional title for the uploaded file.
+      initialComment:
+        type: string
+        description: An optional message to post alongside the file.
+  steps:
+  - stepId: uploadFile
+    description: >-
+      Upload the supplied file content into the target channel with an optional
+      title and initial comment.
+    operationId: postFilesUpload
+    requestBody:
+      contentType: application/x-www-form-urlencoded
+      payload:
+        channels: $inputs.channel
+        content: $inputs.content
+        filename: $inputs.filename
+        title: $inputs.title
+        initial_comment: $inputs.initialComment
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.ok == true
+      type: jsonpath
+    outputs:
+      fileId: $response.body#/file/id
+      permalink: $response.body#/file/permalink
+  - stepId: announceFile
+    description: >-
+      Post a follow up message into the channel referencing the uploaded file's
+      permalink so members can locate it quickly.
+    operationId: postChatPostmessage
+    requestBody:
+      contentType: application/x-www-form-urlencoded
+      payload:
+        channel: $inputs.channel
+        text: $steps.uploadFile.outputs.permalink
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.ok == true
+      type: jsonpath
+    outputs:
+      messageTs: $response.body#/ts
+  outputs:
+    fileId: $steps.uploadFile.outputs.fileId
+    permalink: $steps.uploadFile.outputs.permalink
+    messageTs: $steps.announceFile.outputs.messageTs

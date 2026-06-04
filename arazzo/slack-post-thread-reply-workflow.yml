@@ -1,0 +1,102 @@
+arazzo: 1.0.1
+info:
+  title: Slack Post a Message and Reply in Thread
+  summary: Post a parent message and then post a threaded reply under it.
+  description: >-
+    A threaded conversation pattern that posts a parent message and immediately
+    starts a thread under it. The workflow posts the parent message to a
+    channel, captures its timestamp, and then posts a reply using that
+    timestamp as the thread anchor. Every step spells out its request inline so
+    the flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: chatApi
+  url: ../openapi/slack-chat-openapi.yml
+  type: openapi
+- name: conversationsApi
+  url: ../openapi/slack-conversations-openapi.yml
+  type: openapi
+workflows:
+- workflowId: post-thread-reply
+  summary: Post a parent message, reply in its thread, and read the thread back.
+  description: >-
+    Posts a parent message to a channel, posts a threaded reply anchored to its
+    timestamp, and then reads the thread replies back to confirm the reply
+    landed.
+  inputs:
+    type: object
+    required:
+    - channel
+    - parentText
+    - replyText
+    properties:
+      channel:
+        type: string
+        description: The channel ID to post the thread into.
+      parentText:
+        type: string
+        description: The parent message text that starts the thread.
+      replyText:
+        type: string
+        description: The reply message text posted under the parent.
+  steps:
+  - stepId: postParent
+    description: >-
+      Post the parent message that the thread will hang from and capture its
+      timestamp.
+    operationId: postChatPostmessage
+    requestBody:
+      contentType: application/x-www-form-urlencoded
+      payload:
+        channel: $inputs.channel
+        text: $inputs.parentText
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.ok == true
+      type: jsonpath
+    outputs:
+      channelId: $response.body#/channel
+      parentTs: $response.body#/ts
+  - stepId: postReply
+    description: >-
+      Post the reply anchored to the parent message timestamp so it appears in
+      the thread.
+    operationId: postChatPostmessage
+    requestBody:
+      contentType: application/x-www-form-urlencoded
+      payload:
+        channel: $steps.postParent.outputs.channelId
+        text: $inputs.replyText
+        thread_ts: $steps.postParent.outputs.parentTs
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.ok == true
+      type: jsonpath
+    outputs:
+      replyTs: $response.body#/ts
+  - stepId: readThread
+    description: >-
+      Read the thread replies back to confirm the reply was posted under the
+      parent message.
+    operationId: getConversationsReplies
+    parameters:
+    - name: channel
+      in: query
+      value: $steps.postParent.outputs.channelId
+    - name: ts
+      in: query
+      value: $steps.postParent.outputs.parentTs
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.ok == true
+      type: jsonpath
+    outputs:
+      messages: $response.body#/messages
+  outputs:
+    channelId: $steps.postParent.outputs.channelId
+    parentTs: $steps.postParent.outputs.parentTs
+    replyTs: $steps.postReply.outputs.replyTs

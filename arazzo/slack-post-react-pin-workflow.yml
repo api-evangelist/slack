@@ -1,0 +1,99 @@
+arazzo: 1.0.1
+info:
+  title: Slack Post a Message, React, and Pin It
+  summary: Post a message to a channel, add a reaction emoji, and pin it.
+  description: >-
+    A highlight pattern that posts an important message and immediately makes it
+    stand out. The workflow posts the message to a channel, adds a reaction
+    emoji to it using the returned timestamp, and pins the message so it stays
+    accessible at the top of the channel. Every step spells out its request
+    inline so the flow can be read and executed without opening the underlying
+    OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: chatApi
+  url: ../openapi/slack-chat-openapi.yml
+  type: openapi
+- name: reactionsApi
+  url: ../openapi/slack-reactions-openapi.yml
+  type: openapi
+- name: pinsApi
+  url: ../openapi/slack-pins-openapi.yml
+  type: openapi
+workflows:
+- workflowId: post-react-pin
+  summary: Post a message, react to it, and pin it to the channel.
+  description: >-
+    Posts a message to a channel, adds a reaction emoji to the new message, and
+    pins the message so it stays visible.
+  inputs:
+    type: object
+    required:
+    - channel
+    - text
+    - reaction
+    properties:
+      channel:
+        type: string
+        description: The channel ID to post the message into.
+      text:
+        type: string
+        description: The message text to post.
+      reaction:
+        type: string
+        description: The reaction (emoji) name to add, without colons.
+  steps:
+  - stepId: postMessage
+    description: >-
+      Post the message to the target channel and capture its timestamp for the
+      follow on reaction and pin steps.
+    operationId: postChatPostmessage
+    requestBody:
+      contentType: application/x-www-form-urlencoded
+      payload:
+        channel: $inputs.channel
+        text: $inputs.text
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.ok == true
+      type: jsonpath
+    outputs:
+      channelId: $response.body#/channel
+      messageTs: $response.body#/ts
+  - stepId: addReaction
+    description: >-
+      Add the supplied reaction emoji to the newly posted message.
+    operationId: postReactionsAdd
+    requestBody:
+      contentType: application/x-www-form-urlencoded
+      payload:
+        channel: $steps.postMessage.outputs.channelId
+        name: $inputs.reaction
+        timestamp: $steps.postMessage.outputs.messageTs
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.ok == true
+      type: jsonpath
+    outputs:
+      reacted: $response.body#/ok
+  - stepId: pinMessage
+    description: >-
+      Pin the newly posted message to the channel so it stays accessible.
+    operationId: postPinsAdd
+    requestBody:
+      contentType: application/x-www-form-urlencoded
+      payload:
+        channel: $steps.postMessage.outputs.channelId
+        timestamp: $steps.postMessage.outputs.messageTs
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.ok == true
+      type: jsonpath
+    outputs:
+      pinned: $response.body#/ok
+  outputs:
+    channelId: $steps.postMessage.outputs.channelId
+    messageTs: $steps.postMessage.outputs.messageTs

@@ -1,0 +1,99 @@
+arazzo: 1.0.1
+info:
+  title: Slack Create Channel, Invite Members, and Announce
+  summary: Create a new channel, invite a set of users, and post a kickoff message.
+  description: >-
+    A common Slack onboarding pattern that stands up a brand new channel and
+    prepares it for collaboration. The workflow creates the public or private
+    channel, invites the supplied comma separated list of user IDs into it, and
+    then posts an opening announcement message so members arrive to immediate
+    context. Every step spells out its request inline so the flow can be read
+    and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: conversationsApi
+  url: ../openapi/slack-conversations-openapi.yml
+  type: openapi
+- name: chatApi
+  url: ../openapi/slack-chat-openapi.yml
+  type: openapi
+workflows:
+- workflowId: create-channel-invite-announce
+  summary: Create a channel, invite users, and post a kickoff announcement.
+  description: >-
+    Creates a channel by name, invites the supplied users into it, and posts an
+    announcement message into the freshly created channel.
+  inputs:
+    type: object
+    required:
+    - name
+    - users
+    - announcement
+    properties:
+      name:
+        type: string
+        description: Name of the public or private channel to create.
+      isPrivate:
+        type: boolean
+        description: Create a private channel instead of a public one.
+      users:
+        type: string
+        description: A comma separated list of user IDs to invite (up to 1000).
+      announcement:
+        type: string
+        description: The kickoff message text to post once the channel exists.
+  steps:
+  - stepId: createChannel
+    description: >-
+      Create the public or private channel that members will be invited into.
+    operationId: postConversationsCreate
+    requestBody:
+      contentType: application/x-www-form-urlencoded
+      payload:
+        name: $inputs.name
+        is_private: $inputs.isPrivate
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.ok == true
+      type: jsonpath
+    outputs:
+      channelId: $response.body#/channel/id
+      channelName: $response.body#/channel/name
+  - stepId: inviteUsers
+    description: >-
+      Invite the supplied comma separated list of users into the new channel.
+    operationId: postConversationsInvite
+    requestBody:
+      contentType: application/x-www-form-urlencoded
+      payload:
+        channel: $steps.createChannel.outputs.channelId
+        users: $inputs.users
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.ok == true
+      type: jsonpath
+    outputs:
+      invitedChannelId: $response.body#/channel/id
+  - stepId: postAnnouncement
+    description: >-
+      Post the kickoff announcement message into the new channel so invited
+      members arrive to immediate context.
+    operationId: postChatPostmessage
+    requestBody:
+      contentType: application/x-www-form-urlencoded
+      payload:
+        channel: $steps.createChannel.outputs.channelId
+        text: $inputs.announcement
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.ok == true
+      type: jsonpath
+    outputs:
+      messageTs: $response.body#/ts
+  outputs:
+    channelId: $steps.createChannel.outputs.channelId
+    channelName: $steps.createChannel.outputs.channelName
+    messageTs: $steps.postAnnouncement.outputs.messageTs

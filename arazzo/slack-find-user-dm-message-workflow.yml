@@ -1,0 +1,94 @@
+arazzo: 1.0.1
+info:
+  title: Slack Find User by Email and Direct Message Them
+  summary: Look up a user by email, open a direct message channel, and post a message.
+  description: >-
+    A direct outreach pattern that turns an email address into a one to one
+    Slack conversation. The workflow resolves the email to a Slack user ID,
+    opens (or reuses) a direct message channel with that user, and posts the
+    supplied message into the DM. Every step spells out its request inline so
+    the flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: usersApi
+  url: ../openapi/slack-users-openapi.yml
+  type: openapi
+- name: conversationsApi
+  url: ../openapi/slack-conversations-openapi.yml
+  type: openapi
+- name: chatApi
+  url: ../openapi/slack-chat-openapi.yml
+  type: openapi
+workflows:
+- workflowId: find-user-dm-message
+  summary: Resolve an email to a user, open a DM, and post a message.
+  description: >-
+    Looks up a Slack user by email address, opens a direct message channel with
+    that user, and posts the supplied text into the conversation.
+  inputs:
+    type: object
+    required:
+    - email
+    - text
+    properties:
+      email:
+        type: string
+        description: The email address of the user to message.
+      text:
+        type: string
+        description: The message text to send in the direct message.
+  steps:
+  - stepId: lookupUser
+    description: >-
+      Resolve the supplied email address to a Slack user record so the direct
+      message channel can be opened.
+    operationId: getUsersLookupbyemail
+    parameters:
+    - name: email
+      in: query
+      value: $inputs.email
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.ok == true
+      type: jsonpath
+    outputs:
+      userId: $response.body#/user/id
+  - stepId: openDm
+    description: >-
+      Open (or reuse) a one to one direct message channel with the resolved
+      user.
+    operationId: postConversationsOpen
+    requestBody:
+      contentType: application/x-www-form-urlencoded
+      payload:
+        users: $steps.lookupUser.outputs.userId
+        return_im: true
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.ok == true
+      type: jsonpath
+    outputs:
+      dmChannelId: $response.body#/channel/id
+  - stepId: postDm
+    description: >-
+      Post the supplied message text into the direct message channel.
+    operationId: postChatPostmessage
+    requestBody:
+      contentType: application/x-www-form-urlencoded
+      payload:
+        channel: $steps.openDm.outputs.dmChannelId
+        text: $inputs.text
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.ok == true
+      type: jsonpath
+    outputs:
+      messageTs: $response.body#/ts
+  outputs:
+    userId: $steps.lookupUser.outputs.userId
+    dmChannelId: $steps.openDm.outputs.dmChannelId
+    messageTs: $steps.postDm.outputs.messageTs

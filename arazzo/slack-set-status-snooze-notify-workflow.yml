@@ -1,0 +1,106 @@
+arazzo: 1.0.1
+info:
+  title: Slack Set Status, Snooze Notifications, and Notify a Channel
+  summary: Set a custom status, snooze do not disturb, and post a heads up message.
+  description: >-
+    A focus time pattern that sets a heads down state across the user's profile,
+    notifications, and a team channel. The workflow sets a custom status text
+    and emoji on the user's profile, snoozes do not disturb for a number of
+    minutes, and posts a heads up message into a channel so colleagues know the
+    user is unavailable. Every step spells out its request inline so the flow
+    can be read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: usersApi
+  url: ../openapi/slack-users-openapi.yml
+  type: openapi
+- name: dndApi
+  url: ../openapi/slack-dnd-openapi.yml
+  type: openapi
+- name: chatApi
+  url: ../openapi/slack-chat-openapi.yml
+  type: openapi
+workflows:
+- workflowId: set-status-snooze-notify
+  summary: Set a custom status, snooze DND, and notify a channel.
+  description: >-
+    Sets a custom status text and emoji on the user's profile, snoozes do not
+    disturb for the supplied number of minutes, and posts a heads up message
+    into a channel.
+  inputs:
+    type: object
+    required:
+    - statusText
+    - statusEmoji
+    - numMinutes
+    - channel
+    - notice
+    properties:
+      statusText:
+        type: string
+        description: The custom status text to display.
+      statusEmoji:
+        type: string
+        description: The custom status emoji, including colons.
+      numMinutes:
+        type: integer
+        description: Number of minutes to snooze do not disturb for.
+      channel:
+        type: string
+        description: The channel ID to post the heads up message into.
+      notice:
+        type: string
+        description: The heads up message text.
+  steps:
+  - stepId: setStatus
+    description: >-
+      Set the custom status text and emoji on the user's profile using a
+      URL-encoded JSON profile hash.
+    operationId: postUsersProfileSet
+    requestBody:
+      contentType: application/x-www-form-urlencoded
+      payload:
+        profile: '{"status_text":"$inputs.statusText","status_emoji":"$inputs.statusEmoji"}'
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.ok == true
+      type: jsonpath
+    outputs:
+      profile: $response.body#/profile
+  - stepId: snoozeDnd
+    description: >-
+      Snooze do not disturb for the supplied number of minutes.
+    operationId: postDndSetsnooze
+    requestBody:
+      contentType: application/x-www-form-urlencoded
+      payload:
+        num_minutes: $inputs.numMinutes
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.ok == true
+      type: jsonpath
+    outputs:
+      snoozeEndtime: $response.body#/snooze_endtime
+  - stepId: notifyChannel
+    description: >-
+      Post a heads up message into the channel so colleagues know the user is
+      unavailable.
+    operationId: postChatPostmessage
+    requestBody:
+      contentType: application/x-www-form-urlencoded
+      payload:
+        channel: $inputs.channel
+        text: $inputs.notice
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.ok == true
+      type: jsonpath
+    outputs:
+      messageTs: $response.body#/ts
+  outputs:
+    profile: $steps.setStatus.outputs.profile
+    snoozeEndtime: $steps.snoozeDnd.outputs.snoozeEndtime
+    messageTs: $steps.notifyChannel.outputs.messageTs

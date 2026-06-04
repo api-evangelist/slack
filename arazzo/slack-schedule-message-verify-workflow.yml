@@ -1,0 +1,76 @@
+arazzo: 1.0.1
+info:
+  title: Slack Schedule a Message and Verify It
+  summary: Schedule a future message to a channel and confirm it appears in the queue.
+  description: >-
+    A reliable scheduling pattern that queues a message for future delivery and
+    verifies the queue accepted it. The workflow schedules the message for a
+    given Unix timestamp, then lists the channel's scheduled messages and
+    confirms the newly scheduled message is present. Every step spells out its
+    request inline so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: chatApi
+  url: ../openapi/slack-chat-openapi.yml
+  type: openapi
+workflows:
+- workflowId: schedule-message-verify
+  summary: Schedule a future message and verify it is queued.
+  description: >-
+    Schedules a message for future delivery to a channel and then lists the
+    channel's scheduled messages to confirm it was queued.
+  inputs:
+    type: object
+    required:
+    - channel
+    - text
+    - postAt
+    properties:
+      channel:
+        type: string
+        description: The channel ID to schedule the message into.
+      text:
+        type: string
+        description: The message text to schedule.
+      postAt:
+        type: integer
+        description: The Unix timestamp at which the message should be sent.
+  steps:
+  - stepId: scheduleMessage
+    description: >-
+      Schedule the supplied message for future delivery to the target channel.
+    operationId: postChatSchedulemessage
+    requestBody:
+      contentType: application/x-www-form-urlencoded
+      payload:
+        channel: $inputs.channel
+        text: $inputs.text
+        post_at: $inputs.postAt
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.ok == true
+      type: jsonpath
+    outputs:
+      scheduledMessageId: $response.body#/scheduled_message_id
+      channelId: $response.body#/channel
+  - stepId: verifyScheduled
+    description: >-
+      List the channel's scheduled messages to confirm the newly scheduled
+      message is present in the delivery queue.
+    operationId: getChatScheduledmessagesList
+    parameters:
+    - name: channel
+      in: query
+      value: $steps.scheduleMessage.outputs.channelId
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.ok == true
+      type: jsonpath
+    outputs:
+      scheduledMessages: $response.body#/scheduled_messages
+  outputs:
+    scheduledMessageId: $steps.scheduleMessage.outputs.scheduledMessageId
+    scheduledMessages: $steps.verifyScheduled.outputs.scheduledMessages

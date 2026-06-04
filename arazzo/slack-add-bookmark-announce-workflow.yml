@@ -1,0 +1,99 @@
+arazzo: 1.0.1
+info:
+  title: Slack Add a Channel Bookmark and Announce It
+  summary: Add a link bookmark to a channel and post a message about it.
+  description: >-
+    A resource sharing pattern that pins a link to a channel's bookmark bar and
+    tells members about it. The workflow adds a link bookmark to the channel,
+    confirms it via the bookmark list, and posts a message announcing the new
+    bookmark so members know where to find it. Every step spells out its request
+    inline so the flow can be read and executed without opening the underlying
+    OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: bookmarksApi
+  url: ../openapi/slack-bookmarks-openapi.yml
+  type: openapi
+- name: chatApi
+  url: ../openapi/slack-chat-openapi.yml
+  type: openapi
+workflows:
+- workflowId: add-bookmark-announce
+  summary: Add a link bookmark to a channel, list bookmarks, and announce it.
+  description: >-
+    Adds a link bookmark to a channel, lists the channel bookmarks to confirm,
+    and posts an announcement message about the new bookmark.
+  inputs:
+    type: object
+    required:
+    - channelId
+    - title
+    - link
+    properties:
+      channelId:
+        type: string
+        description: The channel ID to add the bookmark to.
+      title:
+        type: string
+        description: The title of the bookmark.
+      link:
+        type: string
+        description: The link the bookmark points to.
+      announcement:
+        type: string
+        description: The message announcing the new bookmark.
+  steps:
+  - stepId: addBookmark
+    description: >-
+      Add a link bookmark to the channel and capture the new bookmark ID.
+    operationId: postBookmarksAdd
+    requestBody:
+      contentType: application/x-www-form-urlencoded
+      payload:
+        channel_id: $inputs.channelId
+        title: $inputs.title
+        type: link
+        link: $inputs.link
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.ok == true
+      type: jsonpath
+    outputs:
+      bookmarkId: $response.body#/bookmark/id
+  - stepId: listBookmarks
+    description: >-
+      List the channel's bookmarks to confirm the new bookmark is present.
+    operationId: getBookmarksList
+    parameters:
+    - name: channel_id
+      in: query
+      value: $inputs.channelId
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.ok == true
+      type: jsonpath
+    outputs:
+      bookmarks: $response.body#/bookmarks
+  - stepId: announceBookmark
+    description: >-
+      Post a message announcing the new bookmark so members know where to find
+      the linked resource.
+    operationId: postChatPostmessage
+    requestBody:
+      contentType: application/x-www-form-urlencoded
+      payload:
+        channel: $inputs.channelId
+        text: $inputs.announcement
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.ok == true
+      type: jsonpath
+    outputs:
+      messageTs: $response.body#/ts
+  outputs:
+    bookmarkId: $steps.addBookmark.outputs.bookmarkId
+    bookmarks: $steps.listBookmarks.outputs.bookmarks
+    messageTs: $steps.announceBookmark.outputs.messageTs

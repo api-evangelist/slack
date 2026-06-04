@@ -1,0 +1,93 @@
+arazzo: 1.0.1
+info:
+  title: Slack Look Up a User and Send a Personalized Greeting
+  summary: Fetch a user's profile, open a DM, and post a personalized greeting.
+  description: >-
+    A personalization pattern that greets a known user by their profile name.
+    The workflow fetches the user's info by ID, opens a direct message channel
+    with them, and posts a greeting that can be personalized from the returned
+    profile. Every step spells out its request inline so the flow can be read
+    and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: usersApi
+  url: ../openapi/slack-users-openapi.yml
+  type: openapi
+- name: conversationsApi
+  url: ../openapi/slack-conversations-openapi.yml
+  type: openapi
+- name: chatApi
+  url: ../openapi/slack-chat-openapi.yml
+  type: openapi
+workflows:
+- workflowId: user-info-dm-greeting
+  summary: Fetch a user's info, open a DM, and post a greeting.
+  description: >-
+    Fetches a user's profile by ID, opens a direct message channel, and posts a
+    greeting message.
+  inputs:
+    type: object
+    required:
+    - user
+    - greeting
+    properties:
+      user:
+        type: string
+        description: The ID of the user to greet.
+      greeting:
+        type: string
+        description: The greeting message text to send.
+  steps:
+  - stepId: getUserInfo
+    description: >-
+      Fetch the user's profile by ID so the greeting can be personalized.
+    operationId: getUsersInfo
+    parameters:
+    - name: user
+      in: query
+      value: $inputs.user
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.ok == true
+      type: jsonpath
+    outputs:
+      userId: $response.body#/user/id
+      userName: $response.body#/user/name
+  - stepId: openDm
+    description: >-
+      Open a direct message channel with the user.
+    operationId: postConversationsOpen
+    requestBody:
+      contentType: application/x-www-form-urlencoded
+      payload:
+        users: $steps.getUserInfo.outputs.userId
+        return_im: true
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.ok == true
+      type: jsonpath
+    outputs:
+      dmChannelId: $response.body#/channel/id
+  - stepId: postGreeting
+    description: >-
+      Post the greeting message into the direct message channel.
+    operationId: postChatPostmessage
+    requestBody:
+      contentType: application/x-www-form-urlencoded
+      payload:
+        channel: $steps.openDm.outputs.dmChannelId
+        text: $inputs.greeting
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.ok == true
+      type: jsonpath
+    outputs:
+      messageTs: $response.body#/ts
+  outputs:
+    userId: $steps.getUserInfo.outputs.userId
+    userName: $steps.getUserInfo.outputs.userName
+    dmChannelId: $steps.openDm.outputs.dmChannelId
+    messageTs: $steps.postGreeting.outputs.messageTs

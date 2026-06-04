@@ -1,0 +1,73 @@
+arazzo: 1.0.1
+info:
+  title: Slack Add a Reminder and Confirm It
+  summary: Create a reminder for a user and read it back to confirm.
+  description: >-
+    A follow up pattern that schedules a reminder and confirms it was stored.
+    The workflow adds a reminder for a user at a given time, captures the new
+    reminder ID, and reads the reminder back by ID to confirm the details were
+    saved. Every step spells out its request inline so the flow can be read and
+    executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: remindersApi
+  url: ../openapi/slack-reminders-openapi.yml
+  type: openapi
+workflows:
+- workflowId: add-reminder-for-user
+  summary: Add a reminder for a user and read it back to confirm.
+  description: >-
+    Adds a reminder for a user at the supplied time and then reads the reminder
+    back by its ID to confirm it was stored.
+  inputs:
+    type: object
+    required:
+    - text
+    - time
+    properties:
+      text:
+        type: string
+        description: The content of the reminder.
+      time:
+        type: string
+        description: When the reminder should happen, as a Unix timestamp or natural language.
+      user:
+        type: string
+        description: The user who will receive the reminder; defaults to the caller.
+  steps:
+  - stepId: addReminder
+    description: >-
+      Add the reminder for the supplied user at the supplied time and capture
+      the new reminder ID.
+    operationId: postRemindersAdd
+    requestBody:
+      contentType: application/x-www-form-urlencoded
+      payload:
+        text: $inputs.text
+        time: $inputs.time
+        user: $inputs.user
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.ok == true
+      type: jsonpath
+    outputs:
+      reminderId: $response.body#/reminder/id
+  - stepId: confirmReminder
+    description: >-
+      Read the reminder back by its ID to confirm the stored details.
+    operationId: getRemindersInfo
+    parameters:
+    - name: reminder
+      in: query
+      value: $steps.addReminder.outputs.reminderId
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.ok == true
+      type: jsonpath
+    outputs:
+      reminder: $response.body#/reminder
+  outputs:
+    reminderId: $steps.addReminder.outputs.reminderId
+    reminder: $steps.confirmReminder.outputs.reminder

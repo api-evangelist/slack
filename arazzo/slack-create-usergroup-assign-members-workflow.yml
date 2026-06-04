@@ -1,0 +1,94 @@
+arazzo: 1.0.1
+info:
+  title: Slack Create a User Group and Assign Members
+  summary: Create a user group, assign members, and confirm the membership list.
+  description: >-
+    A team modelling pattern that stands up a mentionable user group and
+    populates it. The workflow creates the user group with a name and handle,
+    assigns the supplied members to it, and then reads the membership list back
+    to confirm the assignment took effect. Every step spells out its request
+    inline so the flow can be read and executed without opening the underlying
+    OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: usergroupsApi
+  url: ../openapi/slack-usergroups-openapi.yml
+  type: openapi
+workflows:
+- workflowId: create-usergroup-assign-members
+  summary: Create a user group, assign members, and verify the membership.
+  description: >-
+    Creates a user group, assigns the supplied comma separated list of user IDs
+    to it, and reads the membership list back to confirm.
+  inputs:
+    type: object
+    required:
+    - name
+    - handle
+    - users
+    properties:
+      name:
+        type: string
+        description: A name for the user group, unique among user groups.
+      handle:
+        type: string
+        description: A mention handle, unique among channels, users, and user groups.
+      description:
+        type: string
+        description: A short description of the user group.
+      users:
+        type: string
+        description: A comma separated list of user IDs to assign to the group.
+  steps:
+  - stepId: createUsergroup
+    description: >-
+      Create the user group with the supplied name, handle, and description.
+    operationId: postUsergroupsCreate
+    requestBody:
+      contentType: application/x-www-form-urlencoded
+      payload:
+        name: $inputs.name
+        handle: $inputs.handle
+        description: $inputs.description
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.ok == true
+      type: jsonpath
+    outputs:
+      usergroupId: $response.body#/usergroup/id
+  - stepId: assignMembers
+    description: >-
+      Assign the supplied comma separated list of users to the new user group.
+    operationId: postUsergroupsUsersUpdate
+    requestBody:
+      contentType: application/x-www-form-urlencoded
+      payload:
+        usergroup: $steps.createUsergroup.outputs.usergroupId
+        users: $inputs.users
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.ok == true
+      type: jsonpath
+    outputs:
+      assigned: $response.body#/ok
+  - stepId: verifyMembers
+    description: >-
+      Read the user group's membership list back to confirm the members were
+      assigned.
+    operationId: getUsergroupsUsersList
+    parameters:
+    - name: usergroup
+      in: query
+      value: $steps.createUsergroup.outputs.usergroupId
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.ok == true
+      type: jsonpath
+    outputs:
+      members: $response.body#/users
+  outputs:
+    usergroupId: $steps.createUsergroup.outputs.usergroupId
+    members: $steps.verifyMembers.outputs.members

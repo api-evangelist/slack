@@ -1,0 +1,100 @@
+arazzo: 1.0.1
+info:
+  title: Slack Remove a Member from a Channel and Log It
+  summary: Resolve a user by email, remove them from a channel, and log the change.
+  description: >-
+    A membership cleanup pattern that removes a person from a channel and keeps
+    an audit trail. The workflow resolves the email to a Slack user ID, removes
+    that user from the target channel, and posts a log message into an audit
+    channel recording who was removed. Every step spells out its request inline
+    so the flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: usersApi
+  url: ../openapi/slack-users-openapi.yml
+  type: openapi
+- name: conversationsApi
+  url: ../openapi/slack-conversations-openapi.yml
+  type: openapi
+- name: chatApi
+  url: ../openapi/slack-chat-openapi.yml
+  type: openapi
+workflows:
+- workflowId: remove-member-announce
+  summary: Resolve an email, remove the user from a channel, and log the change.
+  description: >-
+    Looks up a user by email, removes them from a channel, and posts a log
+    message into an audit channel.
+  inputs:
+    type: object
+    required:
+    - email
+    - channel
+    - auditChannel
+    - logText
+    properties:
+      email:
+        type: string
+        description: The email address of the user to remove.
+      channel:
+        type: string
+        description: The channel ID to remove the user from.
+      auditChannel:
+        type: string
+        description: The channel ID to post the audit log message into.
+      logText:
+        type: string
+        description: The audit log message text.
+  steps:
+  - stepId: lookupUser
+    description: >-
+      Resolve the supplied email address to a Slack user ID.
+    operationId: getUsersLookupbyemail
+    parameters:
+    - name: email
+      in: query
+      value: $inputs.email
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.ok == true
+      type: jsonpath
+    outputs:
+      userId: $response.body#/user/id
+  - stepId: removeUser
+    description: >-
+      Remove the resolved user from the target channel.
+    operationId: postConversationsKick
+    requestBody:
+      contentType: application/x-www-form-urlencoded
+      payload:
+        channel: $inputs.channel
+        user: $steps.lookupUser.outputs.userId
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.ok == true
+      type: jsonpath
+    outputs:
+      removed: $response.body#/ok
+  - stepId: logChange
+    description: >-
+      Post a log message into the audit channel recording the removal.
+    operationId: postChatPostmessage
+    requestBody:
+      contentType: application/x-www-form-urlencoded
+      payload:
+        channel: $inputs.auditChannel
+        text: $inputs.logText
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.ok == true
+      type: jsonpath
+    outputs:
+      messageTs: $response.body#/ts
+  outputs:
+    userId: $steps.lookupUser.outputs.userId
+    removed: $steps.removeUser.outputs.removed
+    messageTs: $steps.logChange.outputs.messageTs

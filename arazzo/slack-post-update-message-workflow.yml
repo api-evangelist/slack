@@ -1,0 +1,77 @@
+arazzo: 1.0.1
+info:
+  title: Slack Post a Message and Update It Later
+  summary: Post an initial status message and then edit it in place with an update.
+  description: >-
+    A live status pattern that posts a placeholder and edits it in place as
+    things change. The workflow posts an initial status message, captures its
+    timestamp, and then updates the same message with revised text so the
+    channel shows a single evolving status rather than a stream of duplicates.
+    Every step spells out its request inline so the flow can be read and
+    executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: chatApi
+  url: ../openapi/slack-chat-openapi.yml
+  type: openapi
+workflows:
+- workflowId: post-update-message
+  summary: Post an initial message and then update it in place.
+  description: >-
+    Posts an initial status message and then edits that same message in place
+    with revised text.
+  inputs:
+    type: object
+    required:
+    - channel
+    - initialText
+    - updatedText
+    properties:
+      channel:
+        type: string
+        description: The channel ID to post and then update the message in.
+      initialText:
+        type: string
+        description: The initial status message text.
+      updatedText:
+        type: string
+        description: The revised text to replace the initial message with.
+  steps:
+  - stepId: postInitial
+    description: >-
+      Post the initial status message and capture its channel and timestamp.
+    operationId: postChatPostmessage
+    requestBody:
+      contentType: application/x-www-form-urlencoded
+      payload:
+        channel: $inputs.channel
+        text: $inputs.initialText
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.ok == true
+      type: jsonpath
+    outputs:
+      channelId: $response.body#/channel
+      messageTs: $response.body#/ts
+  - stepId: updateMessage
+    description: >-
+      Update the same message in place with the revised text.
+    operationId: postChatUpdate
+    requestBody:
+      contentType: application/x-www-form-urlencoded
+      payload:
+        channel: $steps.postInitial.outputs.channelId
+        ts: $steps.postInitial.outputs.messageTs
+        text: $inputs.updatedText
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.ok == true
+      type: jsonpath
+    outputs:
+      updatedTs: $response.body#/ts
+  outputs:
+    channelId: $steps.postInitial.outputs.channelId
+    messageTs: $steps.postInitial.outputs.messageTs
+    updatedTs: $steps.updateMessage.outputs.updatedTs

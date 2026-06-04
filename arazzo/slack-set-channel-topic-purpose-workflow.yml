@@ -1,0 +1,94 @@
+arazzo: 1.0.1
+info:
+  title: Slack Set Channel Topic and Purpose
+  summary: Set a channel's topic and purpose, then announce the update.
+  description: >-
+    A channel grooming pattern that documents what a channel is for. The
+    workflow sets the channel topic, sets the channel purpose, and then posts a
+    short message announcing the freshly documented context so members know what
+    changed. Every step spells out its request inline so the flow can be read
+    and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: conversationsApi
+  url: ../openapi/slack-conversations-openapi.yml
+  type: openapi
+- name: chatApi
+  url: ../openapi/slack-chat-openapi.yml
+  type: openapi
+workflows:
+- workflowId: set-channel-topic-purpose
+  summary: Set a channel topic and purpose, then announce the change.
+  description: >-
+    Sets the topic and purpose for a channel and posts an announcement message
+    so members are aware of the updated context.
+  inputs:
+    type: object
+    required:
+    - channel
+    - topic
+    - purpose
+    properties:
+      channel:
+        type: string
+        description: The channel ID to update.
+      topic:
+        type: string
+        description: The new topic string for the channel.
+      purpose:
+        type: string
+        description: The new purpose string for the channel.
+  steps:
+  - stepId: setTopic
+    description: >-
+      Set the channel topic to the supplied string.
+    operationId: postConversationsSettopic
+    requestBody:
+      contentType: application/x-www-form-urlencoded
+      payload:
+        channel: $inputs.channel
+        topic: $inputs.topic
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.ok == true
+      type: jsonpath
+    outputs:
+      topicSet: $response.body#/ok
+  - stepId: setPurpose
+    description: >-
+      Set the channel purpose to the supplied string.
+    operationId: postConversationsSetpurpose
+    requestBody:
+      contentType: application/x-www-form-urlencoded
+      payload:
+        channel: $inputs.channel
+        purpose: $inputs.purpose
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.ok == true
+      type: jsonpath
+    outputs:
+      purposeSet: $response.body#/ok
+  - stepId: announceUpdate
+    description: >-
+      Post an announcement message so members are aware the channel topic and
+      purpose were updated.
+    operationId: postChatPostmessage
+    requestBody:
+      contentType: application/x-www-form-urlencoded
+      payload:
+        channel: $inputs.channel
+        text: $inputs.topic
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.ok == true
+      type: jsonpath
+    outputs:
+      messageTs: $response.body#/ts
+  outputs:
+    topicSet: $steps.setTopic.outputs.topicSet
+    purposeSet: $steps.setPurpose.outputs.purposeSet
+    messageTs: $steps.announceUpdate.outputs.messageTs

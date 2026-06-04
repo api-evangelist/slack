@@ -1,0 +1,84 @@
+arazzo: 1.0.1
+info:
+  title: Slack Audit Channels and Post a Summary
+  summary: List the workspace channels and post a summary message to a channel.
+  description: >-
+    A reporting pattern that surveys the workspace channel inventory and shares
+    the result. The workflow lists the channels, captures the channel
+    collection, and posts a summary message into a designated reporting channel
+    so the audit result is recorded where the team can see it. Every step spells
+    out its request inline so the flow can be read and executed without opening
+    the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: conversationsApi
+  url: ../openapi/slack-conversations-openapi.yml
+  type: openapi
+- name: chatApi
+  url: ../openapi/slack-chat-openapi.yml
+  type: openapi
+workflows:
+- workflowId: audit-channels-post-summary
+  summary: List channels and post a summary message into a reporting channel.
+  description: >-
+    Lists the workspace channels and posts a summary message into a designated
+    reporting channel.
+  inputs:
+    type: object
+    required:
+    - reportChannel
+    - summaryText
+    properties:
+      reportChannel:
+        type: string
+        description: The channel ID to post the audit summary into.
+      summaryText:
+        type: string
+        description: The summary message text describing the audit result.
+      types:
+        type: string
+        description: A comma separated list of channel types to include.
+      limit:
+        type: integer
+        description: The maximum number of channels to return.
+  steps:
+  - stepId: listChannels
+    description: >-
+      List the workspace channels and capture the channel collection and paging
+      cursor.
+    operationId: getConversationsList
+    parameters:
+    - name: types
+      in: query
+      value: $inputs.types
+    - name: limit
+      in: query
+      value: $inputs.limit
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.ok == true
+      type: jsonpath
+    outputs:
+      channels: $response.body#/channels
+      nextCursor: $response.body#/response_metadata/next_cursor
+  - stepId: postSummary
+    description: >-
+      Post the audit summary message into the designated reporting channel.
+    operationId: postChatPostmessage
+    requestBody:
+      contentType: application/x-www-form-urlencoded
+      payload:
+        channel: $inputs.reportChannel
+        text: $inputs.summaryText
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.ok == true
+      type: jsonpath
+    outputs:
+      messageTs: $response.body#/ts
+  outputs:
+    channels: $steps.listChannels.outputs.channels
+    nextCursor: $steps.listChannels.outputs.nextCursor
+    messageTs: $steps.postSummary.outputs.messageTs

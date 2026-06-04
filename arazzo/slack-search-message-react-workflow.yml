@@ -1,0 +1,81 @@
+arazzo: 1.0.1
+info:
+  title: Slack Search Messages and React to the Top Match
+  summary: Search messages for a query and add a reaction to the best match.
+  description: >-
+    A triage pattern that finds a relevant message and acknowledges it. The
+    workflow searches messages for a query, takes the channel and timestamp of
+    the top match, and adds a reaction emoji to that message to flag it. Every
+    step spells out its request inline so the flow can be read and executed
+    without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: searchApi
+  url: ../openapi/slack-search-openapi.yml
+  type: openapi
+- name: reactionsApi
+  url: ../openapi/slack-reactions-openapi.yml
+  type: openapi
+workflows:
+- workflowId: search-message-react
+  summary: Search messages and react to the top matching message.
+  description: >-
+    Searches messages for a query and adds a reaction emoji to the top matching
+    message using its channel ID and timestamp.
+  inputs:
+    type: object
+    required:
+    - query
+    - reaction
+    properties:
+      query:
+        type: string
+        description: The search query to match messages against.
+      reaction:
+        type: string
+        description: The reaction (emoji) name to add to the top match, without colons.
+  steps:
+  - stepId: searchMessages
+    description: >-
+      Search messages for the supplied query and capture the channel and
+      timestamp of the top matching message.
+    operationId: getSearchMessages
+    parameters:
+    - name: query
+      in: query
+      value: $inputs.query
+    - name: count
+      in: query
+      value: 1
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.ok == true
+      type: jsonpath
+    - context: $response.body
+      condition: $.messages.matches.length > 0
+      type: jsonpath
+    outputs:
+      matchChannelId: $response.body#/messages/matches/0/channel/id
+      matchTs: $response.body#/messages/matches/0/ts
+  - stepId: reactToMatch
+    description: >-
+      Add the supplied reaction emoji to the top matching message to flag it.
+    operationId: postReactionsAdd
+    requestBody:
+      contentType: application/x-www-form-urlencoded
+      payload:
+        channel: $steps.searchMessages.outputs.matchChannelId
+        name: $inputs.reaction
+        timestamp: $steps.searchMessages.outputs.matchTs
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.ok == true
+      type: jsonpath
+    outputs:
+      reacted: $response.body#/ok
+  outputs:
+    matchChannelId: $steps.searchMessages.outputs.matchChannelId
+    matchTs: $steps.searchMessages.outputs.matchTs
+    reacted: $steps.reactToMatch.outputs.reacted

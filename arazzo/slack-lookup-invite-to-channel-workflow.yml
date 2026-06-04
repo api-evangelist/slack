@@ -1,0 +1,95 @@
+arazzo: 1.0.1
+info:
+  title: Slack Look Up a User and Invite Them to a Channel
+  summary: Resolve a user by email, invite them to a channel, and welcome them.
+  description: >-
+    A membership pattern that adds a person to a channel starting from their
+    email address. The workflow resolves the email to a Slack user ID, invites
+    that user into the target channel, and posts a welcome message mentioning
+    the new member. Every step spells out its request inline so the flow can be
+    read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: usersApi
+  url: ../openapi/slack-users-openapi.yml
+  type: openapi
+- name: conversationsApi
+  url: ../openapi/slack-conversations-openapi.yml
+  type: openapi
+- name: chatApi
+  url: ../openapi/slack-chat-openapi.yml
+  type: openapi
+workflows:
+- workflowId: lookup-invite-to-channel
+  summary: Resolve an email to a user, invite to a channel, and welcome them.
+  description: >-
+    Looks up a Slack user by email, invites that user into a channel, and posts
+    a welcome message into the channel.
+  inputs:
+    type: object
+    required:
+    - email
+    - channel
+    - welcomeText
+    properties:
+      email:
+        type: string
+        description: The email address of the user to invite.
+      channel:
+        type: string
+        description: The channel ID to invite the user into.
+      welcomeText:
+        type: string
+        description: The welcome message to post once the user is invited.
+  steps:
+  - stepId: lookupUser
+    description: >-
+      Resolve the supplied email address to a Slack user ID.
+    operationId: getUsersLookupbyemail
+    parameters:
+    - name: email
+      in: query
+      value: $inputs.email
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.ok == true
+      type: jsonpath
+    outputs:
+      userId: $response.body#/user/id
+  - stepId: inviteUser
+    description: >-
+      Invite the resolved user into the target channel.
+    operationId: postConversationsInvite
+    requestBody:
+      contentType: application/x-www-form-urlencoded
+      payload:
+        channel: $inputs.channel
+        users: $steps.lookupUser.outputs.userId
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.ok == true
+      type: jsonpath
+    outputs:
+      channelId: $response.body#/channel/id
+  - stepId: welcomeUser
+    description: >-
+      Post a welcome message into the channel for the newly invited member.
+    operationId: postChatPostmessage
+    requestBody:
+      contentType: application/x-www-form-urlencoded
+      payload:
+        channel: $inputs.channel
+        text: $inputs.welcomeText
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.ok == true
+      type: jsonpath
+    outputs:
+      messageTs: $response.body#/ts
+  outputs:
+    userId: $steps.lookupUser.outputs.userId
+    channelId: $steps.inviteUser.outputs.channelId
+    messageTs: $steps.welcomeUser.outputs.messageTs

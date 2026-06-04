@@ -1,0 +1,71 @@
+arazzo: 1.0.1
+info:
+  title: Slack Announce and Archive a Channel
+  summary: Post a final notice to a channel and then archive it.
+  description: >-
+    A wind down pattern that closes out a channel cleanly. The workflow posts a
+    final notice message explaining that the channel is being archived, then
+    archives the channel so it is removed from active use while remaining
+    searchable. Every step spells out its request inline so the flow can be read
+    and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: chatApi
+  url: ../openapi/slack-chat-openapi.yml
+  type: openapi
+- name: conversationsApi
+  url: ../openapi/slack-conversations-openapi.yml
+  type: openapi
+workflows:
+- workflowId: archive-channel-announce
+  summary: Post a final notice and then archive the channel.
+  description: >-
+    Posts a final notice message to a channel and then archives it.
+  inputs:
+    type: object
+    required:
+    - channel
+    - finalNotice
+    properties:
+      channel:
+        type: string
+        description: The ID of the channel to announce and archive.
+      finalNotice:
+        type: string
+        description: The final notice message to post before archiving.
+  steps:
+  - stepId: postFinalNotice
+    description: >-
+      Post the final notice message explaining the channel is being archived.
+    operationId: postChatPostmessage
+    requestBody:
+      contentType: application/x-www-form-urlencoded
+      payload:
+        channel: $inputs.channel
+        text: $inputs.finalNotice
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.ok == true
+      type: jsonpath
+    outputs:
+      messageTs: $response.body#/ts
+  - stepId: archiveChannel
+    description: >-
+      Archive the channel so it is removed from active use while remaining
+      searchable.
+    operationId: postConversationsArchive
+    requestBody:
+      contentType: application/x-www-form-urlencoded
+      payload:
+        channel: $inputs.channel
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.ok == true
+      type: jsonpath
+    outputs:
+      archived: $response.body#/ok
+  outputs:
+    messageTs: $steps.postFinalNotice.outputs.messageTs
+    archived: $steps.archiveChannel.outputs.archived

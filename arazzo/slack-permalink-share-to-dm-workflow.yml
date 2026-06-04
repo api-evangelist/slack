@@ -1,0 +1,115 @@
+arazzo: 1.0.1
+info:
+  title: Slack Share a Message Permalink in a Direct Message
+  summary: Get a message permalink and send it to a user in a direct message.
+  description: >-
+    A handoff pattern that surfaces a specific message to a colleague privately.
+    The workflow retrieves the permalink for a message, looks up the recipient
+    by email, opens a direct message channel with them, and posts the permalink
+    so they can jump straight to the message. Every step spells out its request
+    inline so the flow can be read and executed without opening the underlying
+    OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: chatApi
+  url: ../openapi/slack-chat-openapi.yml
+  type: openapi
+- name: usersApi
+  url: ../openapi/slack-users-openapi.yml
+  type: openapi
+- name: conversationsApi
+  url: ../openapi/slack-conversations-openapi.yml
+  type: openapi
+workflows:
+- workflowId: permalink-share-to-dm
+  summary: Get a message permalink and DM it to a user resolved by email.
+  description: >-
+    Retrieves a message permalink, resolves the recipient by email, opens a
+    direct message channel, and posts the permalink into the DM.
+  inputs:
+    type: object
+    required:
+    - channel
+    - messageTs
+    - recipientEmail
+    properties:
+      channel:
+        type: string
+        description: The channel ID containing the message.
+      messageTs:
+        type: string
+        description: The timestamp of the message to share.
+      recipientEmail:
+        type: string
+        description: The email address of the user to send the permalink to.
+  steps:
+  - stepId: getPermalink
+    description: >-
+      Retrieve the permalink URL for the target message.
+    operationId: getChatGetpermalink
+    parameters:
+    - name: channel
+      in: query
+      value: $inputs.channel
+    - name: message_ts
+      in: query
+      value: $inputs.messageTs
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.ok == true
+      type: jsonpath
+    outputs:
+      permalink: $response.body#/permalink
+  - stepId: lookupRecipient
+    description: >-
+      Resolve the recipient email address to a Slack user ID.
+    operationId: getUsersLookupbyemail
+    parameters:
+    - name: email
+      in: query
+      value: $inputs.recipientEmail
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.ok == true
+      type: jsonpath
+    outputs:
+      userId: $response.body#/user/id
+  - stepId: openDm
+    description: >-
+      Open a direct message channel with the resolved recipient.
+    operationId: postConversationsOpen
+    requestBody:
+      contentType: application/x-www-form-urlencoded
+      payload:
+        users: $steps.lookupRecipient.outputs.userId
+        return_im: true
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.ok == true
+      type: jsonpath
+    outputs:
+      dmChannelId: $response.body#/channel/id
+  - stepId: sendPermalink
+    description: >-
+      Post the message permalink into the direct message so the recipient can
+      jump straight to it.
+    operationId: postChatPostmessage
+    requestBody:
+      contentType: application/x-www-form-urlencoded
+      payload:
+        channel: $steps.openDm.outputs.dmChannelId
+        text: $steps.getPermalink.outputs.permalink
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.ok == true
+      type: jsonpath
+    outputs:
+      messageTs: $response.body#/ts
+  outputs:
+    permalink: $steps.getPermalink.outputs.permalink
+    dmChannelId: $steps.openDm.outputs.dmChannelId
+    messageTs: $steps.sendPermalink.outputs.messageTs
