@@ -1,0 +1,1710 @@
+# Slack Conceptual GraphQL Schema
+#
+# This is a conceptual schema derived from the Slack Web API data model.
+# Slack does not expose a native public GraphQL endpoint.
+# This schema is intended for tooling, catalog enrichment, and documentation purposes.
+#
+# References:
+#   Web API: https://docs.slack.dev/apis/web-api
+#   Methods: https://docs.slack.dev/reference/methods
+#   Block Kit: https://docs.slack.dev/reference/block-kit
+#   Events API: https://docs.slack.dev/apis/events-api
+
+schema {
+  query: Query
+}
+
+type Query {
+  workspace(id: ID!): Workspace
+  channel(id: ID!): Channel
+  conversation(id: ID!): Channel
+  message(channelId: ID!, ts: String!): Message
+  user(id: ID!): User
+  userByEmail(email: String!): User
+  file(id: ID!): File
+  bot(id: ID!): Bot
+  app(id: ID!): App
+  reminder(id: ID!): Reminder
+  userGroup(id: ID!): UserGroup
+
+  channels(
+    types: [ChannelType!]
+    excludeArchived: Boolean
+    limit: Int
+    cursor: String
+  ): ChannelConnection!
+
+  users(limit: Int, cursor: String): UserConnection!
+
+  conversationHistory(
+    channelId: ID!
+    oldest: String
+    latest: String
+    limit: Int
+    cursor: String
+  ): MessageConnection!
+
+  conversationReplies(
+    channelId: ID!
+    ts: String!
+    limit: Int
+    cursor: String
+  ): MessageConnection!
+
+  files(
+    channelId: ID
+    userId: ID
+    types: [FileType!]
+    limit: Int
+    cursor: String
+  ): FileConnection!
+
+  pins(channelId: ID!): [PinnedItem!]!
+
+  reactions(userId: ID, limit: Int, cursor: String): ReactionItemConnection!
+
+  reminders: [Reminder!]!
+
+  userGroups(includeDisabled: Boolean): [UserGroup!]!
+
+  searchMessages(query: String!, sort: SearchSort, limit: Int, cursor: String): MessageSearchConnection!
+
+  searchFiles(query: String!, sort: SearchSort, limit: Int, cursor: String): FileSearchConnection!
+
+  auditLogs(
+    action: String
+    actor: ID
+    entity: ID
+    oldest: Int
+    latest: Int
+    limit: Int
+    cursor: String
+  ): AuditEventConnection!
+
+  dndInfo(userId: ID!): DndInfo!
+  dndTeamInfo(users: [ID!]): DndTeamInfo!
+
+  emoji: EmojiList!
+
+  teamInfo: Workspace!
+
+  apps(limit: Int, cursor: String): AppConnection!
+
+  bookmarks(channelId: ID!): [Bookmark!]!
+
+  canvas(id: ID!): Canvas
+
+  lists(limit: Int, cursor: String): ListConnection!
+}
+
+# ─────────────────────────────────────────────
+# Workspace / Team
+# ─────────────────────────────────────────────
+
+type Workspace {
+  id: ID!
+  name: String!
+  domain: String!
+  emailDomain: String
+  icon: TeamIcon
+  enterpriseId: ID
+  enterpriseName: String
+  isVerified: Boolean
+  url: String
+  plan: String
+  description: String
+  channels(types: [ChannelType!], limit: Int, cursor: String): ChannelConnection!
+  users(limit: Int, cursor: String): UserConnection!
+  apps(limit: Int, cursor: String): AppConnection!
+  analytics: Analytics
+}
+
+type TeamIcon {
+  image34: String
+  image44: String
+  image68: String
+  image88: String
+  image102: String
+  image132: String
+  image230: String
+  imageOriginal: String
+  imageDefault: Boolean
+}
+
+# ─────────────────────────────────────────────
+# Channel / Conversation
+# ─────────────────────────────────────────────
+
+enum ChannelType {
+  PUBLIC_CHANNEL
+  PRIVATE_CHANNEL
+  MPIM
+  IM
+}
+
+type Channel {
+  id: ID!
+  name: String
+  nameNormalized: String
+  created: Int!
+  creator: User
+  isChannel: Boolean
+  isGroup: Boolean
+  isIm: Boolean
+  isMpim: Boolean
+  isPrivate: Boolean!
+  isArchived: Boolean!
+  isGeneral: Boolean
+  isShared: Boolean
+  isOrgShared: Boolean
+  isMember: Boolean
+  unlinked: Int
+  topic: ChannelTopic
+  purpose: ChannelPurpose
+  previousNames: [String!]
+  numMembers: Int
+  locale: String
+  lastRead: String
+  latest: Message
+  members(limit: Int, cursor: String): UserConnection
+  history(oldest: String, latest: String, limit: Int, cursor: String): MessageConnection
+  pins: [PinnedItem!]
+  bookmarks: [Bookmark!]
+  canvas: Canvas
+}
+
+type ChannelTopic {
+  value: String!
+  creator: ID
+  lastSet: Int
+}
+
+type ChannelPurpose {
+  value: String!
+  creator: ID
+  lastSet: Int
+}
+
+type ChannelConnection {
+  nodes: [Channel!]!
+  pageInfo: PageInfo!
+}
+
+# ─────────────────────────────────────────────
+# Message
+# ─────────────────────────────────────────────
+
+enum MessageSubtype {
+  BOT_MESSAGE
+  ME_MESSAGE
+  CHANNEL_JOIN
+  CHANNEL_LEAVE
+  CHANNEL_TOPIC
+  CHANNEL_PURPOSE
+  CHANNEL_NAME
+  CHANNEL_ARCHIVE
+  CHANNEL_UNARCHIVE
+  FILE_SHARE
+  FILE_COMMENT
+  FILE_MENTION
+  PINNED_ITEM
+  UNPINNED_ITEM
+  THREAD_BROADCAST
+  TOMBSTONE
+  SLACKBOT_RESPONSE
+}
+
+type Message {
+  ts: String!
+  type: String!
+  subtype: MessageSubtype
+  text: String
+  user: User
+  bot: Bot
+  channel: Channel
+  blocks: [LayoutBlock!]
+  attachments: [Attachment!]
+  reactions: [Reaction!]
+  replyCount: Int
+  replyUsersCount: Int
+  latestReply: String
+  replyUsers: [User!]
+  threadTs: String
+  parentUserId: ID
+  files: [File!]
+  upload: Boolean
+  clientMsgId: String
+  team: ID
+  permalink: String
+  pinned: Boolean
+  edited: MessageEdit
+  icons: MessageIcons
+  botId: ID
+  username: String
+  appId: ID
+  metadata: MessageMetadata
+}
+
+type MessageEdit {
+  user: ID
+  ts: String
+}
+
+type MessageIcons {
+  emoji: String
+  imageUrl: String
+}
+
+type MessageMetadata {
+  eventType: String
+  eventPayload: String
+}
+
+type MessageConnection {
+  nodes: [Message!]!
+  pageInfo: PageInfo!
+  hasMore: Boolean
+  responseMetadata: ResponseMetadata
+}
+
+type MessageSearchConnection {
+  matches: [Message!]!
+  total: Int
+  pagination: Pagination
+  pageInfo: PageInfo!
+}
+
+# ─────────────────────────────────────────────
+# User
+# ─────────────────────────────────────────────
+
+type User {
+  id: ID!
+  teamId: ID
+  name: String!
+  realName: String
+  displayName: String
+  email: String
+  phone: String
+  title: String
+  tz: String
+  tzLabel: String
+  tzOffset: Int
+  profile: UserProfile
+  isAdmin: Boolean
+  isOwner: Boolean
+  isPrimaryOwner: Boolean
+  isRestricted: Boolean
+  isUltraRestricted: Boolean
+  isBot: Boolean
+  isAppUser: Boolean
+  isDeleted: Boolean
+  has2fa: Boolean
+  locale: String
+  presence: UserPresence
+  color: String
+  updated: Int
+}
+
+type UserProfile {
+  title: String
+  phone: String
+  skype: String
+  realName: String
+  realNameNormalized: String
+  displayName: String
+  displayNameNormalized: String
+  statusText: String
+  statusEmoji: String
+  statusExpiration: Int
+  avatarHash: String
+  email: String
+  image24: String
+  image32: String
+  image48: String
+  image72: String
+  image192: String
+  image512: String
+  image1024: String
+  imageOriginal: String
+  isCustomImage: Boolean
+  team: ID
+  fields: [UserProfileField!]
+  pronouns: String
+  huddle_state: String
+}
+
+type UserProfileField {
+  id: ID!
+  value: String
+  alt: String
+}
+
+enum UserPresence {
+  ACTIVE
+  AWAY
+}
+
+type UserConnection {
+  nodes: [User!]!
+  pageInfo: PageInfo!
+}
+
+# ─────────────────────────────────────────────
+# Bot
+# ─────────────────────────────────────────────
+
+type Bot {
+  id: ID!
+  appId: ID
+  userId: ID
+  name: String!
+  icons: BotIcons
+  deleted: Boolean
+  updated: Int
+  teamId: ID
+}
+
+type BotIcons {
+  image36: String
+  image48: String
+  image72: String
+}
+
+# ─────────────────────────────────────────────
+# App
+# ─────────────────────────────────────────────
+
+type App {
+  id: ID!
+  name: String!
+  description: String
+  helpUrl: String
+  privacyPolicyUrl: String
+  appHomepageUrl: String
+  appDirectoryUrl: String
+  isAppDirectoryApproved: Boolean
+  isInternal: Boolean
+  icons: AppIcons
+  scopes: [String!]
+  redirectUrls: [String!]
+  botUserId: ID
+  bot: Bot
+  manifest: AppManifest
+}
+
+type AppIcons {
+  image36: String
+  image48: String
+  image72: String
+  image96: String
+  image128: String
+  image192: String
+  image512: String
+  image1024: String
+  imageOriginal: String
+}
+
+type AppManifest {
+  displayInformation: AppDisplayInformation
+  features: AppFeatures
+  oauthConfig: AppOAuthConfig
+  settings: AppSettings
+  functions: [AppFunction!]
+  workflows: [WorkflowDefinition!]
+  datastores: [AppDatastore!]
+}
+
+type AppDisplayInformation {
+  name: String!
+  description: String
+  backgroundColor: String
+  longDescription: String
+}
+
+type AppFeatures {
+  botUser: BotUserFeature
+  shortcuts: [ShortcutDefinition!]
+  slashCommands: [SlashCommandDefinition!]
+  workflowSteps: [WorkflowStepDefinition!]
+  appHome: AppHomeFeature
+}
+
+type BotUserFeature {
+  displayName: String!
+  alwaysOnline: Boolean
+}
+
+type AppHomeFeature {
+  homeTabEnabled: Boolean
+  messagesTabEnabled: Boolean
+  messagesTabReadOnlyEnabled: Boolean
+}
+
+type AppOAuthConfig {
+  scopes: AppOAuthScopes
+  redirectUrls: [String!]
+}
+
+type AppOAuthScopes {
+  bot: [String!]
+  user: [String!]
+}
+
+type AppSettings {
+  eventSubscriptions: EventSubscriptionSettings
+  interactivity: InteractivitySettings
+  orgDeployEnabled: Boolean
+  socketModeEnabled: Boolean
+  tokenRotationEnabled: Boolean
+}
+
+type EventSubscriptionSettings {
+  requestUrl: String
+  botEvents: [String!]
+  userEvents: [String!]
+}
+
+type InteractivitySettings {
+  isEnabled: Boolean!
+  requestUrl: String
+  messageMenuOptionsUrl: String
+}
+
+type AppFunction {
+  id: ID!
+  title: String!
+  description: String
+  inputParameters: [FunctionParameter!]
+  outputParameters: [FunctionParameter!]
+}
+
+type FunctionParameter {
+  name: String!
+  type: String!
+  title: String
+  description: String
+  isRequired: Boolean
+}
+
+type AppDatastore {
+  name: String!
+  primaryKey: String!
+  attributes: [DatastoreAttribute!]
+}
+
+type DatastoreAttribute {
+  name: String!
+  type: String!
+}
+
+type AppConnection {
+  nodes: [App!]!
+  pageInfo: PageInfo!
+}
+
+# ─────────────────────────────────────────────
+# File
+# ─────────────────────────────────────────────
+
+enum FileType {
+  ALL
+  SPACES
+  SNIPPETS
+  IMAGES
+  GDOCS
+  ZIPS
+  PDFS
+}
+
+type File {
+  id: ID!
+  name: String
+  title: String
+  mimetype: String
+  fileType: String
+  prettyType: String
+  user: User
+  editable: Boolean
+  isExternal: Boolean
+  externalType: String
+  isPublic: Boolean
+  publicUrlShared: Boolean
+  displayAsBot: Boolean
+  username: String
+  size: Int
+  urlPrivate: String
+  urlPrivateDownload: String
+  thumb64: String
+  thumb80: String
+  thumb360: String
+  thumb480: String
+  thumb720: String
+  thumb960: String
+  thumb1024: String
+  imageExifRotation: Int
+  originalW: Int
+  originalH: Int
+  permalink: String
+  permalinkPublic: String
+  channels: [Channel!]
+  ims: [Channel!]
+  groups: [Channel!]
+  reactions: [Reaction!]
+  shares: FileShare
+  timestamp: Int
+  created: Int
+  updated: Int
+}
+
+type FileShare {
+  public: FileShareChannels
+  private: FileShareChannels
+}
+
+type FileShareChannels {
+  channelId: [FileShareEntry!]
+}
+
+type FileShareEntry {
+  replyUsers: [ID!]
+  replyCount: Int
+  ts: String
+  threadTs: String
+  latestReply: String
+  channelName: String
+  teamId: ID
+}
+
+type FileSearchConnection {
+  matches: [File!]!
+  total: Int
+  pagination: Pagination
+  pageInfo: PageInfo!
+}
+
+type FileConnection {
+  nodes: [File!]!
+  pageInfo: PageInfo!
+}
+
+# ─────────────────────────────────────────────
+# Reaction
+# ─────────────────────────────────────────────
+
+type Reaction {
+  name: String!
+  count: Int!
+  users: [User!]!
+}
+
+type ReactionItem {
+  type: String!
+  message: Message
+  file: File
+  channel: Channel
+}
+
+type ReactionItemConnection {
+  nodes: [ReactionItem!]!
+  pageInfo: PageInfo!
+}
+
+# ─────────────────────────────────────────────
+# Pin
+# ─────────────────────────────────────────────
+
+type PinnedItem {
+  type: String!
+  channel: ID
+  message: Message
+  file: File
+  created: Int
+  createdBy: ID
+}
+
+# ─────────────────────────────────────────────
+# Reminder
+# ─────────────────────────────────────────────
+
+type Reminder {
+  id: ID!
+  creator: ID!
+  user: ID!
+  text: String!
+  recurring: Boolean!
+  time: Int
+  finishTime: Int
+  complete: Boolean!
+  completeTs: Int
+}
+
+# ─────────────────────────────────────────────
+# Bookmark
+# ─────────────────────────────────────────────
+
+type Bookmark {
+  id: ID!
+  channelId: ID!
+  title: String!
+  type: String!
+  link: String
+  emoji: String
+  iconUrl: String
+  created: Int
+  updated: Int
+  rank: String
+  lastUpdatedByUserId: ID
+  appId: ID
+  entityId: ID
+}
+
+# ─────────────────────────────────────────────
+# Canvas
+# ─────────────────────────────────────────────
+
+type Canvas {
+  id: ID!
+  type: String
+  dateCreated: Int
+  dateUpdated: Int
+  createdBy: ID
+  title: String
+  content: String
+}
+
+# ─────────────────────────────────────────────
+# UserGroup
+# ─────────────────────────────────────────────
+
+type UserGroup {
+  id: ID!
+  teamId: ID!
+  isUsergroup: Boolean
+  name: String!
+  description: String
+  handle: String!
+  isExternal: Boolean
+  dateCreate: Int
+  dateUpdate: Int
+  dateDelete: Int
+  autoType: String
+  createdBy: ID
+  updatedBy: ID
+  deletedBy: ID
+  prefs: UserGroupPrefs
+  users: [User!]
+  userCount: Int
+  channelCount: Int
+}
+
+type UserGroupPrefs {
+  channels: [ID!]
+  groups: [ID!]
+}
+
+# ─────────────────────────────────────────────
+# Block Kit
+# ─────────────────────────────────────────────
+
+interface LayoutBlock {
+  type: BlockType!
+  blockId: String
+}
+
+enum BlockType {
+  SECTION
+  DIVIDER
+  IMAGE
+  ACTIONS
+  CONTEXT
+  INPUT
+  HEADER
+  VIDEO
+  RICH_TEXT
+  FILE
+}
+
+type SectionBlock implements LayoutBlock {
+  type: BlockType!
+  blockId: String
+  text: TextObject
+  fields: [TextObject!]
+  accessory: BlockElement
+}
+
+type DividerBlock implements LayoutBlock {
+  type: BlockType!
+  blockId: String
+}
+
+type ImageBlock implements LayoutBlock {
+  type: BlockType!
+  blockId: String
+  imageUrl: String!
+  altText: String!
+  title: TextObject
+  slackFile: SlackFile
+}
+
+type ActionsBlock implements LayoutBlock {
+  type: BlockType!
+  blockId: String
+  elements: [BlockElement!]!
+}
+
+type ContextBlock implements LayoutBlock {
+  type: BlockType!
+  blockId: String
+  elements: [BlockElement!]!
+}
+
+type InputBlock implements LayoutBlock {
+  type: BlockType!
+  blockId: String
+  label: TextObject!
+  element: BlockElement!
+  hint: TextObject
+  optional: Boolean
+  dispatchAction: Boolean
+}
+
+type HeaderBlock implements LayoutBlock {
+  type: BlockType!
+  blockId: String
+  text: TextObject!
+}
+
+type VideoBlock implements LayoutBlock {
+  type: BlockType!
+  blockId: String
+  videoUrl: String!
+  thumbnailUrl: String!
+  altText: String!
+  title: TextObject!
+  titleUrl: String
+  description: TextObject
+  authorName: String
+  providerIconUrl: String
+  providerName: String
+}
+
+type RichTextBlock implements LayoutBlock {
+  type: BlockType!
+  blockId: String
+  elements: [RichTextElement!]!
+}
+
+interface BlockElement {
+  type: String!
+  actionId: String
+}
+
+type ButtonElement implements BlockElement {
+  type: String!
+  actionId: String
+  text: TextObject!
+  value: String
+  url: String
+  style: ButtonStyle
+  confirm: ConfirmDialog
+  accessibilityLabel: String
+}
+
+enum ButtonStyle {
+  DEFAULT
+  PRIMARY
+  DANGER
+}
+
+type StaticSelectElement implements BlockElement {
+  type: String!
+  actionId: String
+  placeholder: TextObject!
+  options: [Option!]!
+  optionGroups: [OptionGroup!]
+  initialOption: Option
+  confirm: ConfirmDialog
+}
+
+type MultiStaticSelectElement implements BlockElement {
+  type: String!
+  actionId: String
+  placeholder: TextObject!
+  options: [Option!]!
+  optionGroups: [OptionGroup!]
+  initialOptions: [Option!]
+  maxSelectedItems: Int
+  confirm: ConfirmDialog
+}
+
+type ExternalSelectElement implements BlockElement {
+  type: String!
+  actionId: String
+  placeholder: TextObject!
+  initialOption: Option
+  minQueryLength: Int
+  confirm: ConfirmDialog
+}
+
+type UsersSelectElement implements BlockElement {
+  type: String!
+  actionId: String
+  placeholder: TextObject!
+  initialUser: ID
+  confirm: ConfirmDialog
+}
+
+type ConversationsSelectElement implements BlockElement {
+  type: String!
+  actionId: String
+  placeholder: TextObject!
+  initialConversation: ID
+  defaultToCurrentConversation: Boolean
+  confirm: ConfirmDialog
+  filter: ConversationFilter
+}
+
+type ChannelsSelectElement implements BlockElement {
+  type: String!
+  actionId: String
+  placeholder: TextObject!
+  initialChannel: ID
+  confirm: ConfirmDialog
+}
+
+type DatePickerElement implements BlockElement {
+  type: String!
+  actionId: String
+  placeholder: TextObject
+  initialDate: String
+  confirm: ConfirmDialog
+}
+
+type TimePickerElement implements BlockElement {
+  type: String!
+  actionId: String
+  placeholder: TextObject
+  initialTime: String
+  confirm: ConfirmDialog
+  timezone: String
+}
+
+type DatetimePickerElement implements BlockElement {
+  type: String!
+  actionId: String
+  initialDatetimeUnix: Int
+  confirm: ConfirmDialog
+}
+
+type PlainTextInputElement implements BlockElement {
+  type: String!
+  actionId: String
+  placeholder: TextObject
+  initialValue: String
+  multiline: Boolean
+  minLength: Int
+  maxLength: Int
+  dispatchActionConfig: DispatchActionConfig
+  focusOnLoad: Boolean
+}
+
+type UrlInputElement implements BlockElement {
+  type: String!
+  actionId: String
+  placeholder: TextObject
+  initialValue: String
+  dispatchActionConfig: DispatchActionConfig
+  focusOnLoad: Boolean
+}
+
+type EmailInputElement implements BlockElement {
+  type: String!
+  actionId: String
+  placeholder: TextObject
+  initialValue: String
+  dispatchActionConfig: DispatchActionConfig
+  focusOnLoad: Boolean
+}
+
+type NumberInputElement implements BlockElement {
+  type: String!
+  actionId: String
+  isDecimalAllowed: Boolean!
+  placeholder: TextObject
+  initialValue: String
+  minValue: String
+  maxValue: String
+  dispatchActionConfig: DispatchActionConfig
+  focusOnLoad: Boolean
+}
+
+type RadioButtonGroupElement implements BlockElement {
+  type: String!
+  actionId: String
+  options: [Option!]!
+  initialOption: Option
+  confirm: ConfirmDialog
+  focusOnLoad: Boolean
+}
+
+type CheckboxGroupElement implements BlockElement {
+  type: String!
+  actionId: String
+  options: [Option!]!
+  initialOptions: [Option!]
+  confirm: ConfirmDialog
+  focusOnLoad: Boolean
+}
+
+type OverflowMenuElement implements BlockElement {
+  type: String!
+  actionId: String
+  options: [Option!]!
+  confirm: ConfirmDialog
+}
+
+type ImageElement implements BlockElement {
+  type: String!
+  actionId: String
+  imageUrl: String
+  altText: String!
+  slackFile: SlackFile
+}
+
+type WorkflowButtonElement implements BlockElement {
+  type: String!
+  actionId: String
+  text: TextObject!
+  workflow: WorkflowButtonConfig!
+  style: ButtonStyle
+  accessibilityLabel: String
+}
+
+type RichTextElement {
+  type: String!
+  elements: [RichTextObject!]
+  style: RichTextListStyle
+  indent: Int
+  offset: Int
+  border: Int
+}
+
+type RichTextObject {
+  type: String!
+  text: String
+  userId: ID
+  channelId: ID
+  userGroupId: ID
+  teamId: ID
+  url: String
+  style: RichTextStyle
+}
+
+type RichTextStyle {
+  bold: Boolean
+  italic: Boolean
+  strike: Boolean
+  code: Boolean
+}
+
+enum RichTextListStyle {
+  BULLET
+  ORDERED
+}
+
+type TextObject {
+  type: TextObjectType!
+  text: String!
+  emoji: Boolean
+  verbatim: Boolean
+}
+
+enum TextObjectType {
+  PLAIN_TEXT
+  MRKDWN
+}
+
+type Option {
+  text: TextObject!
+  value: String!
+  description: TextObject
+  url: String
+}
+
+type OptionGroup {
+  label: TextObject!
+  options: [Option!]!
+}
+
+type ConfirmDialog {
+  title: TextObject!
+  text: TextObject!
+  confirm: TextObject!
+  deny: TextObject!
+  style: ButtonStyle
+}
+
+type ConversationFilter {
+  include: [String!]
+  excludeExternalSharedChannels: Boolean
+  excludeBotUsers: Boolean
+}
+
+type DispatchActionConfig {
+  triggerActionsOn: [String!]
+}
+
+type WorkflowButtonConfig {
+  trigger: WorkflowTriggerConfig!
+}
+
+type WorkflowTriggerConfig {
+  url: String!
+  customizableInputParameters: [WorkflowInputParameter!]
+}
+
+type WorkflowInputParameter {
+  name: String!
+  value: String!
+}
+
+type SlackFile {
+  id: ID
+  url: String
+}
+
+# ─────────────────────────────────────────────
+# Attachment (legacy)
+# ─────────────────────────────────────────────
+
+type Attachment {
+  fallback: String
+  color: String
+  pretext: String
+  authorName: String
+  authorLink: String
+  authorIcon: String
+  title: String
+  titleLink: String
+  text: String
+  fields: [AttachmentField!]
+  imageUrl: String
+  thumbUrl: String
+  footer: String
+  footerIcon: String
+  ts: Int
+  callbackId: String
+  actions: [AttachmentAction!]
+  mrkdwnIn: [String!]
+  blocks: [LayoutBlock!]
+}
+
+type AttachmentField {
+  title: String
+  value: String
+  short: Boolean
+}
+
+type AttachmentAction {
+  id: String
+  name: String
+  text: String
+  type: String
+  value: String
+  style: String
+  confirm: ConfirmDialog
+  options: [Option!]
+  selectedOptions: [Option!]
+  dataSource: String
+  minQueryLength: Int
+  url: String
+}
+
+# ─────────────────────────────────────────────
+# App Home
+# ─────────────────────────────────────────────
+
+type AppHome {
+  userId: ID!
+  appId: ID!
+  view: View
+}
+
+# ─────────────────────────────────────────────
+# Modal / View
+# ─────────────────────────────────────────────
+
+enum ViewType {
+  MODAL
+  HOME
+  WORKFLOW_STEP
+}
+
+type View {
+  id: ID!
+  type: ViewType!
+  title: TextObject
+  close: TextObject
+  submit: TextObject
+  blocks: [LayoutBlock!]!
+  privateMetadata: String
+  callbackId: String
+  externalId: String
+  clearOnClose: Boolean
+  notifyOnClose: Boolean
+  submitDisabled: Boolean
+  hash: String
+  appId: ID
+  botId: ID
+  teamId: ID
+}
+
+# ─────────────────────────────────────────────
+# Workflow
+# ─────────────────────────────────────────────
+
+type Workflow {
+  id: ID!
+  teamId: ID!
+  name: String!
+  description: String
+  isPublished: Boolean
+  lastPublishedDate: Int
+  steps: [WorkflowStep!]!
+  triggers: [WorkflowTrigger!]!
+  appId: ID
+  blueprintId: ID
+}
+
+type WorkflowStep {
+  id: ID!
+  workflowId: ID!
+  type: String!
+  appId: ID
+  functionId: ID
+  inputs: [WorkflowStepInput!]
+  outputs: [WorkflowStepOutput!]
+}
+
+type WorkflowStepInput {
+  name: String!
+  value: String
+  locked: Boolean
+  hidden: Boolean
+}
+
+type WorkflowStepOutput {
+  name: String!
+  type: String!
+  label: String
+}
+
+type WorkflowTrigger {
+  id: ID!
+  type: TriggerType!
+  name: String
+  description: String
+  workflowId: ID!
+  inputs: [WorkflowStepInput!]
+  channelIds: [ID!]
+  filterConditions: String
+  shortcut: TriggerShortcut
+  schedule: TriggerSchedule
+  eventType: String
+  webhookUrl: String
+  created: Int
+  updated: Int
+}
+
+enum TriggerType {
+  SHORTCUT
+  WEBHOOK
+  EVENT
+  SCHEDULED
+  LINK
+}
+
+type TriggerShortcut {
+  name: String!
+  description: String
+}
+
+type TriggerSchedule {
+  start: String
+  end: String
+  frequency: ScheduleFrequency
+  weekdays: [Int!]
+  weeknum: Int
+  dayOfMonth: Int
+  month: Int
+  timezone: String
+}
+
+type ScheduleFrequency {
+  type: String!
+  repeatsEvery: Int
+}
+
+type WorkflowDefinition {
+  id: ID!
+  title: String!
+  description: String
+  inputParameters: [FunctionParameter!]
+  steps: [WorkflowStep!]
+}
+
+# ─────────────────────────────────────────────
+# Shortcut
+# ─────────────────────────────────────────────
+
+type Shortcut {
+  callbackId: String!
+  type: ShortcutType!
+  triggerId: String
+  actionTs: String
+  token: String
+  user: User
+  team: Workspace
+  channel: Channel
+  message: Message
+  isEnterpriseInstall: Boolean
+  enterpriseId: ID
+}
+
+enum ShortcutType {
+  GLOBAL
+  MESSAGE
+}
+
+type ShortcutDefinition {
+  name: String!
+  type: ShortcutType!
+  callbackId: String!
+  description: String!
+}
+
+# ─────────────────────────────────────────────
+# Slash Command
+# ─────────────────────────────────────────────
+
+type SlashCommand {
+  command: String!
+  text: String
+  responseUrl: String
+  triggerId: String
+  userId: ID
+  channelId: ID
+  teamId: ID
+  enterpriseId: ID
+  apiAppId: ID
+  token: String
+  isEnterpriseInstall: Boolean
+}
+
+type SlashCommandDefinition {
+  command: String!
+  url: String!
+  description: String!
+  usageHint: String
+  shouldEscape: Boolean
+}
+
+type WorkflowStepDefinition {
+  name: String!
+  callbackId: String!
+}
+
+# ─────────────────────────────────────────────
+# Events API
+# ─────────────────────────────────────────────
+
+type Event {
+  token: String
+  teamId: ID
+  enterpriseId: ID
+  apiAppId: ID
+  type: String!
+  eventId: String!
+  eventTime: Int!
+  authedUsers: [ID!]
+  authedTeams: [ID!]
+  authorizations: [Authorization!]
+  isExtSharedChannel: Boolean
+  eventContext: String
+  event: EventPayload!
+}
+
+type Authorization {
+  enterpriseId: ID
+  teamId: ID!
+  userId: ID!
+  isBot: Boolean
+  isEnterpriseInstall: Boolean
+}
+
+type EventPayload {
+  type: String!
+  subtype: String
+  eventTs: String
+  ts: String
+  channelType: String
+  channel: ID
+  user: ID
+  text: String
+  botId: ID
+  appId: ID
+  item: EventItem
+  reaction: String
+  itemUser: ID
+  files: [File!]
+}
+
+type EventItem {
+  type: String!
+  channel: ID
+  ts: String
+  file: ID
+}
+
+# ─────────────────────────────────────────────
+# Webhook
+# ─────────────────────────────────────────────
+
+type Webhook {
+  id: ID
+  channelId: ID!
+  channel: Channel
+  configurationUrl: String
+  url: String!
+  label: String
+  created: Int
+}
+
+# ─────────────────────────────────────────────
+# Audit Logs
+# ─────────────────────────────────────────────
+
+type AuditEvent {
+  id: ID!
+  dateCreate: Int!
+  action: String!
+  actor: AuditActor
+  entity: AuditEntity
+  context: AuditContext
+  details: String
+}
+
+type AuditActor {
+  type: String!
+  user: AuditUser
+}
+
+type AuditUser {
+  id: ID!
+  name: String
+  email: String
+  team: AuditTeam
+}
+
+type AuditTeam {
+  id: ID!
+  name: String
+  domain: String
+}
+
+type AuditEntity {
+  type: String!
+  user: AuditUser
+  channel: AuditChannel
+  file: AuditFile
+  app: AuditApp
+  workspace: AuditWorkspace
+  enterprise: AuditEnterprise
+  message: AuditMessage
+  workflowExecution: AuditWorkflowExecution
+}
+
+type AuditChannel {
+  id: ID!
+  name: String
+  privacy: String
+  isShared: Boolean
+  isOrgShared: Boolean
+  teamId: ID
+}
+
+type AuditFile {
+  id: ID!
+  name: String
+  filetype: String
+  title: String
+}
+
+type AuditApp {
+  id: ID!
+  name: String
+  isDistributed: Boolean
+  isDirectoryApproved: Boolean
+  scopes: [String!]
+}
+
+type AuditWorkspace {
+  id: ID!
+  name: String
+  domain: String
+}
+
+type AuditEnterprise {
+  id: ID!
+  name: String
+  domain: String
+}
+
+type AuditMessage {
+  teamId: ID
+  channelId: ID
+  timestamp: String
+}
+
+type AuditWorkflowExecution {
+  workflowId: ID
+  workflowInstanceId: ID
+  stepId: ID
+}
+
+type AuditContext {
+  ua: String
+  ipAddress: String
+  location: AuditLocation
+  sessionId: String
+  sessionContextId: String
+}
+
+type AuditLocation {
+  country: String
+  region: String
+  city: String
+}
+
+type AuditEventConnection {
+  nodes: [AuditEvent!]!
+  pageInfo: PageInfo!
+}
+
+# ─────────────────────────────────────────────
+# Access Log
+# ─────────────────────────────────────────────
+
+type AccessLog {
+  userId: ID!
+  username: String!
+  dateFirst: Int
+  dateLast: Int
+  count: Int
+  ip: String
+  userAgent: String
+  isp: String
+  country: String
+  region: String
+}
+
+# ─────────────────────────────────────────────
+# Analytics
+# ─────────────────────────────────────────────
+
+type Analytics {
+  type: AnalyticsType!
+  memberMetrics: [MemberAnalytics!]
+  channelMetrics: [ChannelAnalytics!]
+  publicChannelMetrics: [PublicChannelAnalytics!]
+}
+
+enum AnalyticsType {
+  MEMBER
+  CHANNEL
+  PUBLIC_CHANNEL
+}
+
+type MemberAnalytics {
+  userId: ID!
+  username: String
+  dateFirstActive: String
+  dateLastActive: String
+  messagesPosted: Int
+  reactionsAdded: Int
+  daysDayActive: Int
+  weeklyAvgActiveHours: Float
+  isBot: Boolean
+  workspacesActive: [ID!]
+}
+
+type ChannelAnalytics {
+  channelId: ID!
+  channelName: String
+  channelType: String
+  dateCreated: String
+  visibilityUpdatedDate: String
+  membersCount: Int
+  guestsCount: Int
+  messagesPosted: Int
+  messagesPostedByMembers: Int
+  membersWhoPosted: Int
+  membersWhoViewed: Int
+  reactionsAdded: Int
+  filesAdded: Int
+  isExternallyShared: Boolean
+  sharedWith: [ID!]
+}
+
+type PublicChannelAnalytics {
+  channelId: ID!
+  channelName: String
+  workspaceId: ID
+  date: String
+  membersCount: Int
+  activeMembers: Int
+  messagesPosted: Int
+  percentActive: Float
+}
+
+# ─────────────────────────────────────────────
+# DND
+# ─────────────────────────────────────────────
+
+type DndInfo {
+  userId: ID!
+  dndEnabled: Boolean!
+  nextDndStartTs: Int
+  nextDndEndTs: Int
+  snoozeEnabled: Boolean
+  snoozeEndtime: Int
+  snoozeIsIndefinite: Boolean
+}
+
+type DndTeamInfo {
+  users: [DndUserInfo!]!
+}
+
+type DndUserInfo {
+  userId: ID!
+  dndEnabled: Boolean!
+  nextDndStartTs: Int
+  nextDndEndTs: Int
+  snoozeEnabled: Boolean
+  snoozeEndtime: Int
+}
+
+# ─────────────────────────────────────────────
+# Emoji
+# ─────────────────────────────────────────────
+
+type EmojiList {
+  emoji: [EmojiEntry!]!
+  cacheTs: String
+}
+
+type EmojiEntry {
+  name: String!
+  url: String
+  isAlias: Boolean
+  aliasFor: String
+}
+
+# ─────────────────────────────────────────────
+# Lists
+# ─────────────────────────────────────────────
+
+type SlackList {
+  id: ID!
+  name: String!
+  channelId: ID
+  icon: ListIcon
+  columns: [ListColumn!]!
+  items: [ListItem!]
+  createdBy: ID
+  dateCreated: Int
+  dateUpdated: Int
+}
+
+type ListIcon {
+  type: String
+  value: String
+}
+
+type ListColumn {
+  id: ID!
+  name: String!
+  type: ListColumnType!
+  isRequired: Boolean
+  options: [ListColumnOption!]
+}
+
+enum ListColumnType {
+  TEXT
+  NUMBER
+  DATE
+  PERSON
+  SELECT
+  MULTISELECT
+  CHECKBOX
+  RATING
+  EMAIL
+  PHONE
+  CHANNEL
+  TIMESTAMP
+}
+
+type ListColumnOption {
+  id: ID!
+  value: String!
+  color: String
+}
+
+type ListItem {
+  id: ID!
+  listId: ID!
+  values: [ListItemValue!]!
+  createdBy: ID
+  dateCreated: Int
+  dateUpdated: Int
+}
+
+type ListItemValue {
+  columnId: ID!
+  value: String
+}
+
+type ListConnection {
+  nodes: [SlackList!]!
+  pageInfo: PageInfo!
+}
+
+# ─────────────────────────────────────────────
+# Shared / Pagination
+# ─────────────────────────────────────────────
+
+type PageInfo {
+  hasNextPage: Boolean!
+  endCursor: String
+}
+
+type Pagination {
+  totalCount: Int
+  page: Int
+  perPage: Int
+  pageCount: Int
+  first: Int
+  last: Int
+}
+
+type ResponseMetadata {
+  nextCursor: String
+  warnings: [String!]
+  messages: [String!]
+}
+
+enum SearchSort {
+  SCORE
+  TIMESTAMP
+}
