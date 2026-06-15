@@ -1,0 +1,366 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Slack Users API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Conversations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Slack Get Users Conversations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/users.conversations",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Authentication token. Requires scope: `conversations:read`"
+              },
+              {
+                "name": "user",
+                "value": "",
+                "type": "query",
+                "description": "Browse conversations by a specific user ID's membership. Non-public channels are restricted to those where the calling user shares membership."
+              },
+              {
+                "name": "types",
+                "value": "",
+                "type": "query",
+                "description": "Mix and match channel types by providing a comma-separated list of any combination of `public_channel`, `private_channel`, `mpim`, `im`"
+              },
+              {
+                "name": "exclude_archived",
+                "value": "",
+                "type": "query",
+                "description": "Set to `true` to exclude archived channels from the list"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the list hasn't been reached. Must be an integer no larger than 1000."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute returned by a previous request's `response_metadata`. Default value fetches the first \"page\" of the collection. See [pagination](/docs/pagination) for more detail."
+              }
+            ]
+          },
+          "docs": "List conversations the calling user may access."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Post",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Slack Post Users Deletephoto",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/users.deletePhoto",
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "token",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Delete the user profile photo"
+        },
+        {
+          "info": {
+            "name": "Slack Post Users Profile Set",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/users.profile.set",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Set the profile information for a user."
+        },
+        {
+          "info": {
+            "name": "Slack Post Users Setactive",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/users.setActive",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Marked a user as active. Deprecated and non-functional."
+        },
+        {
+          "info": {
+            "name": "Slack Post Users Setphoto",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/users.setPhoto",
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "token",
+                  "value": ""
+                },
+                {
+                  "name": "crop_w",
+                  "value": ""
+                },
+                {
+                  "name": "crop_x",
+                  "value": ""
+                },
+                {
+                  "name": "crop_y",
+                  "value": ""
+                },
+                {
+                  "name": "image",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Set the user profile photo"
+        },
+        {
+          "info": {
+            "name": "Slack Post Users Setpresence",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/users.setPresence",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Manually sets user presence."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Get",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Slack Get Users Getpresence",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/users.getPresence",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Authentication token. Requires scope: `users:read`"
+              },
+              {
+                "name": "user",
+                "value": "",
+                "type": "query",
+                "description": "User to get presence info on. Defaults to the authed user."
+              }
+            ]
+          },
+          "docs": "Gets user presence information."
+        },
+        {
+          "info": {
+            "name": "Slack Get Users Identity",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/users.identity",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Authentication token. Requires scope: `identity.basic`"
+              }
+            ]
+          },
+          "docs": "Get a user's identity."
+        },
+        {
+          "info": {
+            "name": "Slack Get Users Info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/users.info",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Authentication token. Requires scope: `users:read`"
+              },
+              {
+                "name": "include_locale",
+                "value": "",
+                "type": "query",
+                "description": "Set this to `true` to receive the locale for this user. Defaults to `false`"
+              },
+              {
+                "name": "user",
+                "value": "",
+                "type": "query",
+                "description": "User to get info on"
+              }
+            ]
+          },
+          "docs": "Gets information about a user."
+        },
+        {
+          "info": {
+            "name": "Slack Get Users List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/users.list",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Authentication token. Requires scope: `users:read`"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the users list hasn't been reached. Providing no `limit` value will result in Slack attempting to deliver you the entire result set. If the collection is too large you may experience `limit_required` or HTTP 500 errors."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute returned by a previous request's `response_metadata`. Default value fetches the first \"page\" of the collection. See [pagination](/docs/pagination) for more detail."
+              },
+              {
+                "name": "include_locale",
+                "value": "",
+                "type": "query",
+                "description": "Set this to `true` to receive the locale for users. Defaults to `false`"
+              }
+            ]
+          },
+          "docs": "Lists all users in a Slack team."
+        },
+        {
+          "info": {
+            "name": "Slack Get Users Lookupbyemail",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/users.lookupByEmail",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Authentication token. Requires scope: `users:read.email`"
+              },
+              {
+                "name": "email",
+                "value": "",
+                "type": "query",
+                "description": "An email address belonging to a user in the workspace"
+              }
+            ]
+          },
+          "docs": "Find a user with an email address."
+        },
+        {
+          "info": {
+            "name": "Slack Get Users Profile Get",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/users.profile.get",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Authentication token. Requires scope: `users.profile:read`"
+              },
+              {
+                "name": "include_labels",
+                "value": "",
+                "type": "query",
+                "description": "Include labels for each ID in custom profile fields"
+              },
+              {
+                "name": "user",
+                "value": "",
+                "type": "query",
+                "description": "User to retrieve profile info for"
+              }
+            ]
+          },
+          "docs": "Retrieves a user's profile information."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

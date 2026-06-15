@@ -1,0 +1,149 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Slack Reminders API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Add",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Slack Post Reminders Add",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/reminders.add",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a reminder."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Complete",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Slack Post Reminders Complete",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/reminders.complete",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Marks a reminder as complete."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Deletes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Slack Post Reminders Delete",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/reminders.delete",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Deletes a reminder."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Get",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Slack Get Reminders Info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/reminders.info",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Authentication token. Requires scope: `reminders:read`"
+              },
+              {
+                "name": "reminder",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the reminder"
+              }
+            ]
+          },
+          "docs": "Gets information about a reminder."
+        },
+        {
+          "info": {
+            "name": "Slack Get Reminders List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/reminders.list",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Authentication token. Requires scope: `reminders:read`"
+              }
+            ]
+          },
+          "docs": "Lists all reminders created by or for a given user."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,266 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Slack Chat API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Chat",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Slack Post Chat Delete",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/chat.delete",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Deletes a message."
+        },
+        {
+          "info": {
+            "name": "Slack Post Chat Deletescheduledmessage",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/chat.deleteScheduledMessage",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Deletes a pending scheduled message from the queue."
+        },
+        {
+          "info": {
+            "name": "Slack Get Chat Getpermalink",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/chat.getPermalink",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Authentication token. Requires scope: `none`"
+              },
+              {
+                "name": "channel",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the conversation or channel containing the message"
+              },
+              {
+                "name": "message_ts",
+                "value": "",
+                "type": "query",
+                "description": "A message's `ts` value, uniquely identifying it within a channel"
+              }
+            ]
+          },
+          "docs": "Retrieve a permalink URL for a specific extant message"
+        },
+        {
+          "info": {
+            "name": "Slack Post Chat Memessage",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/chat.meMessage",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Share a me message into a channel."
+        },
+        {
+          "info": {
+            "name": "Slack Post Chat Postephemeral",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/chat.postEphemeral",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sends an ephemeral message to a user in a channel."
+        },
+        {
+          "info": {
+            "name": "Slack Post Chat Postmessage",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/chat.postMessage",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sends a message to a channel."
+        },
+        {
+          "info": {
+            "name": "Slack Post Chat Schedulemessage",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/chat.scheduleMessage",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Schedules a message to be sent to a channel."
+        },
+        {
+          "info": {
+            "name": "Slack Get Chat Scheduledmessages List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/chat.scheduledMessages.list",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "channel",
+                "value": "",
+                "type": "query",
+                "description": "The channel of the scheduled messages"
+              },
+              {
+                "name": "latest",
+                "value": "",
+                "type": "query",
+                "description": "A UNIX timestamp of the latest value in the time range"
+              },
+              {
+                "name": "oldest",
+                "value": "",
+                "type": "query",
+                "description": "A UNIX timestamp of the oldest value in the time range"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of original entries to return."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "For pagination purposes, this is the `cursor` value returned from a previous call to `chat.scheduledmessages.list` indicating where you want to start this call from."
+              }
+            ]
+          },
+          "docs": "Returns a list of scheduled messages."
+        },
+        {
+          "info": {
+            "name": "Slack Post Chat Unfurl",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/chat.unfurl",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Provide custom unfurl behavior for user-posted URLs"
+        },
+        {
+          "info": {
+            "name": "Slack Post Chat Update",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/chat.update",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a message."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

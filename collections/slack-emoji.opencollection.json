@@ -1,0 +1,53 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Slack Emoji API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Emoji",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Emoji",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://slack.com/api/emoji.list",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Authentication token. Requires scope: `emoji:read`"
+              },
+              {
+                "name": "include_categories",
+                "value": "",
+                "type": "query",
+                "description": "If true, includes emoji categories."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://slack.com/oauth/v2/authorize",
+              "accessTokenUrl": "https://slack.com/api/oauth.v2.access",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Lists custom emoji for a team."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

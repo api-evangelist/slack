@@ -1,0 +1,2100 @@
+{
+  "item": [
+    {
+      "id": "f5d2e181-c595-4582-b153-d40ad7e7c9aa",
+      "name": "Add",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f032d1b7-f106-4ea2-a408-2f04fbd57189",
+          "name": "Add Bookmark",
+          "request": {
+            "name": "Add Bookmark",
+            "description": {
+              "content": "Adds a bookmark to a channel.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "bookmarks.add"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Authentication token. Requires scope: `bookmarks:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "bookmarks:read bookmarks:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://slack.com/api/oauth.v2.access"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://slack.com/oauth/v2/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "channel_id",
+                  "value": "<string>",
+                  "description": "(Required) Channel to add the bookmark to."
+                },
+                {
+                  "disabled": false,
+                  "key": "title",
+                  "value": "<string>",
+                  "description": "(Required) Title of the bookmark."
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "(Required) Type of bookmark (e.g., link)."
+                },
+                {
+                  "disabled": false,
+                  "key": "link",
+                  "value": "<string>",
+                  "description": "URL of the bookmark."
+                },
+                {
+                  "disabled": false,
+                  "key": "emoji",
+                  "value": "<string>",
+                  "description": "Emoji tag for the bookmark."
+                },
+                {
+                  "disabled": false,
+                  "key": "entity_id",
+                  "value": "<string>",
+                  "description": "ID of the entity being bookmarked."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "cc3405c4-b214-439d-9cdd-33525e876705",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bookmarks.add"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `bookmarks:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Channel to add the bookmark to.",
+                        "type": "text/plain"
+                      },
+                      "key": "channel_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Title of the bookmark.",
+                        "type": "text/plain"
+                      },
+                      "key": "title",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Type of bookmark (e.g., link).",
+                        "type": "text/plain"
+                      },
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "URL of the bookmark.",
+                        "type": "text/plain"
+                      },
+                      "key": "link",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Emoji tag for the bookmark.",
+                        "type": "text/plain"
+                      },
+                      "key": "emoji",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "ID of the entity being bookmarked.",
+                        "type": "text/plain"
+                      },
+                      "key": "entity_id",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3106b3be-07a1-4c52-a5a1-6c817fd22c53",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bookmarks.add"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `bookmarks:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Channel to add the bookmark to.",
+                        "type": "text/plain"
+                      },
+                      "key": "channel_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Title of the bookmark.",
+                        "type": "text/plain"
+                      },
+                      "key": "title",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Type of bookmark (e.g., link).",
+                        "type": "text/plain"
+                      },
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "URL of the bookmark.",
+                        "type": "text/plain"
+                      },
+                      "key": "link",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Emoji tag for the bookmark.",
+                        "type": "text/plain"
+                      },
+                      "key": "emoji",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "ID of the entity being bookmarked.",
+                        "type": "text/plain"
+                      },
+                      "key": "entity_id",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": false,\n  \"error\": \"invalid_auth\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "845272d8-e830-4ee6-b582-08e42245d43a",
+      "name": "Bookmarks",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c0176a58-18e3-42fb-8b2d-71eb8113b53b",
+          "name": "Add Bookmark",
+          "request": {
+            "name": "Add Bookmark",
+            "description": {
+              "content": "Adds a bookmark to a channel.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "bookmarks.add"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Authentication token. Requires scope: `bookmarks:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "bookmarks:read bookmarks:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://slack.com/api/oauth.v2.access"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://slack.com/oauth/v2/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "channel_id",
+                  "value": "<string>",
+                  "description": "(Required) Channel to add the bookmark to."
+                },
+                {
+                  "disabled": false,
+                  "key": "title",
+                  "value": "<string>",
+                  "description": "(Required) Title of the bookmark."
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "(Required) Type of bookmark (e.g., link)."
+                },
+                {
+                  "disabled": false,
+                  "key": "link",
+                  "value": "<string>",
+                  "description": "URL of the bookmark."
+                },
+                {
+                  "disabled": false,
+                  "key": "emoji",
+                  "value": "<string>",
+                  "description": "Emoji tag for the bookmark."
+                },
+                {
+                  "disabled": false,
+                  "key": "entity_id",
+                  "value": "<string>",
+                  "description": "ID of the entity being bookmarked."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c13a33f7-82b1-43ef-94e1-a53850495ccc",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bookmarks.add"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `bookmarks:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Channel to add the bookmark to.",
+                        "type": "text/plain"
+                      },
+                      "key": "channel_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Title of the bookmark.",
+                        "type": "text/plain"
+                      },
+                      "key": "title",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Type of bookmark (e.g., link).",
+                        "type": "text/plain"
+                      },
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "URL of the bookmark.",
+                        "type": "text/plain"
+                      },
+                      "key": "link",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Emoji tag for the bookmark.",
+                        "type": "text/plain"
+                      },
+                      "key": "emoji",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "ID of the entity being bookmarked.",
+                        "type": "text/plain"
+                      },
+                      "key": "entity_id",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7641c544-2850-4af5-814b-440e641f93ce",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bookmarks.add"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `bookmarks:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Channel to add the bookmark to.",
+                        "type": "text/plain"
+                      },
+                      "key": "channel_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Title of the bookmark.",
+                        "type": "text/plain"
+                      },
+                      "key": "title",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Type of bookmark (e.g., link).",
+                        "type": "text/plain"
+                      },
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "URL of the bookmark.",
+                        "type": "text/plain"
+                      },
+                      "key": "link",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Emoji tag for the bookmark.",
+                        "type": "text/plain"
+                      },
+                      "key": "emoji",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "ID of the entity being bookmarked.",
+                        "type": "text/plain"
+                      },
+                      "key": "entity_id",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": false,\n  \"error\": \"invalid_auth\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3bb32f46-553a-457d-b747-93e5137352b3",
+          "name": "Edit Bookmark",
+          "request": {
+            "name": "Edit Bookmark",
+            "description": {
+              "content": "Edits an existing bookmark in a channel.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "bookmarks.edit"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Authentication token. Requires scope: `bookmarks:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "bookmarks:read bookmarks:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://slack.com/api/oauth.v2.access"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://slack.com/oauth/v2/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "channel_id",
+                  "value": "<string>",
+                  "description": "(Required) Channel containing the bookmark."
+                },
+                {
+                  "disabled": false,
+                  "key": "bookmark_id",
+                  "value": "<string>",
+                  "description": "(Required) ID of the bookmark to edit."
+                },
+                {
+                  "disabled": false,
+                  "key": "title",
+                  "value": "<string>",
+                  "description": "New title of the bookmark."
+                },
+                {
+                  "disabled": false,
+                  "key": "link",
+                  "value": "<string>",
+                  "description": "New URL of the bookmark."
+                },
+                {
+                  "disabled": false,
+                  "key": "emoji",
+                  "value": "<string>",
+                  "description": "New emoji tag for the bookmark."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6c85b4d2-2e6c-4eec-abe4-14023539a30f",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bookmarks.edit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `bookmarks:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Channel containing the bookmark.",
+                        "type": "text/plain"
+                      },
+                      "key": "channel_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ID of the bookmark to edit.",
+                        "type": "text/plain"
+                      },
+                      "key": "bookmark_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "New title of the bookmark.",
+                        "type": "text/plain"
+                      },
+                      "key": "title",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "New URL of the bookmark.",
+                        "type": "text/plain"
+                      },
+                      "key": "link",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "New emoji tag for the bookmark.",
+                        "type": "text/plain"
+                      },
+                      "key": "emoji",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "81dada6e-8be9-42cd-9fd5-3a0da9ef0672",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bookmarks.edit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `bookmarks:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Channel containing the bookmark.",
+                        "type": "text/plain"
+                      },
+                      "key": "channel_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ID of the bookmark to edit.",
+                        "type": "text/plain"
+                      },
+                      "key": "bookmark_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "New title of the bookmark.",
+                        "type": "text/plain"
+                      },
+                      "key": "title",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "New URL of the bookmark.",
+                        "type": "text/plain"
+                      },
+                      "key": "link",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "New emoji tag for the bookmark.",
+                        "type": "text/plain"
+                      },
+                      "key": "emoji",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": false,\n  \"error\": \"invalid_auth\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "da7701a9-39c8-44c9-b70f-e06570ed0ae5",
+          "name": "List Bookmarks",
+          "request": {
+            "name": "List Bookmarks",
+            "description": {
+              "content": "Lists bookmarks for a channel.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "bookmarks.list"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "(Required) Authentication token. Requires scope: `bookmarks:read`"
+                },
+                {
+                  "disabled": false,
+                  "key": "channel_id",
+                  "value": "<string>",
+                  "description": "(Required) Channel to list bookmarks for."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "bookmarks:read bookmarks:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://slack.com/api/oauth.v2.access"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://slack.com/oauth/v2/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "3fc45a6c-4613-4199-9c80-ee3807c6cf17",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bookmarks.list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "channel_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": true,\n  \"bookmarks\": [\n    {\n      \"id\": \"Bk123\",\n      \"channel_id\": \"C123\",\n      \"title\": \"Example\",\n      \"type\": \"link\",\n      \"link\": \"https://example.com\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7e078a9e-55d6-4d45-a315-595a86213266",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bookmarks.list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "channel_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": false,\n  \"error\": \"invalid_auth\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d9b7460f-6740-4cf7-98ed-6b386c767574",
+          "name": "Remove Bookmark",
+          "request": {
+            "name": "Remove Bookmark",
+            "description": {
+              "content": "Removes a bookmark from a channel.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "bookmarks.remove"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Authentication token. Requires scope: `bookmarks:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "bookmarks:read bookmarks:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://slack.com/api/oauth.v2.access"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://slack.com/oauth/v2/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "channel_id",
+                  "value": "<string>",
+                  "description": "(Required) Channel containing the bookmark."
+                },
+                {
+                  "disabled": false,
+                  "key": "bookmark_id",
+                  "value": "<string>",
+                  "description": "(Required) ID of the bookmark to remove."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c9d4f645-4b69-4b7d-8b82-6715334bc958",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bookmarks.remove"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `bookmarks:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Channel containing the bookmark.",
+                        "type": "text/plain"
+                      },
+                      "key": "channel_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ID of the bookmark to remove.",
+                        "type": "text/plain"
+                      },
+                      "key": "bookmark_id",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "daacf086-230d-4501-8ec1-a6e7f61efd30",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bookmarks.remove"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `bookmarks:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Channel containing the bookmark.",
+                        "type": "text/plain"
+                      },
+                      "key": "channel_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ID of the bookmark to remove.",
+                        "type": "text/plain"
+                      },
+                      "key": "bookmark_id",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": false,\n  \"error\": \"invalid_auth\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "2747d9c9-f8b1-4005-bb24-844698962f15",
+      "name": "Edit",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "62385889-32ed-4643-bafb-0fad6a168e88",
+          "name": "Edit Bookmark",
+          "request": {
+            "name": "Edit Bookmark",
+            "description": {
+              "content": "Edits an existing bookmark in a channel.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "bookmarks.edit"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Authentication token. Requires scope: `bookmarks:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "bookmarks:read bookmarks:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://slack.com/api/oauth.v2.access"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://slack.com/oauth/v2/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "channel_id",
+                  "value": "<string>",
+                  "description": "(Required) Channel containing the bookmark."
+                },
+                {
+                  "disabled": false,
+                  "key": "bookmark_id",
+                  "value": "<string>",
+                  "description": "(Required) ID of the bookmark to edit."
+                },
+                {
+                  "disabled": false,
+                  "key": "title",
+                  "value": "<string>",
+                  "description": "New title of the bookmark."
+                },
+                {
+                  "disabled": false,
+                  "key": "link",
+                  "value": "<string>",
+                  "description": "New URL of the bookmark."
+                },
+                {
+                  "disabled": false,
+                  "key": "emoji",
+                  "value": "<string>",
+                  "description": "New emoji tag for the bookmark."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "323ac688-62f5-4d18-8344-50dbd02e1a65",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bookmarks.edit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `bookmarks:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Channel containing the bookmark.",
+                        "type": "text/plain"
+                      },
+                      "key": "channel_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ID of the bookmark to edit.",
+                        "type": "text/plain"
+                      },
+                      "key": "bookmark_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "New title of the bookmark.",
+                        "type": "text/plain"
+                      },
+                      "key": "title",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "New URL of the bookmark.",
+                        "type": "text/plain"
+                      },
+                      "key": "link",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "New emoji tag for the bookmark.",
+                        "type": "text/plain"
+                      },
+                      "key": "emoji",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "88f1af54-5186-45e9-8ace-bf04e79f31ba",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bookmarks.edit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `bookmarks:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Channel containing the bookmark.",
+                        "type": "text/plain"
+                      },
+                      "key": "channel_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ID of the bookmark to edit.",
+                        "type": "text/plain"
+                      },
+                      "key": "bookmark_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "New title of the bookmark.",
+                        "type": "text/plain"
+                      },
+                      "key": "title",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "New URL of the bookmark.",
+                        "type": "text/plain"
+                      },
+                      "key": "link",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "New emoji tag for the bookmark.",
+                        "type": "text/plain"
+                      },
+                      "key": "emoji",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": false,\n  \"error\": \"invalid_auth\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "a69101c2-73ba-4ef9-bf5a-dafe9c44ff3b",
+      "name": "Lists",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b90438fa-60bb-439b-a897-ca08bda20584",
+          "name": "List Bookmarks",
+          "request": {
+            "name": "List Bookmarks",
+            "description": {
+              "content": "Lists bookmarks for a channel.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "bookmarks.list"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "(Required) Authentication token. Requires scope: `bookmarks:read`"
+                },
+                {
+                  "disabled": false,
+                  "key": "channel_id",
+                  "value": "<string>",
+                  "description": "(Required) Channel to list bookmarks for."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "bookmarks:read bookmarks:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://slack.com/api/oauth.v2.access"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://slack.com/oauth/v2/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f2d20939-afca-44ba-a1bd-ea78c7edcb9d",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bookmarks.list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "channel_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": true,\n  \"bookmarks\": [\n    {\n      \"id\": \"Bk123\",\n      \"channel_id\": \"C123\",\n      \"title\": \"Example\",\n      \"type\": \"link\",\n      \"link\": \"https://example.com\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "33bf4f30-6180-41a1-9857-b468f3578347",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bookmarks.list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "channel_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": false,\n  \"error\": \"invalid_auth\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "952e2945-8608-4365-b1b2-f3b0010c16c6",
+      "name": "Remove",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "149edda1-022b-42dc-aaaf-e2a8e76ab30e",
+          "name": "Remove Bookmark",
+          "request": {
+            "name": "Remove Bookmark",
+            "description": {
+              "content": "Removes a bookmark from a channel.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "bookmarks.remove"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Authentication token. Requires scope: `bookmarks:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "bookmarks:read bookmarks:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://slack.com/api/oauth.v2.access"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://slack.com/oauth/v2/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "channel_id",
+                  "value": "<string>",
+                  "description": "(Required) Channel containing the bookmark."
+                },
+                {
+                  "disabled": false,
+                  "key": "bookmark_id",
+                  "value": "<string>",
+                  "description": "(Required) ID of the bookmark to remove."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5f01c1fd-03fb-41f4-b8f7-e6c316a1f717",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bookmarks.remove"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `bookmarks:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Channel containing the bookmark.",
+                        "type": "text/plain"
+                      },
+                      "key": "channel_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ID of the bookmark to remove.",
+                        "type": "text/plain"
+                      },
+                      "key": "bookmark_id",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "291844f4-a010-46f7-b95d-37ff04aed374",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bookmarks.remove"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `bookmarks:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Channel containing the bookmark.",
+                        "type": "text/plain"
+                      },
+                      "key": "channel_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ID of the bookmark to remove.",
+                        "type": "text/plain"
+                      },
+                      "key": "bookmark_id",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": false,\n  \"error\": \"invalid_auth\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://slack.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "9b75560c-35e6-4dd9-993c-cf3b418c44ee",
+    "name": "Slack Bookmarks API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Slack Bookmarks API provides the ability to add, remove, edit, or list curated resources directly in public channels, private channels, direct messages, multi-person direct messages, and shared channels. Bookmarks can contain external resources such as websites, spreadsheets, dashboards, wikis, and news articles, as well as internal resources such as messages, files, or other channels within Slack.\n\nContact Support:\n Name: Slack Developer Relations",
+      "type": "text/plain"
+    }
+  }
+}

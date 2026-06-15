@@ -1,0 +1,242 @@
+{
+  "info": {
+    "_postman_id": "910b391c-345b-4cbd-81be-aae71cd948c6",
+    "name": "Slack Search API",
+    "description": "Slack\u0019s Search API lets apps programmatically find messages and files in a workspace using the same query syntax users have in Slack (e.g., in:, from:, has:, before:/after:, is:thread). Through endpoints like search.messages and search.files, it returns ranked matches with snippets and optional highlighting, plus rich metadata such as channel, timestamps, user, thread context, permalinks, and file details. You can sort by relevance or time, filter with operators, and page through results. All results respect the app\u0019s scopes and the workspace\u0019s permissions, retention, and data controls, and the methods are subject to rate limits. Teams use it to power features like knowledge lookup, linking related conversations, and enabling bots to retrieve relevant historical context.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T13:19:53.000Z",
+    "updatedAt": "2026-06-05T13:19:54.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-910b391c-345b-4cbd-81be-aae71cd948c6"
+  },
+  "item": [
+    {
+      "name": "search.messages",
+      "item": [
+        {
+          "name": "Slack Get Search Messages",
+          "id": "35b0baa5-6881-4bea-9652-2c92b9bbc7f2",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/search.messages?token=<string>&count=<integer>&highlight=<boolean>&page=<integer>&query=<string>&sort=<string>&sort_dir=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "search.messages"
+              ],
+              "query": [
+                {
+                  "description": "(Required) Authentication token. Requires scope: `search:read`",
+                  "key": "token",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Pass the number of results you want per \"page\". Maximum of `100`.",
+                  "key": "count",
+                  "value": "<integer>"
+                },
+                {
+                  "description": "Pass a value of `true` to enable query highlight markers (see below).",
+                  "key": "highlight",
+                  "value": "<boolean>"
+                },
+                {
+                  "key": "page",
+                  "value": "<integer>"
+                },
+                {
+                  "description": "(Required) Search query.",
+                  "key": "query",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Return matches sorted by either `score` or `timestamp`.",
+                  "key": "sort",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Change sort direction to ascending (`asc`) or descending (`desc`).",
+                  "key": "sort_dir",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Searches for messages matching a query."
+          },
+          "response": [
+            {
+              "id": "c9237dbb-bb2e-4390-988b-96d83ebbdfc5",
+              "name": "Typical success response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/search.messages?token=<string>&count=<integer>&highlight=<boolean>&page=<integer>&query=<string>&sort=<string>&sort_dir=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "search.messages"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Authentication token. Requires scope: `search:read`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Pass the number of results you want per \"page\". Maximum of `100`.",
+                      "key": "count",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Pass a value of `true` to enable query highlight markers (see below).",
+                      "key": "highlight",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "(Required) Search query.",
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Return matches sorted by either `score` or `timestamp`.",
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Change sort direction to ascending (`asc`) or descending (`desc`).",
+                      "key": "sort_dir",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:54.000Z",
+              "updatedAt": "2026-06-05T13:19:54.000Z",
+              "uid": "35240-c9237dbb-bb2e-4390-988b-96d83ebbdfc5"
+            },
+            {
+              "id": "b4efeb9d-b065-4632-902c-a45efe87487a",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/search.messages?token=<string>&count=<integer>&highlight=<boolean>&page=<integer>&query=<string>&sort=<string>&sort_dir=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "search.messages"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Authentication token. Requires scope: `search:read`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Pass the number of results you want per \"page\". Maximum of `100`.",
+                      "key": "count",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Pass a value of `true` to enable query highlight markers (see below).",
+                      "key": "highlight",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "(Required) Search query.",
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Return matches sorted by either `score` or `timestamp`.",
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Change sort direction to ascending (`asc`) or descending (`desc`).",
+                      "key": "sort_dir",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:54.000Z",
+              "updatedAt": "2026-06-05T13:19:54.000Z",
+              "uid": "35240-b4efeb9d-b065-4632-902c-a45efe87487a"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:54.000Z",
+          "updatedAt": "2026-06-05T13:19:54.000Z",
+          "uid": "35240-35b0baa5-6881-4bea-9652-2c92b9bbc7f2"
+        }
+      ],
+      "id": "051bf23d-a3db-4b24-9243-b86e6898d2f9",
+      "createdAt": "2026-06-05T13:19:54.000Z",
+      "updatedAt": "2026-06-05T13:19:54.000Z",
+      "uid": "35240-051bf23d-a3db-4b24-9243-b86e6898d2f9"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "/"
+    }
+  ]
+}

@@ -1,0 +1,848 @@
+{
+  "info": {
+    "_postman_id": "d7ad8870-5dbf-4a76-b6b3-8a3794b590ca",
+    "name": "Slack Reminders API",
+    "description": "Slack\u0019s Reminders API lets apps create and manage personal reminders for Slack users, so teams can automate nudges, follow\u0011ups, and routine check\u0011ins without leaving Slack. Through Web API methods, an app can add reminders with natural language or timestamps (including recurring patterns like \u001cevery Monday at 9am\u001d), list a user\u0019s upcoming reminders, fetch details, and mark or delete them when done. It\u0019s useful for workflows like task handoffs, compliance pings, or lightweight to\u0011dos that need to surface at the right moment. Access is controlled with granular OAuth scopes (reminders:write and reminders:read), and reminders are delivered inside Slack where users already communicate, keeping prompts contextual and unobtrusive.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T13:19:51.000Z",
+    "updatedAt": "2026-06-05T13:19:51.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-d7ad8870-5dbf-4a76-b6b3-8a3794b590ca"
+  },
+  "item": [
+    {
+      "name": "reminders.add",
+      "item": [
+        {
+          "name": "Slack Post Reminders Add",
+          "id": "0296f91c-6384-4262-bc31-aaeecb34139a",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "(Required) Authentication token. Requires scope: `reminders:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "description": "(Required) The content of the reminder",
+                  "key": "text",
+                  "value": "<string>"
+                },
+                {
+                  "description": "(Required) When this reminder should happen: the Unix timestamp (up to five years from now), the number of seconds until the reminder (if within 24 hours), or a natural language description (Ex. \"in 15 minutes,\" or \"every Thursday\")",
+                  "key": "time",
+                  "value": "<string>"
+                },
+                {
+                  "description": "The user who will receive the reminder. If no user is specified, the reminder will go to user who created it.",
+                  "key": "user",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/reminders.add",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "reminders.add"
+              ]
+            },
+            "description": "Creates a reminder."
+          },
+          "response": [
+            {
+              "id": "adcea6cc-2e0b-44f5-bf33-3584e23ffda1",
+              "name": "Typical success response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `reminders:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) The content of the reminder",
+                      "key": "text",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) When this reminder should happen: the Unix timestamp (up to five years from now), the number of seconds until the reminder (if within 24 hours), or a natural language description (Ex. \"in 15 minutes,\" or \"every Thursday\")",
+                      "key": "time",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The user who will receive the reminder. If no user is specified, the reminder will go to user who created it.",
+                      "key": "user",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/reminders.add",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "reminders.add"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  },\n  \"reminder\": {\n    \"value\": \"reference #/components/schemas/objs_reminder not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:52.000Z",
+              "updatedAt": "2026-06-05T13:19:52.000Z",
+              "uid": "35240-adcea6cc-2e0b-44f5-bf33-3584e23ffda1"
+            },
+            {
+              "id": "8281ae87-33b4-4feb-94e3-0e2c8eab64a4",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `reminders:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) The content of the reminder",
+                      "key": "text",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) When this reminder should happen: the Unix timestamp (up to five years from now), the number of seconds until the reminder (if within 24 hours), or a natural language description (Ex. \"in 15 minutes,\" or \"every Thursday\")",
+                      "key": "time",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The user who will receive the reminder. If no user is specified, the reminder will go to user who created it.",
+                      "key": "user",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/reminders.add",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "reminders.add"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"json_not_object\",\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  },\n  \"callstack\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:52.000Z",
+              "updatedAt": "2026-06-05T13:19:52.000Z",
+              "uid": "35240-8281ae87-33b4-4feb-94e3-0e2c8eab64a4"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:52.000Z",
+          "updatedAt": "2026-06-05T13:19:52.000Z",
+          "uid": "35240-0296f91c-6384-4262-bc31-aaeecb34139a"
+        }
+      ],
+      "id": "c0ac5384-f6bb-4d17-8aa4-afc6da18437d",
+      "createdAt": "2026-06-05T13:19:52.000Z",
+      "updatedAt": "2026-06-05T13:19:52.000Z",
+      "uid": "35240-c0ac5384-f6bb-4d17-8aa4-afc6da18437d"
+    },
+    {
+      "name": "reminders.complete",
+      "item": [
+        {
+          "name": "Slack Post Reminders Complete",
+          "id": "4b38c7ea-bb3e-4910-b4b3-695116691611",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "Authentication token. Requires scope: `reminders:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "description": "The ID of the reminder to be marked as complete",
+                  "key": "reminder",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/reminders.complete",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "reminders.complete"
+              ]
+            },
+            "description": "Marks a reminder as complete."
+          },
+          "response": [
+            {
+              "id": "adaf3e45-96d9-45a1-bf6f-8860d4d5fd59",
+              "name": "Typical success response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Authentication token. Requires scope: `reminders:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "The ID of the reminder to be marked as complete",
+                      "key": "reminder",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/reminders.complete",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "reminders.complete"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:52.000Z",
+              "updatedAt": "2026-06-05T13:19:52.000Z",
+              "uid": "35240-adaf3e45-96d9-45a1-bf6f-8860d4d5fd59"
+            },
+            {
+              "id": "129748b5-9e26-4946-aa74-cb4742989725",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Authentication token. Requires scope: `reminders:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "The ID of the reminder to be marked as complete",
+                      "key": "reminder",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/reminders.complete",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "reminders.complete"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"user_is_bot\",\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  },\n  \"callstack\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:52.000Z",
+              "updatedAt": "2026-06-05T13:19:52.000Z",
+              "uid": "35240-129748b5-9e26-4946-aa74-cb4742989725"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:52.000Z",
+          "updatedAt": "2026-06-05T13:19:52.000Z",
+          "uid": "35240-4b38c7ea-bb3e-4910-b4b3-695116691611"
+        }
+      ],
+      "id": "79067ded-8794-4e48-959c-ecf481d5febc",
+      "createdAt": "2026-06-05T13:19:52.000Z",
+      "updatedAt": "2026-06-05T13:19:52.000Z",
+      "uid": "35240-79067ded-8794-4e48-959c-ecf481d5febc"
+    },
+    {
+      "name": "reminders.delete",
+      "item": [
+        {
+          "name": "Slack Post Reminders Delete",
+          "id": "8e54053e-a19f-44e8-9ae3-c0de5d18032f",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "Authentication token. Requires scope: `reminders:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "description": "The ID of the reminder",
+                  "key": "reminder",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/reminders.delete",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "reminders.delete"
+              ]
+            },
+            "description": "Deletes a reminder."
+          },
+          "response": [
+            {
+              "id": "bff6c44f-f985-4162-a759-57b2fd10002f",
+              "name": "Typical success response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Authentication token. Requires scope: `reminders:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "The ID of the reminder",
+                      "key": "reminder",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/reminders.delete",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "reminders.delete"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:52.000Z",
+              "updatedAt": "2026-06-05T13:19:52.000Z",
+              "uid": "35240-bff6c44f-f985-4162-a759-57b2fd10002f"
+            },
+            {
+              "id": "227911ba-bf9c-43c3-9088-d8d174aaaeef",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Authentication token. Requires scope: `reminders:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "The ID of the reminder",
+                      "key": "reminder",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/reminders.delete",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "reminders.delete"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"request_timeout\",\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  },\n  \"callstack\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:52.000Z",
+              "updatedAt": "2026-06-05T13:19:52.000Z",
+              "uid": "35240-227911ba-bf9c-43c3-9088-d8d174aaaeef"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:52.000Z",
+          "updatedAt": "2026-06-05T13:19:52.000Z",
+          "uid": "35240-8e54053e-a19f-44e8-9ae3-c0de5d18032f"
+        }
+      ],
+      "id": "50edc8a7-df36-45b9-9bfe-30b7a99eddde",
+      "createdAt": "2026-06-05T13:19:52.000Z",
+      "updatedAt": "2026-06-05T13:19:52.000Z",
+      "uid": "35240-50edc8a7-df36-45b9-9bfe-30b7a99eddde"
+    },
+    {
+      "name": "reminders.info",
+      "item": [
+        {
+          "name": "Slack Get Reminders Info",
+          "id": "71f04303-b9fe-49a8-a9cf-54424c1c251b",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/reminders.info?token=<string>&reminder=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "reminders.info"
+              ],
+              "query": [
+                {
+                  "description": "Authentication token. Requires scope: `reminders:read`",
+                  "key": "token",
+                  "value": "<string>"
+                },
+                {
+                  "description": "The ID of the reminder",
+                  "key": "reminder",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Gets information about a reminder."
+          },
+          "response": [
+            {
+              "id": "d39898b3-fcad-4766-a994-23f85feb272c",
+              "name": "Typical success response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/reminders.info?token=<string>&reminder=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "reminders.info"
+                  ],
+                  "query": [
+                    {
+                      "description": "Authentication token. Requires scope: `reminders:read`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The ID of the reminder",
+                      "key": "reminder",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  },\n  \"reminder\": {\n    \"value\": \"reference #/components/schemas/objs_reminder not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:52.000Z",
+              "updatedAt": "2026-06-05T13:19:52.000Z",
+              "uid": "35240-d39898b3-fcad-4766-a994-23f85feb272c"
+            },
+            {
+              "id": "d083f7b0-babd-4ad2-9dcc-ec33c1372725",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/reminders.info?token=<string>&reminder=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "reminders.info"
+                  ],
+                  "query": [
+                    {
+                      "description": "Authentication token. Requires scope: `reminders:read`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The ID of the reminder",
+                      "key": "reminder",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"request_timeout\",\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  },\n  \"callstack\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:52.000Z",
+              "updatedAt": "2026-06-05T13:19:52.000Z",
+              "uid": "35240-d083f7b0-babd-4ad2-9dcc-ec33c1372725"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:52.000Z",
+          "updatedAt": "2026-06-05T13:19:52.000Z",
+          "uid": "35240-71f04303-b9fe-49a8-a9cf-54424c1c251b"
+        }
+      ],
+      "id": "50739017-655b-45d6-9170-a464809a713a",
+      "createdAt": "2026-06-05T13:19:52.000Z",
+      "updatedAt": "2026-06-05T13:19:52.000Z",
+      "uid": "35240-50739017-655b-45d6-9170-a464809a713a"
+    },
+    {
+      "name": "reminders.list",
+      "item": [
+        {
+          "name": "Slack Get Reminders List",
+          "id": "25f7cc68-8895-4253-abd0-cee1a7ebb76c",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/reminders.list?token=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "reminders.list"
+              ],
+              "query": [
+                {
+                  "description": "Authentication token. Requires scope: `reminders:read`",
+                  "key": "token",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Lists all reminders created by or for a given user."
+          },
+          "response": [
+            {
+              "id": "63328d55-83ce-41b9-b84f-a40d3b7815df",
+              "name": "Typical success response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/reminders.list?token=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "reminders.list"
+                  ],
+                  "query": [
+                    {
+                      "description": "Authentication token. Requires scope: `reminders:read`",
+                      "key": "token",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  },\n  \"reminders\": [\n    {\n      \"value\": \"reference #/components/schemas/objs_reminder not found in the OpenAPI spec\"\n    },\n    {\n      \"value\": \"reference #/components/schemas/objs_reminder not found in the OpenAPI spec\"\n    }\n  ]\n}",
+              "createdAt": "2026-06-05T13:19:52.000Z",
+              "updatedAt": "2026-06-05T13:19:52.000Z",
+              "uid": "35240-63328d55-83ce-41b9-b84f-a40d3b7815df"
+            },
+            {
+              "id": "dabdaab5-a91e-4f2f-bb99-5eaaa5506973",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/reminders.list?token=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "reminders.list"
+                  ],
+                  "query": [
+                    {
+                      "description": "Authentication token. Requires scope: `reminders:read`",
+                      "key": "token",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"token_revoked\",\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  },\n  \"callstack\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:52.000Z",
+              "updatedAt": "2026-06-05T13:19:52.000Z",
+              "uid": "35240-dabdaab5-a91e-4f2f-bb99-5eaaa5506973"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:52.000Z",
+          "updatedAt": "2026-06-05T13:19:52.000Z",
+          "uid": "35240-25f7cc68-8895-4253-abd0-cee1a7ebb76c"
+        }
+      ],
+      "id": "9e69252b-b09f-47ef-8a9c-5080dfcb61bb",
+      "createdAt": "2026-06-05T13:19:52.000Z",
+      "updatedAt": "2026-06-05T13:19:52.000Z",
+      "uid": "35240-9e69252b-b09f-47ef-8a9c-5080dfcb61bb"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "/"
+    }
+  ]
+}

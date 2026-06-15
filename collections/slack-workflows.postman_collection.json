@@ -1,0 +1,533 @@
+{
+  "item": [
+    {
+      "id": "49b2d916-a797-420e-b816-2fb018021a67",
+      "name": "Workflows",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "676ca70c-be77-45ee-8d3f-b3b822b3f191",
+          "name": "Slack Get Workflows Stepcompleted",
+          "request": {
+            "name": "Slack Get Workflows Stepcompleted",
+            "description": {
+              "content": "Indicate that an app's step in a workflow completed execution.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "workflows.stepCompleted"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "workflow_step_execute_id",
+                  "value": "<string>",
+                  "description": "(Required) Context identifier that maps to the correct workflow step execution."
+                },
+                {
+                  "disabled": false,
+                  "key": "outputs",
+                  "value": "<string>",
+                  "description": "Key-value object of outputs from your step. Keys of this object reflect the configured `key` properties of your [`outputs`](/reference/workflows/workflow_step#output) array from your `workflow_step` object."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Authentication token. Requires scope: `workflow.steps:execute`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "9ae67871-9c86-4c68-92d6-db3b8c641f90",
+              "name": "Typical success response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workflows.stepCompleted"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "workflow_step_execute_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "outputs",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `workflow.steps:execute`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4238728a-0311-436c-b28b-2ae695dfda3d",
+              "name": "Typical error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workflows.stepCompleted"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "workflow_step_execute_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "outputs",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `workflow.steps:execute`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"invalid_auth\",\n  \"ok\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "55c111da-3b78-4d7d-8350-0958688bbbd6",
+          "name": "Slack Get Workflows Stepfailed",
+          "request": {
+            "name": "Slack Get Workflows Stepfailed",
+            "description": {
+              "content": "Indicate that an app's step in a workflow failed to execute.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "workflows.stepFailed"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "workflow_step_execute_id",
+                  "value": "<string>",
+                  "description": "(Required) Context identifier that maps to the correct workflow step execution."
+                },
+                {
+                  "disabled": false,
+                  "key": "error",
+                  "value": "<string>",
+                  "description": "(Required) A JSON-based object with a `message` property that should contain a human readable error message."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Authentication token. Requires scope: `workflow.steps:execute`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "11ce235b-83d0-4436-99ae-2a63b1b79e55",
+              "name": "Typical success response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workflows.stepFailed"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "workflow_step_execute_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "error",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `workflow.steps:execute`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5b71b5ee-6d73-4b57-a316-ccb70b4a096b",
+              "name": "Typical error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workflows.stepFailed"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "workflow_step_execute_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "error",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `workflow.steps:execute`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"invalid_auth\",\n  \"ok\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "51c917a9-44bc-4de5-bd93-ac6fc3486135",
+          "name": "Slack Get Workflows Updatestep",
+          "request": {
+            "name": "Slack Get Workflows Updatestep",
+            "description": {
+              "content": "Update the configuration for a workflow extension step.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "workflows.updateStep"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "workflow_step_edit_id",
+                  "value": "<string>",
+                  "description": "(Required) A context identifier provided with `view_submission` payloads used to call back to `workflows.updateStep`."
+                },
+                {
+                  "disabled": false,
+                  "key": "inputs",
+                  "value": "<string>",
+                  "description": "A JSON key-value map of inputs required from a user during configuration. This is the data your app expects to receive when the workflow step starts. **Please note**: the embedded variable format is set and replaced by the workflow system. You cannot create custom variables that will be replaced at runtime. [Read more about variables in workflow steps here](/workflows/steps#variables)."
+                },
+                {
+                  "disabled": false,
+                  "key": "outputs",
+                  "value": "<string>",
+                  "description": "An JSON array of output objects used during step execution. This is the data your app agrees to provide when your workflow step was executed."
+                },
+                {
+                  "disabled": false,
+                  "key": "step_name",
+                  "value": "<string>",
+                  "description": "An optional field that can be used to override the step name that is shown in the Workflow Builder."
+                },
+                {
+                  "disabled": false,
+                  "key": "step_image_url",
+                  "value": "<string>",
+                  "description": "An optional field that can be used to override app image that is shown in the Workflow Builder."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Authentication token. Requires scope: `workflow.steps:execute`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "232e5e97-2f5b-42ba-bec9-33ae0cea405e",
+              "name": "Typical success response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workflows.updateStep"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "workflow_step_edit_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "inputs",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "outputs",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "step_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "step_image_url",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `workflow.steps:execute`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3ae76745-df89-4b4a-a824-d7720fb77989",
+              "name": "Typical error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workflows.updateStep"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "workflow_step_edit_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "inputs",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "outputs",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "step_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "step_image_url",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `workflow.steps:execute`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"invalid_auth\",\n  \"ok\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "ded383de-7ae9-442b-bd95-888ed3fde6a7",
+    "name": "Slack Workflows",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Needs a description.",
+      "type": "text/plain"
+    }
+  }
+}

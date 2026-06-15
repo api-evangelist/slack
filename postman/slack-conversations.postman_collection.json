@@ -1,0 +1,3398 @@
+{
+  "info": {
+    "_postman_id": "0c74b833-9027-4b5b-8b99-e436bd581816",
+    "name": "Slack Conversations API",
+    "description": "The Slack Conversations API is the unified Web API for working with all types of Slack conversations\u0014public and private channels, direct messages, and multi-person DMs. It lets apps discover and inspect conversations, list members, and read message history and threads, as well as create, join, invite, leave, and archive channels where permissions allow. By consolidating the legacy channels.*, groups.*, im.*, and mpim.* endpoints into conversations.*, it provides consistent IDs and behavior across conversation types. It supports cursor-based pagination, filtering by conversation type, and granular OAuth scopes to ensure apps only access authorized data. Developers use it to find the right place to post, fetch context for workflows, manage membership, and build features that traverse messages and threads across a workspace (including Slack Connect channels when permitted).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T13:19:18.000Z",
+    "updatedAt": "2026-06-05T13:19:18.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-0c74b833-9027-4b5b-8b99-e436bd581816"
+  },
+  "item": [
+    {
+      "name": "conversations.archive",
+      "item": [
+        {
+          "name": "Slack Post Conversations Archive",
+          "id": "377044dc-246c-4993-b02f-b41582abc056",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "Authentication token. Requires scope: `conversations:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "description": "ID of conversation to archive",
+                  "key": "channel",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/conversations.archive",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "conversations.archive"
+              ]
+            },
+            "description": "Archives a conversation."
+          },
+          "response": [
+            {
+              "id": "4b5393e6-92d6-4677-8d8d-070cda1756ba",
+              "name": "Typical success response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Authentication token. Requires scope: `conversations:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "ID of conversation to archive",
+                      "key": "channel",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/conversations.archive",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "conversations.archive"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:18.000Z",
+              "updatedAt": "2026-06-05T13:19:18.000Z",
+              "uid": "35240-4b5393e6-92d6-4677-8d8d-070cda1756ba"
+            },
+            {
+              "id": "7294c6f9-f948-4302-85fb-5f6cdc464d0a",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Authentication token. Requires scope: `conversations:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "ID of conversation to archive",
+                      "key": "channel",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/conversations.archive",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "conversations.archive"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"invalid_form_data\",\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  },\n  \"callstack\": \"<string>\",\n  \"needed\": \"<string>\",\n  \"provided\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:18.000Z",
+              "updatedAt": "2026-06-05T13:19:18.000Z",
+              "uid": "35240-7294c6f9-f948-4302-85fb-5f6cdc464d0a"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:18.000Z",
+          "updatedAt": "2026-06-05T13:19:18.000Z",
+          "uid": "35240-377044dc-246c-4993-b02f-b41582abc056"
+        }
+      ],
+      "id": "b9cd9483-22dd-41f4-b0b0-b36aba0d5fe2",
+      "createdAt": "2026-06-05T13:19:18.000Z",
+      "updatedAt": "2026-06-05T13:19:18.000Z",
+      "uid": "35240-b9cd9483-22dd-41f4-b0b0-b36aba0d5fe2"
+    },
+    {
+      "name": "conversations.close",
+      "item": [
+        {
+          "name": "Slack Post Conversations Close",
+          "id": "9be25372-357d-49ad-88af-9c15597ec2e1",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "Authentication token. Requires scope: `conversations:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "description": "Conversation to close.",
+                  "key": "channel",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/conversations.close",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "conversations.close"
+              ]
+            },
+            "description": "Closes a direct message or multi-person direct message."
+          },
+          "response": [
+            {
+              "id": "b0438dc7-550f-4f9a-a2ab-144656eefe40",
+              "name": "Typical success response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Authentication token. Requires scope: `conversations:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "Conversation to close.",
+                      "key": "channel",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/conversations.close",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "conversations.close"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  },\n  \"already_closed\": \"<boolean>\",\n  \"no_op\": \"<boolean>\"\n}",
+              "createdAt": "2026-06-05T13:19:18.000Z",
+              "updatedAt": "2026-06-05T13:19:18.000Z",
+              "uid": "35240-b0438dc7-550f-4f9a-a2ab-144656eefe40"
+            },
+            {
+              "id": "8f117f05-7cda-4170-9627-19fcc6c9060c",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Authentication token. Requires scope: `conversations:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "Conversation to close.",
+                      "key": "channel",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/conversations.close",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "conversations.close"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"invalid_post_type\",\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  },\n  \"callstack\": \"<string>\",\n  \"needed\": \"<string>\",\n  \"provided\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:18.000Z",
+              "updatedAt": "2026-06-05T13:19:18.000Z",
+              "uid": "35240-8f117f05-7cda-4170-9627-19fcc6c9060c"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:18.000Z",
+          "updatedAt": "2026-06-05T13:19:18.000Z",
+          "uid": "35240-9be25372-357d-49ad-88af-9c15597ec2e1"
+        }
+      ],
+      "id": "447446d0-f7cd-460b-acb8-05186204b92e",
+      "createdAt": "2026-06-05T13:19:18.000Z",
+      "updatedAt": "2026-06-05T13:19:18.000Z",
+      "uid": "35240-447446d0-f7cd-460b-acb8-05186204b92e"
+    },
+    {
+      "name": "conversations.create",
+      "item": [
+        {
+          "name": "Slack Post Conversations Create",
+          "id": "886badc7-7391-4e36-bb03-32138135ae83",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "Authentication token. Requires scope: `conversations:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "description": "Name of the public or private channel to create",
+                  "key": "name",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Create a private channel instead of a public one",
+                  "key": "is_private",
+                  "value": "<boolean>"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/conversations.create",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "conversations.create"
+              ]
+            },
+            "description": "Initiates a public or private channel-based conversation"
+          },
+          "response": [
+            {
+              "id": "688438ed-c188-4d67-a799-e10d5edb24bf",
+              "name": "If successful, the command returns a rather stark [conversation object](/types/conversation)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Authentication token. Requires scope: `conversations:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "Name of the public or private channel to create",
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Create a private channel instead of a public one",
+                      "key": "is_private",
+                      "value": "<boolean>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/conversations.create",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "conversations.create"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"channel\": {\n    \"value\": \"reference #/components/schemas/objs_conversation not found in the OpenAPI spec\"\n  },\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:18.000Z",
+              "updatedAt": "2026-06-05T13:19:18.000Z",
+              "uid": "35240-688438ed-c188-4d67-a799-e10d5edb24bf"
+            },
+            {
+              "id": "8f4620bd-d0b6-497f-bc74-4283fa614662",
+              "name": "Typical error response when name already in use",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Authentication token. Requires scope: `conversations:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "Name of the public or private channel to create",
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Create a private channel instead of a public one",
+                      "key": "is_private",
+                      "value": "<boolean>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/conversations.create",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "conversations.create"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"name_taken\",\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  },\n  \"callstack\": \"<string>\",\n  \"detail\": \"<string>\",\n  \"needed\": \"<string>\",\n  \"provided\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:18.000Z",
+              "updatedAt": "2026-06-05T13:19:18.000Z",
+              "uid": "35240-8f4620bd-d0b6-497f-bc74-4283fa614662"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:18.000Z",
+          "updatedAt": "2026-06-05T13:19:18.000Z",
+          "uid": "35240-886badc7-7391-4e36-bb03-32138135ae83"
+        }
+      ],
+      "id": "489e71cc-92c2-4386-b416-18d67204b9b7",
+      "createdAt": "2026-06-05T13:19:18.000Z",
+      "updatedAt": "2026-06-05T13:19:18.000Z",
+      "uid": "35240-489e71cc-92c2-4386-b416-18d67204b9b7"
+    },
+    {
+      "name": "conversations.history",
+      "item": [
+        {
+          "name": "Slack Get Conversations History",
+          "id": "81a7a46d-1a9d-43c2-8920-4786d9ae76a0",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/conversations.history?token=<string>&channel=<string>&latest=<number>&oldest=<number>&inclusive=<boolean>&limit=<integer>&cursor=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "conversations.history"
+              ],
+              "query": [
+                {
+                  "description": "Authentication token. Requires scope: `conversations:history`",
+                  "key": "token",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Conversation ID to fetch history for.",
+                  "key": "channel",
+                  "value": "<string>"
+                },
+                {
+                  "description": "End of time range of messages to include in results.",
+                  "key": "latest",
+                  "value": "<number>"
+                },
+                {
+                  "description": "Start of time range of messages to include in results.",
+                  "key": "oldest",
+                  "value": "<number>"
+                },
+                {
+                  "description": "Include messages with latest or oldest timestamp in results only when either timestamp is specified.",
+                  "key": "inclusive",
+                  "value": "<boolean>"
+                },
+                {
+                  "description": "The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the users list hasn't been reached.",
+                  "key": "limit",
+                  "value": "<integer>"
+                },
+                {
+                  "description": "Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute returned by a previous request's `response_metadata`. Default value fetches the first \"page\" of the collection. See [pagination](/docs/pagination) for more detail.",
+                  "key": "cursor",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Fetches a conversation's history of messages and events."
+          },
+          "response": [
+            {
+              "id": "8e5f79d2-5836-4c63-9365-bd4c552c6786",
+              "name": "Typical success response containing a channel's messages",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/conversations.history?token=<string>&channel=<string>&latest=<number>&oldest=<number>&inclusive=<boolean>&limit=<integer>&cursor=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "conversations.history"
+                  ],
+                  "query": [
+                    {
+                      "description": "Authentication token. Requires scope: `conversations:history`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Conversation ID to fetch history for.",
+                      "key": "channel",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "End of time range of messages to include in results.",
+                      "key": "latest",
+                      "value": "<number>"
+                    },
+                    {
+                      "description": "Start of time range of messages to include in results.",
+                      "key": "oldest",
+                      "value": "<number>"
+                    },
+                    {
+                      "description": "Include messages with latest or oldest timestamp in results only when either timestamp is specified.",
+                      "key": "inclusive",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the users list hasn't been reached.",
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute returned by a previous request's `response_metadata`. Default value fetches the first \"page\" of the collection. See [pagination](/docs/pagination) for more detail.",
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"channel_actions_count\": \"<integer>\",\n  \"channel_actions_ts\": {},\n  \"has_more\": \"<boolean>\",\n  \"messages\": [\n    {\n      \"value\": \"reference #/components/schemas/objs_message not found in the OpenAPI spec\"\n    }\n  ],\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  },\n  \"pin_count\": \"<integer>\"\n}",
+              "createdAt": "2026-06-05T13:19:18.000Z",
+              "updatedAt": "2026-06-05T13:19:18.000Z",
+              "uid": "35240-8e5f79d2-5836-4c63-9365-bd4c552c6786"
+            },
+            {
+              "id": "bd54b6ae-ff97-4ca4-ba6c-e0ab49ce6542",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/conversations.history?token=<string>&channel=<string>&latest=<number>&oldest=<number>&inclusive=<boolean>&limit=<integer>&cursor=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "conversations.history"
+                  ],
+                  "query": [
+                    {
+                      "description": "Authentication token. Requires scope: `conversations:history`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Conversation ID to fetch history for.",
+                      "key": "channel",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "End of time range of messages to include in results.",
+                      "key": "latest",
+                      "value": "<number>"
+                    },
+                    {
+                      "description": "Start of time range of messages to include in results.",
+                      "key": "oldest",
+                      "value": "<number>"
+                    },
+                    {
+                      "description": "Include messages with latest or oldest timestamp in results only when either timestamp is specified.",
+                      "key": "inclusive",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the users list hasn't been reached.",
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute returned by a previous request's `response_metadata`. Default value fetches the first \"page\" of the collection. See [pagination](/docs/pagination) for more detail.",
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"invalid_auth\",\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  },\n  \"callstack\": \"<string>\",\n  \"needed\": \"<string>\",\n  \"provided\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:18.000Z",
+              "updatedAt": "2026-06-05T13:19:18.000Z",
+              "uid": "35240-bd54b6ae-ff97-4ca4-ba6c-e0ab49ce6542"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:18.000Z",
+          "updatedAt": "2026-06-05T13:19:18.000Z",
+          "uid": "35240-81a7a46d-1a9d-43c2-8920-4786d9ae76a0"
+        }
+      ],
+      "id": "9dadf18a-a370-4b4c-9744-e6d429901b6d",
+      "createdAt": "2026-06-05T13:19:18.000Z",
+      "updatedAt": "2026-06-05T13:19:18.000Z",
+      "uid": "35240-9dadf18a-a370-4b4c-9744-e6d429901b6d"
+    },
+    {
+      "name": "conversations.info",
+      "item": [
+        {
+          "name": "Slack Get Conversations Info",
+          "id": "60108ed4-f0f6-4f0d-b340-5036570822a0",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/conversations.info?token=<string>&channel=<string>&include_locale=<boolean>&include_num_members=<boolean>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "conversations.info"
+              ],
+              "query": [
+                {
+                  "description": "Authentication token. Requires scope: `conversations:read`",
+                  "key": "token",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Conversation ID to learn more about",
+                  "key": "channel",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Set this to `true` to receive the locale for this conversation. Defaults to `false`",
+                  "key": "include_locale",
+                  "value": "<boolean>"
+                },
+                {
+                  "description": "Set to `true` to include the member count for the specified conversation. Defaults to `false`",
+                  "key": "include_num_members",
+                  "value": "<boolean>"
+                }
+              ]
+            },
+            "description": "Retrieve information about a conversation."
+          },
+          "response": [
+            {
+              "id": "bc8c8c5b-1873-4d71-a216-c8b2c7db74a5",
+              "name": "Typical success response for a public channel. (Also, a response from a private channel and a multi-party IM is very similar to this example.)",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/conversations.info?token=<string>&channel=<string>&include_locale=<boolean>&include_num_members=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "conversations.info"
+                  ],
+                  "query": [
+                    {
+                      "description": "Authentication token. Requires scope: `conversations:read`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Conversation ID to learn more about",
+                      "key": "channel",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Set this to `true` to receive the locale for this conversation. Defaults to `false`",
+                      "key": "include_locale",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "Set to `true` to include the member count for the specified conversation. Defaults to `false`",
+                      "key": "include_num_members",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"channel\": {\n    \"value\": \"reference #/components/schemas/objs_conversation not found in the OpenAPI spec\"\n  },\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:18.000Z",
+              "updatedAt": "2026-06-05T13:19:18.000Z",
+              "uid": "35240-bc8c8c5b-1873-4d71-a216-c8b2c7db74a5"
+            },
+            {
+              "id": "8fece71e-ea22-4d2d-aaac-1b7a4f61294f",
+              "name": "Typical error response when a channel cannot be found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/conversations.info?token=<string>&channel=<string>&include_locale=<boolean>&include_num_members=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "conversations.info"
+                  ],
+                  "query": [
+                    {
+                      "description": "Authentication token. Requires scope: `conversations:read`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Conversation ID to learn more about",
+                      "key": "channel",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Set this to `true` to receive the locale for this conversation. Defaults to `false`",
+                      "key": "include_locale",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "Set to `true` to include the member count for the specified conversation. Defaults to `false`",
+                      "key": "include_num_members",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"json_not_object\",\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  },\n  \"callstack\": \"<string>\",\n  \"needed\": \"<string>\",\n  \"provided\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:18.000Z",
+              "updatedAt": "2026-06-05T13:19:18.000Z",
+              "uid": "35240-8fece71e-ea22-4d2d-aaac-1b7a4f61294f"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:18.000Z",
+          "updatedAt": "2026-06-05T13:19:18.000Z",
+          "uid": "35240-60108ed4-f0f6-4f0d-b340-5036570822a0"
+        }
+      ],
+      "id": "4cacf06c-d4e0-429c-a33f-698a8744f072",
+      "createdAt": "2026-06-05T13:19:18.000Z",
+      "updatedAt": "2026-06-05T13:19:18.000Z",
+      "uid": "35240-4cacf06c-d4e0-429c-a33f-698a8744f072"
+    },
+    {
+      "name": "conversations.invite",
+      "item": [
+        {
+          "name": "Slack Post Conversations Invite",
+          "id": "ad5cb5a9-290c-41cc-b812-9514082b4982",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "Authentication token. Requires scope: `conversations:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "description": "The ID of the public or private channel to invite user(s) to.",
+                  "key": "channel",
+                  "value": "<string>"
+                },
+                {
+                  "description": "A comma separated list of user IDs. Up to 1000 users may be listed.",
+                  "key": "users",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/conversations.invite",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "conversations.invite"
+              ]
+            },
+            "description": "Invites users to a channel."
+          },
+          "response": [
+            {
+              "id": "a1912fe1-9906-4989-88ec-529194604c7f",
+              "name": "Typical success response when an invitation is extended",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Authentication token. Requires scope: `conversations:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "The ID of the public or private channel to invite user(s) to.",
+                      "key": "channel",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "A comma separated list of user IDs. Up to 1000 users may be listed.",
+                      "key": "users",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/conversations.invite",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "conversations.invite"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"channel\": {\n    \"value\": \"reference #/components/schemas/objs_conversation not found in the OpenAPI spec\"\n  },\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:18.000Z",
+              "updatedAt": "2026-06-05T13:19:18.000Z",
+              "uid": "35240-a1912fe1-9906-4989-88ec-529194604c7f"
+            },
+            {
+              "id": "d2accb3f-6b72-4756-a7ba-3167ab4a56a6",
+              "name": "Typical error response when an invite is attempted on a conversation type that does not support it",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Authentication token. Requires scope: `conversations:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "The ID of the public or private channel to invite user(s) to.",
+                      "key": "channel",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "A comma separated list of user IDs. Up to 1000 users may be listed.",
+                      "key": "users",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/conversations.invite",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "conversations.invite"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  },\n  \"callstack\": \"<string>\",\n  \"error\": \"missing_charset\",\n  \"needed\": \"<string>\",\n  \"provided\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:18.000Z",
+              "updatedAt": "2026-06-05T13:19:18.000Z",
+              "uid": "35240-d2accb3f-6b72-4756-a7ba-3167ab4a56a6"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:18.000Z",
+          "updatedAt": "2026-06-05T13:19:18.000Z",
+          "uid": "35240-ad5cb5a9-290c-41cc-b812-9514082b4982"
+        }
+      ],
+      "id": "885d09a0-7a45-4ccd-a864-87d7dd009410",
+      "createdAt": "2026-06-05T13:19:18.000Z",
+      "updatedAt": "2026-06-05T13:19:18.000Z",
+      "uid": "35240-885d09a0-7a45-4ccd-a864-87d7dd009410"
+    },
+    {
+      "name": "conversations.join",
+      "item": [
+        {
+          "name": "Slack Post Conversations Join",
+          "id": "195cbbec-df89-4259-a814-6dd2c9650203",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "Authentication token. Requires scope: `channels:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "description": "ID of conversation to join",
+                  "key": "channel",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/conversations.join",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "conversations.join"
+              ]
+            },
+            "description": "Joins an existing conversation."
+          },
+          "response": [
+            {
+              "id": "660b933c-19e4-4ad3-9e0b-04bb305d4376",
+              "name": "Typical success response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Authentication token. Requires scope: `channels:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "ID of conversation to join",
+                      "key": "channel",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/conversations.join",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "conversations.join"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"channel\": {\n    \"value\": \"reference #/components/schemas/objs_conversation not found in the OpenAPI spec\"\n  },\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  },\n  \"response_metadata\": {\n    \"warnings\": [\n      \"<string>\"\n    ]\n  },\n  \"warning\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:18.000Z",
+              "updatedAt": "2026-06-05T13:19:18.000Z",
+              "uid": "35240-660b933c-19e4-4ad3-9e0b-04bb305d4376"
+            },
+            {
+              "id": "28bb2040-2921-41e7-a83a-34d50c04632f",
+              "name": "Typical error response if the conversation is archived and cannot be joined",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Authentication token. Requires scope: `channels:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "ID of conversation to join",
+                      "key": "channel",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/conversations.join",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "conversations.join"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"invalid_array_arg\",\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  },\n  \"callstack\": \"<string>\",\n  \"needed\": \"<string>\",\n  \"provided\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:18.000Z",
+              "updatedAt": "2026-06-05T13:19:18.000Z",
+              "uid": "35240-28bb2040-2921-41e7-a83a-34d50c04632f"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:18.000Z",
+          "updatedAt": "2026-06-05T13:19:18.000Z",
+          "uid": "35240-195cbbec-df89-4259-a814-6dd2c9650203"
+        }
+      ],
+      "id": "ea6110a1-d96f-4166-a77a-699743547ee1",
+      "createdAt": "2026-06-05T13:19:18.000Z",
+      "updatedAt": "2026-06-05T13:19:18.000Z",
+      "uid": "35240-ea6110a1-d96f-4166-a77a-699743547ee1"
+    },
+    {
+      "name": "conversations.kick",
+      "item": [
+        {
+          "name": "Slack Post Conversations Kick",
+          "id": "888d3459-e594-4e65-b9ed-dcefc913d504",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "Authentication token. Requires scope: `conversations:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "description": "ID of conversation to remove user from.",
+                  "key": "channel",
+                  "value": "<string>"
+                },
+                {
+                  "description": "User ID to be removed.",
+                  "key": "user",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/conversations.kick",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "conversations.kick"
+              ]
+            },
+            "description": "Removes a user from a conversation."
+          },
+          "response": [
+            {
+              "id": "c398ea1b-bcaa-4ad3-87fc-78d7d72c6132",
+              "name": "Typical success response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Authentication token. Requires scope: `conversations:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "ID of conversation to remove user from.",
+                      "key": "channel",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "User ID to be removed.",
+                      "key": "user",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/conversations.kick",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "conversations.kick"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:18.000Z",
+              "updatedAt": "2026-06-05T13:19:18.000Z",
+              "uid": "35240-c398ea1b-bcaa-4ad3-87fc-78d7d72c6132"
+            },
+            {
+              "id": "27f3bf61-9777-4038-87e4-295c26a67748",
+              "name": "Typical error response when you attempt to kick yourself from a channel",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Authentication token. Requires scope: `conversations:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "ID of conversation to remove user from.",
+                      "key": "channel",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "User ID to be removed.",
+                      "key": "user",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/conversations.kick",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "conversations.kick"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"user_is_restricted\",\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  },\n  \"callstack\": \"<string>\",\n  \"needed\": \"<string>\",\n  \"provided\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:18.000Z",
+              "updatedAt": "2026-06-05T13:19:18.000Z",
+              "uid": "35240-27f3bf61-9777-4038-87e4-295c26a67748"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:18.000Z",
+          "updatedAt": "2026-06-05T13:19:18.000Z",
+          "uid": "35240-888d3459-e594-4e65-b9ed-dcefc913d504"
+        }
+      ],
+      "id": "6b52e639-2cb7-4ae9-9a54-fd76f33e42f6",
+      "createdAt": "2026-06-05T13:19:18.000Z",
+      "updatedAt": "2026-06-05T13:19:18.000Z",
+      "uid": "35240-6b52e639-2cb7-4ae9-9a54-fd76f33e42f6"
+    },
+    {
+      "name": "conversations.leave",
+      "item": [
+        {
+          "name": "Slack Post Conversations Leave",
+          "id": "0c5ffbff-ff9a-49f8-b994-6037edebf0fd",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "Authentication token. Requires scope: `conversations:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "description": "Conversation to leave",
+                  "key": "channel",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/conversations.leave",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "conversations.leave"
+              ]
+            },
+            "description": "Leaves a conversation."
+          },
+          "response": [
+            {
+              "id": "eba11838-ce8b-4fd7-8ab5-a8f526134078",
+              "name": "Typical success response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Authentication token. Requires scope: `conversations:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "Conversation to leave",
+                      "key": "channel",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/conversations.leave",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "conversations.leave"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  },\n  \"not_in_channel\": \"<boolean>\"\n}",
+              "createdAt": "2026-06-05T13:19:18.000Z",
+              "updatedAt": "2026-06-05T13:19:18.000Z",
+              "uid": "35240-eba11838-ce8b-4fd7-8ab5-a8f526134078"
+            },
+            {
+              "id": "d1881215-79d9-49a4-b95a-310ea210867f",
+              "name": "Typical error response when attempting to leave a workspace's \"general\" channel",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Authentication token. Requires scope: `conversations:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "Conversation to leave",
+                      "key": "channel",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/conversations.leave",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "conversations.leave"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"invalid_post_type\",\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  },\n  \"callstack\": \"<string>\",\n  \"needed\": \"<string>\",\n  \"provided\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:18.000Z",
+              "updatedAt": "2026-06-05T13:19:18.000Z",
+              "uid": "35240-d1881215-79d9-49a4-b95a-310ea210867f"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:18.000Z",
+          "updatedAt": "2026-06-05T13:19:18.000Z",
+          "uid": "35240-0c5ffbff-ff9a-49f8-b994-6037edebf0fd"
+        }
+      ],
+      "id": "9a129073-0a77-4b15-91f4-16f17d8c4c7f",
+      "createdAt": "2026-06-05T13:19:18.000Z",
+      "updatedAt": "2026-06-05T13:19:18.000Z",
+      "uid": "35240-9a129073-0a77-4b15-91f4-16f17d8c4c7f"
+    },
+    {
+      "name": "conversations.list",
+      "item": [
+        {
+          "name": "Slack Get Conversations List",
+          "id": "4f0c2807-8570-4b10-a7a4-5c3a0548cf35",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/conversations.list?token=<string>&exclude_archived=<boolean>&types=<string>&limit=<integer>&cursor=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "conversations.list"
+              ],
+              "query": [
+                {
+                  "description": "Authentication token. Requires scope: `conversations:read`",
+                  "key": "token",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Set to `true` to exclude archived channels from the list",
+                  "key": "exclude_archived",
+                  "value": "<boolean>"
+                },
+                {
+                  "description": "Mix and match channel types by providing a comma-separated list of any combination of `public_channel`, `private_channel`, `mpim`, `im`",
+                  "key": "types",
+                  "value": "<string>"
+                },
+                {
+                  "description": "The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the list hasn't been reached. Must be an integer no larger than 1000.",
+                  "key": "limit",
+                  "value": "<integer>"
+                },
+                {
+                  "description": "Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute returned by a previous request's `response_metadata`. Default value fetches the first \"page\" of the collection. See [pagination](/docs/pagination) for more detail.",
+                  "key": "cursor",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Lists all channels in a Slack team."
+          },
+          "response": [
+            {
+              "id": "78de0b54-29c0-4364-adc7-9b9f85da99bc",
+              "name": "Typical success response with only public channels",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/conversations.list?token=<string>&exclude_archived=<boolean>&types=<string>&limit=<integer>&cursor=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "conversations.list"
+                  ],
+                  "query": [
+                    {
+                      "description": "Authentication token. Requires scope: `conversations:read`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Set to `true` to exclude archived channels from the list",
+                      "key": "exclude_archived",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "Mix and match channel types by providing a comma-separated list of any combination of `public_channel`, `private_channel`, `mpim`, `im`",
+                      "key": "types",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the list hasn't been reached. Must be an integer no larger than 1000.",
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute returned by a previous request's `response_metadata`. Default value fetches the first \"page\" of the collection. See [pagination](/docs/pagination) for more detail.",
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"channels\": [\n    {\n      \"value\": \"reference #/components/schemas/objs_conversation not found in the OpenAPI spec\"\n    },\n    {\n      \"value\": \"reference #/components/schemas/objs_conversation not found in the OpenAPI spec\"\n    }\n  ],\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  },\n  \"response_metadata\": {}\n}",
+              "createdAt": "2026-06-05T13:19:18.000Z",
+              "updatedAt": "2026-06-05T13:19:18.000Z",
+              "uid": "35240-78de0b54-29c0-4364-adc7-9b9f85da99bc"
+            },
+            {
+              "id": "bf10748e-d3c4-4228-ab25-f0bec432a640",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/conversations.list?token=<string>&exclude_archived=<boolean>&types=<string>&limit=<integer>&cursor=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "conversations.list"
+                  ],
+                  "query": [
+                    {
+                      "description": "Authentication token. Requires scope: `conversations:read`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Set to `true` to exclude archived channels from the list",
+                      "key": "exclude_archived",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "Mix and match channel types by providing a comma-separated list of any combination of `public_channel`, `private_channel`, `mpim`, `im`",
+                      "key": "types",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the list hasn't been reached. Must be an integer no larger than 1000.",
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute returned by a previous request's `response_metadata`. Default value fetches the first \"page\" of the collection. See [pagination](/docs/pagination) for more detail.",
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"json_not_object\",\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  },\n  \"callstack\": \"<string>\",\n  \"needed\": \"<string>\",\n  \"provided\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:18.000Z",
+              "updatedAt": "2026-06-05T13:19:18.000Z",
+              "uid": "35240-bf10748e-d3c4-4228-ab25-f0bec432a640"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:18.000Z",
+          "updatedAt": "2026-06-05T13:19:18.000Z",
+          "uid": "35240-4f0c2807-8570-4b10-a7a4-5c3a0548cf35"
+        }
+      ],
+      "id": "80893323-7925-43d3-97f2-85f47ae235ba",
+      "createdAt": "2026-06-05T13:19:18.000Z",
+      "updatedAt": "2026-06-05T13:19:18.000Z",
+      "uid": "35240-80893323-7925-43d3-97f2-85f47ae235ba"
+    },
+    {
+      "name": "conversations.mark",
+      "item": [
+        {
+          "name": "Slack Post Conversations Mark",
+          "id": "dd57c20d-1883-4df0-846b-f77189778589",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "Authentication token. Requires scope: `conversations:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "description": "Channel or conversation to set the read cursor for.",
+                  "key": "channel",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Unique identifier of message you want marked as most recently seen in this conversation.",
+                  "key": "ts",
+                  "value": "<number>"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/conversations.mark",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "conversations.mark"
+              ]
+            },
+            "description": "Sets the read cursor in a channel."
+          },
+          "response": [
+            {
+              "id": "01545127-4cc1-492c-b950-91d69110102f",
+              "name": "Typical success response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Authentication token. Requires scope: `conversations:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "Channel or conversation to set the read cursor for.",
+                      "key": "channel",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Unique identifier of message you want marked as most recently seen in this conversation.",
+                      "key": "ts",
+                      "value": "<number>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/conversations.mark",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "conversations.mark"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:18.000Z",
+              "updatedAt": "2026-06-05T13:19:18.000Z",
+              "uid": "35240-01545127-4cc1-492c-b950-91d69110102f"
+            },
+            {
+              "id": "52bf5268-465a-4c8e-bc08-0bfb1d7d9c7e",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Authentication token. Requires scope: `conversations:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "Channel or conversation to set the read cursor for.",
+                      "key": "channel",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Unique identifier of message you want marked as most recently seen in this conversation.",
+                      "key": "ts",
+                      "value": "<number>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/conversations.mark",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "conversations.mark"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"account_inactive\",\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  },\n  \"callstack\": \"<string>\",\n  \"needed\": \"<string>\",\n  \"provided\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:18.000Z",
+              "updatedAt": "2026-06-05T13:19:18.000Z",
+              "uid": "35240-52bf5268-465a-4c8e-bc08-0bfb1d7d9c7e"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:18.000Z",
+          "updatedAt": "2026-06-05T13:19:18.000Z",
+          "uid": "35240-dd57c20d-1883-4df0-846b-f77189778589"
+        }
+      ],
+      "id": "25f80c23-d37a-4867-85c6-db6a88fad4b3",
+      "createdAt": "2026-06-05T13:19:18.000Z",
+      "updatedAt": "2026-06-05T13:19:18.000Z",
+      "uid": "35240-25f80c23-d37a-4867-85c6-db6a88fad4b3"
+    },
+    {
+      "name": "conversations.members",
+      "item": [
+        {
+          "name": "Slack Get Conversations Members",
+          "id": "a1ede311-4820-4200-b27a-bc3a1eb28b3d",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/conversations.members?token=<string>&channel=<string>&limit=<integer>&cursor=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "conversations.members"
+              ],
+              "query": [
+                {
+                  "description": "Authentication token. Requires scope: `conversations:read`",
+                  "key": "token",
+                  "value": "<string>"
+                },
+                {
+                  "description": "ID of the conversation to retrieve members for",
+                  "key": "channel",
+                  "value": "<string>"
+                },
+                {
+                  "description": "The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the users list hasn't been reached.",
+                  "key": "limit",
+                  "value": "<integer>"
+                },
+                {
+                  "description": "Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute returned by a previous request's `response_metadata`. Default value fetches the first \"page\" of the collection. See [pagination](/docs/pagination) for more detail.",
+                  "key": "cursor",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Retrieve members of a conversation."
+          },
+          "response": [
+            {
+              "id": "a1ee8bc8-0f3b-4d3f-8b08-b23dfac25799",
+              "name": "Typical paginated success response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/conversations.members?token=<string>&channel=<string>&limit=<integer>&cursor=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "conversations.members"
+                  ],
+                  "query": [
+                    {
+                      "description": "Authentication token. Requires scope: `conversations:read`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "ID of the conversation to retrieve members for",
+                      "key": "channel",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the users list hasn't been reached.",
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute returned by a previous request's `response_metadata`. Default value fetches the first \"page\" of the collection. See [pagination](/docs/pagination) for more detail.",
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"members\": [\n    {\n      \"value\": \"reference #/components/schemas/defs_user_id not found in the OpenAPI spec\"\n    }\n  ],\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  },\n  \"response_metadata\": {}\n}",
+              "createdAt": "2026-06-05T13:19:18.000Z",
+              "updatedAt": "2026-06-05T13:19:18.000Z",
+              "uid": "35240-a1ee8bc8-0f3b-4d3f-8b08-b23dfac25799"
+            },
+            {
+              "id": "8b3802b8-f186-464f-82b3-b6b6999301df",
+              "name": "Typical error response when an invalid cursor is provided",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/conversations.members?token=<string>&channel=<string>&limit=<integer>&cursor=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "conversations.members"
+                  ],
+                  "query": [
+                    {
+                      "description": "Authentication token. Requires scope: `conversations:read`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "ID of the conversation to retrieve members for",
+                      "key": "channel",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the users list hasn't been reached.",
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute returned by a previous request's `response_metadata`. Default value fetches the first \"page\" of the collection. See [pagination](/docs/pagination) for more detail.",
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"channel_not_found\",\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  },\n  \"callstack\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:18.000Z",
+              "updatedAt": "2026-06-05T13:19:18.000Z",
+              "uid": "35240-8b3802b8-f186-464f-82b3-b6b6999301df"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:18.000Z",
+          "updatedAt": "2026-06-05T13:19:18.000Z",
+          "uid": "35240-a1ede311-4820-4200-b27a-bc3a1eb28b3d"
+        }
+      ],
+      "id": "4b127eec-6032-4424-948a-35856caa4150",
+      "createdAt": "2026-06-05T13:19:18.000Z",
+      "updatedAt": "2026-06-05T13:19:18.000Z",
+      "uid": "35240-4b127eec-6032-4424-948a-35856caa4150"
+    },
+    {
+      "name": "conversations.open",
+      "item": [
+        {
+          "name": "Slack Post Conversations Open",
+          "id": "361c48b1-5535-4091-8cbd-ca0544af67cc",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "Authentication token. Requires scope: `conversations:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "description": "Resume a conversation by supplying an `im` or `mpim`'s ID. Or provide the `users` field instead.",
+                  "key": "channel",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Comma separated lists of users. If only one user is included, this creates a 1:1 DM.  The ordering of the users is preserved whenever a multi-person direct message is returned. Supply a `channel` when not supplying `users`.",
+                  "key": "users",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Boolean, indicates you want the full IM channel definition in the response.",
+                  "key": "return_im",
+                  "value": "<boolean>"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/conversations.open",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "conversations.open"
+              ]
+            },
+            "description": "Opens or resumes a direct message or multi-person direct message."
+          },
+          "response": [
+            {
+              "id": "9eeff9c0-b675-4a2e-9757-f4ca364e3905",
+              "name": "Typical success response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Authentication token. Requires scope: `conversations:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "Resume a conversation by supplying an `im` or `mpim`'s ID. Or provide the `users` field instead.",
+                      "key": "channel",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma separated lists of users. If only one user is included, this creates a 1:1 DM.  The ordering of the users is preserved whenever a multi-person direct message is returned. Supply a `channel` when not supplying `users`.",
+                      "key": "users",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Boolean, indicates you want the full IM channel definition in the response.",
+                      "key": "return_im",
+                      "value": "<boolean>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/conversations.open",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "conversations.open"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"channel\": {},\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  },\n  \"already_open\": \"<boolean>\",\n  \"no_op\": \"<boolean>\"\n}",
+              "createdAt": "2026-06-05T13:19:18.000Z",
+              "updatedAt": "2026-06-05T13:19:18.000Z",
+              "uid": "35240-9eeff9c0-b675-4a2e-9757-f4ca364e3905"
+            },
+            {
+              "id": "f0d3cda9-0dbf-4c88-b920-9a3fba315f46",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Authentication token. Requires scope: `conversations:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "Resume a conversation by supplying an `im` or `mpim`'s ID. Or provide the `users` field instead.",
+                      "key": "channel",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma separated lists of users. If only one user is included, this creates a 1:1 DM.  The ordering of the users is preserved whenever a multi-person direct message is returned. Supply a `channel` when not supplying `users`.",
+                      "key": "users",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Boolean, indicates you want the full IM channel definition in the response.",
+                      "key": "return_im",
+                      "value": "<boolean>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/conversations.open",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "conversations.open"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"upgrade_required\",\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  },\n  \"callstack\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:18.000Z",
+              "updatedAt": "2026-06-05T13:19:18.000Z",
+              "uid": "35240-f0d3cda9-0dbf-4c88-b920-9a3fba315f46"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:18.000Z",
+          "updatedAt": "2026-06-05T13:19:18.000Z",
+          "uid": "35240-361c48b1-5535-4091-8cbd-ca0544af67cc"
+        }
+      ],
+      "id": "c8f9ef13-60f1-48de-a73e-2cf0d5f1fe22",
+      "createdAt": "2026-06-05T13:19:18.000Z",
+      "updatedAt": "2026-06-05T13:19:18.000Z",
+      "uid": "35240-c8f9ef13-60f1-48de-a73e-2cf0d5f1fe22"
+    },
+    {
+      "name": "conversations.rename",
+      "item": [
+        {
+          "name": "Slack Post Conversations Rename",
+          "id": "644ddf26-4e07-43f9-bc13-a28378dce100",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "Authentication token. Requires scope: `conversations:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "description": "ID of conversation to rename",
+                  "key": "channel",
+                  "value": "<string>"
+                },
+                {
+                  "description": "New name for conversation.",
+                  "key": "name",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/conversations.rename",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "conversations.rename"
+              ]
+            },
+            "description": "Renames a conversation."
+          },
+          "response": [
+            {
+              "id": "5c46d8de-ff0e-4235-9e1b-30007e879115",
+              "name": "Typical success response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Authentication token. Requires scope: `conversations:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "ID of conversation to rename",
+                      "key": "channel",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "New name for conversation.",
+                      "key": "name",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/conversations.rename",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "conversations.rename"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"channel\": {\n    \"value\": \"reference #/components/schemas/objs_conversation not found in the OpenAPI spec\"\n  },\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:18.000Z",
+              "updatedAt": "2026-06-05T13:19:18.000Z",
+              "uid": "35240-5c46d8de-ff0e-4235-9e1b-30007e879115"
+            },
+            {
+              "id": "2439c92c-1461-476c-ac88-98da31fa2c6e",
+              "name": "Typical error response when the calling user is not a member of the conversation",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Authentication token. Requires scope: `conversations:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "ID of conversation to rename",
+                      "key": "channel",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "New name for conversation.",
+                      "key": "name",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/conversations.rename",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "conversations.rename"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"invalid_name_maxlength\",\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  },\n  \"callstack\": \"<string>\",\n  \"needed\": \"<string>\",\n  \"provided\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:18.000Z",
+              "updatedAt": "2026-06-05T13:19:18.000Z",
+              "uid": "35240-2439c92c-1461-476c-ac88-98da31fa2c6e"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:18.000Z",
+          "updatedAt": "2026-06-05T13:19:18.000Z",
+          "uid": "35240-644ddf26-4e07-43f9-bc13-a28378dce100"
+        }
+      ],
+      "id": "b4e4a1d9-22ab-43b5-967e-4b48f25118a8",
+      "createdAt": "2026-06-05T13:19:18.000Z",
+      "updatedAt": "2026-06-05T13:19:18.000Z",
+      "uid": "35240-b4e4a1d9-22ab-43b5-967e-4b48f25118a8"
+    },
+    {
+      "name": "conversations.replies",
+      "item": [
+        {
+          "name": "Slack Get Conversations Replies",
+          "id": "e5de9940-91cf-4dd0-95d7-c014da619bb4",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/conversations.replies?token=<string>&channel=<string>&ts=<number>&latest=<number>&oldest=<number>&inclusive=<boolean>&limit=<integer>&cursor=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "conversations.replies"
+              ],
+              "query": [
+                {
+                  "description": "Authentication token. Requires scope: `conversations:history`",
+                  "key": "token",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Conversation ID to fetch thread from.",
+                  "key": "channel",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Unique identifier of a thread's parent message. `ts` must be the timestamp of an existing message with 0 or more replies. If there are no replies then just the single message referenced by `ts` will return - it is just an ordinary, unthreaded message.",
+                  "key": "ts",
+                  "value": "<number>"
+                },
+                {
+                  "description": "End of time range of messages to include in results.",
+                  "key": "latest",
+                  "value": "<number>"
+                },
+                {
+                  "description": "Start of time range of messages to include in results.",
+                  "key": "oldest",
+                  "value": "<number>"
+                },
+                {
+                  "description": "Include messages with latest or oldest timestamp in results only when either timestamp is specified.",
+                  "key": "inclusive",
+                  "value": "<boolean>"
+                },
+                {
+                  "description": "The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the users list hasn't been reached.",
+                  "key": "limit",
+                  "value": "<integer>"
+                },
+                {
+                  "description": "Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute returned by a previous request's `response_metadata`. Default value fetches the first \"page\" of the collection. See [pagination](/docs/pagination) for more detail.",
+                  "key": "cursor",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Retrieve a thread of messages posted to a conversation"
+          },
+          "response": [
+            {
+              "id": "d7fa2f79-4350-4701-b1ce-a2a9db73ec4f",
+              "name": "Typical success response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/conversations.replies?token=<string>&channel=<string>&ts=<number>&latest=<number>&oldest=<number>&inclusive=<boolean>&limit=<integer>&cursor=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "conversations.replies"
+                  ],
+                  "query": [
+                    {
+                      "description": "Authentication token. Requires scope: `conversations:history`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Conversation ID to fetch thread from.",
+                      "key": "channel",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Unique identifier of a thread's parent message. `ts` must be the timestamp of an existing message with 0 or more replies. If there are no replies then just the single message referenced by `ts` will return - it is just an ordinary, unthreaded message.",
+                      "key": "ts",
+                      "value": "<number>"
+                    },
+                    {
+                      "description": "End of time range of messages to include in results.",
+                      "key": "latest",
+                      "value": "<number>"
+                    },
+                    {
+                      "description": "Start of time range of messages to include in results.",
+                      "key": "oldest",
+                      "value": "<number>"
+                    },
+                    {
+                      "description": "Include messages with latest or oldest timestamp in results only when either timestamp is specified.",
+                      "key": "inclusive",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the users list hasn't been reached.",
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute returned by a previous request's `response_metadata`. Default value fetches the first \"page\" of the collection. See [pagination](/docs/pagination) for more detail.",
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"messages\": [],\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  },\n  \"has_more\": \"<boolean>\"\n}",
+              "createdAt": "2026-06-05T13:19:18.000Z",
+              "updatedAt": "2026-06-05T13:19:18.000Z",
+              "uid": "35240-d7fa2f79-4350-4701-b1ce-a2a9db73ec4f"
+            },
+            {
+              "id": "8dde8375-660e-4646-8083-e205b784253a",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/conversations.replies?token=<string>&channel=<string>&ts=<number>&latest=<number>&oldest=<number>&inclusive=<boolean>&limit=<integer>&cursor=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "conversations.replies"
+                  ],
+                  "query": [
+                    {
+                      "description": "Authentication token. Requires scope: `conversations:history`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Conversation ID to fetch thread from.",
+                      "key": "channel",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Unique identifier of a thread's parent message. `ts` must be the timestamp of an existing message with 0 or more replies. If there are no replies then just the single message referenced by `ts` will return - it is just an ordinary, unthreaded message.",
+                      "key": "ts",
+                      "value": "<number>"
+                    },
+                    {
+                      "description": "End of time range of messages to include in results.",
+                      "key": "latest",
+                      "value": "<number>"
+                    },
+                    {
+                      "description": "Start of time range of messages to include in results.",
+                      "key": "oldest",
+                      "value": "<number>"
+                    },
+                    {
+                      "description": "Include messages with latest or oldest timestamp in results only when either timestamp is specified.",
+                      "key": "inclusive",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the users list hasn't been reached.",
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute returned by a previous request's `response_metadata`. Default value fetches the first \"page\" of the collection. See [pagination](/docs/pagination) for more detail.",
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"account_inactive\",\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  },\n  \"callstack\": \"<string>\",\n  \"needed\": \"<string>\",\n  \"provided\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:18.000Z",
+              "updatedAt": "2026-06-05T13:19:18.000Z",
+              "uid": "35240-8dde8375-660e-4646-8083-e205b784253a"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:18.000Z",
+          "updatedAt": "2026-06-05T13:19:18.000Z",
+          "uid": "35240-e5de9940-91cf-4dd0-95d7-c014da619bb4"
+        }
+      ],
+      "id": "7f2a38f6-a1a8-483b-8614-b121518709fc",
+      "createdAt": "2026-06-05T13:19:18.000Z",
+      "updatedAt": "2026-06-05T13:19:18.000Z",
+      "uid": "35240-7f2a38f6-a1a8-483b-8614-b121518709fc"
+    },
+    {
+      "name": "conversations.setPurpose",
+      "item": [
+        {
+          "name": "Slack Post Conversations Setpurpose",
+          "id": "84923625-b988-453c-a62d-b9530349d878",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "Authentication token. Requires scope: `conversations:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "description": "Conversation to set the purpose of",
+                  "key": "channel",
+                  "value": "<string>"
+                },
+                {
+                  "description": "A new, specialer purpose",
+                  "key": "purpose",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/conversations.setPurpose",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "conversations.setPurpose"
+              ]
+            },
+            "description": "Sets the purpose for a conversation."
+          },
+          "response": [
+            {
+              "id": "6f45be82-d2a8-4e02-8e9d-f8ec71b3f95f",
+              "name": "Typical success response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Authentication token. Requires scope: `conversations:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "Conversation to set the purpose of",
+                      "key": "channel",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "A new, specialer purpose",
+                      "key": "purpose",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/conversations.setPurpose",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "conversations.setPurpose"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"channel\": {\n    \"value\": \"reference #/components/schemas/objs_conversation not found in the OpenAPI spec\"\n  },\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:18.000Z",
+              "updatedAt": "2026-06-05T13:19:18.000Z",
+              "uid": "35240-6f45be82-d2a8-4e02-8e9d-f8ec71b3f95f"
+            },
+            {
+              "id": "df19e080-5e64-464b-85ef-e968b8a43b83",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Authentication token. Requires scope: `conversations:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "Conversation to set the purpose of",
+                      "key": "channel",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "A new, specialer purpose",
+                      "key": "purpose",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/conversations.setPurpose",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "conversations.setPurpose"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"upgrade_required\",\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  },\n  \"callstack\": \"<string>\",\n  \"needed\": \"<string>\",\n  \"provided\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:18.000Z",
+              "updatedAt": "2026-06-05T13:19:18.000Z",
+              "uid": "35240-df19e080-5e64-464b-85ef-e968b8a43b83"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:18.000Z",
+          "updatedAt": "2026-06-05T13:19:18.000Z",
+          "uid": "35240-84923625-b988-453c-a62d-b9530349d878"
+        }
+      ],
+      "id": "3a13962b-590f-4138-af6e-9bd2e16f1be7",
+      "createdAt": "2026-06-05T13:19:18.000Z",
+      "updatedAt": "2026-06-05T13:19:18.000Z",
+      "uid": "35240-3a13962b-590f-4138-af6e-9bd2e16f1be7"
+    },
+    {
+      "name": "conversations.setTopic",
+      "item": [
+        {
+          "name": "Slack Post Conversations Settopic",
+          "id": "afc69d3c-cbdb-41dc-a31f-d40ddc8d2daa",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "Authentication token. Requires scope: `conversations:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "description": "Conversation to set the topic of",
+                  "key": "channel",
+                  "value": "<string>"
+                },
+                {
+                  "description": "The new topic string. Does not support formatting or linkification.",
+                  "key": "topic",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/conversations.setTopic",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "conversations.setTopic"
+              ]
+            },
+            "description": "Sets the topic for a conversation."
+          },
+          "response": [
+            {
+              "id": "3bf463d3-1642-4b9d-b775-08957f73239c",
+              "name": "Typical success response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Authentication token. Requires scope: `conversations:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "Conversation to set the topic of",
+                      "key": "channel",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The new topic string. Does not support formatting or linkification.",
+                      "key": "topic",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/conversations.setTopic",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "conversations.setTopic"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"channel\": {\n    \"value\": \"reference #/components/schemas/objs_conversation not found in the OpenAPI spec\"\n  },\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:18.000Z",
+              "updatedAt": "2026-06-05T13:19:18.000Z",
+              "uid": "35240-3bf463d3-1642-4b9d-b775-08957f73239c"
+            },
+            {
+              "id": "b8fd16e6-0753-493a-b199-066573ba470a",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Authentication token. Requires scope: `conversations:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "Conversation to set the topic of",
+                      "key": "channel",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The new topic string. Does not support formatting or linkification.",
+                      "key": "topic",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/conversations.setTopic",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "conversations.setTopic"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"missing_scope\",\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  },\n  \"callstack\": \"<string>\",\n  \"needed\": \"<string>\",\n  \"provided\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:18.000Z",
+              "updatedAt": "2026-06-05T13:19:18.000Z",
+              "uid": "35240-b8fd16e6-0753-493a-b199-066573ba470a"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:18.000Z",
+          "updatedAt": "2026-06-05T13:19:18.000Z",
+          "uid": "35240-afc69d3c-cbdb-41dc-a31f-d40ddc8d2daa"
+        }
+      ],
+      "id": "53b7d792-3f7f-4eaf-972e-627641b06f67",
+      "createdAt": "2026-06-05T13:19:18.000Z",
+      "updatedAt": "2026-06-05T13:19:18.000Z",
+      "uid": "35240-53b7d792-3f7f-4eaf-972e-627641b06f67"
+    },
+    {
+      "name": "conversations.unarchive",
+      "item": [
+        {
+          "name": "Slack Post Conversations Unarchive",
+          "id": "8eb9c7d7-c4cd-4c12-aefd-69cfacb2ce61",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "Authentication token. Requires scope: `conversations:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "description": "ID of conversation to unarchive",
+                  "key": "channel",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/conversations.unarchive",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "conversations.unarchive"
+              ]
+            },
+            "description": "Reverses conversation archival."
+          },
+          "response": [
+            {
+              "id": "2f1f3530-960f-442c-bfc8-3cc26e2b8104",
+              "name": "Typical success response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Authentication token. Requires scope: `conversations:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "ID of conversation to unarchive",
+                      "key": "channel",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/conversations.unarchive",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "conversations.unarchive"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:18.000Z",
+              "updatedAt": "2026-06-05T13:19:18.000Z",
+              "uid": "35240-2f1f3530-960f-442c-bfc8-3cc26e2b8104"
+            },
+            {
+              "id": "c7c06e01-6332-4b6f-bdff-11bca6a1dcaa",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Authentication token. Requires scope: `conversations:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "ID of conversation to unarchive",
+                      "key": "channel",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/conversations.unarchive",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "conversations.unarchive"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"missing_charset\",\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  },\n  \"callstack\": \"<string>\",\n  \"needed\": \"<string>\",\n  \"provided\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:18.000Z",
+              "updatedAt": "2026-06-05T13:19:18.000Z",
+              "uid": "35240-c7c06e01-6332-4b6f-bdff-11bca6a1dcaa"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:18.000Z",
+          "updatedAt": "2026-06-05T13:19:18.000Z",
+          "uid": "35240-8eb9c7d7-c4cd-4c12-aefd-69cfacb2ce61"
+        }
+      ],
+      "id": "bbe0f750-186c-4fdc-aa5a-ac08f3967643",
+      "createdAt": "2026-06-05T13:19:18.000Z",
+      "updatedAt": "2026-06-05T13:19:18.000Z",
+      "uid": "35240-bbe0f750-186c-4fdc-aa5a-ac08f3967643"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "/"
+    }
+  ]
+}

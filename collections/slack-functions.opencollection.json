@@ -1,0 +1,217 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Slack Functions API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Automation",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Complete Function Success",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://slack.com/api/functions.completeSuccess",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "function_execution_id",
+                  "value": ""
+                },
+                {
+                  "name": "outputs",
+                  "value": ""
+                }
+              ]
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://slack.com/oauth/v2/authorize",
+              "accessTokenUrl": "https://slack.com/api/oauth.v2.access",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Indicates that a custom function step in a workflow completed successfully."
+        },
+        {
+          "info": {
+            "name": "Complete Function Error",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://slack.com/api/functions.completeError",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "function_execution_id",
+                  "value": ""
+                },
+                {
+                  "name": "error",
+                  "value": ""
+                }
+              ]
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://slack.com/oauth/v2/authorize",
+              "accessTokenUrl": "https://slack.com/api/oauth.v2.access",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Indicates that a custom function step in a workflow completed with an error."
+        },
+        {
+          "info": {
+            "name": "Add Function Distribution Permissions",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://slack.com/api/functions.distributions.permissions.add",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "function_app_id",
+                  "value": ""
+                },
+                {
+                  "name": "permission_type",
+                  "value": ""
+                },
+                {
+                  "name": "user_ids",
+                  "value": ""
+                }
+              ]
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://slack.com/oauth/v2/authorize",
+              "accessTokenUrl": "https://slack.com/api/oauth.v2.access",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Adds permissions for distributing a custom function to additional users or workspaces."
+        },
+        {
+          "info": {
+            "name": "List Function Distribution Permissions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://slack.com/api/functions.distributions.permissions.list",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Authentication token. Requires scope: `functions:read`"
+              },
+              {
+                "name": "function_app_id",
+                "value": "",
+                "type": "query",
+                "description": "ID of the function app."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://slack.com/oauth/v2/authorize",
+              "accessTokenUrl": "https://slack.com/api/oauth.v2.access",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Lists the distribution permissions for a custom function."
+        },
+        {
+          "info": {
+            "name": "Remove Function Distribution Permissions",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://slack.com/api/functions.distributions.permissions.remove",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "function_app_id",
+                  "value": ""
+                },
+                {
+                  "name": "user_ids",
+                  "value": ""
+                }
+              ]
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://slack.com/oauth/v2/authorize",
+              "accessTokenUrl": "https://slack.com/api/oauth.v2.access",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Removes distribution permissions for a custom function from users or workspaces."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

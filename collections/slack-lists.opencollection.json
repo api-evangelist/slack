@@ -1,0 +1,229 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Slack Lists API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Lists",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create List",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://slack.com/api/slackLists.create",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://slack.com/oauth/v2/authorize",
+              "accessTokenUrl": "https://slack.com/api/oauth.v2.access",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Creates a new Slack List for tracking work items, tasks, or records."
+        },
+        {
+          "info": {
+            "name": "Update List",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://slack.com/api/slackLists.update",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://slack.com/oauth/v2/authorize",
+              "accessTokenUrl": "https://slack.com/api/oauth.v2.access",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Updates an existing Slack List's title or column configuration."
+        },
+        {
+          "info": {
+            "name": "Create List Item",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://slack.com/api/slackLists.items.create",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://slack.com/oauth/v2/authorize",
+              "accessTokenUrl": "https://slack.com/api/oauth.v2.access",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Creates a new item (row) in a Slack List."
+        },
+        {
+          "info": {
+            "name": "Update List Item",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://slack.com/api/slackLists.items.update",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://slack.com/oauth/v2/authorize",
+              "accessTokenUrl": "https://slack.com/api/oauth.v2.access",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Updates an existing item (row) in a Slack List."
+        },
+        {
+          "info": {
+            "name": "Delete List Item",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://slack.com/api/slackLists.items.delete",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "list_id",
+                  "value": ""
+                },
+                {
+                  "name": "item_id",
+                  "value": ""
+                }
+              ]
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://slack.com/oauth/v2/authorize",
+              "accessTokenUrl": "https://slack.com/api/oauth.v2.access",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Deletes a single item (row) from a Slack List."
+        },
+        {
+          "info": {
+            "name": "List Items",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://slack.com/api/slackLists.items.list",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Authentication token. Requires scope: `lists:read`"
+              },
+              {
+                "name": "list_id",
+                "value": "",
+                "type": "query",
+                "description": "ID of the list to retrieve items from."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor for retrieving additional pages."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to return."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://slack.com/oauth/v2/authorize",
+              "accessTokenUrl": "https://slack.com/api/oauth.v2.access",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Lists all items in a Slack List with optional filtering and pagination."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

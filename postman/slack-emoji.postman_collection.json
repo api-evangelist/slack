@@ -1,0 +1,205 @@
+{
+  "info": {
+    "_postman_id": "e46a1617-b6e4-49ea-a714-1e2e4294d121",
+    "name": "Slack Emoji API",
+    "description": "Slack's Emoji API lets apps discover and manage a workspace's custom emoji. The core method, emoji.list (requires the emoji:read scope), returns a name-to-URL map of all custom emoji along with aliases (noted as alias:other_name) and a cache timestamp to help clients sync efficiently. Apps can also subscribe to the emoji_changed event to stay up to date when emoji are added, renamed, or removed.\n\nContact Support:\n Name: Slack Developer Relations",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T13:19:22.000Z",
+    "updatedAt": "2026-06-05T13:19:22.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-e46a1617-b6e4-49ea-a714-1e2e4294d121"
+  },
+  "item": [
+    {
+      "name": "emoji.list",
+      "item": [
+        {
+          "name": "List Emoji",
+          "id": "f31dd2bf-aee5-40c1-bb54-f37a0f5cc76d",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "emoji:read",
+                  "type": "string"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://slack.com/api/oauth.v2.access",
+                  "type": "string"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://slack.com/oauth/v2/authorize",
+                  "type": "string"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/emoji.list?token=<string>&include_categories=<boolean>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "emoji.list"
+              ],
+              "query": [
+                {
+                  "description": "(Required) Authentication token. Requires scope: `emoji:read`",
+                  "key": "token",
+                  "value": "<string>"
+                },
+                {
+                  "description": "If true, includes emoji categories.",
+                  "key": "include_categories",
+                  "value": "<boolean>"
+                }
+              ]
+            },
+            "description": "Lists custom emoji for a team."
+          },
+          "response": [
+            {
+              "id": "2a9e37a9-9c94-47a2-a01a-4e24bd1de5d3",
+              "name": "Successful response returning custom emoji map",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/emoji.list?token=<string>&include_categories=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "emoji.list"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Authentication token. Requires scope: `emoji:read`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "If true, includes emoji categories.",
+                      "key": "include_categories",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": \"<boolean>\",\n  \"emoji\": {\n    \"ullamco_df\": \"<string>\"\n  },\n  \"cache_ts\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:22.000Z",
+              "updatedAt": "2026-06-05T13:19:22.000Z",
+              "uid": "35240-2a9e37a9-9c94-47a2-a01a-4e24bd1de5d3"
+            },
+            {
+              "id": "c6a6da9b-1436-40d4-adc4-c2f2bc461bd1",
+              "name": "Error response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/emoji.list?token=<string>&include_categories=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "emoji.list"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Authentication token. Requires scope: `emoji:read`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "If true, includes emoji categories.",
+                      "key": "include_categories",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": \"<boolean>\",\n  \"error\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:22.000Z",
+              "updatedAt": "2026-06-05T13:19:22.000Z",
+              "uid": "35240-c6a6da9b-1436-40d4-adc4-c2f2bc461bd1"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:22.000Z",
+          "updatedAt": "2026-06-05T13:19:22.000Z",
+          "uid": "35240-f31dd2bf-aee5-40c1-bb54-f37a0f5cc76d"
+        }
+      ],
+      "id": "1d7c5603-10e6-4598-a778-bb2af3762261",
+      "createdAt": "2026-06-05T13:19:22.000Z",
+      "updatedAt": "2026-06-05T13:19:22.000Z",
+      "uid": "35240-1d7c5603-10e6-4598-a778-bb2af3762261"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://slack.com/api"
+    }
+  ]
+}

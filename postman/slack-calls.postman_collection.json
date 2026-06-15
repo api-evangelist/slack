@@ -1,0 +1,1220 @@
+{
+  "info": {
+    "_postman_id": "8e9213cc-6efc-4d8a-aa57-dea87ebbfa49",
+    "name": "Slack Calls API",
+    "description": "Slack\u0019s Calls API lets apps represent third\u0011party voice or video calls inside Slack by creating a \u001ccall\u001d object with a join URL and metadata, so users see a rich call message with a Join button, status, and participant list in channels or DMs. Through endpoints to create, update, and end calls\u0014and to add or remove participants\u0014an app can keep that call message in sync as people join or leave and as the call progresses. The API doesn\u0019t handle the media itself; it\u0019s for coordinating and rendering the Slack UI around calls hosted by services like Zoom or Webex, making it easy to start, find, and join those calls from Slack.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T13:19:13.000Z",
+    "updatedAt": "2026-06-05T13:19:14.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-8e9213cc-6efc-4d8a-aa57-dea87ebbfa49"
+  },
+  "item": [
+    {
+      "name": "calls.add",
+      "item": [
+        {
+          "name": "Slack Post Calls Add",
+          "id": "1b7f888d-b4f1-4013-b474-7b3985e6b1fe",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "(Required) Authentication token. Requires scope: `calls:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "description": "(Required) An ID supplied by the 3rd-party Call provider. It must be unique across all Calls from that service.",
+                  "key": "external_unique_id",
+                  "value": "<string>"
+                },
+                {
+                  "description": "(Required) The URL required for a client to join the Call.",
+                  "key": "join_url",
+                  "value": "<string>"
+                },
+                {
+                  "description": "An optional, human-readable ID supplied by the 3rd-party Call provider. If supplied, this ID will be displayed in the Call object.",
+                  "key": "external_display_id",
+                  "value": "<string>"
+                },
+                {
+                  "description": "When supplied, available Slack clients will attempt to directly launch the 3rd-party Call with this URL.",
+                  "key": "desktop_app_join_url",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Call start time in UTC UNIX timestamp format",
+                  "key": "date_start",
+                  "value": "<integer>"
+                },
+                {
+                  "description": "The name of the Call.",
+                  "key": "title",
+                  "value": "<string>"
+                },
+                {
+                  "description": "The valid Slack user ID of the user who created this Call. When this method is called with a user token, the `created_by` field is optional and defaults to the authed user of the token. Otherwise, the field is required.",
+                  "key": "created_by",
+                  "value": "<string>"
+                },
+                {
+                  "description": "The list of users to register as participants in the Call. [Read more on how to specify users here](/apis/calls#users).",
+                  "key": "users",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/calls.add",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "calls.add"
+              ]
+            },
+            "description": "Registers a new Call."
+          },
+          "response": [
+            {
+              "id": "5767a897-0135-4c97-a6ec-1bcb50a17d36",
+              "name": "Typical success response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `calls:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) An ID supplied by the 3rd-party Call provider. It must be unique across all Calls from that service.",
+                      "key": "external_unique_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) The URL required for a client to join the Call.",
+                      "key": "join_url",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "An optional, human-readable ID supplied by the 3rd-party Call provider. If supplied, this ID will be displayed in the Call object.",
+                      "key": "external_display_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "When supplied, available Slack clients will attempt to directly launch the 3rd-party Call with this URL.",
+                      "key": "desktop_app_join_url",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Call start time in UTC UNIX timestamp format",
+                      "key": "date_start",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "The name of the Call.",
+                      "key": "title",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The valid Slack user ID of the user who created this Call. When this method is called with a user token, the `created_by` field is optional and defaults to the authed user of the token. Otherwise, the field is required.",
+                      "key": "created_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The list of users to register as participants in the Call. [Read more on how to specify users here](/apis/calls#users).",
+                      "key": "users",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/calls.add",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "calls.add"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:14.000Z",
+              "updatedAt": "2026-06-05T13:19:14.000Z",
+              "uid": "35240-5767a897-0135-4c97-a6ec-1bcb50a17d36"
+            },
+            {
+              "id": "df81c9c2-9a2d-40e0-95d8-4b7b0931d59f",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `calls:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) An ID supplied by the 3rd-party Call provider. It must be unique across all Calls from that service.",
+                      "key": "external_unique_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) The URL required for a client to join the Call.",
+                      "key": "join_url",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "An optional, human-readable ID supplied by the 3rd-party Call provider. If supplied, this ID will be displayed in the Call object.",
+                      "key": "external_display_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "When supplied, available Slack clients will attempt to directly launch the 3rd-party Call with this URL.",
+                      "key": "desktop_app_join_url",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Call start time in UTC UNIX timestamp format",
+                      "key": "date_start",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "The name of the Call.",
+                      "key": "title",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The valid Slack user ID of the user who created this Call. When this method is called with a user token, the `created_by` field is optional and defaults to the authed user of the token. Otherwise, the field is required.",
+                      "key": "created_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The list of users to register as participants in the Call. [Read more on how to specify users here](/apis/calls#users).",
+                      "key": "users",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/calls.add",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "calls.add"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:14.000Z",
+              "updatedAt": "2026-06-05T13:19:14.000Z",
+              "uid": "35240-df81c9c2-9a2d-40e0-95d8-4b7b0931d59f"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:14.000Z",
+          "updatedAt": "2026-06-05T13:19:14.000Z",
+          "uid": "35240-1b7f888d-b4f1-4013-b474-7b3985e6b1fe"
+        }
+      ],
+      "id": "7c47282c-f4c4-4831-be15-393ff72b2194",
+      "createdAt": "2026-06-05T13:19:14.000Z",
+      "updatedAt": "2026-06-05T13:19:14.000Z",
+      "uid": "35240-7c47282c-f4c4-4831-be15-393ff72b2194"
+    },
+    {
+      "name": "calls.end",
+      "item": [
+        {
+          "name": "Slack Post Calls End",
+          "id": "d38652a1-9b8d-4a19-9c29-5df75cdc0af2",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "(Required) Authentication token. Requires scope: `calls:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "description": "(Required) `id` returned when registering the call using the [`calls.add`](/methods/calls.add) method.",
+                  "key": "id",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Call duration in seconds",
+                  "key": "duration",
+                  "value": "<integer>"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/calls.end",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "calls.end"
+              ]
+            },
+            "description": "Ends a Call."
+          },
+          "response": [
+            {
+              "id": "ccc308d1-e08a-4fdd-9043-dbbe284fcf2f",
+              "name": "Typical success response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `calls:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) `id` returned when registering the call using the [`calls.add`](/methods/calls.add) method.",
+                      "key": "id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Call duration in seconds",
+                      "key": "duration",
+                      "value": "<integer>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/calls.end",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "calls.end"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:14.000Z",
+              "updatedAt": "2026-06-05T13:19:14.000Z",
+              "uid": "35240-ccc308d1-e08a-4fdd-9043-dbbe284fcf2f"
+            },
+            {
+              "id": "f52a6b0f-bddf-44cf-8d92-a04b9dacf223",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `calls:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) `id` returned when registering the call using the [`calls.add`](/methods/calls.add) method.",
+                      "key": "id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Call duration in seconds",
+                      "key": "duration",
+                      "value": "<integer>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/calls.end",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "calls.end"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:14.000Z",
+              "updatedAt": "2026-06-05T13:19:14.000Z",
+              "uid": "35240-f52a6b0f-bddf-44cf-8d92-a04b9dacf223"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:14.000Z",
+          "updatedAt": "2026-06-05T13:19:14.000Z",
+          "uid": "35240-d38652a1-9b8d-4a19-9c29-5df75cdc0af2"
+        }
+      ],
+      "id": "136b96b3-a72d-462b-99ea-d7b24ead54b5",
+      "createdAt": "2026-06-05T13:19:14.000Z",
+      "updatedAt": "2026-06-05T13:19:14.000Z",
+      "uid": "35240-136b96b3-a72d-462b-99ea-d7b24ead54b5"
+    },
+    {
+      "name": "calls.info",
+      "item": [
+        {
+          "name": "Slack Get Calls Info",
+          "id": "0c095df2-cb35-4def-b179-e0ebd1b56f47",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "description": "(Required) Authentication token. Requires scope: `calls:read`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/calls.info?id=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "calls.info"
+              ],
+              "query": [
+                {
+                  "description": "(Required) `id` of the Call returned by the [`calls.add`](/methods/calls.add) method.",
+                  "key": "id",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Returns information about a Call."
+          },
+          "response": [
+            {
+              "id": "48e1f9ed-e7bd-42ad-bf31-59bd18cd594e",
+              "name": "Typical success response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `calls:read`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/calls.info?id=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "calls.info"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) `id` of the Call returned by the [`calls.add`](/methods/calls.add) method.",
+                      "key": "id",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:14.000Z",
+              "updatedAt": "2026-06-05T13:19:14.000Z",
+              "uid": "35240-48e1f9ed-e7bd-42ad-bf31-59bd18cd594e"
+            },
+            {
+              "id": "3d56682f-989e-47d2-ab1f-3a4eaee4d959",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `calls:read`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/calls.info?id=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "calls.info"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) `id` of the Call returned by the [`calls.add`](/methods/calls.add) method.",
+                      "key": "id",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:14.000Z",
+              "updatedAt": "2026-06-05T13:19:14.000Z",
+              "uid": "35240-3d56682f-989e-47d2-ab1f-3a4eaee4d959"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:14.000Z",
+          "updatedAt": "2026-06-05T13:19:14.000Z",
+          "uid": "35240-0c095df2-cb35-4def-b179-e0ebd1b56f47"
+        }
+      ],
+      "id": "9d5cc605-d377-4889-a7a7-1bf4a6743b90",
+      "createdAt": "2026-06-05T13:19:14.000Z",
+      "updatedAt": "2026-06-05T13:19:14.000Z",
+      "uid": "35240-9d5cc605-d377-4889-a7a7-1bf4a6743b90"
+    },
+    {
+      "name": "calls.participants.add",
+      "item": [
+        {
+          "name": "Slack Post Calls Participants Add",
+          "id": "65bd68e5-a0ad-42a2-8bb9-a7ef34d5abc9",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "(Required) Authentication token. Requires scope: `calls:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "description": "(Required) `id` returned by the [`calls.add`](/methods/calls.add) method.",
+                  "key": "id",
+                  "value": "<string>"
+                },
+                {
+                  "description": "(Required) The list of users to add as participants in the Call. [Read more on how to specify users here](/apis/calls#users).",
+                  "key": "users",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/calls.participants.add",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "calls.participants.add"
+              ]
+            },
+            "description": "Registers new participants added to a Call."
+          },
+          "response": [
+            {
+              "id": "3ba047b1-4851-4b01-9dbc-7fa3beec7b80",
+              "name": "Typical success response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `calls:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) `id` returned by the [`calls.add`](/methods/calls.add) method.",
+                      "key": "id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) The list of users to add as participants in the Call. [Read more on how to specify users here](/apis/calls#users).",
+                      "key": "users",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/calls.participants.add",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "calls.participants.add"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:14.000Z",
+              "updatedAt": "2026-06-05T13:19:14.000Z",
+              "uid": "35240-3ba047b1-4851-4b01-9dbc-7fa3beec7b80"
+            },
+            {
+              "id": "9b7613c9-2070-430a-bda9-5103e527edd9",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `calls:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) `id` returned by the [`calls.add`](/methods/calls.add) method.",
+                      "key": "id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) The list of users to add as participants in the Call. [Read more on how to specify users here](/apis/calls#users).",
+                      "key": "users",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/calls.participants.add",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "calls.participants.add"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:14.000Z",
+              "updatedAt": "2026-06-05T13:19:14.000Z",
+              "uid": "35240-9b7613c9-2070-430a-bda9-5103e527edd9"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:14.000Z",
+          "updatedAt": "2026-06-05T13:19:14.000Z",
+          "uid": "35240-65bd68e5-a0ad-42a2-8bb9-a7ef34d5abc9"
+        }
+      ],
+      "id": "7bc9b002-0506-4b3e-80e2-7ddb32c12d1b",
+      "createdAt": "2026-06-05T13:19:14.000Z",
+      "updatedAt": "2026-06-05T13:19:14.000Z",
+      "uid": "35240-7bc9b002-0506-4b3e-80e2-7ddb32c12d1b"
+    },
+    {
+      "name": "calls.participants.remove",
+      "item": [
+        {
+          "name": "Slack Post Calls Participants Remove",
+          "id": "360b5d1d-0f2f-45ae-9b01-5b54fd8e97f0",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "(Required) Authentication token. Requires scope: `calls:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "description": "(Required) `id` returned by the [`calls.add`](/methods/calls.add) method.",
+                  "key": "id",
+                  "value": "<string>"
+                },
+                {
+                  "description": "(Required) The list of users to remove as participants in the Call. [Read more on how to specify users here](/apis/calls#users).",
+                  "key": "users",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/calls.participants.remove",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "calls.participants.remove"
+              ]
+            },
+            "description": "Registers participants removed from a Call."
+          },
+          "response": [
+            {
+              "id": "fc1363a9-8225-41fb-9e88-3dd8dd6e6b3c",
+              "name": "Typical success response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `calls:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) `id` returned by the [`calls.add`](/methods/calls.add) method.",
+                      "key": "id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) The list of users to remove as participants in the Call. [Read more on how to specify users here](/apis/calls#users).",
+                      "key": "users",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/calls.participants.remove",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "calls.participants.remove"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:14.000Z",
+              "updatedAt": "2026-06-05T13:19:14.000Z",
+              "uid": "35240-fc1363a9-8225-41fb-9e88-3dd8dd6e6b3c"
+            },
+            {
+              "id": "7ade9dd6-f569-408a-9388-bd97ffba51e9",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `calls:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) `id` returned by the [`calls.add`](/methods/calls.add) method.",
+                      "key": "id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) The list of users to remove as participants in the Call. [Read more on how to specify users here](/apis/calls#users).",
+                      "key": "users",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/calls.participants.remove",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "calls.participants.remove"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:14.000Z",
+              "updatedAt": "2026-06-05T13:19:14.000Z",
+              "uid": "35240-7ade9dd6-f569-408a-9388-bd97ffba51e9"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:14.000Z",
+          "updatedAt": "2026-06-05T13:19:14.000Z",
+          "uid": "35240-360b5d1d-0f2f-45ae-9b01-5b54fd8e97f0"
+        }
+      ],
+      "id": "054c8ab6-9f7a-48ac-97ac-9e18899a2b2b",
+      "createdAt": "2026-06-05T13:19:14.000Z",
+      "updatedAt": "2026-06-05T13:19:14.000Z",
+      "uid": "35240-054c8ab6-9f7a-48ac-97ac-9e18899a2b2b"
+    },
+    {
+      "name": "calls.update",
+      "item": [
+        {
+          "name": "Slack Post Calls Update",
+          "id": "c23424f0-a69a-4917-870e-395355e7b204",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "(Required) Authentication token. Requires scope: `calls:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "description": "(Required) `id` returned by the [`calls.add`](/methods/calls.add) method.",
+                  "key": "id",
+                  "value": "<string>"
+                },
+                {
+                  "description": "The name of the Call.",
+                  "key": "title",
+                  "value": "<string>"
+                },
+                {
+                  "description": "The URL required for a client to join the Call.",
+                  "key": "join_url",
+                  "value": "<string>"
+                },
+                {
+                  "description": "When supplied, available Slack clients will attempt to directly launch the 3rd-party Call with this URL.",
+                  "key": "desktop_app_join_url",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/calls.update",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "calls.update"
+              ]
+            },
+            "description": "Updates information about a Call."
+          },
+          "response": [
+            {
+              "id": "82845d59-c458-4ef1-bcce-d16c089e4625",
+              "name": "Typical success response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `calls:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) `id` returned by the [`calls.add`](/methods/calls.add) method.",
+                      "key": "id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The name of the Call.",
+                      "key": "title",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The URL required for a client to join the Call.",
+                      "key": "join_url",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "When supplied, available Slack clients will attempt to directly launch the 3rd-party Call with this URL.",
+                      "key": "desktop_app_join_url",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/calls.update",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "calls.update"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:14.000Z",
+              "updatedAt": "2026-06-05T13:19:14.000Z",
+              "uid": "35240-82845d59-c458-4ef1-bcce-d16c089e4625"
+            },
+            {
+              "id": "1e2d179e-d876-4028-a2da-afea71ad4e8a",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `calls:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) `id` returned by the [`calls.add`](/methods/calls.add) method.",
+                      "key": "id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The name of the Call.",
+                      "key": "title",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The URL required for a client to join the Call.",
+                      "key": "join_url",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "When supplied, available Slack clients will attempt to directly launch the 3rd-party Call with this URL.",
+                      "key": "desktop_app_join_url",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/calls.update",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "calls.update"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:14.000Z",
+              "updatedAt": "2026-06-05T13:19:14.000Z",
+              "uid": "35240-1e2d179e-d876-4028-a2da-afea71ad4e8a"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:14.000Z",
+          "updatedAt": "2026-06-05T13:19:14.000Z",
+          "uid": "35240-c23424f0-a69a-4917-870e-395355e7b204"
+        }
+      ],
+      "id": "74337bb6-478e-4490-bf64-0d4c9c358b98",
+      "createdAt": "2026-06-05T13:19:14.000Z",
+      "updatedAt": "2026-06-05T13:19:14.000Z",
+      "uid": "35240-74337bb6-478e-4490-bf64-0d4c9c358b98"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "/"
+    }
+  ]
+}

@@ -1,0 +1,1104 @@
+{
+  "info": {
+    "_postman_id": "441c0f37-3b2a-4ef2-91b0-ce36fa41b864",
+    "name": "Slack Functions API",
+    "description": "The Slack Functions API provides methods for managing custom functions that run as steps within Slack workflows. The key methods are functions.completeSuccess, which marks a custom function as having completed successfully and passes output data conforming to the function's defined output schema, and functions.completeError, which marks a custom function as having failed and passes an error message that surfaces to the end user via Slackbot.\n\nContact Support:\n Name: Slack Developer Relations",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T13:19:43.000Z",
+    "updatedAt": "2026-06-05T13:19:43.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-441c0f37-3b2a-4ef2-91b0-ce36fa41b864"
+  },
+  "item": [
+    {
+      "name": "functions.completeSuccess",
+      "item": [
+        {
+          "name": "Complete Function Success",
+          "id": "afab793c-2e7e-49d8-a75b-6c176ab8de81",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "functions:read functions:write",
+                  "type": "string"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://slack.com/api/oauth.v2.access",
+                  "type": "string"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://slack.com/oauth/v2/authorize",
+                  "type": "string"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "description": "(Required) Authentication token. Requires scope: `functions:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "description": "(Required) The execution ID of the function step being completed.",
+                  "key": "function_execution_id",
+                  "value": "<string>"
+                },
+                {
+                  "description": "(Required) JSON-encoded map of output values conforming to the function's output schema.",
+                  "key": "outputs",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/functions.completeSuccess",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "functions.completeSuccess"
+              ]
+            },
+            "description": "Indicates that a custom function step in a workflow completed successfully."
+          },
+          "response": [
+            {
+              "id": "0d6592dd-70b4-46c2-b4ae-2132c13aaa25",
+              "name": "Successful response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `functions:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) The execution ID of the function step being completed.",
+                      "key": "function_execution_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) JSON-encoded map of output values conforming to the function's output schema.",
+                      "key": "outputs",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/functions.completeSuccess",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "functions.completeSuccess"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": \"<boolean>\"\n}",
+              "createdAt": "2026-06-05T13:19:43.000Z",
+              "updatedAt": "2026-06-05T13:19:43.000Z",
+              "uid": "35240-0d6592dd-70b4-46c2-b4ae-2132c13aaa25"
+            },
+            {
+              "id": "d8949972-a599-4907-a1dc-8188f4085a6d",
+              "name": "Error response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `functions:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) The execution ID of the function step being completed.",
+                      "key": "function_execution_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) JSON-encoded map of output values conforming to the function's output schema.",
+                      "key": "outputs",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/functions.completeSuccess",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "functions.completeSuccess"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": \"<boolean>\",\n  \"error\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:43.000Z",
+              "updatedAt": "2026-06-05T13:19:43.000Z",
+              "uid": "35240-d8949972-a599-4907-a1dc-8188f4085a6d"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:43.000Z",
+          "updatedAt": "2026-06-05T13:19:43.000Z",
+          "uid": "35240-afab793c-2e7e-49d8-a75b-6c176ab8de81"
+        }
+      ],
+      "id": "721da315-c4aa-4059-90ee-b3a6a29acd06",
+      "createdAt": "2026-06-05T13:19:43.000Z",
+      "updatedAt": "2026-06-05T13:19:43.000Z",
+      "uid": "35240-721da315-c4aa-4059-90ee-b3a6a29acd06"
+    },
+    {
+      "name": "functions.completeError",
+      "item": [
+        {
+          "name": "Complete Function Error",
+          "id": "2ec9edad-9b33-4ebc-aaba-887e1d3a43ed",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "functions:read functions:write",
+                  "type": "string"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://slack.com/api/oauth.v2.access",
+                  "type": "string"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://slack.com/oauth/v2/authorize",
+                  "type": "string"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "description": "(Required) Authentication token. Requires scope: `functions:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "description": "(Required) The execution ID of the function step that failed.",
+                  "key": "function_execution_id",
+                  "value": "<string>"
+                },
+                {
+                  "description": "(Required) Error message that will be surfaced to the user via Slackbot.",
+                  "key": "error",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/functions.completeError",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "functions.completeError"
+              ]
+            },
+            "description": "Indicates that a custom function step in a workflow completed with an error."
+          },
+          "response": [
+            {
+              "id": "d839eaff-b677-43f4-bea9-0be94003fe8b",
+              "name": "Successful response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `functions:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) The execution ID of the function step that failed.",
+                      "key": "function_execution_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) Error message that will be surfaced to the user via Slackbot.",
+                      "key": "error",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/functions.completeError",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "functions.completeError"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": \"<boolean>\"\n}",
+              "createdAt": "2026-06-05T13:19:43.000Z",
+              "updatedAt": "2026-06-05T13:19:43.000Z",
+              "uid": "35240-d839eaff-b677-43f4-bea9-0be94003fe8b"
+            },
+            {
+              "id": "e9d4f99e-a1ce-4265-8772-4ef053220bd9",
+              "name": "Error response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `functions:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) The execution ID of the function step that failed.",
+                      "key": "function_execution_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) Error message that will be surfaced to the user via Slackbot.",
+                      "key": "error",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/functions.completeError",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "functions.completeError"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": \"<boolean>\",\n  \"error\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:43.000Z",
+              "updatedAt": "2026-06-05T13:19:43.000Z",
+              "uid": "35240-e9d4f99e-a1ce-4265-8772-4ef053220bd9"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:43.000Z",
+          "updatedAt": "2026-06-05T13:19:43.000Z",
+          "uid": "35240-2ec9edad-9b33-4ebc-aaba-887e1d3a43ed"
+        }
+      ],
+      "id": "6cd19176-d483-4357-a9d9-9bdeba3787e6",
+      "createdAt": "2026-06-05T13:19:43.000Z",
+      "updatedAt": "2026-06-05T13:19:43.000Z",
+      "uid": "35240-6cd19176-d483-4357-a9d9-9bdeba3787e6"
+    },
+    {
+      "name": "functions.distributions.permissions.add",
+      "item": [
+        {
+          "name": "Add Function Distribution Permissions",
+          "id": "cf9ea39a-153f-4492-9e56-b28048769825",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "functions:read functions:write",
+                  "type": "string"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://slack.com/api/oauth.v2.access",
+                  "type": "string"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://slack.com/oauth/v2/authorize",
+                  "type": "string"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "description": "(Required) Authentication token. Requires scope: `functions:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "description": "(Required) ID of the function app.",
+                  "key": "function_app_id",
+                  "value": "<string>"
+                },
+                {
+                  "description": "(Required) Type of permission to grant (named_entities, everyone).",
+                  "key": "permission_type",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Comma-separated list of user IDs to grant access to.",
+                  "key": "user_ids",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/functions.distributions.permissions.add",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "functions.distributions.permissions.add"
+              ]
+            },
+            "description": "Adds permissions for distributing a custom function to additional users or workspaces."
+          },
+          "response": [
+            {
+              "id": "cb6ecdd4-cc45-4b0c-9064-be940f1855b5",
+              "name": "Successful response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `functions:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) ID of the function app.",
+                      "key": "function_app_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) Type of permission to grant (named_entities, everyone).",
+                      "key": "permission_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated list of user IDs to grant access to.",
+                      "key": "user_ids",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/functions.distributions.permissions.add",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "functions.distributions.permissions.add"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": \"<boolean>\"\n}",
+              "createdAt": "2026-06-05T13:19:43.000Z",
+              "updatedAt": "2026-06-05T13:19:43.000Z",
+              "uid": "35240-cb6ecdd4-cc45-4b0c-9064-be940f1855b5"
+            },
+            {
+              "id": "b9e227ef-ecba-4efd-8100-715715bd15a4",
+              "name": "Error response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `functions:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) ID of the function app.",
+                      "key": "function_app_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) Type of permission to grant (named_entities, everyone).",
+                      "key": "permission_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated list of user IDs to grant access to.",
+                      "key": "user_ids",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/functions.distributions.permissions.add",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "functions.distributions.permissions.add"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": \"<boolean>\",\n  \"error\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:43.000Z",
+              "updatedAt": "2026-06-05T13:19:43.000Z",
+              "uid": "35240-b9e227ef-ecba-4efd-8100-715715bd15a4"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:43.000Z",
+          "updatedAt": "2026-06-05T13:19:43.000Z",
+          "uid": "35240-cf9ea39a-153f-4492-9e56-b28048769825"
+        }
+      ],
+      "id": "aef9910a-0fce-43ad-bc5a-ab567176e75b",
+      "createdAt": "2026-06-05T13:19:43.000Z",
+      "updatedAt": "2026-06-05T13:19:43.000Z",
+      "uid": "35240-aef9910a-0fce-43ad-bc5a-ab567176e75b"
+    },
+    {
+      "name": "functions.distributions.permissions.list",
+      "item": [
+        {
+          "name": "List Function Distribution Permissions",
+          "id": "38f029ad-4e6d-4c7a-a38f-214524c052ca",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "functions:read functions:write",
+                  "type": "string"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://slack.com/api/oauth.v2.access",
+                  "type": "string"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://slack.com/oauth/v2/authorize",
+                  "type": "string"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/functions.distributions.permissions.list?token=<string>&function_app_id=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "functions.distributions.permissions.list"
+              ],
+              "query": [
+                {
+                  "description": "(Required) Authentication token. Requires scope: `functions:read`",
+                  "key": "token",
+                  "value": "<string>"
+                },
+                {
+                  "description": "(Required) ID of the function app.",
+                  "key": "function_app_id",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Lists the distribution permissions for a custom function."
+          },
+          "response": [
+            {
+              "id": "438519b7-bf8a-47da-b16a-5698504b9048",
+              "name": "Successful response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/functions.distributions.permissions.list?token=<string>&function_app_id=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "functions.distributions.permissions.list"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Authentication token. Requires scope: `functions:read`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) ID of the function app.",
+                      "key": "function_app_id",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": \"<boolean>\",\n  \"permission_type\": \"<string>\",\n  \"user_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "createdAt": "2026-06-05T13:19:43.000Z",
+              "updatedAt": "2026-06-05T13:19:43.000Z",
+              "uid": "35240-438519b7-bf8a-47da-b16a-5698504b9048"
+            },
+            {
+              "id": "663581b0-1ffa-4ba6-bab2-446d71142cff",
+              "name": "Error response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/functions.distributions.permissions.list?token=<string>&function_app_id=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "functions.distributions.permissions.list"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Authentication token. Requires scope: `functions:read`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) ID of the function app.",
+                      "key": "function_app_id",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": \"<boolean>\",\n  \"error\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:43.000Z",
+              "updatedAt": "2026-06-05T13:19:43.000Z",
+              "uid": "35240-663581b0-1ffa-4ba6-bab2-446d71142cff"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:43.000Z",
+          "updatedAt": "2026-06-05T13:19:43.000Z",
+          "uid": "35240-38f029ad-4e6d-4c7a-a38f-214524c052ca"
+        }
+      ],
+      "id": "7d4be465-3282-4526-8ebf-c1a705bb9f4f",
+      "createdAt": "2026-06-05T13:19:43.000Z",
+      "updatedAt": "2026-06-05T13:19:43.000Z",
+      "uid": "35240-7d4be465-3282-4526-8ebf-c1a705bb9f4f"
+    },
+    {
+      "name": "functions.distributions.permissions.remove",
+      "item": [
+        {
+          "name": "Remove Function Distribution Permissions",
+          "id": "3f298854-90a1-4f91-b744-58489f23d965",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "functions:read functions:write",
+                  "type": "string"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://slack.com/api/oauth.v2.access",
+                  "type": "string"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://slack.com/oauth/v2/authorize",
+                  "type": "string"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "description": "(Required) Authentication token. Requires scope: `functions:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "description": "(Required) ID of the function app.",
+                  "key": "function_app_id",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Comma-separated list of user IDs to remove access from.",
+                  "key": "user_ids",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/functions.distributions.permissions.remove",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "functions.distributions.permissions.remove"
+              ]
+            },
+            "description": "Removes distribution permissions for a custom function from users or workspaces."
+          },
+          "response": [
+            {
+              "id": "40267c6a-cf6c-481a-8b3e-51cfa74a6123",
+              "name": "Successful response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `functions:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) ID of the function app.",
+                      "key": "function_app_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated list of user IDs to remove access from.",
+                      "key": "user_ids",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/functions.distributions.permissions.remove",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "functions.distributions.permissions.remove"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": \"<boolean>\"\n}",
+              "createdAt": "2026-06-05T13:19:43.000Z",
+              "updatedAt": "2026-06-05T13:19:43.000Z",
+              "uid": "35240-40267c6a-cf6c-481a-8b3e-51cfa74a6123"
+            },
+            {
+              "id": "60c8b878-c4b1-4212-a017-f2f5222a42ef",
+              "name": "Error response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `functions:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) ID of the function app.",
+                      "key": "function_app_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated list of user IDs to remove access from.",
+                      "key": "user_ids",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/functions.distributions.permissions.remove",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "functions.distributions.permissions.remove"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": \"<boolean>\",\n  \"error\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:43.000Z",
+              "updatedAt": "2026-06-05T13:19:43.000Z",
+              "uid": "35240-60c8b878-c4b1-4212-a017-f2f5222a42ef"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:43.000Z",
+          "updatedAt": "2026-06-05T13:19:43.000Z",
+          "uid": "35240-3f298854-90a1-4f91-b744-58489f23d965"
+        }
+      ],
+      "id": "fdb458b0-5cfd-4785-bc26-5c334c525d9a",
+      "createdAt": "2026-06-05T13:19:43.000Z",
+      "updatedAt": "2026-06-05T13:19:43.000Z",
+      "uid": "35240-fdb458b0-5cfd-4785-bc26-5c334c525d9a"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://slack.com/api"
+    }
+  ]
+}

@@ -1,0 +1,101 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Slack Pins API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Add",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Slack Post Pins Add",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/pins.add",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Pins an item to a channel."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Get",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Slack Get Pins List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/pins.list",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Authentication token. Requires scope: `pins:read`"
+              },
+              {
+                "name": "channel",
+                "value": "",
+                "type": "query",
+                "description": "Channel to get pinned items for."
+              }
+            ]
+          },
+          "docs": "Lists items pinned to a channel."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Pins",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Slack Post Pins Remove",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/pins.remove",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Un-pins an item from a channel."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

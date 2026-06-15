@@ -1,0 +1,299 @@
+{
+  "info": {
+    "_postman_id": "5b383ac5-ab98-4e05-9cb8-2b9c32e4b82b",
+    "name": "Slack Auth API",
+    "description": "Slack\u0019s Auth API covers the authentication and authorization pieces that let apps securely identify users and workspaces and manage access. It includes OAuth 2.0 endpoints used during app installation to request scopes and exchange authorization codes for tokens (with optional token rotation), plus OpenID Connect for \u001cSign in with Slack\u001d so you can authenticate users and retrieve standard identity claims. Within the Web API, methods like auth.test let you verify a token and learn which user and workspace it belongs to, auth.revoke allows you to invalidate tokens, and auth.teams.list helps enumerate the workspaces a user can use with your app (useful for multi-workspace and Enterprise Grid scenarios). Together, these capabilities ensure your app knows who is calling, what it\u0019 s allowed to do, and where, before invoking other Slack APIs.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T13:19:09.000Z",
+    "updatedAt": "2026-06-05T13:19:09.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-5b383ac5-ab98-4e05-9cb8-2b9c32e4b82b"
+  },
+  "item": [
+    {
+      "name": "auth.revoke",
+      "item": [
+        {
+          "name": "Slack Get Auth Revoke",
+          "id": "212e046b-8806-41ff-89dc-bd581d1038eb",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/auth.revoke?token=<string>&test=<boolean>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth.revoke"
+              ],
+              "query": [
+                {
+                  "description": "(Required) Authentication token. Requires scope: `none`",
+                  "key": "token",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Setting this parameter to `1` triggers a _testing mode_ where the specified token will not actually be revoked.",
+                  "key": "test",
+                  "value": "<boolean>"
+                }
+              ]
+            },
+            "description": "Revokes a token."
+          },
+          "response": [
+            {
+              "id": "11f34146-5294-4a2f-8e74-f4f204fb9f46",
+              "name": "Typical success response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/auth.revoke?token=<string>&test=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "auth.revoke"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Authentication token. Requires scope: `none`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Setting this parameter to `1` triggers a _testing mode_ where the specified token will not actually be revoked.",
+                      "key": "test",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  },\n  \"revoked\": \"<boolean>\"\n}",
+              "createdAt": "2026-06-05T13:19:10.000Z",
+              "updatedAt": "2026-06-05T13:19:10.000Z",
+              "uid": "35240-11f34146-5294-4a2f-8e74-f4f204fb9f46"
+            },
+            {
+              "id": "edef18f9-2d37-45ab-bd98-9d372317d814",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/auth.revoke?token=<string>&test=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "auth.revoke"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Authentication token. Requires scope: `none`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Setting this parameter to `1` triggers a _testing mode_ where the specified token will not actually be revoked.",
+                      "key": "test",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"no_permission\",\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  },\n  \"callstack\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:10.000Z",
+              "updatedAt": "2026-06-05T13:19:10.000Z",
+              "uid": "35240-edef18f9-2d37-45ab-bd98-9d372317d814"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:10.000Z",
+          "updatedAt": "2026-06-05T13:19:10.000Z",
+          "uid": "35240-212e046b-8806-41ff-89dc-bd581d1038eb"
+        }
+      ],
+      "id": "11ff83c0-d3eb-40d7-b1bf-50493e083b8b",
+      "createdAt": "2026-06-05T13:19:10.000Z",
+      "updatedAt": "2026-06-05T13:19:10.000Z",
+      "uid": "35240-11ff83c0-d3eb-40d7-b1bf-50493e083b8b"
+    },
+    {
+      "name": "auth.test",
+      "item": [
+        {
+          "name": "Slack Get Auth Test",
+          "id": "1cb707f0-2620-4e8a-bcb5-a58b49f86675",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "description": "(Required) Authentication token. Requires scope: `none`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/auth.test",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth.test"
+              ]
+            },
+            "description": "Checks authentication & identity."
+          },
+          "response": [
+            {
+              "id": "a7f34665-9eeb-4a7f-98fa-2a80b432430b",
+              "name": "Standard success response when used with a user token",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `none`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/auth.test",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "auth.test"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  },\n  \"team\": \"<string>\",\n  \"team_id\": {\n    \"value\": \"reference #/components/schemas/defs_team not found in the OpenAPI spec\"\n  },\n  \"url\": \"<string>\",\n  \"user\": \"<string>\",\n  \"user_id\": {\n    \"value\": \"reference #/components/schemas/defs_user_id not found in the OpenAPI spec\"\n  },\n  \"bot_id\": {\n    \"value\": \"reference #/components/schemas/defs_bot_id not found in the OpenAPI spec\"\n  },\n  \"is_enterprise_install\": \"<boolean>\"\n}",
+              "createdAt": "2026-06-05T13:19:10.000Z",
+              "updatedAt": "2026-06-05T13:19:10.000Z",
+              "uid": "35240-a7f34665-9eeb-4a7f-98fa-2a80b432430b"
+            },
+            {
+              "id": "6d5a18c7-2ea2-4d78-85d3-5d74a642fc0c",
+              "name": "Standard failure response when used with an invalid token",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `none`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/auth.test",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "auth.test"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"invalid_auth\",\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  },\n  \"callstack\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:10.000Z",
+              "updatedAt": "2026-06-05T13:19:10.000Z",
+              "uid": "35240-6d5a18c7-2ea2-4d78-85d3-5d74a642fc0c"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:10.000Z",
+          "updatedAt": "2026-06-05T13:19:10.000Z",
+          "uid": "35240-1cb707f0-2620-4e8a-bcb5-a58b49f86675"
+        }
+      ],
+      "id": "5794cd8c-54f5-432c-9361-8a875e6663b6",
+      "createdAt": "2026-06-05T13:19:10.000Z",
+      "updatedAt": "2026-06-05T13:19:10.000Z",
+      "uid": "35240-5794cd8c-54f5-432c-9361-8a875e6663b6"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "/"
+    }
+  ]
+}

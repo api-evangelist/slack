@@ -1,0 +1,200 @@
+{
+  "info": {
+    "_postman_id": "c5883297-d895-4cb0-bc5b-5ae0c093ea8a",
+    "name": "Slack Migration API",
+    "description": "Slack\u0019s Migration API is a Web API used during Enterprise Grid migrations to translate legacy, workspace-scoped identifiers into their new, canonical IDs so apps keep working after a workspace moves or merges. By calling its migration.exchange method, developers and admins can map old user and channel IDs to the new values that Slack assigns in an Enterprise Grid org, allowing databases, webhooks, event subscriptions, and app configurations to be updated without losing references. It complements Admin and SCIM APIs in a migration runbook, but it doesn\u0019t move content or provision accounts\u0014it strictly provides ID remapping to preserve continuity.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T13:19:45.000Z",
+    "updatedAt": "2026-06-05T13:19:45.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-c5883297-d895-4cb0-bc5b-5ae0c093ea8a"
+  },
+  "item": [
+    {
+      "name": "migration.exchange",
+      "item": [
+        {
+          "name": "Slack Get Migration Exchange",
+          "id": "b428f808-8834-4c66-813f-ea3d8ed80cef",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/migration.exchange?token=<string>&users=<string>&team_id=<string>&to_old=<boolean>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "migration.exchange"
+              ],
+              "query": [
+                {
+                  "description": "(Required) Authentication token. Requires scope: `tokens.basic`",
+                  "key": "token",
+                  "value": "<string>"
+                },
+                {
+                  "description": "(Required) A comma-separated list of user ids, up to 400 per request",
+                  "key": "users",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Specify team_id starts with `T` in case of Org Token",
+                  "key": "team_id",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Specify `true` to convert `W` global user IDs to workspace-specific `U` IDs. Defaults to `false`.",
+                  "key": "to_old",
+                  "value": "<boolean>"
+                }
+              ]
+            },
+            "description": "For Enterprise Grid workspaces, map local user IDs to global user IDs"
+          },
+          "response": [
+            {
+              "id": "23881937-d1e4-42e0-a584-1708b2660a48",
+              "name": "Typical success response when mappings exist for the specified user IDs",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/migration.exchange?token=<string>&users=<string>&team_id=<string>&to_old=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "migration.exchange"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Authentication token. Requires scope: `tokens.basic`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) A comma-separated list of user ids, up to 400 per request",
+                      "key": "users",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Specify team_id starts with `T` in case of Org Token",
+                      "key": "team_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Specify `true` to convert `W` global user IDs to workspace-specific `U` IDs. Defaults to `false`.",
+                      "key": "to_old",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"enterprise_id\": \"<string>\",\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  },\n  \"team_id\": {\n    \"value\": \"reference #/components/schemas/defs_team not found in the OpenAPI spec\"\n  },\n  \"invalid_user_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"user_id_map\": {\n    \"aliquip_8b\": -58544446,\n    \"culpa2c9\": true,\n    \"fugiat_63c\": -25088610,\n    \"Ut_9e\": -62394358\n  }\n}",
+              "createdAt": "2026-06-05T13:19:46.000Z",
+              "updatedAt": "2026-06-05T13:19:46.000Z",
+              "uid": "35240-23881937-d1e4-42e0-a584-1708b2660a48"
+            },
+            {
+              "id": "522678a5-3f08-4919-a97f-a6cdb55e9f64",
+              "name": "Typical error response when there are no mappings to provide",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/migration.exchange?token=<string>&users=<string>&team_id=<string>&to_old=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "migration.exchange"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Authentication token. Requires scope: `tokens.basic`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) A comma-separated list of user ids, up to 400 per request",
+                      "key": "users",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Specify team_id starts with `T` in case of Org Token",
+                      "key": "team_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Specify `true` to convert `W` global user IDs to workspace-specific `U` IDs. Defaults to `false`.",
+                      "key": "to_old",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"invalid_form_data\",\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  },\n  \"callstack\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:46.000Z",
+              "updatedAt": "2026-06-05T13:19:46.000Z",
+              "uid": "35240-522678a5-3f08-4919-a97f-a6cdb55e9f64"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:46.000Z",
+          "updatedAt": "2026-06-05T13:19:46.000Z",
+          "uid": "35240-b428f808-8834-4c66-813f-ea3d8ed80cef"
+        }
+      ],
+      "id": "49848759-bec7-4d38-b4e8-c00dffde4c57",
+      "createdAt": "2026-06-05T13:19:46.000Z",
+      "updatedAt": "2026-06-05T13:19:46.000Z",
+      "uid": "35240-49848759-bec7-4d38-b4e8-c00dffde4c57"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "/"
+    }
+  ]
+}

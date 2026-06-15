@@ -1,0 +1,60 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Slack Auth API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Get",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Slack Get Auth Revoke",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/auth.revoke",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Authentication token. Requires scope: `none`"
+              },
+              {
+                "name": "test",
+                "value": "",
+                "type": "query",
+                "description": "Setting this parameter to `1` triggers a _testing mode_ where the specified token will not actually be revoked."
+              }
+            ]
+          },
+          "docs": "Revokes a token."
+        },
+        {
+          "info": {
+            "name": "Slack Get Auth Test",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/auth.test",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Checks authentication & identity."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

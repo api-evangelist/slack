@@ -1,0 +1,55 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Slack Migration API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Exchange",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Slack Get Migration Exchange",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/migration.exchange",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Authentication token. Requires scope: `tokens.basic`"
+              },
+              {
+                "name": "users",
+                "value": "",
+                "type": "query",
+                "description": "A comma-separated list of user ids, up to 400 per request"
+              },
+              {
+                "name": "team_id",
+                "value": "",
+                "type": "query",
+                "description": "Specify team_id starts with `T` in case of Org Token"
+              },
+              {
+                "name": "to_old",
+                "value": "",
+                "type": "query",
+                "description": "Specify `true` to convert `W` global user IDs to workspace-specific `U` IDs. Defaults to `false`."
+              }
+            ]
+          },
+          "docs": "For Enterprise Grid workspaces, map local user IDs to global user IDs"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

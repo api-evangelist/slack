@@ -1,0 +1,543 @@
+{
+  "item": [
+    {
+      "id": "f2b12798-0d73-43e6-856c-02821f2dc61b",
+      "name": "Exchange",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7d2bd4b4-785e-42e4-808f-b2e7ebc261d5",
+          "name": "Slack Get Migration Exchange",
+          "request": {
+            "name": "Slack Get Migration Exchange",
+            "description": {
+              "content": "For Enterprise Grid workspaces, map local user IDs to global user IDs",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "migration.exchange"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "(Required) Authentication token. Requires scope: `tokens.basic`"
+                },
+                {
+                  "disabled": false,
+                  "key": "users",
+                  "value": "<string>",
+                  "description": "(Required) A comma-separated list of user ids, up to 400 per request"
+                },
+                {
+                  "disabled": false,
+                  "key": "team_id",
+                  "value": "<string>",
+                  "description": "Specify team_id starts with `T` in case of Org Token"
+                },
+                {
+                  "disabled": false,
+                  "key": "to_old",
+                  "value": "<boolean>",
+                  "description": "Specify `true` to convert `W` global user IDs to workspace-specific `U` IDs. Defaults to `false`."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "7875bb17-3e6f-4291-ac71-93052eb2bcd3",
+              "name": "Typical success response when mappings exist for the specified user IDs",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "migration.exchange"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "users",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "team_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to_old",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"enterprise_id\": \"E1KQTNXE1\",\n  \"invalid_user_ids\": [\n    \"U21ABZZXX\"\n  ],\n  \"ok\": true,\n  \"team_id\": \"T1KR7PE1W\",\n  \"user_id_map\": {\n    \"U06UBSUN5\": \"W06M56XJM\",\n    \"U06UBSVB3\": \"W06PUUDLY\",\n    \"U06UBSVDX\": \"W06PUUDMW\",\n    \"U06UEB62U\": \"W06PTT6GH\",\n    \"W06UAZ65Q\": \"W06UAZ65Q\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "00040fb2-e4ee-4807-ab47-8b6b26604f6e",
+              "name": "Typical error response when there are no mappings to provide",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "migration.exchange"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "users",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "team_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to_old",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"not_enterprise_team\",\n  \"ok\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "33ceb674-764c-43d2-8a07-54c4fd96a17b",
+      "name": "Get",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2302074e-7caa-45c2-a69c-9cd0fc6a8e19",
+          "name": "Slack Get Migration Exchange",
+          "request": {
+            "name": "Slack Get Migration Exchange",
+            "description": {
+              "content": "For Enterprise Grid workspaces, map local user IDs to global user IDs",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "migration.exchange"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "(Required) Authentication token. Requires scope: `tokens.basic`"
+                },
+                {
+                  "disabled": false,
+                  "key": "users",
+                  "value": "<string>",
+                  "description": "(Required) A comma-separated list of user ids, up to 400 per request"
+                },
+                {
+                  "disabled": false,
+                  "key": "team_id",
+                  "value": "<string>",
+                  "description": "Specify team_id starts with `T` in case of Org Token"
+                },
+                {
+                  "disabled": false,
+                  "key": "to_old",
+                  "value": "<boolean>",
+                  "description": "Specify `true` to convert `W` global user IDs to workspace-specific `U` IDs. Defaults to `false`."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "8cd47bca-bdbe-43ae-bc28-1908de236e50",
+              "name": "Typical success response when mappings exist for the specified user IDs",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "migration.exchange"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "users",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "team_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to_old",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"enterprise_id\": \"E1KQTNXE1\",\n  \"invalid_user_ids\": [\n    \"U21ABZZXX\"\n  ],\n  \"ok\": true,\n  \"team_id\": \"T1KR7PE1W\",\n  \"user_id_map\": {\n    \"U06UBSUN5\": \"W06M56XJM\",\n    \"U06UBSVB3\": \"W06PUUDLY\",\n    \"U06UBSVDX\": \"W06PUUDMW\",\n    \"U06UEB62U\": \"W06PTT6GH\",\n    \"W06UAZ65Q\": \"W06UAZ65Q\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "75992b2a-1efa-495f-9a1d-6dff2cb63433",
+              "name": "Typical error response when there are no mappings to provide",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "migration.exchange"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "users",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "team_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to_old",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"not_enterprise_team\",\n  \"ok\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "7b16c605-c02c-4212-b613-d2c1c14816c6",
+      "name": "Migrations",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8558e9f6-def9-4a3c-a721-b4988caf098c",
+          "name": "Slack Get Migration Exchange",
+          "request": {
+            "name": "Slack Get Migration Exchange",
+            "description": {
+              "content": "For Enterprise Grid workspaces, map local user IDs to global user IDs",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "migration.exchange"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "(Required) Authentication token. Requires scope: `tokens.basic`"
+                },
+                {
+                  "disabled": false,
+                  "key": "users",
+                  "value": "<string>",
+                  "description": "(Required) A comma-separated list of user ids, up to 400 per request"
+                },
+                {
+                  "disabled": false,
+                  "key": "team_id",
+                  "value": "<string>",
+                  "description": "Specify team_id starts with `T` in case of Org Token"
+                },
+                {
+                  "disabled": false,
+                  "key": "to_old",
+                  "value": "<boolean>",
+                  "description": "Specify `true` to convert `W` global user IDs to workspace-specific `U` IDs. Defaults to `false`."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "218796bc-89bb-4afe-878a-8b421495c006",
+              "name": "Typical success response when mappings exist for the specified user IDs",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "migration.exchange"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "users",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "team_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to_old",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"enterprise_id\": \"E1KQTNXE1\",\n  \"invalid_user_ids\": [\n    \"U21ABZZXX\"\n  ],\n  \"ok\": true,\n  \"team_id\": \"T1KR7PE1W\",\n  \"user_id_map\": {\n    \"U06UBSUN5\": \"W06M56XJM\",\n    \"U06UBSVB3\": \"W06PUUDLY\",\n    \"U06UBSVDX\": \"W06PUUDMW\",\n    \"U06UEB62U\": \"W06PTT6GH\",\n    \"W06UAZ65Q\": \"W06UAZ65Q\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dcf1a021-3c68-4166-b2ba-5d69de293939",
+              "name": "Typical error response when there are no mappings to provide",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "migration.exchange"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "users",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "team_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to_old",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"not_enterprise_team\",\n  \"ok\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "f31796a3-62a7-4965-bb66-2094781ecfdf",
+    "name": "Slack Migration API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Slack\u0019s Migration API is a Web API used during Enterprise Grid migrations to translate legacy, workspace-scoped identifiers into their new, canonical IDs so apps keep working after a workspace moves or merges. By calling its migration.exchange method, developers and admins can map old user and channel IDs to the new values that Slack assigns in an Enterprise Grid org, allowing databases, webhooks, event subscriptions, and app configurations to be updated without losing references. It complements Admin and SCIM APIs in a migration runbook, but it doesn\u0019t move content or provision accounts\u0014it strictly provides ID remapping to preserve continuity.",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,749 @@
+{
+  "info": {
+    "_postman_id": "d7214a35-09d9-4cb8-a6e9-aec91522186e",
+    "name": "Slack DND API",
+    "description": "Slack\u0019s Do Not Disturb (DND) API lets apps read and manage users\u0019 notification quiet time so they don\u0019t get pinged when they\u0019ve paused alerts. With the dnd:read and dnd:write scopes, an app can check a user\u0019s current DND state and scheduled quiet hours, retrieve team-wide DND summaries (where permitted), start or extend a snooze for a specified duration, and end snooze or active DND. Key methods include dnd.info, dnd.teamInfo, dnd.setSnooze, dnd.endSnooze, and dnd.endDnd. Responses provide whether DND is enabled and timestamps for when it starts and ends, enabling apps to defer messages, schedule work, or adjust notification behavior. The API is designed to respect user preferences and workspace policies; apps should handle rate limits and note that they can set temporary snoozes but cannot programmatically change a user\u0019s full DND schedule.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T13:19:20.000Z",
+    "updatedAt": "2026-06-05T13:19:21.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-d7214a35-09d9-4cb8-a6e9-aec91522186e"
+  },
+  "item": [
+    {
+      "name": "dnd.endDnd",
+      "item": [
+        {
+          "name": "Slack Post End Do Not Disturb",
+          "id": "9e0884c7-f864-43e8-9e7f-a500be47b4e0",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "(Required) Authentication token. Requires scope: `dnd:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/dnd.endDnd",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "dnd.endDnd"
+              ]
+            },
+            "description": "Ends the current user's Do Not Disturb session immediately."
+          },
+          "response": [
+            {
+              "id": "110a0ddc-512a-464a-adf1-56b64fea11f1",
+              "name": "Typical success response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `dnd:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/dnd.endDnd",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "dnd.endDnd"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:21.000Z",
+              "updatedAt": "2026-06-05T13:19:21.000Z",
+              "uid": "35240-110a0ddc-512a-464a-adf1-56b64fea11f1"
+            },
+            {
+              "id": "ef244a82-be87-4760-86e3-3a311ba5a0ff",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `dnd:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/dnd.endDnd",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "dnd.endDnd"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"invalid_charset\",\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  },\n  \"callstack\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:21.000Z",
+              "updatedAt": "2026-06-05T13:19:21.000Z",
+              "uid": "35240-ef244a82-be87-4760-86e3-3a311ba5a0ff"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:21.000Z",
+          "updatedAt": "2026-06-05T13:19:21.000Z",
+          "uid": "35240-9e0884c7-f864-43e8-9e7f-a500be47b4e0"
+        }
+      ],
+      "id": "007a69eb-6090-47a2-8764-9fb3d3151772",
+      "createdAt": "2026-06-05T13:19:21.000Z",
+      "updatedAt": "2026-06-05T13:19:21.000Z",
+      "uid": "35240-007a69eb-6090-47a2-8764-9fb3d3151772"
+    },
+    {
+      "name": "dnd.endSnooze",
+      "item": [
+        {
+          "name": "Slack Post End Do Not Disturb Snooze",
+          "id": "e7592c90-c686-4884-b793-2f6669e6249d",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "(Required) Authentication token. Requires scope: `dnd:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/dnd.endSnooze",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "dnd.endSnooze"
+              ]
+            },
+            "description": "Ends the current user's snooze mode immediately."
+          },
+          "response": [
+            {
+              "id": "7ffac5f1-02a0-4a04-a0d5-a94ea154f850",
+              "name": "Typical success response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `dnd:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/dnd.endSnooze",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "dnd.endSnooze"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"dnd_enabled\": \"<boolean>\",\n  \"next_dnd_end_ts\": \"<integer>\",\n  \"next_dnd_start_ts\": \"<integer>\",\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  },\n  \"snooze_enabled\": \"<boolean>\"\n}",
+              "createdAt": "2026-06-05T13:19:21.000Z",
+              "updatedAt": "2026-06-05T13:19:21.000Z",
+              "uid": "35240-7ffac5f1-02a0-4a04-a0d5-a94ea154f850"
+            },
+            {
+              "id": "e78547cd-6eb4-4c3c-8c34-94358309bb7a",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `dnd:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/dnd.endSnooze",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "dnd.endSnooze"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"missing_post_type\",\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  },\n  \"callstack\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:21.000Z",
+              "updatedAt": "2026-06-05T13:19:21.000Z",
+              "uid": "35240-e78547cd-6eb4-4c3c-8c34-94358309bb7a"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:21.000Z",
+          "updatedAt": "2026-06-05T13:19:21.000Z",
+          "uid": "35240-e7592c90-c686-4884-b793-2f6669e6249d"
+        }
+      ],
+      "id": "6b3ffa90-bc64-4934-ae2d-7b1fcc3f9b04",
+      "createdAt": "2026-06-05T13:19:21.000Z",
+      "updatedAt": "2026-06-05T13:19:21.000Z",
+      "uid": "35240-6b3ffa90-bc64-4934-ae2d-7b1fcc3f9b04"
+    },
+    {
+      "name": "dnd.info",
+      "item": [
+        {
+          "name": "Slack Get Do Not Disturb Info",
+          "id": "965602b8-423d-4790-97be-a9c5cf1a0012",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/dnd.info?token=<string>&user=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "dnd.info"
+              ],
+              "query": [
+                {
+                  "description": "Authentication token. Requires scope: `dnd:read`",
+                  "key": "token",
+                  "value": "<string>"
+                },
+                {
+                  "description": "User to fetch status for (defaults to current user)",
+                  "key": "user",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Retrieves a user's current Do Not Disturb status."
+          },
+          "response": [
+            {
+              "id": "0039d9b4-c90d-4f7e-95ae-be7c15840071",
+              "name": "Typical success response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/dnd.info?token=<string>&user=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "dnd.info"
+                  ],
+                  "query": [
+                    {
+                      "description": "Authentication token. Requires scope: `dnd:read`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "User to fetch status for (defaults to current user)",
+                      "key": "user",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"dnd_enabled\": \"<boolean>\",\n  \"next_dnd_end_ts\": \"<integer>\",\n  \"next_dnd_start_ts\": \"<integer>\",\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  },\n  \"snooze_enabled\": \"<boolean>\",\n  \"snooze_endtime\": \"<integer>\",\n  \"snooze_remaining\": \"<integer>\"\n}",
+              "createdAt": "2026-06-05T13:19:21.000Z",
+              "updatedAt": "2026-06-05T13:19:21.000Z",
+              "uid": "35240-0039d9b4-c90d-4f7e-95ae-be7c15840071"
+            },
+            {
+              "id": "faf1eaea-530c-4190-9868-778e30949d11",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/dnd.info?token=<string>&user=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "dnd.info"
+                  ],
+                  "query": [
+                    {
+                      "description": "Authentication token. Requires scope: `dnd:read`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "User to fetch status for (defaults to current user)",
+                      "key": "user",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"missing_post_type\",\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  },\n  \"callstack\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:21.000Z",
+              "updatedAt": "2026-06-05T13:19:21.000Z",
+              "uid": "35240-faf1eaea-530c-4190-9868-778e30949d11"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:21.000Z",
+          "updatedAt": "2026-06-05T13:19:21.000Z",
+          "uid": "35240-965602b8-423d-4790-97be-a9c5cf1a0012"
+        }
+      ],
+      "id": "71b994fc-2c23-4fac-b237-47ad6a3ca395",
+      "createdAt": "2026-06-05T13:19:21.000Z",
+      "updatedAt": "2026-06-05T13:19:21.000Z",
+      "uid": "35240-71b994fc-2c23-4fac-b237-47ad6a3ca395"
+    },
+    {
+      "name": "dnd.setSnooze",
+      "item": [
+        {
+          "name": "Slack Post Do Not Disturb Snooze",
+          "id": "e4a51d72-69db-4a99-a42c-bc917fdaf543",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "description": "(Required) Number of minutes, from now, to snooze until.",
+                  "key": "num_minutes",
+                  "value": "<string>"
+                },
+                {
+                  "description": "(Required) Authentication token. Requires scope: `dnd:write`",
+                  "key": "token",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/dnd.setSnooze",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "dnd.setSnooze"
+              ]
+            },
+            "description": "Turns on Do Not Disturb mode for the current user, or changes its duration."
+          },
+          "response": [
+            {
+              "id": "41490556-697c-489f-a36d-d9bed7598e40",
+              "name": "Typical success response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) Number of minutes, from now, to snooze until.",
+                      "key": "num_minutes",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) Authentication token. Requires scope: `dnd:write`",
+                      "key": "token",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/dnd.setSnooze",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "dnd.setSnooze"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  },\n  \"snooze_enabled\": \"<boolean>\",\n  \"snooze_endtime\": \"<integer>\",\n  \"snooze_remaining\": \"<integer>\"\n}",
+              "createdAt": "2026-06-05T13:19:21.000Z",
+              "updatedAt": "2026-06-05T13:19:21.000Z",
+              "uid": "35240-41490556-697c-489f-a36d-d9bed7598e40"
+            },
+            {
+              "id": "c55b60a9-b262-4929-9399-521a4cde043f",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) Number of minutes, from now, to snooze until.",
+                      "key": "num_minutes",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) Authentication token. Requires scope: `dnd:write`",
+                      "key": "token",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/dnd.setSnooze",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "dnd.setSnooze"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"not_authed\",\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  },\n  \"callstack\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:21.000Z",
+              "updatedAt": "2026-06-05T13:19:21.000Z",
+              "uid": "35240-c55b60a9-b262-4929-9399-521a4cde043f"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:21.000Z",
+          "updatedAt": "2026-06-05T13:19:21.000Z",
+          "uid": "35240-e4a51d72-69db-4a99-a42c-bc917fdaf543"
+        }
+      ],
+      "id": "b808ac2a-f1f5-4da7-b49c-d20d2f47c8d0",
+      "createdAt": "2026-06-05T13:19:21.000Z",
+      "updatedAt": "2026-06-05T13:19:21.000Z",
+      "uid": "35240-b808ac2a-f1f5-4da7-b49c-d20d2f47c8d0"
+    },
+    {
+      "name": "dnd.teamInfo",
+      "item": [
+        {
+          "name": "Slack Get Do Not Disturb Team Information",
+          "id": "8c7bf90e-1a12-406f-ba10-050dc2801048",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/dnd.teamInfo?token=<string>&users=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "dnd.teamInfo"
+              ],
+              "query": [
+                {
+                  "description": "Authentication token. Requires scope: `dnd:read`",
+                  "key": "token",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Comma-separated list of users to fetch Do Not Disturb status for",
+                  "key": "users",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Retrieves the Do Not Disturb status for up to 50 users on a team."
+          },
+          "response": [
+            {
+              "id": "1f3e301f-cb92-47bf-993e-e2bed8238b9b",
+              "name": "Typical success response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/dnd.teamInfo?token=<string>&users=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "dnd.teamInfo"
+                  ],
+                  "query": [
+                    {
+                      "description": "Authentication token. Requires scope: `dnd:read`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated list of users to fetch Do Not Disturb status for",
+                      "key": "users",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:21.000Z",
+              "updatedAt": "2026-06-05T13:19:21.000Z",
+              "uid": "35240-1f3e301f-cb92-47bf-993e-e2bed8238b9b"
+            },
+            {
+              "id": "226ffa11-62ac-4001-811d-81e1e5036da5",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/dnd.teamInfo?token=<string>&users=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "dnd.teamInfo"
+                  ],
+                  "query": [
+                    {
+                      "description": "Authentication token. Requires scope: `dnd:read`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated list of users to fetch Do Not Disturb status for",
+                      "key": "users",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:21.000Z",
+              "updatedAt": "2026-06-05T13:19:21.000Z",
+              "uid": "35240-226ffa11-62ac-4001-811d-81e1e5036da5"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:21.000Z",
+          "updatedAt": "2026-06-05T13:19:21.000Z",
+          "uid": "35240-8c7bf90e-1a12-406f-ba10-050dc2801048"
+        }
+      ],
+      "id": "428f4296-a6f9-456a-a676-7bd3fe631af5",
+      "createdAt": "2026-06-05T13:19:21.000Z",
+      "updatedAt": "2026-06-05T13:19:21.000Z",
+      "uid": "35240-428f4296-a6f9-456a-a676-7bd3fe631af5"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "/"
+    }
+  ]
+}

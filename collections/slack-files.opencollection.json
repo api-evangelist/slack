@@ -1,0 +1,527 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Slack Files API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Comments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Slack Post Files Comments Delete",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/files.comments.delete",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Deletes an existing comment on a file."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Deletes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Slack Post Files Delete",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/files.delete",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Deletes a file."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Files",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Slack Get Files Info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/files.info",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Authentication token. Requires scope: `files:read`"
+              },
+              {
+                "name": "file",
+                "value": "",
+                "type": "query",
+                "description": "Specify a file by providing its ID."
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the list hasn't been reached."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Parameter for pagination. File comments are paginated for a single file. Set `cursor` equal to the `next_cursor` attribute returned by the previous request's `response_metadata`. This parameter is optional, but pagination is mandatory: the default value simply fetches the first \"page\" of the collection of comments. See [pagination](/docs/pagination) for more details."
+              }
+            ]
+          },
+          "docs": "Gets information about a file."
+        },
+        {
+          "info": {
+            "name": "Slack Get Files List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/files.list",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Authentication token. Requires scope: `files:read`"
+              },
+              {
+                "name": "user",
+                "value": "",
+                "type": "query",
+                "description": "Filter files created by a single user."
+              },
+              {
+                "name": "channel",
+                "value": "",
+                "type": "query",
+                "description": "Filter files appearing in a specific channel, indicated by its ID."
+              },
+              {
+                "name": "ts_from",
+                "value": "",
+                "type": "query",
+                "description": "Filter files created after this timestamp (inclusive)."
+              },
+              {
+                "name": "ts_to",
+                "value": "",
+                "type": "query",
+                "description": "Filter files created before this timestamp (inclusive)."
+              },
+              {
+                "name": "types",
+                "value": "",
+                "type": "query",
+                "description": "Filter files by type ([see below](#file_types)). You can pass multiple values in the types argument, like `types=spaces,snippets`.The default value is `all`, which does not filter the list."
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "show_files_hidden_by_limit",
+                "value": "",
+                "type": "query",
+                "description": "Show truncated file info for files hidden due to being too old, and the team who owns the file being over the file limit."
+              }
+            ]
+          },
+          "docs": "List for a team, in a channel, or from a user with applied filters."
+        },
+        {
+          "info": {
+            "name": "Slack Get Files Remote Info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/files.remote.info",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Authentication token. Requires scope: `remote_files:read`"
+              },
+              {
+                "name": "file",
+                "value": "",
+                "type": "query",
+                "description": "Specify a file by providing its ID."
+              },
+              {
+                "name": "external_id",
+                "value": "",
+                "type": "query",
+                "description": "Creator defined GUID for the file."
+              }
+            ]
+          },
+          "docs": "Retrieve information about a remote file added to Slack"
+        },
+        {
+          "info": {
+            "name": "Slack Get Files Remote List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/files.remote.list",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Authentication token. Requires scope: `remote_files:read`"
+              },
+              {
+                "name": "channel",
+                "value": "",
+                "type": "query",
+                "description": "Filter files appearing in a specific channel, indicated by its ID."
+              },
+              {
+                "name": "ts_from",
+                "value": "",
+                "type": "query",
+                "description": "Filter files created after this timestamp (inclusive)."
+              },
+              {
+                "name": "ts_to",
+                "value": "",
+                "type": "query",
+                "description": "Filter files created before this timestamp (inclusive)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items to return."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute returned by a previous request's `response_metadata`. Default value fetches the first \"page\" of the collection. See [pagination](/docs/pagination) for more detail."
+              }
+            ]
+          },
+          "docs": "Retrieve information about a remote file added to Slack"
+        },
+        {
+          "info": {
+            "name": "Slack Post Files Remote Remove",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/files.remote.remove",
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "token",
+                  "value": ""
+                },
+                {
+                  "name": "file",
+                  "value": ""
+                },
+                {
+                  "name": "external_id",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Remove a remote file."
+        },
+        {
+          "info": {
+            "name": "Slack Get Files Remote Share",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/files.remote.share",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Authentication token. Requires scope: `remote_files:share`"
+              },
+              {
+                "name": "file",
+                "value": "",
+                "type": "query",
+                "description": "Specify a file registered with Slack by providing its ID. Either this field or `external_id` or both are required."
+              },
+              {
+                "name": "external_id",
+                "value": "",
+                "type": "query",
+                "description": "The globally unique identifier (GUID) for the file, as set by the app registering the file with Slack.  Either this field or `file` or both are required."
+              },
+              {
+                "name": "channels",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of channel IDs where the file will be shared."
+              }
+            ]
+          },
+          "docs": "Share a remote file into a channel."
+        },
+        {
+          "info": {
+            "name": "Slack Post Files Remote Update",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/files.remote.update",
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "token",
+                  "value": ""
+                },
+                {
+                  "name": "file",
+                  "value": ""
+                },
+                {
+                  "name": "external_id",
+                  "value": ""
+                },
+                {
+                  "name": "title",
+                  "value": ""
+                },
+                {
+                  "name": "filetype",
+                  "value": ""
+                },
+                {
+                  "name": "external_url",
+                  "value": ""
+                },
+                {
+                  "name": "preview_image",
+                  "value": ""
+                },
+                {
+                  "name": "indexable_file_contents",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Updates an existing remote file."
+        },
+        {
+          "info": {
+            "name": "Slack Post Files Revokepublicurl",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/files.revokePublicURL",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Revokes public/external sharing access for a file"
+        },
+        {
+          "info": {
+            "name": "Slack Post Files Sharedpublicurl",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/files.sharedPublicURL",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Enables a file for public/external sharing."
+        },
+        {
+          "info": {
+            "name": "Slack Post Files Upload",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/files.upload",
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "token",
+                  "value": ""
+                },
+                {
+                  "name": "file",
+                  "value": ""
+                },
+                {
+                  "name": "content",
+                  "value": ""
+                },
+                {
+                  "name": "filetype",
+                  "value": ""
+                },
+                {
+                  "name": "filename",
+                  "value": ""
+                },
+                {
+                  "name": "title",
+                  "value": ""
+                },
+                {
+                  "name": "initial_comment",
+                  "value": ""
+                },
+                {
+                  "name": "channels",
+                  "value": ""
+                },
+                {
+                  "name": "thread_ts",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Uploads or creates a file."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Add",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Slack Post Files Remote Add",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/files.remote.add",
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "token",
+                  "value": ""
+                },
+                {
+                  "name": "external_id",
+                  "value": ""
+                },
+                {
+                  "name": "title",
+                  "value": ""
+                },
+                {
+                  "name": "filetype",
+                  "value": ""
+                },
+                {
+                  "name": "external_url",
+                  "value": ""
+                },
+                {
+                  "name": "preview_image",
+                  "value": ""
+                },
+                {
+                  "name": "indexable_file_contents",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Adds a file from a remote service"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

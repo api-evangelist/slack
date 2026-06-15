@@ -1,0 +1,129 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Slack Workflows",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Workflows",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Slack Get Workflows Stepcompleted",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/workflows.stepCompleted",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workflow_step_execute_id",
+                "value": "",
+                "type": "query",
+                "description": "Context identifier that maps to the correct workflow step execution."
+              },
+              {
+                "name": "outputs",
+                "value": "",
+                "type": "query",
+                "description": "Key-value object of outputs from your step. Keys of this object reflect the configured `key` properties of your [`outputs`](/reference/workflows/workflow_step#output) array from your `workflow_step` object."
+              }
+            ]
+          },
+          "docs": "Indicate that an app's step in a workflow completed execution."
+        },
+        {
+          "info": {
+            "name": "Slack Get Workflows Stepfailed",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/workflows.stepFailed",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workflow_step_execute_id",
+                "value": "",
+                "type": "query",
+                "description": "Context identifier that maps to the correct workflow step execution."
+              },
+              {
+                "name": "error",
+                "value": "",
+                "type": "query",
+                "description": "A JSON-based object with a `message` property that should contain a human readable error message."
+              }
+            ]
+          },
+          "docs": "Indicate that an app's step in a workflow failed to execute."
+        },
+        {
+          "info": {
+            "name": "Slack Get Workflows Updatestep",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/workflows.updateStep",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workflow_step_edit_id",
+                "value": "",
+                "type": "query",
+                "description": "A context identifier provided with `view_submission` payloads used to call back to `workflows.updateStep`."
+              },
+              {
+                "name": "inputs",
+                "value": "",
+                "type": "query",
+                "description": "A JSON key-value map of inputs required from a user during configuration. This is the data your app expects to receive when the workflow step starts. **Please note**: the embedded variable format is set and replaced by the workflow system. You cannot create custom variables that will be replaced at runtime. [Read more about variables in workflow steps here](/workflows/steps#variables)."
+              },
+              {
+                "name": "outputs",
+                "value": "",
+                "type": "query",
+                "description": "An JSON array of output objects used during step execution. This is the data your app agrees to provide when your workflow step was executed."
+              },
+              {
+                "name": "step_name",
+                "value": "",
+                "type": "query",
+                "description": "An optional field that can be used to override the step name that is shown in the Workflow Builder."
+              },
+              {
+                "name": "step_image_url",
+                "value": "",
+                "type": "query",
+                "description": "An optional field that can be used to override app image that is shown in the Workflow Builder."
+              }
+            ]
+          },
+          "docs": "Update the configuration for a workflow extension step."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

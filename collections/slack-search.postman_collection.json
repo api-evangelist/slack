@@ -1,0 +1,666 @@
+{
+  "item": [
+    {
+      "id": "7ad64711-7747-408a-a521-33c9a4f3d066",
+      "name": "Get",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "570ec4e1-c73a-472f-9e5c-e3ae7404ce02",
+          "name": "Slack Get Search Messages",
+          "request": {
+            "name": "Slack Get Search Messages",
+            "description": {
+              "content": "Searches for messages matching a query.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "search.messages"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "(Required) Authentication token. Requires scope: `search:read`"
+                },
+                {
+                  "disabled": false,
+                  "key": "count",
+                  "value": "<integer>",
+                  "description": "Pass the number of results you want per \"page\". Maximum of `100`."
+                },
+                {
+                  "disabled": false,
+                  "key": "highlight",
+                  "value": "<boolean>",
+                  "description": "Pass a value of `true` to enable query highlight markers (see below)."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "query",
+                  "value": "<string>",
+                  "description": "(Required) Search query."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Return matches sorted by either `score` or `timestamp`."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_dir",
+                  "value": "<string>",
+                  "description": "Change sort direction to ascending (`asc`) or descending (`desc`)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "e545e249-9b75-4c77-9025-6dfac2974177",
+              "name": "Typical success response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search.messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "count",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "highlight",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_dir",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"messages\": {\n    \"matches\": [\n      {\n        \"channel\": {\n          \"id\": \"C12345678\",\n          \"is_ext_shared\": false,\n          \"is_mpim\": false,\n          \"is_org_shared\": false,\n          \"is_pending_ext_shared\": false,\n          \"is_private\": false,\n          \"is_shared\": false,\n          \"name\": \"general\",\n          \"pending_shared\": []\n        },\n        \"iid\": \"cb64bdaa-c1e8-4631-8a91-0f78080113e9\",\n        \"permalink\": \"https://hitchhikers.slack.com/archives/C12345678/p1508284197000015\",\n        \"team\": \"T12345678\",\n        \"text\": \"The meaning of life the universe and everything is 42.\",\n        \"ts\": \"1508284197.000015\",\n        \"type\": \"message\",\n        \"user\": \"U2U85N1RV\",\n        \"username\": \"roach\"\n      },\n      {\n        \"channel\": {\n          \"id\": \"C12345678\",\n          \"is_ext_shared\": false,\n          \"is_mpim\": false,\n          \"is_org_shared\": false,\n          \"is_pending_ext_shared\": false,\n          \"is_private\": false,\n          \"is_shared\": false,\n          \"name\": \"random\",\n          \"pending_shared\": []\n        },\n        \"iid\": \"9a00d3c9-bd2d-45b0-988b-6cff99ae2a90\",\n        \"permalink\": \"https://hitchhikers.slack.com/archives/C12345678/p1508795665000236\",\n        \"team\": \"T12345678\",\n        \"text\": \"The meaning of life the universe and everything is 101010\",\n        \"ts\": \"1508795665.000236\",\n        \"type\": \"message\",\n        \"user\": \"\",\n        \"username\": \"robot overlord\"\n      }\n    ],\n    \"pagination\": {\n      \"first\": 1,\n      \"last\": 2,\n      \"page\": 1,\n      \"page_count\": 1,\n      \"per_page\": 20,\n      \"total_count\": 2\n    },\n    \"paging\": {\n      \"count\": 20,\n      \"page\": 1,\n      \"pages\": 1,\n      \"total\": 2\n    },\n    \"total\": 2\n  },\n  \"ok\": true,\n  \"query\": \"The meaning of life the universe and everything\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cebc377c-2198-445b-8f81-aa3893cf0512",
+              "name": "Typical error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search.messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "count",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "highlight",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_dir",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"No query passed\",\n  \"ok\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "d856b762-2efd-4c63-aa3a-3dfe86ae0009",
+      "name": "Messages",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e9e50173-2135-4bf3-94fa-922fa794ec74",
+          "name": "Slack Get Search Messages",
+          "request": {
+            "name": "Slack Get Search Messages",
+            "description": {
+              "content": "Searches for messages matching a query.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "search.messages"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "(Required) Authentication token. Requires scope: `search:read`"
+                },
+                {
+                  "disabled": false,
+                  "key": "count",
+                  "value": "<integer>",
+                  "description": "Pass the number of results you want per \"page\". Maximum of `100`."
+                },
+                {
+                  "disabled": false,
+                  "key": "highlight",
+                  "value": "<boolean>",
+                  "description": "Pass a value of `true` to enable query highlight markers (see below)."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "query",
+                  "value": "<string>",
+                  "description": "(Required) Search query."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Return matches sorted by either `score` or `timestamp`."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_dir",
+                  "value": "<string>",
+                  "description": "Change sort direction to ascending (`asc`) or descending (`desc`)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "59901952-90f2-4c13-b7b3-804d706598fb",
+              "name": "Typical success response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search.messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "count",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "highlight",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_dir",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"messages\": {\n    \"matches\": [\n      {\n        \"channel\": {\n          \"id\": \"C12345678\",\n          \"is_ext_shared\": false,\n          \"is_mpim\": false,\n          \"is_org_shared\": false,\n          \"is_pending_ext_shared\": false,\n          \"is_private\": false,\n          \"is_shared\": false,\n          \"name\": \"general\",\n          \"pending_shared\": []\n        },\n        \"iid\": \"cb64bdaa-c1e8-4631-8a91-0f78080113e9\",\n        \"permalink\": \"https://hitchhikers.slack.com/archives/C12345678/p1508284197000015\",\n        \"team\": \"T12345678\",\n        \"text\": \"The meaning of life the universe and everything is 42.\",\n        \"ts\": \"1508284197.000015\",\n        \"type\": \"message\",\n        \"user\": \"U2U85N1RV\",\n        \"username\": \"roach\"\n      },\n      {\n        \"channel\": {\n          \"id\": \"C12345678\",\n          \"is_ext_shared\": false,\n          \"is_mpim\": false,\n          \"is_org_shared\": false,\n          \"is_pending_ext_shared\": false,\n          \"is_private\": false,\n          \"is_shared\": false,\n          \"name\": \"random\",\n          \"pending_shared\": []\n        },\n        \"iid\": \"9a00d3c9-bd2d-45b0-988b-6cff99ae2a90\",\n        \"permalink\": \"https://hitchhikers.slack.com/archives/C12345678/p1508795665000236\",\n        \"team\": \"T12345678\",\n        \"text\": \"The meaning of life the universe and everything is 101010\",\n        \"ts\": \"1508795665.000236\",\n        \"type\": \"message\",\n        \"user\": \"\",\n        \"username\": \"robot overlord\"\n      }\n    ],\n    \"pagination\": {\n      \"first\": 1,\n      \"last\": 2,\n      \"page\": 1,\n      \"page_count\": 1,\n      \"per_page\": 20,\n      \"total_count\": 2\n    },\n    \"paging\": {\n      \"count\": 20,\n      \"page\": 1,\n      \"pages\": 1,\n      \"total\": 2\n    },\n    \"total\": 2\n  },\n  \"ok\": true,\n  \"query\": \"The meaning of life the universe and everything\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7c51ae2d-7cd0-4573-abfe-43ee986592bc",
+              "name": "Typical error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search.messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "count",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "highlight",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_dir",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"No query passed\",\n  \"ok\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "ba03774b-424c-4cad-b1bf-12cae294b1e1",
+      "name": "Search",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7ac6af4e-f1ed-48a4-a6cf-5854df6218ca",
+          "name": "Slack Get Search Messages",
+          "request": {
+            "name": "Slack Get Search Messages",
+            "description": {
+              "content": "Searches for messages matching a query.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "search.messages"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "(Required) Authentication token. Requires scope: `search:read`"
+                },
+                {
+                  "disabled": false,
+                  "key": "count",
+                  "value": "<integer>",
+                  "description": "Pass the number of results you want per \"page\". Maximum of `100`."
+                },
+                {
+                  "disabled": false,
+                  "key": "highlight",
+                  "value": "<boolean>",
+                  "description": "Pass a value of `true` to enable query highlight markers (see below)."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "query",
+                  "value": "<string>",
+                  "description": "(Required) Search query."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Return matches sorted by either `score` or `timestamp`."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_dir",
+                  "value": "<string>",
+                  "description": "Change sort direction to ascending (`asc`) or descending (`desc`)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "66549b3f-6fbc-4ded-bb28-9c429cd538b4",
+              "name": "Typical success response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search.messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "count",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "highlight",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_dir",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"messages\": {\n    \"matches\": [\n      {\n        \"channel\": {\n          \"id\": \"C12345678\",\n          \"is_ext_shared\": false,\n          \"is_mpim\": false,\n          \"is_org_shared\": false,\n          \"is_pending_ext_shared\": false,\n          \"is_private\": false,\n          \"is_shared\": false,\n          \"name\": \"general\",\n          \"pending_shared\": []\n        },\n        \"iid\": \"cb64bdaa-c1e8-4631-8a91-0f78080113e9\",\n        \"permalink\": \"https://hitchhikers.slack.com/archives/C12345678/p1508284197000015\",\n        \"team\": \"T12345678\",\n        \"text\": \"The meaning of life the universe and everything is 42.\",\n        \"ts\": \"1508284197.000015\",\n        \"type\": \"message\",\n        \"user\": \"U2U85N1RV\",\n        \"username\": \"roach\"\n      },\n      {\n        \"channel\": {\n          \"id\": \"C12345678\",\n          \"is_ext_shared\": false,\n          \"is_mpim\": false,\n          \"is_org_shared\": false,\n          \"is_pending_ext_shared\": false,\n          \"is_private\": false,\n          \"is_shared\": false,\n          \"name\": \"random\",\n          \"pending_shared\": []\n        },\n        \"iid\": \"9a00d3c9-bd2d-45b0-988b-6cff99ae2a90\",\n        \"permalink\": \"https://hitchhikers.slack.com/archives/C12345678/p1508795665000236\",\n        \"team\": \"T12345678\",\n        \"text\": \"The meaning of life the universe and everything is 101010\",\n        \"ts\": \"1508795665.000236\",\n        \"type\": \"message\",\n        \"user\": \"\",\n        \"username\": \"robot overlord\"\n      }\n    ],\n    \"pagination\": {\n      \"first\": 1,\n      \"last\": 2,\n      \"page\": 1,\n      \"page_count\": 1,\n      \"per_page\": 20,\n      \"total_count\": 2\n    },\n    \"paging\": {\n      \"count\": 20,\n      \"page\": 1,\n      \"pages\": 1,\n      \"total\": 2\n    },\n    \"total\": 2\n  },\n  \"ok\": true,\n  \"query\": \"The meaning of life the universe and everything\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1bce3dd7-88cc-4f99-9686-e5d2d69bad02",
+              "name": "Typical error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search.messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "count",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "highlight",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_dir",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"No query passed\",\n  \"ok\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "91e0c624-3947-4d5c-baf2-4b0247116c23",
+    "name": "Slack Search API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Slack\u0019s Search API lets apps programmatically find messages and files in a workspace using the same query syntax users have in Slack (e.g., in:, from:, has:, before:/after:, is:thread). Through endpoints like search.messages and search.files, it returns ranked matches with snippets and optional highlighting, plus rich metadata such as channel, timestamps, user, thread context, permalinks, and file details. You can sort by relevance or time, filter with operators, and page through results. All results respect the app\u0019s scopes and the workspace\u0019s permissions, retention, and data controls, and the methods are subject to rate limits. Teams use it to power features like knowledge lookup, linking related conversations, and enabling bots to retrieve relevant historical context.",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,590 @@
+{
+  "info": {
+    "_postman_id": "d44e1323-3a3b-4b12-bf7c-23c875ddba44",
+    "name": "Slack OAuth API",
+    "description": "The Slack OAuth API implements the OAuth 2.0 flow that lets developers securely install Slack apps to workspaces and obtain access tokens with specific, granular scopes. An app redirects a user to Slack for consent; after approval, Slack returns an authorization code that the app exchanges for tokens (typically a bot token, and optionally a user token) to call the Web API within the granted permissions. The OAuth system manages scopes, workspace and enterprise installations, admin approvals, reauthorization when scopes change, token rotation with refresh tokens, and revocation when apps are uninstalled or access is removed. For user sign-in, Slack also offers an OpenID Connect\u0013based flow. In short, it provides consent-driven installation, permissioning, and token lifecycle management for Slack apps.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T13:19:47.000Z",
+    "updatedAt": "2026-06-05T13:19:47.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-d44e1323-3a3b-4b12-bf7c-23c875ddba44"
+  },
+  "item": [
+    {
+      "name": "oauth.access",
+      "item": [
+        {
+          "name": "Slack Get Oauth Access",
+          "id": "49c33451-bea1-4dd5-a020-e2b8b0a2f2ae",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/oauth.access?client_id=<string>&client_secret=<string>&code=<string>&redirect_uri=<string>&single_channel=<boolean>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "oauth.access"
+              ],
+              "query": [
+                {
+                  "description": "Issued when you created your application.",
+                  "key": "client_id",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Issued when you created your application.",
+                  "key": "client_secret",
+                  "value": "<string>"
+                },
+                {
+                  "description": "The `code` param returned via the OAuth callback.",
+                  "key": "code",
+                  "value": "<string>"
+                },
+                {
+                  "description": "This must match the originally submitted URI (if one was sent).",
+                  "key": "redirect_uri",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Request the user to add your app only to a single channel. Only valid with a [legacy workspace app](https://api.slack.com/legacy-workspace-apps).",
+                  "key": "single_channel",
+                  "value": "<boolean>"
+                }
+              ]
+            },
+            "description": "Exchanges a temporary OAuth verifier code for an access token."
+          },
+          "response": [
+            {
+              "id": "f156668a-f08c-4639-a401-300c90ee6158",
+              "name": "Successful user token negotiation for a single scope",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/oauth.access?client_id=<string>&client_secret=<string>&code=<string>&redirect_uri=<string>&single_channel=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "oauth.access"
+                  ],
+                  "query": [
+                    {
+                      "description": "Issued when you created your application.",
+                      "key": "client_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Issued when you created your application.",
+                      "key": "client_secret",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The `code` param returned via the OAuth callback.",
+                      "key": "code",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "This must match the originally submitted URI (if one was sent).",
+                      "key": "redirect_uri",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Request the user to add your app only to a single channel. Only valid with a [legacy workspace app](https://api.slack.com/legacy-workspace-apps).",
+                      "key": "single_channel",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:47.000Z",
+              "updatedAt": "2026-06-05T13:19:47.000Z",
+              "uid": "35240-f156668a-f08c-4639-a401-300c90ee6158"
+            },
+            {
+              "id": "8e4deb6d-8640-4aa4-98c9-236016a09ecc",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/oauth.access?client_id=<string>&client_secret=<string>&code=<string>&redirect_uri=<string>&single_channel=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "oauth.access"
+                  ],
+                  "query": [
+                    {
+                      "description": "Issued when you created your application.",
+                      "key": "client_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Issued when you created your application.",
+                      "key": "client_secret",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The `code` param returned via the OAuth callback.",
+                      "key": "code",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "This must match the originally submitted URI (if one was sent).",
+                      "key": "redirect_uri",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Request the user to add your app only to a single channel. Only valid with a [legacy workspace app](https://api.slack.com/legacy-workspace-apps).",
+                      "key": "single_channel",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:47.000Z",
+              "updatedAt": "2026-06-05T13:19:47.000Z",
+              "uid": "35240-8e4deb6d-8640-4aa4-98c9-236016a09ecc"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:47.000Z",
+          "updatedAt": "2026-06-05T13:19:47.000Z",
+          "uid": "35240-49c33451-bea1-4dd5-a020-e2b8b0a2f2ae"
+        }
+      ],
+      "id": "2504b285-c072-4ca9-a488-b7a47a72f9e7",
+      "createdAt": "2026-06-05T13:19:47.000Z",
+      "updatedAt": "2026-06-05T13:19:47.000Z",
+      "uid": "35240-2504b285-c072-4ca9-a488-b7a47a72f9e7"
+    },
+    {
+      "name": "oauth.token",
+      "item": [
+        {
+          "name": "Slack Get Oauth Token",
+          "id": "67d17c7c-8756-448c-a34a-6bf73cb2d124",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/oauth.token?client_id=<string>&client_secret=<string>&code=<string>&redirect_uri=<string>&single_channel=<boolean>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "oauth.token"
+              ],
+              "query": [
+                {
+                  "description": "Issued when you created your application.",
+                  "key": "client_id",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Issued when you created your application.",
+                  "key": "client_secret",
+                  "value": "<string>"
+                },
+                {
+                  "description": "The `code` param returned via the OAuth callback.",
+                  "key": "code",
+                  "value": "<string>"
+                },
+                {
+                  "description": "This must match the originally submitted URI (if one was sent).",
+                  "key": "redirect_uri",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Request the user to add your app only to a single channel.",
+                  "key": "single_channel",
+                  "value": "<boolean>"
+                }
+              ]
+            },
+            "description": "Exchanges a temporary OAuth verifier code for a workspace token."
+          },
+          "response": [
+            {
+              "id": "b1c28aee-1213-446b-bb40-8d8f3e4e90e6",
+              "name": "Success example using a workspace app produces a very different kind of response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/oauth.token?client_id=<string>&client_secret=<string>&code=<string>&redirect_uri=<string>&single_channel=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "oauth.token"
+                  ],
+                  "query": [
+                    {
+                      "description": "Issued when you created your application.",
+                      "key": "client_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Issued when you created your application.",
+                      "key": "client_secret",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The `code` param returned via the OAuth callback.",
+                      "key": "code",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "This must match the originally submitted URI (if one was sent).",
+                      "key": "redirect_uri",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Request the user to add your app only to a single channel.",
+                      "key": "single_channel",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:47.000Z",
+              "updatedAt": "2026-06-05T13:19:47.000Z",
+              "uid": "35240-b1c28aee-1213-446b-bb40-8d8f3e4e90e6"
+            },
+            {
+              "id": "9f4e66f9-22ef-440c-9d8b-2693906b7fa3",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/oauth.token?client_id=<string>&client_secret=<string>&code=<string>&redirect_uri=<string>&single_channel=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "oauth.token"
+                  ],
+                  "query": [
+                    {
+                      "description": "Issued when you created your application.",
+                      "key": "client_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Issued when you created your application.",
+                      "key": "client_secret",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The `code` param returned via the OAuth callback.",
+                      "key": "code",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "This must match the originally submitted URI (if one was sent).",
+                      "key": "redirect_uri",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Request the user to add your app only to a single channel.",
+                      "key": "single_channel",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:47.000Z",
+              "updatedAt": "2026-06-05T13:19:47.000Z",
+              "uid": "35240-9f4e66f9-22ef-440c-9d8b-2693906b7fa3"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:47.000Z",
+          "updatedAt": "2026-06-05T13:19:47.000Z",
+          "uid": "35240-67d17c7c-8756-448c-a34a-6bf73cb2d124"
+        }
+      ],
+      "id": "67125129-608c-4ad0-bb99-f6ac956b3438",
+      "createdAt": "2026-06-05T13:19:47.000Z",
+      "updatedAt": "2026-06-05T13:19:47.000Z",
+      "uid": "35240-67125129-608c-4ad0-bb99-f6ac956b3438"
+    },
+    {
+      "name": "oauth.v2.access",
+      "item": [
+        {
+          "name": "Slack Get Oauth Access",
+          "id": "0d45615b-1f01-434d-accb-2f162dd992ae",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/oauth.v2.access?client_id=<string>&client_secret=<string>&code=<string>&redirect_uri=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "oauth.v2.access"
+              ],
+              "query": [
+                {
+                  "description": "Issued when you created your application.",
+                  "key": "client_id",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Issued when you created your application.",
+                  "key": "client_secret",
+                  "value": "<string>"
+                },
+                {
+                  "description": "(Required) The `code` param returned via the OAuth callback.",
+                  "key": "code",
+                  "value": "<string>"
+                },
+                {
+                  "description": "This must match the originally submitted URI (if one was sent).",
+                  "key": "redirect_uri",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Exchanges a temporary OAuth verifier code for an access token."
+          },
+          "response": [
+            {
+              "id": "9a733af6-a6e8-4afe-bf6f-17a7b54f4daf",
+              "name": "Successful token request with scopes for both a bot user and a user token",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/oauth.v2.access?client_id=<string>&client_secret=<string>&code=<string>&redirect_uri=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "oauth.v2.access"
+                  ],
+                  "query": [
+                    {
+                      "description": "Issued when you created your application.",
+                      "key": "client_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Issued when you created your application.",
+                      "key": "client_secret",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) The `code` param returned via the OAuth callback.",
+                      "key": "code",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "This must match the originally submitted URI (if one was sent).",
+                      "key": "redirect_uri",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:47.000Z",
+              "updatedAt": "2026-06-05T13:19:47.000Z",
+              "uid": "35240-9a733af6-a6e8-4afe-bf6f-17a7b54f4daf"
+            },
+            {
+              "id": "5c1e17d0-4bc8-402c-9dfc-3aa098a01532",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/oauth.v2.access?client_id=<string>&client_secret=<string>&code=<string>&redirect_uri=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "oauth.v2.access"
+                  ],
+                  "query": [
+                    {
+                      "description": "Issued when you created your application.",
+                      "key": "client_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Issued when you created your application.",
+                      "key": "client_secret",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) The `code` param returned via the OAuth callback.",
+                      "key": "code",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "This must match the originally submitted URI (if one was sent).",
+                      "key": "redirect_uri",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:47.000Z",
+              "updatedAt": "2026-06-05T13:19:47.000Z",
+              "uid": "35240-5c1e17d0-4bc8-402c-9dfc-3aa098a01532"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:47.000Z",
+          "updatedAt": "2026-06-05T13:19:47.000Z",
+          "uid": "35240-0d45615b-1f01-434d-accb-2f162dd992ae"
+        }
+      ],
+      "id": "9ce05af1-7f3f-4ec5-a347-ada51b4ba3ec",
+      "createdAt": "2026-06-05T13:19:47.000Z",
+      "updatedAt": "2026-06-05T13:19:47.000Z",
+      "uid": "35240-9ce05af1-7f3f-4ec5-a347-ada51b4ba3ec"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "/"
+    }
+  ]
+}

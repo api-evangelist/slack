@@ -1,0 +1,185 @@
+{
+  "info": {
+    "_postman_id": "3027f038-f6f9-492a-bc43-700ecd8e590b",
+    "name": "Slack RTM API",
+    "description": "The Slack Real Time Messaging (RTM) API lets an app open a WebSocket connection to Slack and receive a live stream of JSON events from a workspace\u0014such as new messages, edits, reactions, user presence and typing indicators, channel joins, and more\u0014so you can build low\u0011latency, interactive bots and clients. Apps typically use the RTM stream for listening and the Web API for performing actions like posting or updating messages. You start by calling rtm.connect (or rtm.start, historically) to obtain a WebSocket URL, then maintain the socket to process events as they happen. RTM is now considered legacy; for new apps Slack recommends using the Events API with the Web API, or Socket Mode if you can\u0019t expose a public HTTP endpoint.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T13:19:52.000Z",
+    "updatedAt": "2026-06-05T13:19:52.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-3027f038-f6f9-492a-bc43-700ecd8e590b"
+  },
+  "item": [
+    {
+      "name": "rtm.connect",
+      "item": [
+        {
+          "name": "Slack Get Rtm Connect",
+          "id": "23302aaa-cc7d-4161-80a6-3c693163a1dc",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/rtm.connect?token=<string>&batch_presence_aware=<boolean>&presence_sub=<boolean>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "rtm.connect"
+              ],
+              "query": [
+                {
+                  "description": "(Required) Authentication token. Requires scope: `rtm:stream`",
+                  "key": "token",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Batch presence deliveries via subscription. Enabling changes the shape of `presence_change` events. See [batch presence](/docs/presence-and-status#batching).",
+                  "key": "batch_presence_aware",
+                  "value": "<boolean>"
+                },
+                {
+                  "description": "Only deliver presence events when requested by subscription. See [presence subscriptions](/docs/presence-and-status#subscriptions).",
+                  "key": "presence_sub",
+                  "value": "<boolean>"
+                }
+              ]
+            },
+            "description": "Starts a Real Time Messaging session."
+          },
+          "response": [
+            {
+              "id": "519e134f-55fc-465a-913e-5eba6eb50581",
+              "name": "Typical success response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/rtm.connect?token=<string>&batch_presence_aware=<boolean>&presence_sub=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "rtm.connect"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Authentication token. Requires scope: `rtm:stream`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Batch presence deliveries via subscription. Enabling changes the shape of `presence_change` events. See [batch presence](/docs/presence-and-status#batching).",
+                      "key": "batch_presence_aware",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "Only deliver presence events when requested by subscription. See [presence subscriptions](/docs/presence-and-status#subscriptions).",
+                      "key": "presence_sub",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  },\n  \"self\": {},\n  \"team\": {},\n  \"url\": \"<uri>\"\n}",
+              "createdAt": "2026-06-05T13:19:53.000Z",
+              "updatedAt": "2026-06-05T13:19:53.000Z",
+              "uid": "35240-519e134f-55fc-465a-913e-5eba6eb50581"
+            },
+            {
+              "id": "50d59711-56c7-49e9-98be-9e53aa585387",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/rtm.connect?token=<string>&batch_presence_aware=<boolean>&presence_sub=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "rtm.connect"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Authentication token. Requires scope: `rtm:stream`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Batch presence deliveries via subscription. Enabling changes the shape of `presence_change` events. See [batch presence](/docs/presence-and-status#batching).",
+                      "key": "batch_presence_aware",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "Only deliver presence events when requested by subscription. See [presence subscriptions](/docs/presence-and-status#subscriptions).",
+                      "key": "presence_sub",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"team_added_to_org\",\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  },\n  \"callstack\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:53.000Z",
+              "updatedAt": "2026-06-05T13:19:53.000Z",
+              "uid": "35240-50d59711-56c7-49e9-98be-9e53aa585387"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:53.000Z",
+          "updatedAt": "2026-06-05T13:19:53.000Z",
+          "uid": "35240-23302aaa-cc7d-4161-80a6-3c693163a1dc"
+        }
+      ],
+      "id": "b08219b0-98eb-4dc6-ac97-390d664873f5",
+      "createdAt": "2026-06-05T13:19:53.000Z",
+      "updatedAt": "2026-06-05T13:19:53.000Z",
+      "uid": "35240-b08219b0-98eb-4dc6-ac97-390d664873f5"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "/"
+    }
+  ]
+}

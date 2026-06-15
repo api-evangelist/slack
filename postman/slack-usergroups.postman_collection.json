@@ -1,0 +1,1415 @@
+{
+  "info": {
+    "_postman_id": "579f1665-503d-46e5-9430-cd7dc15a410e",
+    "name": "Slack User Groups API",
+    "description": "Slack\u0019s User Groups API lets apps programmatically create and manage user groups (mentionable aliases like @eng or @oncall) in a workspace. It supports creating, renaming, and updating groups and their handles and descriptions; setting default channels; enabling or disabling groups; listing groups; and adding or removing members in bulk. User groups make it easy to notify the right people with a single mention and to auto-add members to specific channels via default channel settings. Teams use the API to automate org changes, sync groups from an identity provider, manage on-call rotations, and streamline onboarding/offboarding. It\u0019s exposed via usergroups.* and usergroups.users.* Web API methods and typically requires the usergroups:read and usergroups:write scopes, with appropriate admin permissions and a paid Slack plan.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T13:19:57.000Z",
+    "updatedAt": "2026-06-05T13:19:57.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-579f1665-503d-46e5-9430-cd7dc15a410e"
+  },
+  "item": [
+    {
+      "name": "usergroups.create",
+      "item": [
+        {
+          "name": "Slack Post User Groups Create",
+          "id": "a0007277-2261-44ec-a14b-2191adcff7bd",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "(Required) Authentication token. Requires scope: `usergroups:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "description": "(Required) A name for the User Group. Must be unique among User Groups.",
+                  "key": "name",
+                  "value": "<string>"
+                },
+                {
+                  "description": "A comma separated string of encoded channel IDs for which the User Group uses as a default.",
+                  "key": "channels",
+                  "value": "<string>"
+                },
+                {
+                  "description": "A short description of the User Group.",
+                  "key": "description",
+                  "value": "<string>"
+                },
+                {
+                  "description": "A mention handle. Must be unique among channels, users and User Groups.",
+                  "key": "handle",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Include the number of users in each User Group.",
+                  "key": "include_count",
+                  "value": "<boolean>"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/usergroups.create",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "usergroups.create"
+              ]
+            },
+            "description": "Create a User Group"
+          },
+          "response": [
+            {
+              "id": "fe7def96-eb6d-4fb0-b3bb-7eba9d81d906",
+              "name": "Typical success response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `usergroups:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) A name for the User Group. Must be unique among User Groups.",
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "A comma separated string of encoded channel IDs for which the User Group uses as a default.",
+                      "key": "channels",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "A short description of the User Group.",
+                      "key": "description",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "A mention handle. Must be unique among channels, users and User Groups.",
+                      "key": "handle",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Include the number of users in each User Group.",
+                      "key": "include_count",
+                      "value": "<boolean>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/usergroups.create",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "usergroups.create"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  },\n  \"usergroup\": {\n    \"value\": \"reference #/components/schemas/objs_subteam not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:57.000Z",
+              "updatedAt": "2026-06-05T13:19:57.000Z",
+              "uid": "35240-fe7def96-eb6d-4fb0-b3bb-7eba9d81d906"
+            },
+            {
+              "id": "bfe90980-dcdc-4292-b5d1-3f56251d23ef",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `usergroups:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) A name for the User Group. Must be unique among User Groups.",
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "A comma separated string of encoded channel IDs for which the User Group uses as a default.",
+                      "key": "channels",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "A short description of the User Group.",
+                      "key": "description",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "A mention handle. Must be unique among channels, users and User Groups.",
+                      "key": "handle",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Include the number of users in each User Group.",
+                      "key": "include_count",
+                      "value": "<boolean>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/usergroups.create",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "usergroups.create"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"missing_post_type\",\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  },\n  \"callstack\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:57.000Z",
+              "updatedAt": "2026-06-05T13:19:57.000Z",
+              "uid": "35240-bfe90980-dcdc-4292-b5d1-3f56251d23ef"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:57.000Z",
+          "updatedAt": "2026-06-05T13:19:57.000Z",
+          "uid": "35240-a0007277-2261-44ec-a14b-2191adcff7bd"
+        }
+      ],
+      "id": "da8c4fe8-37ef-403d-b630-ced21bb538f0",
+      "createdAt": "2026-06-05T13:19:57.000Z",
+      "updatedAt": "2026-06-05T13:19:57.000Z",
+      "uid": "35240-da8c4fe8-37ef-403d-b630-ced21bb538f0"
+    },
+    {
+      "name": "usergroups.disable",
+      "item": [
+        {
+          "name": "Slack Post User Groups Disable",
+          "id": "0b7986b1-7f83-4034-ad69-64265488cb4c",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "(Required) Authentication token. Requires scope: `usergroups:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "description": "(Required) The encoded ID of the User Group to disable.",
+                  "key": "usergroup",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Include the number of users in the User Group.",
+                  "key": "include_count",
+                  "value": "<boolean>"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/usergroups.disable",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "usergroups.disable"
+              ]
+            },
+            "description": "Disable an existing User Group"
+          },
+          "response": [
+            {
+              "id": "5c367939-d095-4e16-bfc0-353418c2b6a7",
+              "name": "Typical success response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `usergroups:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) The encoded ID of the User Group to disable.",
+                      "key": "usergroup",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Include the number of users in the User Group.",
+                      "key": "include_count",
+                      "value": "<boolean>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/usergroups.disable",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "usergroups.disable"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  },\n  \"usergroup\": {\n    \"value\": \"reference #/components/schemas/objs_subteam not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:57.000Z",
+              "updatedAt": "2026-06-05T13:19:57.000Z",
+              "uid": "35240-5c367939-d095-4e16-bfc0-353418c2b6a7"
+            },
+            {
+              "id": "cb2881e1-6852-4dd4-b280-14a9650ce16e",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `usergroups:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) The encoded ID of the User Group to disable.",
+                      "key": "usergroup",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Include the number of users in the User Group.",
+                      "key": "include_count",
+                      "value": "<boolean>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/usergroups.disable",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "usergroups.disable"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"invalid_form_data\",\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  },\n  \"callstack\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:57.000Z",
+              "updatedAt": "2026-06-05T13:19:57.000Z",
+              "uid": "35240-cb2881e1-6852-4dd4-b280-14a9650ce16e"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:57.000Z",
+          "updatedAt": "2026-06-05T13:19:57.000Z",
+          "uid": "35240-0b7986b1-7f83-4034-ad69-64265488cb4c"
+        }
+      ],
+      "id": "694e5b1a-af5d-401f-926d-0e52f2820cb4",
+      "createdAt": "2026-06-05T13:19:57.000Z",
+      "updatedAt": "2026-06-05T13:19:57.000Z",
+      "uid": "35240-694e5b1a-af5d-401f-926d-0e52f2820cb4"
+    },
+    {
+      "name": "usergroups.enable",
+      "item": [
+        {
+          "name": "Slack Post User Groups Enable",
+          "id": "6bbc162a-4f8a-4ee9-a027-7fccf15d0372",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "(Required) Authentication token. Requires scope: `usergroups:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "description": "(Required) The encoded ID of the User Group to enable.",
+                  "key": "usergroup",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Include the number of users in the User Group.",
+                  "key": "include_count",
+                  "value": "<boolean>"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/usergroups.enable",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "usergroups.enable"
+              ]
+            },
+            "description": "Enable a User Group"
+          },
+          "response": [
+            {
+              "id": "38b602f2-1817-4d79-97d4-9a7a787d2568",
+              "name": "Typical success response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `usergroups:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) The encoded ID of the User Group to enable.",
+                      "key": "usergroup",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Include the number of users in the User Group.",
+                      "key": "include_count",
+                      "value": "<boolean>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/usergroups.enable",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "usergroups.enable"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  },\n  \"usergroup\": {\n    \"value\": \"reference #/components/schemas/objs_subteam not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:57.000Z",
+              "updatedAt": "2026-06-05T13:19:57.000Z",
+              "uid": "35240-38b602f2-1817-4d79-97d4-9a7a787d2568"
+            },
+            {
+              "id": "648f2a5c-0872-4547-8119-b4308f6cd7f3",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `usergroups:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) The encoded ID of the User Group to enable.",
+                      "key": "usergroup",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Include the number of users in the User Group.",
+                      "key": "include_count",
+                      "value": "<boolean>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/usergroups.enable",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "usergroups.enable"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"invalid_array_arg\",\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  },\n  \"callstack\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:57.000Z",
+              "updatedAt": "2026-06-05T13:19:57.000Z",
+              "uid": "35240-648f2a5c-0872-4547-8119-b4308f6cd7f3"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:57.000Z",
+          "updatedAt": "2026-06-05T13:19:57.000Z",
+          "uid": "35240-6bbc162a-4f8a-4ee9-a027-7fccf15d0372"
+        }
+      ],
+      "id": "07573b24-85ec-41b5-875e-283114b628ae",
+      "createdAt": "2026-06-05T13:19:57.000Z",
+      "updatedAt": "2026-06-05T13:19:57.000Z",
+      "uid": "35240-07573b24-85ec-41b5-875e-283114b628ae"
+    },
+    {
+      "name": "usergroups.list",
+      "item": [
+        {
+          "name": "Slack Get User Groups List",
+          "id": "e50bb186-ada6-4f72-9b00-b42c5d6e7a26",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/usergroups.list?include_users=<boolean>&token=<string>&include_count=<boolean>&include_disabled=<boolean>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "usergroups.list"
+              ],
+              "query": [
+                {
+                  "description": "Include the list of users for each User Group.",
+                  "key": "include_users",
+                  "value": "<boolean>"
+                },
+                {
+                  "description": "(Required) Authentication token. Requires scope: `usergroups:read`",
+                  "key": "token",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Include the number of users in each User Group.",
+                  "key": "include_count",
+                  "value": "<boolean>"
+                },
+                {
+                  "description": "Include disabled User Groups.",
+                  "key": "include_disabled",
+                  "value": "<boolean>"
+                }
+              ]
+            },
+            "description": "List all User Groups for a team"
+          },
+          "response": [
+            {
+              "id": "0e930824-0dc6-4f96-9382-454f4b2a7d7b",
+              "name": "Typical success response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/usergroups.list?include_users=<boolean>&token=<string>&include_count=<boolean>&include_disabled=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "usergroups.list"
+                  ],
+                  "query": [
+                    {
+                      "description": "Include the list of users for each User Group.",
+                      "key": "include_users",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "(Required) Authentication token. Requires scope: `usergroups:read`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Include the number of users in each User Group.",
+                      "key": "include_count",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "Include disabled User Groups.",
+                      "key": "include_disabled",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  },\n  \"usergroups\": [\n    {\n      \"value\": \"reference #/components/schemas/objs_subteam not found in the OpenAPI spec\"\n    },\n    {\n      \"value\": \"reference #/components/schemas/objs_subteam not found in the OpenAPI spec\"\n    }\n  ]\n}",
+              "createdAt": "2026-06-05T13:19:57.000Z",
+              "updatedAt": "2026-06-05T13:19:57.000Z",
+              "uid": "35240-0e930824-0dc6-4f96-9382-454f4b2a7d7b"
+            },
+            {
+              "id": "d9af7bbb-5647-4534-bc41-dc0538bb077a",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/usergroups.list?include_users=<boolean>&token=<string>&include_count=<boolean>&include_disabled=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "usergroups.list"
+                  ],
+                  "query": [
+                    {
+                      "description": "Include the list of users for each User Group.",
+                      "key": "include_users",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "(Required) Authentication token. Requires scope: `usergroups:read`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Include the number of users in each User Group.",
+                      "key": "include_count",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "Include disabled User Groups.",
+                      "key": "include_disabled",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"org_login_required\",\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  },\n  \"callstack\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:57.000Z",
+              "updatedAt": "2026-06-05T13:19:57.000Z",
+              "uid": "35240-d9af7bbb-5647-4534-bc41-dc0538bb077a"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:57.000Z",
+          "updatedAt": "2026-06-05T13:19:57.000Z",
+          "uid": "35240-e50bb186-ada6-4f72-9b00-b42c5d6e7a26"
+        }
+      ],
+      "id": "01122f65-8079-4454-83ba-559ad065df65",
+      "createdAt": "2026-06-05T13:19:57.000Z",
+      "updatedAt": "2026-06-05T13:19:57.000Z",
+      "uid": "35240-01122f65-8079-4454-83ba-559ad065df65"
+    },
+    {
+      "name": "usergroups.update",
+      "item": [
+        {
+          "name": "Slack Post User Groups Update",
+          "id": "e6cfa251-7908-4093-ab77-63b0ceac369f",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "(Required) Authentication token. Requires scope: `usergroups:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "description": "(Required) The encoded ID of the User Group to update.",
+                  "key": "usergroup",
+                  "value": "<string>"
+                },
+                {
+                  "description": "A mention handle. Must be unique among channels, users and User Groups.",
+                  "key": "handle",
+                  "value": "<string>"
+                },
+                {
+                  "description": "A short description of the User Group.",
+                  "key": "description",
+                  "value": "<string>"
+                },
+                {
+                  "description": "A comma separated string of encoded channel IDs for which the User Group uses as a default.",
+                  "key": "channels",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Include the number of users in the User Group.",
+                  "key": "include_count",
+                  "value": "<boolean>"
+                },
+                {
+                  "description": "A name for the User Group. Must be unique among User Groups.",
+                  "key": "name",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/usergroups.update",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "usergroups.update"
+              ]
+            },
+            "description": "Update an existing User Group"
+          },
+          "response": [
+            {
+              "id": "9596fd06-e7b0-4ade-849a-4d7c48612c6e",
+              "name": "Typical success response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `usergroups:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) The encoded ID of the User Group to update.",
+                      "key": "usergroup",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "A mention handle. Must be unique among channels, users and User Groups.",
+                      "key": "handle",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "A short description of the User Group.",
+                      "key": "description",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "A comma separated string of encoded channel IDs for which the User Group uses as a default.",
+                      "key": "channels",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Include the number of users in the User Group.",
+                      "key": "include_count",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "A name for the User Group. Must be unique among User Groups.",
+                      "key": "name",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/usergroups.update",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "usergroups.update"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  },\n  \"usergroup\": {\n    \"value\": \"reference #/components/schemas/objs_subteam not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:57.000Z",
+              "updatedAt": "2026-06-05T13:19:57.000Z",
+              "uid": "35240-9596fd06-e7b0-4ade-849a-4d7c48612c6e"
+            },
+            {
+              "id": "ac1f9558-b775-4af7-9d64-fdfd60b88315",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `usergroups:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) The encoded ID of the User Group to update.",
+                      "key": "usergroup",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "A mention handle. Must be unique among channels, users and User Groups.",
+                      "key": "handle",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "A short description of the User Group.",
+                      "key": "description",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "A comma separated string of encoded channel IDs for which the User Group uses as a default.",
+                      "key": "channels",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Include the number of users in the User Group.",
+                      "key": "include_count",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "A name for the User Group. Must be unique among User Groups.",
+                      "key": "name",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/usergroups.update",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "usergroups.update"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"invalid_arg_name\",\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  },\n  \"callstack\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:57.000Z",
+              "updatedAt": "2026-06-05T13:19:57.000Z",
+              "uid": "35240-ac1f9558-b775-4af7-9d64-fdfd60b88315"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:57.000Z",
+          "updatedAt": "2026-06-05T13:19:57.000Z",
+          "uid": "35240-e6cfa251-7908-4093-ab77-63b0ceac369f"
+        }
+      ],
+      "id": "d9f1341a-ad1d-47d5-999a-3a90e48f3bc3",
+      "createdAt": "2026-06-05T13:19:57.000Z",
+      "updatedAt": "2026-06-05T13:19:57.000Z",
+      "uid": "35240-d9f1341a-ad1d-47d5-999a-3a90e48f3bc3"
+    },
+    {
+      "name": "usergroups.users.list",
+      "item": [
+        {
+          "name": "Slack Get User Groups Users List",
+          "id": "9dd63376-a342-4891-b9ce-ce4bc2b60e1b",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/usergroups.users.list?token=<string>&include_disabled=<boolean>&usergroup=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "usergroups.users.list"
+              ],
+              "query": [
+                {
+                  "description": "(Required) Authentication token. Requires scope: `usergroups:read`",
+                  "key": "token",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Allow results that involve disabled User Groups.",
+                  "key": "include_disabled",
+                  "value": "<boolean>"
+                },
+                {
+                  "description": "(Required) The encoded ID of the User Group to update.",
+                  "key": "usergroup",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "List all users in a User Group"
+          },
+          "response": [
+            {
+              "id": "2d722204-4c44-466c-883c-f90a0a46288d",
+              "name": "Standard success response when used with a user token",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/usergroups.users.list?token=<string>&include_disabled=<boolean>&usergroup=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "usergroups.users.list"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Authentication token. Requires scope: `usergroups:read`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Allow results that involve disabled User Groups.",
+                      "key": "include_disabled",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "(Required) The encoded ID of the User Group to update.",
+                      "key": "usergroup",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  },\n  \"users\": [\n    {\n      \"value\": \"reference #/components/schemas/defs_user_id not found in the OpenAPI spec\"\n    },\n    {\n      \"value\": \"reference #/components/schemas/defs_user_id not found in the OpenAPI spec\"\n    }\n  ]\n}",
+              "createdAt": "2026-06-05T13:19:57.000Z",
+              "updatedAt": "2026-06-05T13:19:57.000Z",
+              "uid": "35240-2d722204-4c44-466c-883c-f90a0a46288d"
+            },
+            {
+              "id": "ed15dc97-f12e-4479-9650-de1eadc61c4e",
+              "name": "Standard failure response when used with an invalid token",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/usergroups.users.list?token=<string>&include_disabled=<boolean>&usergroup=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "usergroups.users.list"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Authentication token. Requires scope: `usergroups:read`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Allow results that involve disabled User Groups.",
+                      "key": "include_disabled",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "(Required) The encoded ID of the User Group to update.",
+                      "key": "usergroup",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"invalid_json\",\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  },\n  \"callstack\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:57.000Z",
+              "updatedAt": "2026-06-05T13:19:57.000Z",
+              "uid": "35240-ed15dc97-f12e-4479-9650-de1eadc61c4e"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:57.000Z",
+          "updatedAt": "2026-06-05T13:19:57.000Z",
+          "uid": "35240-9dd63376-a342-4891-b9ce-ce4bc2b60e1b"
+        }
+      ],
+      "id": "7d0cc6b5-7212-4c32-9f5e-6230728db055",
+      "createdAt": "2026-06-05T13:19:57.000Z",
+      "updatedAt": "2026-06-05T13:19:57.000Z",
+      "uid": "35240-7d0cc6b5-7212-4c32-9f5e-6230728db055"
+    },
+    {
+      "name": "usergroups.users.update",
+      "item": [
+        {
+          "name": "Slack Post User Groups Users Update",
+          "id": "07ac5dfd-0ea6-4f63-9672-a7c2c5b0c70d",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "(Required) Authentication token. Requires scope: `usergroups:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "description": "(Required) The encoded ID of the User Group to update.",
+                  "key": "usergroup",
+                  "value": "<string>"
+                },
+                {
+                  "description": "(Required) A comma separated string of encoded user IDs that represent the entire list of users for the User Group.",
+                  "key": "users",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Include the number of users in the User Group.",
+                  "key": "include_count",
+                  "value": "<boolean>"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/usergroups.users.update",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "usergroups.users.update"
+              ]
+            },
+            "description": "Update the list of users for a User Group"
+          },
+          "response": [
+            {
+              "id": "8e4f7e6f-441e-478c-a859-5f4baec17e4e",
+              "name": "Typical success response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `usergroups:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) The encoded ID of the User Group to update.",
+                      "key": "usergroup",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) A comma separated string of encoded user IDs that represent the entire list of users for the User Group.",
+                      "key": "users",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Include the number of users in the User Group.",
+                      "key": "include_count",
+                      "value": "<boolean>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/usergroups.users.update",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "usergroups.users.update"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  },\n  \"usergroup\": {\n    \"value\": \"reference #/components/schemas/objs_subteam not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:57.000Z",
+              "updatedAt": "2026-06-05T13:19:57.000Z",
+              "uid": "35240-8e4f7e6f-441e-478c-a859-5f4baec17e4e"
+            },
+            {
+              "id": "ee4df2a8-cca8-447a-9b28-29e30a742377",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `usergroups:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) The encoded ID of the User Group to update.",
+                      "key": "usergroup",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) A comma separated string of encoded user IDs that represent the entire list of users for the User Group.",
+                      "key": "users",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Include the number of users in the User Group.",
+                      "key": "include_count",
+                      "value": "<boolean>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/usergroups.users.update",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "usergroups.users.update"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"invalid_auth\",\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  },\n  \"callstack\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:57.000Z",
+              "updatedAt": "2026-06-05T13:19:57.000Z",
+              "uid": "35240-ee4df2a8-cca8-447a-9b28-29e30a742377"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:57.000Z",
+          "updatedAt": "2026-06-05T13:19:57.000Z",
+          "uid": "35240-07ac5dfd-0ea6-4f63-9672-a7c2c5b0c70d"
+        }
+      ],
+      "id": "a9792f69-5757-4be3-8ed6-34cca09b1b4a",
+      "createdAt": "2026-06-05T13:19:57.000Z",
+      "updatedAt": "2026-06-05T13:19:57.000Z",
+      "uid": "35240-a9792f69-5757-4be3-8ed6-34cca09b1b4a"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "/"
+    }
+  ]
+}

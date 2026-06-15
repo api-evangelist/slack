@@ -1,0 +1,126 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Slack DND API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Disturb",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Slack Post End Do Not Disturb",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/dnd.endDnd",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Ends the current user's Do Not Disturb session immediately."
+        },
+        {
+          "info": {
+            "name": "Slack Post End Do Not Disturb Snooze",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/dnd.endSnooze",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Ends the current user's snooze mode immediately."
+        },
+        {
+          "info": {
+            "name": "Slack Get Do Not Disturb Info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/dnd.info",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Authentication token. Requires scope: `dnd:read`"
+              },
+              {
+                "name": "user",
+                "value": "",
+                "type": "query",
+                "description": "User to fetch status for (defaults to current user)"
+              }
+            ]
+          },
+          "docs": "Retrieves a user's current Do Not Disturb status."
+        },
+        {
+          "info": {
+            "name": "Slack Post Do Not Disturb Snooze",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/dnd.setSnooze",
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "token",
+                  "value": ""
+                },
+                {
+                  "name": "num_minutes",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Turns on Do Not Disturb mode for the current user, or changes its duration."
+        },
+        {
+          "info": {
+            "name": "Slack Get Do Not Disturb Team Information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/dnd.teamInfo",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Authentication token. Requires scope: `dnd:read`"
+              },
+              {
+                "name": "users",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of users to fetch Do Not Disturb status for"
+              }
+            ]
+          },
+          "docs": "Retrieves the Do Not Disturb status for up to 50 users on a team."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

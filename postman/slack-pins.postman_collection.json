@@ -1,0 +1,542 @@
+{
+  "info": {
+    "_postman_id": "e5f8bf38-a8ba-482d-9768-9a815d2813f8",
+    "name": "Slack Pins API",
+    "description": "The Slack Pins API is a set of Web API methods that let your app manage pinned items in conversations so important content is easy to find. With pins.add, pins.list, and pins.remove, you can programmatically pin or unpin messages, files, and file comments in channels, private channels, and DMs by providing the conversation ID and the message timestamp or file/comment ID. Pinned items surface in the conversation\u0019s details panel in the Slack client, and pins.list returns the same set so your app can mirror or analyze it. These methods require your app to be a member of the conversation and have appropriate permissions, and they observe Slack\u0019s standard rate limits.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T13:19:49.000Z",
+    "updatedAt": "2026-06-05T13:19:49.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-e5f8bf38-a8ba-482d-9768-9a815d2813f8"
+  },
+  "item": [
+    {
+      "name": "pins.add",
+      "item": [
+        {
+          "name": "Slack Post Pins Add",
+          "id": "8265feb3-0b13-4762-a4bf-2f1ad4571395",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "(Required) Authentication token. Requires scope: `pins:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "description": "(Required) Channel to pin the item in.",
+                  "key": "channel",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Timestamp of the message to pin.",
+                  "key": "timestamp",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/pins.add",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "pins.add"
+              ]
+            },
+            "description": "Pins an item to a channel."
+          },
+          "response": [
+            {
+              "id": "dbf1d81f-e656-4eb7-9f5e-dab3692b3aa3",
+              "name": "Typical success response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `pins:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) Channel to pin the item in.",
+                      "key": "channel",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Timestamp of the message to pin.",
+                      "key": "timestamp",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/pins.add",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "pins.add"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:49.000Z",
+              "updatedAt": "2026-06-05T13:19:49.000Z",
+              "uid": "35240-dbf1d81f-e656-4eb7-9f5e-dab3692b3aa3"
+            },
+            {
+              "id": "46326543-5ac1-45da-b000-b6cd91a3c7ae",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `pins:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) Channel to pin the item in.",
+                      "key": "channel",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Timestamp of the message to pin.",
+                      "key": "timestamp",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/pins.add",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "pins.add"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"no_item_specified\",\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  },\n  \"callstack\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:49.000Z",
+              "updatedAt": "2026-06-05T13:19:49.000Z",
+              "uid": "35240-46326543-5ac1-45da-b000-b6cd91a3c7ae"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:49.000Z",
+          "updatedAt": "2026-06-05T13:19:49.000Z",
+          "uid": "35240-8265feb3-0b13-4762-a4bf-2f1ad4571395"
+        }
+      ],
+      "id": "5cae3132-8a5c-4d8c-bf39-3c806f4a496e",
+      "createdAt": "2026-06-05T13:19:49.000Z",
+      "updatedAt": "2026-06-05T13:19:49.000Z",
+      "uid": "35240-5cae3132-8a5c-4d8c-bf39-3c806f4a496e"
+    },
+    {
+      "name": "pins.list",
+      "item": [
+        {
+          "name": "Slack Get Pins List",
+          "id": "e021935b-54a0-4ba6-9a10-9dd0340b78c4",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/pins.list?token=<string>&channel=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "pins.list"
+              ],
+              "query": [
+                {
+                  "description": "(Required) Authentication token. Requires scope: `pins:read`",
+                  "key": "token",
+                  "value": "<string>"
+                },
+                {
+                  "description": "(Required) Channel to get pinned items for.",
+                  "key": "channel",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Lists items pinned to a channel."
+          },
+          "response": [
+            {
+              "id": "426e7819-5beb-4fa5-ac16-f108b44f2430",
+              "name": "Typical success response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/pins.list?token=<string>&channel=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "pins.list"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Authentication token. Requires scope: `pins:read`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) Channel to get pinned items for.",
+                      "key": "channel",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "<array>",
+              "createdAt": "2026-06-05T13:19:49.000Z",
+              "updatedAt": "2026-06-05T13:19:49.000Z",
+              "uid": "35240-426e7819-5beb-4fa5-ac16-f108b44f2430"
+            },
+            {
+              "id": "29e4ba36-c08c-4963-aeb6-677c22fa5bc2",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/pins.list?token=<string>&channel=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "pins.list"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Authentication token. Requires scope: `pins:read`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) Channel to get pinned items for.",
+                      "key": "channel",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"missing_post_type\",\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  },\n  \"callstack\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:49.000Z",
+              "updatedAt": "2026-06-05T13:19:49.000Z",
+              "uid": "35240-29e4ba36-c08c-4963-aeb6-677c22fa5bc2"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:49.000Z",
+          "updatedAt": "2026-06-05T13:19:49.000Z",
+          "uid": "35240-e021935b-54a0-4ba6-9a10-9dd0340b78c4"
+        }
+      ],
+      "id": "e44bf929-022f-4e7a-9280-80c743c9500e",
+      "createdAt": "2026-06-05T13:19:49.000Z",
+      "updatedAt": "2026-06-05T13:19:49.000Z",
+      "uid": "35240-e44bf929-022f-4e7a-9280-80c743c9500e"
+    },
+    {
+      "name": "pins.remove",
+      "item": [
+        {
+          "name": "Slack Post Pins Remove",
+          "id": "4fbeeed1-3a95-4f75-acdc-0dd864d322ac",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "(Required) Authentication token. Requires scope: `pins:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "description": "(Required) Channel where the item is pinned to.",
+                  "key": "channel",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Timestamp of the message to un-pin.",
+                  "key": "timestamp",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/pins.remove",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "pins.remove"
+              ]
+            },
+            "description": "Un-pins an item from a channel."
+          },
+          "response": [
+            {
+              "id": "355db130-387c-406d-962d-d943b9927904",
+              "name": "Typical success response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `pins:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) Channel where the item is pinned to.",
+                      "key": "channel",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Timestamp of the message to un-pin.",
+                      "key": "timestamp",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/pins.remove",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "pins.remove"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:49.000Z",
+              "updatedAt": "2026-06-05T13:19:49.000Z",
+              "uid": "35240-355db130-387c-406d-962d-d943b9927904"
+            },
+            {
+              "id": "9fb3aa23-c7fa-4d6b-a397-062f07449457",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `pins:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) Channel where the item is pinned to.",
+                      "key": "channel",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Timestamp of the message to un-pin.",
+                      "key": "timestamp",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/pins.remove",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "pins.remove"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"invalid_post_typ\",\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  },\n  \"callstack\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:49.000Z",
+              "updatedAt": "2026-06-05T13:19:49.000Z",
+              "uid": "35240-9fb3aa23-c7fa-4d6b-a397-062f07449457"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:49.000Z",
+          "updatedAt": "2026-06-05T13:19:49.000Z",
+          "uid": "35240-4fbeeed1-3a95-4f75-acdc-0dd864d322ac"
+        }
+      ],
+      "id": "2d4f9138-57b4-4b4b-8b5c-5d015487b9f0",
+      "createdAt": "2026-06-05T13:19:49.000Z",
+      "updatedAt": "2026-06-05T13:19:49.000Z",
+      "uid": "35240-2d4f9138-57b4-4b4b-8b5c-5d015487b9f0"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "/"
+    }
+  ]
+}

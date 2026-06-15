@@ -1,0 +1,743 @@
+{
+  "info": {
+    "_postman_id": "27017f40-5589-4601-bf8b-fb807f6e0040",
+    "name": "Slack Assistant API",
+    "description": "The Slack Assistant API provides the assistant.threads.* Web API methods that let apps building AI-powered assistants manage threaded conversations in Slack. It includes methods to set the status of an assistant thread (e.g., showing a thinking indicator), set suggested prompts for users to choose from, and set the title of an assistant thread. These methods help apps set user expectations during potentially slow AI responses and guide users with contextual prompt suggestions.\n\nContact Support:\n Name: Slack Developer Relations",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T13:19:08.000Z",
+    "updatedAt": "2026-06-05T13:19:08.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-27017f40-5589-4601-bf8b-fb807f6e0040"
+  },
+  "item": [
+    {
+      "name": "assistant.threads.setStatus",
+      "item": [
+        {
+          "name": "Set Assistant Thread Status",
+          "id": "35275493-5822-4566-b43d-7c4c3ebbe4f6",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "assistant:write",
+                  "type": "string"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://slack.com/api/oauth.v2.access",
+                  "type": "string"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://slack.com/oauth/v2/authorize",
+                  "type": "string"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "description": "(Required) Authentication token. Requires scope: `assistant:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "description": "(Required) The channel ID of the assistant thread.",
+                  "key": "channel_id",
+                  "value": "<string>"
+                },
+                {
+                  "description": "(Required) The thread timestamp of the assistant thread.",
+                  "key": "thread_ts",
+                  "value": "<string>"
+                },
+                {
+                  "description": "(Required) The status of the assistant thread (e.g., \"is thinking...\").",
+                  "key": "status",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/assistant.threads.setStatus",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "assistant.threads.setStatus"
+              ]
+            },
+            "description": "Sets the status of a Slack AI assistant thread, for example showing a thinking indicator."
+          },
+          "response": [
+            {
+              "id": "02926754-0297-4e58-9793-685c12e439d7",
+              "name": "Successful response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `assistant:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) The channel ID of the assistant thread.",
+                      "key": "channel_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) The thread timestamp of the assistant thread.",
+                      "key": "thread_ts",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) The status of the assistant thread (e.g., \"is thinking...\").",
+                      "key": "status",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/assistant.threads.setStatus",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "assistant.threads.setStatus"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": \"<boolean>\"\n}",
+              "createdAt": "2026-06-05T13:19:09.000Z",
+              "updatedAt": "2026-06-05T13:19:09.000Z",
+              "uid": "35240-02926754-0297-4e58-9793-685c12e439d7"
+            },
+            {
+              "id": "73fdc3f9-0e3a-4c66-8396-1500251c9b2c",
+              "name": "Error response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `assistant:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) The channel ID of the assistant thread.",
+                      "key": "channel_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) The thread timestamp of the assistant thread.",
+                      "key": "thread_ts",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) The status of the assistant thread (e.g., \"is thinking...\").",
+                      "key": "status",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/assistant.threads.setStatus",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "assistant.threads.setStatus"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": \"<boolean>\",\n  \"error\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:09.000Z",
+              "updatedAt": "2026-06-05T13:19:09.000Z",
+              "uid": "35240-73fdc3f9-0e3a-4c66-8396-1500251c9b2c"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:09.000Z",
+          "updatedAt": "2026-06-05T13:19:09.000Z",
+          "uid": "35240-35275493-5822-4566-b43d-7c4c3ebbe4f6"
+        }
+      ],
+      "id": "29c62fe0-a07a-41c0-b6e2-2c6b3cfe4cda",
+      "createdAt": "2026-06-05T13:19:09.000Z",
+      "updatedAt": "2026-06-05T13:19:09.000Z",
+      "uid": "35240-29c62fe0-a07a-41c0-b6e2-2c6b3cfe4cda"
+    },
+    {
+      "name": "assistant.threads.setSuggestedPrompts",
+      "item": [
+        {
+          "name": "Set Assistant Thread Suggested Prompts",
+          "id": "75174f43-13aa-481f-89f8-329d9c1c472c",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "assistant:write",
+                  "type": "string"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://slack.com/api/oauth.v2.access",
+                  "type": "string"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://slack.com/oauth/v2/authorize",
+                  "type": "string"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "description": "(Required) Authentication token. Requires scope: `assistant:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "description": "(Required) The channel ID of the assistant thread.",
+                  "key": "channel_id",
+                  "value": "<string>"
+                },
+                {
+                  "description": "(Required) The thread timestamp of the assistant thread.",
+                  "key": "thread_ts",
+                  "value": "<string>"
+                },
+                {
+                  "description": "(Required) JSON-encoded array of suggested prompt objects with title and message fields.",
+                  "key": "prompts",
+                  "value": "<string>"
+                },
+                {
+                  "description": "An optional title to show above the suggested prompts.",
+                  "key": "title",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/assistant.threads.setSuggestedPrompts",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "assistant.threads.setSuggestedPrompts"
+              ]
+            },
+            "description": "Sets the suggested prompts for a Slack AI assistant thread."
+          },
+          "response": [
+            {
+              "id": "9c98b24d-e63c-4eec-88fd-127e7d279eb1",
+              "name": "Successful response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `assistant:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) The channel ID of the assistant thread.",
+                      "key": "channel_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) The thread timestamp of the assistant thread.",
+                      "key": "thread_ts",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) JSON-encoded array of suggested prompt objects with title and message fields.",
+                      "key": "prompts",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "An optional title to show above the suggested prompts.",
+                      "key": "title",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/assistant.threads.setSuggestedPrompts",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "assistant.threads.setSuggestedPrompts"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": \"<boolean>\"\n}",
+              "createdAt": "2026-06-05T13:19:09.000Z",
+              "updatedAt": "2026-06-05T13:19:09.000Z",
+              "uid": "35240-9c98b24d-e63c-4eec-88fd-127e7d279eb1"
+            },
+            {
+              "id": "7765ae36-7378-47cd-90e5-1e547546772f",
+              "name": "Error response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `assistant:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) The channel ID of the assistant thread.",
+                      "key": "channel_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) The thread timestamp of the assistant thread.",
+                      "key": "thread_ts",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) JSON-encoded array of suggested prompt objects with title and message fields.",
+                      "key": "prompts",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "An optional title to show above the suggested prompts.",
+                      "key": "title",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/assistant.threads.setSuggestedPrompts",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "assistant.threads.setSuggestedPrompts"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": \"<boolean>\",\n  \"error\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:09.000Z",
+              "updatedAt": "2026-06-05T13:19:09.000Z",
+              "uid": "35240-7765ae36-7378-47cd-90e5-1e547546772f"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:09.000Z",
+          "updatedAt": "2026-06-05T13:19:09.000Z",
+          "uid": "35240-75174f43-13aa-481f-89f8-329d9c1c472c"
+        }
+      ],
+      "id": "6c519b18-3785-4cd7-8f6b-aedfb5bdf25e",
+      "createdAt": "2026-06-05T13:19:09.000Z",
+      "updatedAt": "2026-06-05T13:19:09.000Z",
+      "uid": "35240-6c519b18-3785-4cd7-8f6b-aedfb5bdf25e"
+    },
+    {
+      "name": "assistant.threads.setTitle",
+      "item": [
+        {
+          "name": "Set Assistant Thread Title",
+          "id": "f9f0a7ef-e1b5-459f-9394-8bfeecdc3632",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "assistant:write",
+                  "type": "string"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://slack.com/api/oauth.v2.access",
+                  "type": "string"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://slack.com/oauth/v2/authorize",
+                  "type": "string"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "description": "(Required) Authentication token. Requires scope: `assistant:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "description": "(Required) The channel ID of the assistant thread.",
+                  "key": "channel_id",
+                  "value": "<string>"
+                },
+                {
+                  "description": "(Required) The thread timestamp of the assistant thread.",
+                  "key": "thread_ts",
+                  "value": "<string>"
+                },
+                {
+                  "description": "(Required) The title to set for the assistant thread.",
+                  "key": "title",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/assistant.threads.setTitle",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "assistant.threads.setTitle"
+              ]
+            },
+            "description": "Sets the title of a Slack AI assistant thread."
+          },
+          "response": [
+            {
+              "id": "f6029c12-3e30-400b-8f4d-c1ebe59a94bc",
+              "name": "Successful response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `assistant:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) The channel ID of the assistant thread.",
+                      "key": "channel_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) The thread timestamp of the assistant thread.",
+                      "key": "thread_ts",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) The title to set for the assistant thread.",
+                      "key": "title",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/assistant.threads.setTitle",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "assistant.threads.setTitle"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": \"<boolean>\"\n}",
+              "createdAt": "2026-06-05T13:19:09.000Z",
+              "updatedAt": "2026-06-05T13:19:09.000Z",
+              "uid": "35240-f6029c12-3e30-400b-8f4d-c1ebe59a94bc"
+            },
+            {
+              "id": "a945a058-7d47-4a8f-86c0-53bd921b381a",
+              "name": "Error response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `assistant:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) The channel ID of the assistant thread.",
+                      "key": "channel_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) The thread timestamp of the assistant thread.",
+                      "key": "thread_ts",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) The title to set for the assistant thread.",
+                      "key": "title",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/assistant.threads.setTitle",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "assistant.threads.setTitle"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": \"<boolean>\",\n  \"error\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:09.000Z",
+              "updatedAt": "2026-06-05T13:19:09.000Z",
+              "uid": "35240-a945a058-7d47-4a8f-86c0-53bd921b381a"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:09.000Z",
+          "updatedAt": "2026-06-05T13:19:09.000Z",
+          "uid": "35240-f9f0a7ef-e1b5-459f-9394-8bfeecdc3632"
+        }
+      ],
+      "id": "5d761353-f97a-4966-b58e-94d514d078d1",
+      "createdAt": "2026-06-05T13:19:09.000Z",
+      "updatedAt": "2026-06-05T13:19:09.000Z",
+      "uid": "35240-5d761353-f97a-4966-b58e-94d514d078d1"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://slack.com/api"
+    }
+  ]
+}

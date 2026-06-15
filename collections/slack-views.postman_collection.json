@@ -1,0 +1,2049 @@
+{
+  "item": [
+    {
+      "id": "ecafba6b-798b-4b90-ae7b-1ffebf17bdab",
+      "name": "Get",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1e745644-d188-4964-9a37-c77ee13c3382",
+          "name": "Slack Get Views Open",
+          "request": {
+            "name": "Slack Get Views Open",
+            "description": {
+              "content": "Open a view for a user.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "views.open"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "trigger_id",
+                  "value": "<string>",
+                  "description": "(Required) Exchange a trigger to post to the user."
+                },
+                {
+                  "disabled": false,
+                  "key": "view",
+                  "value": "<string>",
+                  "description": "(Required) A [view payload](/reference/surfaces/views). This must be a JSON-encoded string."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Authentication token. Requires scope: `none`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "7e852731-5487-4fb7-b112-c0ba3b4b9a33",
+              "name": "Typical success response includes the opened view payload.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "views.open"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "trigger_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "view",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `none`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": true,\n  \"view\": {\n    \"app_id\": \"AA4928AQ\",\n    \"blocks\": [\n      {\n        \"block_id\": \"a_block_id\",\n        \"element\": {\n          \"action_id\": \"an_action_id\",\n          \"type\": \"plain_text_input\"\n        },\n        \"label\": {\n          \"emoji\": true,\n          \"text\": \"A simple label\",\n          \"type\": \"plain_text\"\n        },\n        \"optional\": false,\n        \"type\": \"input\"\n      }\n    ],\n    \"bot_id\": \"BA13894H\",\n    \"callback_id\": \"identify_your_modals\",\n    \"clear_on_close\": false,\n    \"external_id\": \"\",\n    \"hash\": \"156772938.1827394\",\n    \"id\": \"VMHU10V25\",\n    \"notify_on_close\": false,\n    \"private_metadata\": \"Shh it is a secret\",\n    \"root_view_id\": \"VMHU10V25\",\n    \"state\": {\n      \"values\": {}\n    },\n    \"submit\": {\n      \"text\": \"Create\",\n      \"type\": \"plain_text\"\n    },\n    \"team_id\": \"T8N4K1JN\",\n    \"title\": {\n      \"text\": \"Quite a plain modal\",\n      \"type\": \"plain_text\"\n    },\n    \"type\": \"modal\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "385b75d9-666f-4c3f-a089-82c4b78cab4a",
+              "name": "Typical error response, before getting to any possible validation errors.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "views.open"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "trigger_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "view",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `none`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"invalid_arguments\",\n  \"ok\": false,\n  \"response_metadata\": {\n    \"messages\": [\n      \"invalid `trigger_id`\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b827d858-5996-433b-b220-70c5cd1fb73c",
+          "name": "Slack Get Views Publish",
+          "request": {
+            "name": "Slack Get Views Publish",
+            "description": {
+              "content": "Publish a static view for a User.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "views.publish"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "user_id",
+                  "value": "<string>",
+                  "description": "(Required) `id` of the user you want publish a view to."
+                },
+                {
+                  "disabled": false,
+                  "key": "view",
+                  "value": "<string>",
+                  "description": "(Required) A [view payload](/reference/surfaces/views). This must be a JSON-encoded string."
+                },
+                {
+                  "disabled": false,
+                  "key": "hash",
+                  "value": "<string>",
+                  "description": "A string that represents view state to protect against possible race conditions."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Authentication token. Requires scope: `none`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "32135d66-e39f-4d07-837d-7c54b98bafa1",
+              "name": "Typical success response includes the published view payload.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "views.publish"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "user_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "view",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "hash",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `none`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": true,\n  \"view\": {\n    \"app_id\": \"AA4928AQ\",\n    \"blocks\": [\n      {\n        \"block_id\": \"2WGp9\",\n        \"text\": {\n          \"text\": \"A simple section with some sample sentence.\",\n          \"type\": \"mrkdwn\",\n          \"verbatim\": false\n        },\n        \"type\": \"section\"\n      }\n    ],\n    \"bot_id\": \"BA13894H\",\n    \"callback_id\": \"identify_your_home_tab\",\n    \"clear_on_close\": false,\n    \"close\": null,\n    \"external_id\": \"\",\n    \"hash\": \"156772938.1827394\",\n    \"id\": \"VMHU10V25\",\n    \"notify_on_close\": false,\n    \"previous_view_id\": null,\n    \"private_metadata\": \"Shh it is a secret\",\n    \"root_view_id\": \"VMHU10V25\",\n    \"state\": {\n      \"values\": {}\n    },\n    \"submit\": null,\n    \"team_id\": \"T8N4K1JN\",\n    \"type\": \"home\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fc4efa61-83a9-467f-899b-ccf83749aa47",
+              "name": "Typical error response, before getting to any possible validation errors.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "views.publish"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "user_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "view",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "hash",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `none`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"invalid_arguments\",\n  \"ok\": false,\n  \"response_metadata\": {\n    \"messages\": [\n      \"invalid `user_id`\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dfecfeb2-6e63-4ea9-bc0c-93b75d1619a3",
+          "name": "Slack Get Views Push",
+          "request": {
+            "name": "Slack Get Views Push",
+            "description": {
+              "content": "Push a view onto the stack of a root view.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "views.push"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "trigger_id",
+                  "value": "<string>",
+                  "description": "(Required) Exchange a trigger to post to the user."
+                },
+                {
+                  "disabled": false,
+                  "key": "view",
+                  "value": "<string>",
+                  "description": "(Required) A [view payload](/reference/surfaces/views). This must be a JSON-encoded string."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Authentication token. Requires scope: `none`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "767c1a13-d36e-4f1f-82ae-f03c8d57b256",
+              "name": "Typical success response includes the pushed view payload.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "views.push"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "trigger_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "view",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `none`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": true,\n  \"view\": {\n    \"app_id\": \"AAD3351BQ\",\n    \"blocks\": [\n      {\n        \"block_id\": \"edit_details\",\n        \"element\": {\n          \"action_id\": \"detail_input\",\n          \"type\": \"plain_text_input\"\n        },\n        \"label\": {\n          \"text\": \"Edit details\",\n          \"type\": \"plain_text\"\n        },\n        \"type\": \"input\"\n      }\n    ],\n    \"bot_id\": \"BADF7A34H\",\n    \"callback_id\": \"view_4\",\n    \"clear_on_close\": true,\n    \"close\": {\n      \"emoji\": true,\n      \"text\": \"Back\",\n      \"type\": \"plain_text\"\n    },\n    \"external_id\": \"\",\n    \"hash\": \"1569362015.55b5e41b\",\n    \"id\": \"VNM522E2U\",\n    \"notify_on_close\": false,\n    \"previous_view_id\": null,\n    \"private_metadata\": \"\",\n    \"root_view_id\": \"VNN729E3U\",\n    \"state\": {\n      \"values\": {}\n    },\n    \"submit\": {\n      \"emoji\": true,\n      \"text\": \"Save\",\n      \"type\": \"plain_text\"\n    },\n    \"team_id\": \"T9M4RL1JM\",\n    \"title\": {\n      \"emoji\": true,\n      \"text\": \"Pushed Modal\",\n      \"type\": \"plain_text\"\n    },\n    \"type\": \"modal\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "111e7ece-7981-4d6b-8cb7-eaf9c3bf465c",
+              "name": "Typical error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "views.push"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "trigger_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "view",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `none`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"invalid_arguments\",\n  \"ok\": false,\n  \"response_metadata\": {\n    \"messages\": [\n      \"missing required field: title\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a02b5b5f-b4bc-4f0b-87ed-30927166b26f",
+          "name": "Slack Get Views Update",
+          "request": {
+            "name": "Slack Get Views Update",
+            "description": {
+              "content": "Update an existing view.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "views.update"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "view_id",
+                  "value": "<string>",
+                  "description": "A unique identifier of the view to be updated. Either `view_id` or `external_id` is required."
+                },
+                {
+                  "disabled": false,
+                  "key": "external_id",
+                  "value": "<string>",
+                  "description": "A unique identifier of the view set by the developer. Must be unique for all views on a team. Max length of 255 characters. Either `view_id` or `external_id` is required."
+                },
+                {
+                  "disabled": false,
+                  "key": "view",
+                  "value": "<string>",
+                  "description": "A [view object](/reference/surfaces/views). This must be a JSON-encoded string."
+                },
+                {
+                  "disabled": false,
+                  "key": "hash",
+                  "value": "<string>",
+                  "description": "A string that represents view state to protect against possible race conditions."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Authentication token. Requires scope: `none`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "b839a334-20b5-4eba-ae15-70b5cd2aa93b",
+              "name": "Typical success response includes the updated view payload.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "views.update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "view_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "external_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "view",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "hash",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `none`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": true,\n  \"view\": {\n    \"app_id\": \"AAD3351BQ\",\n    \"blocks\": [\n      {\n        \"accessory\": {\n          \"action_id\": \"button_4\",\n          \"text\": {\n            \"text\": \"Click me\",\n            \"type\": \"plain_text\"\n          },\n          \"type\": \"button\"\n        },\n        \"block_id\": \"s_block\",\n        \"text\": {\n          \"emoji\": true,\n          \"text\": \"I am but an updated modal\",\n          \"type\": \"plain_text\"\n        },\n        \"type\": \"section\"\n      }\n    ],\n    \"bot_id\": \"BADF7A34H\",\n    \"callback_id\": \"view_2\",\n    \"clear_on_close\": true,\n    \"close\": {\n      \"emoji\": true,\n      \"text\": \"Close\",\n      \"type\": \"plain_text\"\n    },\n    \"external_id\": \"\",\n    \"hash\": \"1569262015.55b5e41b\",\n    \"id\": \"VNM522E2U\",\n    \"notify_on_close\": false,\n    \"previous_view_id\": null,\n    \"private_metadata\": \"\",\n    \"root_view_id\": \"VNN729E3U\",\n    \"state\": {\n      \"values\": {}\n    },\n    \"submit\": null,\n    \"team_id\": \"T9M4RL1JM\",\n    \"title\": {\n      \"emoji\": true,\n      \"text\": \"Updated Modal\",\n      \"type\": \"plain_text\"\n    },\n    \"type\": \"modal\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "48d50ed7-5405-4ed7-bb0b-ef7ade9543ca",
+              "name": "Typical error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "views.update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "view_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "external_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "view",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "hash",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `none`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"not_found\",\n  \"ok\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "17fac002-c4a9-4763-aef7-197d1cd6e5ba",
+      "name": "Open",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "596d0617-8fc1-48c7-ab29-6126f94d26df",
+          "name": "Slack Get Views Open",
+          "request": {
+            "name": "Slack Get Views Open",
+            "description": {
+              "content": "Open a view for a user.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "views.open"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "trigger_id",
+                  "value": "<string>",
+                  "description": "(Required) Exchange a trigger to post to the user."
+                },
+                {
+                  "disabled": false,
+                  "key": "view",
+                  "value": "<string>",
+                  "description": "(Required) A [view payload](/reference/surfaces/views). This must be a JSON-encoded string."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Authentication token. Requires scope: `none`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "006edc9b-1a55-4e7e-b628-2e8e1bad5397",
+              "name": "Typical success response includes the opened view payload.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "views.open"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "trigger_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "view",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `none`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": true,\n  \"view\": {\n    \"app_id\": \"AA4928AQ\",\n    \"blocks\": [\n      {\n        \"block_id\": \"a_block_id\",\n        \"element\": {\n          \"action_id\": \"an_action_id\",\n          \"type\": \"plain_text_input\"\n        },\n        \"label\": {\n          \"emoji\": true,\n          \"text\": \"A simple label\",\n          \"type\": \"plain_text\"\n        },\n        \"optional\": false,\n        \"type\": \"input\"\n      }\n    ],\n    \"bot_id\": \"BA13894H\",\n    \"callback_id\": \"identify_your_modals\",\n    \"clear_on_close\": false,\n    \"external_id\": \"\",\n    \"hash\": \"156772938.1827394\",\n    \"id\": \"VMHU10V25\",\n    \"notify_on_close\": false,\n    \"private_metadata\": \"Shh it is a secret\",\n    \"root_view_id\": \"VMHU10V25\",\n    \"state\": {\n      \"values\": {}\n    },\n    \"submit\": {\n      \"text\": \"Create\",\n      \"type\": \"plain_text\"\n    },\n    \"team_id\": \"T8N4K1JN\",\n    \"title\": {\n      \"text\": \"Quite a plain modal\",\n      \"type\": \"plain_text\"\n    },\n    \"type\": \"modal\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5830ef78-35c5-4fd5-8b6f-f203616e68a5",
+              "name": "Typical error response, before getting to any possible validation errors.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "views.open"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "trigger_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "view",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `none`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"invalid_arguments\",\n  \"ok\": false,\n  \"response_metadata\": {\n    \"messages\": [\n      \"invalid `trigger_id`\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "0f18bce7-b360-485a-963c-40685f068916",
+      "name": "Publish",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4848079d-d773-4437-a8fb-384c352512d9",
+          "name": "Slack Get Views Publish",
+          "request": {
+            "name": "Slack Get Views Publish",
+            "description": {
+              "content": "Publish a static view for a User.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "views.publish"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "user_id",
+                  "value": "<string>",
+                  "description": "(Required) `id` of the user you want publish a view to."
+                },
+                {
+                  "disabled": false,
+                  "key": "view",
+                  "value": "<string>",
+                  "description": "(Required) A [view payload](/reference/surfaces/views). This must be a JSON-encoded string."
+                },
+                {
+                  "disabled": false,
+                  "key": "hash",
+                  "value": "<string>",
+                  "description": "A string that represents view state to protect against possible race conditions."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Authentication token. Requires scope: `none`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "791b8853-df16-4675-8bbf-da2987359eef",
+              "name": "Typical success response includes the published view payload.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "views.publish"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "user_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "view",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "hash",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `none`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": true,\n  \"view\": {\n    \"app_id\": \"AA4928AQ\",\n    \"blocks\": [\n      {\n        \"block_id\": \"2WGp9\",\n        \"text\": {\n          \"text\": \"A simple section with some sample sentence.\",\n          \"type\": \"mrkdwn\",\n          \"verbatim\": false\n        },\n        \"type\": \"section\"\n      }\n    ],\n    \"bot_id\": \"BA13894H\",\n    \"callback_id\": \"identify_your_home_tab\",\n    \"clear_on_close\": false,\n    \"close\": null,\n    \"external_id\": \"\",\n    \"hash\": \"156772938.1827394\",\n    \"id\": \"VMHU10V25\",\n    \"notify_on_close\": false,\n    \"previous_view_id\": null,\n    \"private_metadata\": \"Shh it is a secret\",\n    \"root_view_id\": \"VMHU10V25\",\n    \"state\": {\n      \"values\": {}\n    },\n    \"submit\": null,\n    \"team_id\": \"T8N4K1JN\",\n    \"type\": \"home\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fcc291aa-1a93-4515-9f80-55b71c57eccd",
+              "name": "Typical error response, before getting to any possible validation errors.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "views.publish"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "user_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "view",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "hash",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `none`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"invalid_arguments\",\n  \"ok\": false,\n  \"response_metadata\": {\n    \"messages\": [\n      \"invalid `user_id`\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "d9b6557a-5e2d-4365-a32c-1c632f7bd9ab",
+      "name": "Push",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "740f6ff0-c4d2-4166-b609-023994a491b4",
+          "name": "Slack Get Views Push",
+          "request": {
+            "name": "Slack Get Views Push",
+            "description": {
+              "content": "Push a view onto the stack of a root view.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "views.push"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "trigger_id",
+                  "value": "<string>",
+                  "description": "(Required) Exchange a trigger to post to the user."
+                },
+                {
+                  "disabled": false,
+                  "key": "view",
+                  "value": "<string>",
+                  "description": "(Required) A [view payload](/reference/surfaces/views). This must be a JSON-encoded string."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Authentication token. Requires scope: `none`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "b0e0706c-f036-4859-9508-8feb9cde2f79",
+              "name": "Typical success response includes the pushed view payload.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "views.push"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "trigger_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "view",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `none`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": true,\n  \"view\": {\n    \"app_id\": \"AAD3351BQ\",\n    \"blocks\": [\n      {\n        \"block_id\": \"edit_details\",\n        \"element\": {\n          \"action_id\": \"detail_input\",\n          \"type\": \"plain_text_input\"\n        },\n        \"label\": {\n          \"text\": \"Edit details\",\n          \"type\": \"plain_text\"\n        },\n        \"type\": \"input\"\n      }\n    ],\n    \"bot_id\": \"BADF7A34H\",\n    \"callback_id\": \"view_4\",\n    \"clear_on_close\": true,\n    \"close\": {\n      \"emoji\": true,\n      \"text\": \"Back\",\n      \"type\": \"plain_text\"\n    },\n    \"external_id\": \"\",\n    \"hash\": \"1569362015.55b5e41b\",\n    \"id\": \"VNM522E2U\",\n    \"notify_on_close\": false,\n    \"previous_view_id\": null,\n    \"private_metadata\": \"\",\n    \"root_view_id\": \"VNN729E3U\",\n    \"state\": {\n      \"values\": {}\n    },\n    \"submit\": {\n      \"emoji\": true,\n      \"text\": \"Save\",\n      \"type\": \"plain_text\"\n    },\n    \"team_id\": \"T9M4RL1JM\",\n    \"title\": {\n      \"emoji\": true,\n      \"text\": \"Pushed Modal\",\n      \"type\": \"plain_text\"\n    },\n    \"type\": \"modal\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4be3154c-3978-4e8f-8a0b-9fccfd6a7647",
+              "name": "Typical error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "views.push"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "trigger_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "view",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `none`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"invalid_arguments\",\n  \"ok\": false,\n  \"response_metadata\": {\n    \"messages\": [\n      \"missing required field: title\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "6c34f9f8-e271-48de-9712-1000a769cd08",
+      "name": "Update",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9d049113-3ae9-40eb-98a7-1ad0b3ce905b",
+          "name": "Slack Get Views Update",
+          "request": {
+            "name": "Slack Get Views Update",
+            "description": {
+              "content": "Update an existing view.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "views.update"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "view_id",
+                  "value": "<string>",
+                  "description": "A unique identifier of the view to be updated. Either `view_id` or `external_id` is required."
+                },
+                {
+                  "disabled": false,
+                  "key": "external_id",
+                  "value": "<string>",
+                  "description": "A unique identifier of the view set by the developer. Must be unique for all views on a team. Max length of 255 characters. Either `view_id` or `external_id` is required."
+                },
+                {
+                  "disabled": false,
+                  "key": "view",
+                  "value": "<string>",
+                  "description": "A [view object](/reference/surfaces/views). This must be a JSON-encoded string."
+                },
+                {
+                  "disabled": false,
+                  "key": "hash",
+                  "value": "<string>",
+                  "description": "A string that represents view state to protect against possible race conditions."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Authentication token. Requires scope: `none`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "7f74aee4-5868-49a2-bc00-b2474134e8c9",
+              "name": "Typical success response includes the updated view payload.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "views.update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "view_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "external_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "view",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "hash",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `none`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": true,\n  \"view\": {\n    \"app_id\": \"AAD3351BQ\",\n    \"blocks\": [\n      {\n        \"accessory\": {\n          \"action_id\": \"button_4\",\n          \"text\": {\n            \"text\": \"Click me\",\n            \"type\": \"plain_text\"\n          },\n          \"type\": \"button\"\n        },\n        \"block_id\": \"s_block\",\n        \"text\": {\n          \"emoji\": true,\n          \"text\": \"I am but an updated modal\",\n          \"type\": \"plain_text\"\n        },\n        \"type\": \"section\"\n      }\n    ],\n    \"bot_id\": \"BADF7A34H\",\n    \"callback_id\": \"view_2\",\n    \"clear_on_close\": true,\n    \"close\": {\n      \"emoji\": true,\n      \"text\": \"Close\",\n      \"type\": \"plain_text\"\n    },\n    \"external_id\": \"\",\n    \"hash\": \"1569262015.55b5e41b\",\n    \"id\": \"VNM522E2U\",\n    \"notify_on_close\": false,\n    \"previous_view_id\": null,\n    \"private_metadata\": \"\",\n    \"root_view_id\": \"VNN729E3U\",\n    \"state\": {\n      \"values\": {}\n    },\n    \"submit\": null,\n    \"team_id\": \"T9M4RL1JM\",\n    \"title\": {\n      \"emoji\": true,\n      \"text\": \"Updated Modal\",\n      \"type\": \"plain_text\"\n    },\n    \"type\": \"modal\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "448dd299-d87a-4c43-9424-40fefa65548b",
+              "name": "Typical error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "views.update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "view_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "external_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "view",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "hash",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `none`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"not_found\",\n  \"ok\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "ed8102a7-a83b-4807-b993-964b7ca8ce35",
+      "name": "Views",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d454fdcb-e098-457e-a70a-b11a2245dea6",
+          "name": "Slack Get Views Open",
+          "request": {
+            "name": "Slack Get Views Open",
+            "description": {
+              "content": "Open a view for a user.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "views.open"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "trigger_id",
+                  "value": "<string>",
+                  "description": "(Required) Exchange a trigger to post to the user."
+                },
+                {
+                  "disabled": false,
+                  "key": "view",
+                  "value": "<string>",
+                  "description": "(Required) A [view payload](/reference/surfaces/views). This must be a JSON-encoded string."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Authentication token. Requires scope: `none`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "a0a232be-8a1d-4a30-83d7-5c0a0328d34e",
+              "name": "Typical success response includes the opened view payload.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "views.open"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "trigger_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "view",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `none`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": true,\n  \"view\": {\n    \"app_id\": \"AA4928AQ\",\n    \"blocks\": [\n      {\n        \"block_id\": \"a_block_id\",\n        \"element\": {\n          \"action_id\": \"an_action_id\",\n          \"type\": \"plain_text_input\"\n        },\n        \"label\": {\n          \"emoji\": true,\n          \"text\": \"A simple label\",\n          \"type\": \"plain_text\"\n        },\n        \"optional\": false,\n        \"type\": \"input\"\n      }\n    ],\n    \"bot_id\": \"BA13894H\",\n    \"callback_id\": \"identify_your_modals\",\n    \"clear_on_close\": false,\n    \"external_id\": \"\",\n    \"hash\": \"156772938.1827394\",\n    \"id\": \"VMHU10V25\",\n    \"notify_on_close\": false,\n    \"private_metadata\": \"Shh it is a secret\",\n    \"root_view_id\": \"VMHU10V25\",\n    \"state\": {\n      \"values\": {}\n    },\n    \"submit\": {\n      \"text\": \"Create\",\n      \"type\": \"plain_text\"\n    },\n    \"team_id\": \"T8N4K1JN\",\n    \"title\": {\n      \"text\": \"Quite a plain modal\",\n      \"type\": \"plain_text\"\n    },\n    \"type\": \"modal\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a9c3c25f-2c82-49c4-acd4-5137d46dea96",
+              "name": "Typical error response, before getting to any possible validation errors.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "views.open"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "trigger_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "view",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `none`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"invalid_arguments\",\n  \"ok\": false,\n  \"response_metadata\": {\n    \"messages\": [\n      \"invalid `trigger_id`\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8e2ae435-0372-4a80-901f-8a13437aade7",
+          "name": "Slack Get Views Publish",
+          "request": {
+            "name": "Slack Get Views Publish",
+            "description": {
+              "content": "Publish a static view for a User.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "views.publish"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "user_id",
+                  "value": "<string>",
+                  "description": "(Required) `id` of the user you want publish a view to."
+                },
+                {
+                  "disabled": false,
+                  "key": "view",
+                  "value": "<string>",
+                  "description": "(Required) A [view payload](/reference/surfaces/views). This must be a JSON-encoded string."
+                },
+                {
+                  "disabled": false,
+                  "key": "hash",
+                  "value": "<string>",
+                  "description": "A string that represents view state to protect against possible race conditions."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Authentication token. Requires scope: `none`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "661d50bf-ef9b-402f-b7fb-d0a44cc21431",
+              "name": "Typical success response includes the published view payload.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "views.publish"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "user_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "view",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "hash",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `none`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": true,\n  \"view\": {\n    \"app_id\": \"AA4928AQ\",\n    \"blocks\": [\n      {\n        \"block_id\": \"2WGp9\",\n        \"text\": {\n          \"text\": \"A simple section with some sample sentence.\",\n          \"type\": \"mrkdwn\",\n          \"verbatim\": false\n        },\n        \"type\": \"section\"\n      }\n    ],\n    \"bot_id\": \"BA13894H\",\n    \"callback_id\": \"identify_your_home_tab\",\n    \"clear_on_close\": false,\n    \"close\": null,\n    \"external_id\": \"\",\n    \"hash\": \"156772938.1827394\",\n    \"id\": \"VMHU10V25\",\n    \"notify_on_close\": false,\n    \"previous_view_id\": null,\n    \"private_metadata\": \"Shh it is a secret\",\n    \"root_view_id\": \"VMHU10V25\",\n    \"state\": {\n      \"values\": {}\n    },\n    \"submit\": null,\n    \"team_id\": \"T8N4K1JN\",\n    \"type\": \"home\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "736e70c0-ad25-4cce-ab50-80ad04f2c77e",
+              "name": "Typical error response, before getting to any possible validation errors.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "views.publish"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "user_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "view",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "hash",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `none`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"invalid_arguments\",\n  \"ok\": false,\n  \"response_metadata\": {\n    \"messages\": [\n      \"invalid `user_id`\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d7508de0-61da-4d49-aa11-106f90098850",
+          "name": "Slack Get Views Push",
+          "request": {
+            "name": "Slack Get Views Push",
+            "description": {
+              "content": "Push a view onto the stack of a root view.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "views.push"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "trigger_id",
+                  "value": "<string>",
+                  "description": "(Required) Exchange a trigger to post to the user."
+                },
+                {
+                  "disabled": false,
+                  "key": "view",
+                  "value": "<string>",
+                  "description": "(Required) A [view payload](/reference/surfaces/views). This must be a JSON-encoded string."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Authentication token. Requires scope: `none`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "9287fc42-9928-4fbf-bd65-a6ddf79306e4",
+              "name": "Typical success response includes the pushed view payload.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "views.push"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "trigger_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "view",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `none`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": true,\n  \"view\": {\n    \"app_id\": \"AAD3351BQ\",\n    \"blocks\": [\n      {\n        \"block_id\": \"edit_details\",\n        \"element\": {\n          \"action_id\": \"detail_input\",\n          \"type\": \"plain_text_input\"\n        },\n        \"label\": {\n          \"text\": \"Edit details\",\n          \"type\": \"plain_text\"\n        },\n        \"type\": \"input\"\n      }\n    ],\n    \"bot_id\": \"BADF7A34H\",\n    \"callback_id\": \"view_4\",\n    \"clear_on_close\": true,\n    \"close\": {\n      \"emoji\": true,\n      \"text\": \"Back\",\n      \"type\": \"plain_text\"\n    },\n    \"external_id\": \"\",\n    \"hash\": \"1569362015.55b5e41b\",\n    \"id\": \"VNM522E2U\",\n    \"notify_on_close\": false,\n    \"previous_view_id\": null,\n    \"private_metadata\": \"\",\n    \"root_view_id\": \"VNN729E3U\",\n    \"state\": {\n      \"values\": {}\n    },\n    \"submit\": {\n      \"emoji\": true,\n      \"text\": \"Save\",\n      \"type\": \"plain_text\"\n    },\n    \"team_id\": \"T9M4RL1JM\",\n    \"title\": {\n      \"emoji\": true,\n      \"text\": \"Pushed Modal\",\n      \"type\": \"plain_text\"\n    },\n    \"type\": \"modal\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "baa4d6ca-2cc7-4c78-9b64-e76289594b5a",
+              "name": "Typical error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "views.push"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "trigger_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "view",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `none`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"invalid_arguments\",\n  \"ok\": false,\n  \"response_metadata\": {\n    \"messages\": [\n      \"missing required field: title\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "42b9a01a-4207-46d9-be64-04714adcd329",
+          "name": "Slack Get Views Update",
+          "request": {
+            "name": "Slack Get Views Update",
+            "description": {
+              "content": "Update an existing view.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "views.update"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "view_id",
+                  "value": "<string>",
+                  "description": "A unique identifier of the view to be updated. Either `view_id` or `external_id` is required."
+                },
+                {
+                  "disabled": false,
+                  "key": "external_id",
+                  "value": "<string>",
+                  "description": "A unique identifier of the view set by the developer. Must be unique for all views on a team. Max length of 255 characters. Either `view_id` or `external_id` is required."
+                },
+                {
+                  "disabled": false,
+                  "key": "view",
+                  "value": "<string>",
+                  "description": "A [view object](/reference/surfaces/views). This must be a JSON-encoded string."
+                },
+                {
+                  "disabled": false,
+                  "key": "hash",
+                  "value": "<string>",
+                  "description": "A string that represents view state to protect against possible race conditions."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Authentication token. Requires scope: `none`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "ae5837c0-26d4-4603-a7d6-3e902d225d18",
+              "name": "Typical success response includes the updated view payload.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "views.update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "view_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "external_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "view",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "hash",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `none`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": true,\n  \"view\": {\n    \"app_id\": \"AAD3351BQ\",\n    \"blocks\": [\n      {\n        \"accessory\": {\n          \"action_id\": \"button_4\",\n          \"text\": {\n            \"text\": \"Click me\",\n            \"type\": \"plain_text\"\n          },\n          \"type\": \"button\"\n        },\n        \"block_id\": \"s_block\",\n        \"text\": {\n          \"emoji\": true,\n          \"text\": \"I am but an updated modal\",\n          \"type\": \"plain_text\"\n        },\n        \"type\": \"section\"\n      }\n    ],\n    \"bot_id\": \"BADF7A34H\",\n    \"callback_id\": \"view_2\",\n    \"clear_on_close\": true,\n    \"close\": {\n      \"emoji\": true,\n      \"text\": \"Close\",\n      \"type\": \"plain_text\"\n    },\n    \"external_id\": \"\",\n    \"hash\": \"1569262015.55b5e41b\",\n    \"id\": \"VNM522E2U\",\n    \"notify_on_close\": false,\n    \"previous_view_id\": null,\n    \"private_metadata\": \"\",\n    \"root_view_id\": \"VNN729E3U\",\n    \"state\": {\n      \"values\": {}\n    },\n    \"submit\": null,\n    \"team_id\": \"T9M4RL1JM\",\n    \"title\": {\n      \"emoji\": true,\n      \"text\": \"Updated Modal\",\n      \"type\": \"plain_text\"\n    },\n    \"type\": \"modal\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c51255f7-b59c-462b-b4dd-9d754bcfb6e1",
+              "name": "Typical error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "views.update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "view_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "external_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "view",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "hash",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `none`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"not_found\",\n  \"ok\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "0050b01c-38d8-4db2-92c2-1afb029ef6f7",
+    "name": "Slack Views API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Slack Views API lets your app build and control Block Kit interfaces inside Slack\u0014primarily modals and the App Home tab. With methods like views.open, views.update, and views.push, your app can launch multi-step modal flows in response to interactive triggers (slash commands, shortcuts, or message actions), update them in place, or push new steps onto the stack. Using views.publish, you can render a personalized, dynamic Home tab for each user. Submissions and closes generate interactivity payloads (view_submission and view_closed) that let you validate inputs, return per-field errors, and persist state; you can also pass callback_id and private_metadata to track context. Concurrency is handled via a view hash to avoid overwriting stale content. In short, the Views API provides the lifecycle and plumbing for rich, interactive app experiences directly in Slack.",
+      "type": "text/plain"
+    }
+  }
+}

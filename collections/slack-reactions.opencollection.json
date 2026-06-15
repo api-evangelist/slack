@@ -1,0 +1,178 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Slack Reactions API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Add",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Slack Post Reactions Add",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/reactions.add",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a reaction to an item."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Get",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Slack Get Reactions Get",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/reactions.get",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Authentication token. Requires scope: `reactions:read`"
+              },
+              {
+                "name": "channel",
+                "value": "",
+                "type": "query",
+                "description": "Channel where the message to get reactions for was posted."
+              },
+              {
+                "name": "file",
+                "value": "",
+                "type": "query",
+                "description": "File to get reactions for."
+              },
+              {
+                "name": "file_comment",
+                "value": "",
+                "type": "query",
+                "description": "File comment to get reactions for."
+              },
+              {
+                "name": "full",
+                "value": "",
+                "type": "query",
+                "description": "If true always return the complete reaction list."
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query",
+                "description": "Timestamp of the message to get reactions for."
+              }
+            ]
+          },
+          "docs": "Gets reactions for an item."
+        },
+        {
+          "info": {
+            "name": "Slack Get Reactions List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/reactions.list",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Authentication token. Requires scope: `reactions:read`"
+              },
+              {
+                "name": "user",
+                "value": "",
+                "type": "query",
+                "description": "Show reactions made by this user. Defaults to the authed user."
+              },
+              {
+                "name": "full",
+                "value": "",
+                "type": "query",
+                "description": "If true always return the complete reaction list."
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Parameter for pagination. Set `cursor` equal to the `next_cursor` attribute returned by the previous request's `response_metadata`. This parameter is optional, but pagination is mandatory: the default value simply fetches the first \"page\" of the collection. See [pagination](/docs/pagination) for more details."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the list hasn't been reached."
+              }
+            ]
+          },
+          "docs": "Lists reactions made by a user."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Post",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Slack Post Reactions Remove",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/reactions.remove",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Removes a reaction from an item."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

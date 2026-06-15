@@ -1,0 +1,1359 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Slack Web API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Auth",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Slack Test Authentication",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://slack.com/api/auth.test"
+          },
+          "docs": "Checks authentication and tells the caller who they are. Returns information about the token holder including user ID, team ID, and team name."
+        },
+        {
+          "info": {
+            "name": "Slack Revoke an Access Token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://slack.com/api/auth.revoke",
+            "params": [
+              {
+                "name": "test",
+                "value": "",
+                "type": "query",
+                "description": "Setting this parameter to true triggers a testing mode."
+              }
+            ]
+          },
+          "docs": "Revokes the access token that is used to call this method."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Chat",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Slack Send a Message to a Channel",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://slack.com/api/chat.postMessage",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sends a message to a channel, DM, or group conversation. Supports plain text, Block Kit layouts, attachments, threading, and message metadata. Requires the chat:write scope, or chat:write.public to post to channels the bot is not a member of."
+        },
+        {
+          "info": {
+            "name": "Slack Update an Existing Message",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://slack.com/api/chat.update",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a message in a channel. Both the text and blocks can be updated. Requires the chat:write scope."
+        },
+        {
+          "info": {
+            "name": "Slack Delete a Message",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://slack.com/api/chat.delete",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Deletes a message from a channel. Requires the chat:write scope. The message must have been posted by the calling user or bot."
+        },
+        {
+          "info": {
+            "name": "Slack Send an Ephemeral Message",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://slack.com/api/chat.postEphemeral",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sends an ephemeral message to a user in a channel, visible only to that user. Requires the chat:write scope."
+        },
+        {
+          "info": {
+            "name": "Slack Schedule a Message for Later",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://slack.com/api/chat.scheduleMessage",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Schedules a message to be sent to a channel at a specified time. Requires the chat:write scope."
+        },
+        {
+          "info": {
+            "name": "Slack Get a Permalink for a Message",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://slack.com/api/chat.getPermalink",
+            "params": [
+              {
+                "name": "channel",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the conversation or channel containing the message."
+              },
+              {
+                "name": "message_ts",
+                "value": "",
+                "type": "query",
+                "description": "A message's ts value."
+              }
+            ]
+          },
+          "docs": "Retrieve a permalink URL for a specific extant message."
+        },
+        {
+          "info": {
+            "name": "Slack Provide Custom Unfurl Behavior",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://slack.com/api/chat.unfurl",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Provide custom unfurl behavior for URLs posted in messages. Requires links:write scope."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Conversations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Slack List All Channels",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://slack.com/api/conversations.list",
+            "params": [
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Paginate through collections by setting the cursor parameter to a next_cursor attribute returned by a previous request."
+              },
+              {
+                "name": "exclude_archived",
+                "value": "",
+                "type": "query",
+                "description": "Set to true to exclude archived channels from the list."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the list hasn't been reached. Maximum of 1000."
+              },
+              {
+                "name": "team_id",
+                "value": "",
+                "type": "query",
+                "description": "Required for org-wide app tokens. A single team ID to list channels in."
+              },
+              {
+                "name": "types",
+                "value": "",
+                "type": "query",
+                "description": "Mix and match channel types by providing a comma-separated list. Options: public_channel, private_channel, mpim, im."
+              }
+            ]
+          },
+          "docs": "Lists all channels in a Slack team. Returns a paginated collection of conversation objects. Supports filtering by conversation type."
+        },
+        {
+          "info": {
+            "name": "Slack Get Information About a Channel",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://slack.com/api/conversations.info",
+            "params": [
+              {
+                "name": "channel",
+                "value": "",
+                "type": "query",
+                "description": "The conversation ID to get info on."
+              },
+              {
+                "name": "include_locale",
+                "value": "",
+                "type": "query",
+                "description": "Set to true to receive the locale for this conversation."
+              },
+              {
+                "name": "include_num_members",
+                "value": "",
+                "type": "query",
+                "description": "Set to true to include the member count."
+              }
+            ]
+          },
+          "docs": "Retrieve information about a conversation including its purpose, topic, member count, and other metadata."
+        },
+        {
+          "info": {
+            "name": "Slack Fetch Message History",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://slack.com/api/conversations.history",
+            "params": [
+              {
+                "name": "channel",
+                "value": "",
+                "type": "query",
+                "description": "Conversation ID to fetch history for."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Paginate through collections by setting the cursor parameter to a next_cursor attribute returned by a previous request."
+              },
+              {
+                "name": "inclusive",
+                "value": "",
+                "type": "query",
+                "description": "Include messages with oldest or latest timestamps in results."
+              },
+              {
+                "name": "latest",
+                "value": "",
+                "type": "query",
+                "description": "Only messages before this Unix timestamp will be included. Default is the current time."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items to return. Default 100, max 999."
+              },
+              {
+                "name": "oldest",
+                "value": "",
+                "type": "query",
+                "description": "Only messages after this Unix timestamp will be included. Default is 0."
+              },
+              {
+                "name": "include_all_metadata",
+                "value": "",
+                "type": "query",
+                "description": "Return all metadata associated with messages."
+              }
+            ]
+          },
+          "docs": "Fetches a conversation's history of messages and events. Returns messages in reverse chronological order."
+        },
+        {
+          "info": {
+            "name": "Slack Create a Channel",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://slack.com/api/conversations.create",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Initiates a public or private channel-based conversation. Requires conversations:write scope."
+        },
+        {
+          "info": {
+            "name": "Slack Join an Existing Conversation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://slack.com/api/conversations.join",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Joins an existing conversation. Requires channels:write scope."
+        },
+        {
+          "info": {
+            "name": "Slack Invite Users to a Channel",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://slack.com/api/conversations.invite",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Invites users to a channel. Requires channels:write scope."
+        },
+        {
+          "info": {
+            "name": "Slack Leave a Conversation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://slack.com/api/conversations.leave",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Leaves a conversation. Requires channels:write scope."
+        },
+        {
+          "info": {
+            "name": "Slack Archive a Channel",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://slack.com/api/conversations.archive",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Archives a conversation. Requires channels:write scope."
+        },
+        {
+          "info": {
+            "name": "Slack Unarchive a Channel",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://slack.com/api/conversations.unarchive",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Reverses the archiving of a conversation."
+        },
+        {
+          "info": {
+            "name": "Slack List Members of a Conversation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://slack.com/api/conversations.members",
+            "params": [
+              {
+                "name": "channel",
+                "value": "",
+                "type": "query",
+                "description": "ID of the conversation to retrieve members for."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve members of a conversation. Results are paginated with cursor-based pagination."
+        },
+        {
+          "info": {
+            "name": "Slack Retrieve a Thread of Messages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://slack.com/api/conversations.replies",
+            "params": [
+              {
+                "name": "channel",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "ts",
+                "value": "",
+                "type": "query",
+                "description": "Unique identifier of the parent message. This is the ts value of the parent message."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "inclusive",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "latest",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "oldest",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve a thread of messages posted to a conversation. Returns the parent message and all replies."
+        },
+        {
+          "info": {
+            "name": "Slack Set the Topic of a Conversation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://slack.com/api/conversations.setTopic",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sets the topic for a conversation."
+        },
+        {
+          "info": {
+            "name": "Slack Set the Purpose of a Conversation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://slack.com/api/conversations.setPurpose",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sets the purpose for a conversation."
+        },
+        {
+          "info": {
+            "name": "Slack Rename a Conversation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://slack.com/api/conversations.rename",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Renames a conversation."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Slack List All Users",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://slack.com/api/users.list",
+            "params": [
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "include_locale",
+                "value": "",
+                "type": "query",
+                "description": "Set to true to receive the locale for users."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "team_id",
+                "value": "",
+                "type": "query",
+                "description": "Required for org-wide app tokens."
+              }
+            ]
+          },
+          "docs": "Lists all users in a Slack team. Results are paginated with cursor-based pagination."
+        },
+        {
+          "info": {
+            "name": "Slack Get Information About a User",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://slack.com/api/users.info",
+            "params": [
+              {
+                "name": "user",
+                "value": "",
+                "type": "query",
+                "description": "User to get info on."
+              },
+              {
+                "name": "include_locale",
+                "value": "",
+                "type": "query",
+                "description": "Set to true to receive the locale for this user."
+              }
+            ]
+          },
+          "docs": "Gets information about a user. Returns a user object with profile information, timezone, admin status, and more."
+        },
+        {
+          "info": {
+            "name": "Slack Find a User by Email Address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://slack.com/api/users.lookupByEmail",
+            "params": [
+              {
+                "name": "email",
+                "value": "",
+                "type": "query",
+                "description": "An email address belonging to a user in the workspace."
+              }
+            ]
+          },
+          "docs": "Find a user with an email address. Requires users:read.email scope."
+        },
+        {
+          "info": {
+            "name": "Slack Get User Presence Information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://slack.com/api/users.getPresence",
+            "params": [
+              {
+                "name": "user",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Gets user presence information."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Files",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Slack Upload a File",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://slack.com/api/files.upload",
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "channels",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "content",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "filename",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "filetype",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "initial_comment",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "thread_ts",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "title",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Uploads or creates a file. Files can be uploaded as binary content or created from content snippets."
+        },
+        {
+          "info": {
+            "name": "Slack List Files",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://slack.com/api/files.list",
+            "params": [
+              {
+                "name": "channel",
+                "value": "",
+                "type": "query",
+                "description": "Filter files appearing in a specific channel."
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "ts_from",
+                "value": "",
+                "type": "query",
+                "description": "Filter files created after this timestamp."
+              },
+              {
+                "name": "ts_to",
+                "value": "",
+                "type": "query",
+                "description": "Filter files created before this timestamp."
+              },
+              {
+                "name": "types",
+                "value": "",
+                "type": "query",
+                "description": "Filter files by type: all, spaces, snippets, images, gdocs, zips, pdfs."
+              },
+              {
+                "name": "user",
+                "value": "",
+                "type": "query",
+                "description": "Filter files created by a single user."
+              }
+            ]
+          },
+          "docs": "List files for a team, in a channel, or from a user. Supports filtering and pagination."
+        },
+        {
+          "info": {
+            "name": "Slack Get Information About a File",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://slack.com/api/files.info",
+            "params": [
+              {
+                "name": "file",
+                "value": "",
+                "type": "query",
+                "description": "Specify a file by providing its ID."
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Gets information about a file."
+        },
+        {
+          "info": {
+            "name": "Slack Delete a File",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://slack.com/api/files.delete",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Deletes a file."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Reactions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Slack Add an Emoji Reaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://slack.com/api/reactions.add",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a reaction (emoji) to a message, file, or file comment. Requires reactions:write scope."
+        },
+        {
+          "info": {
+            "name": "Slack Remove an Emoji Reaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://slack.com/api/reactions.remove",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Removes a reaction (emoji) from an item."
+        },
+        {
+          "info": {
+            "name": "Slack Get Reactions for an Item",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://slack.com/api/reactions.get",
+            "params": [
+              {
+                "name": "channel",
+                "value": "",
+                "type": "query",
+                "description": "Channel where the message to get reactions for was posted."
+              },
+              {
+                "name": "file",
+                "value": "",
+                "type": "query",
+                "description": "File to get reactions for."
+              },
+              {
+                "name": "file_comment",
+                "value": "",
+                "type": "query",
+                "description": "File comment to get reactions for."
+              },
+              {
+                "name": "full",
+                "value": "",
+                "type": "query",
+                "description": "If true, return complete reaction list."
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query",
+                "description": "Timestamp of the message to get reactions for."
+              }
+            ]
+          },
+          "docs": "Gets reactions for an item (message, file, or file comment)."
+        },
+        {
+          "info": {
+            "name": "Slack List Reactions Made by a User",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://slack.com/api/reactions.list",
+            "params": [
+              {
+                "name": "count",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "full",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "user",
+                "value": "",
+                "type": "query",
+                "description": "Show reactions made by this user."
+              }
+            ]
+          },
+          "docs": "Lists reactions made by a user. Paginated with cursor-based pagination."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Pins",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Slack Pin a Message",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://slack.com/api/pins.add",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Pins a message to a channel. Requires pins:write scope."
+        },
+        {
+          "info": {
+            "name": "Slack Unpin a Message",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://slack.com/api/pins.remove",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Un-pins a message from a channel."
+        },
+        {
+          "info": {
+            "name": "Slack List Pinned Items",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://slack.com/api/pins.list",
+            "params": [
+              {
+                "name": "channel",
+                "value": "",
+                "type": "query",
+                "description": "Channel to get pinned items for."
+              }
+            ]
+          },
+          "docs": "Lists items pinned to a channel."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Search",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Slack Search for Messages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://slack.com/api/search.messages",
+            "params": [
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "Search query."
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "highlight",
+                "value": "",
+                "type": "query",
+                "description": "Pass a value of true to enable query highlight markers."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Return matches sorted by either score or timestamp."
+              },
+              {
+                "name": "sort_dir",
+                "value": "",
+                "type": "query",
+                "description": "Change sort direction to ascending or descending."
+              }
+            ]
+          },
+          "docs": "Searches for messages matching a query. Supports Slack search modifiers such as in:, from:, has:, before:, after:, and is:thread."
+        },
+        {
+          "info": {
+            "name": "Slack Search for Files",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://slack.com/api/search.files",
+            "params": [
+              {
+                "name": "query",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "highlight",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_dir",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Searches for files matching a query."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Team",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Slack Get Team Information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://slack.com/api/team.info",
+            "params": [
+              {
+                "name": "team",
+                "value": "",
+                "type": "query",
+                "description": "Team to get info about; if omitted, will return information about the current team."
+              }
+            ]
+          },
+          "docs": "Gets information about the current team. Requires team:read scope."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Views",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Slack Open a Modal View",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://slack.com/api/views.open",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Open a view for a user by providing a trigger_id received from a slash command, shortcut, or interactive component."
+        },
+        {
+          "info": {
+            "name": "Slack Update an Existing View",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://slack.com/api/views.update",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing view."
+        },
+        {
+          "info": {
+            "name": "Slack Publish a View to the App Home Tab",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://slack.com/api/views.publish",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Publish a static view for a user to the App Home tab."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Emoji",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Slack List Custom Emoji",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://slack.com/api/emoji.list"
+          },
+          "docs": "Lists custom emoji for a team. Returns a map of emoji name to URL. Requires emoji:read scope."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Reminders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Slack Create a Reminder",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://slack.com/api/reminders.add",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a reminder for a user."
+        },
+        {
+          "info": {
+            "name": "Slack List All Reminders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://slack.com/api/reminders.list"
+          },
+          "docs": "Lists all reminders created by or for a given user."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Bookmarks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Slack Add a Bookmark to a Channel",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://slack.com/api/bookmarks.add",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a bookmark to a channel."
+        },
+        {
+          "info": {
+            "name": "Slack List Bookmarks for a Channel",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://slack.com/api/bookmarks.list",
+            "params": [
+              {
+                "name": "channel_id",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Lists bookmarks for a channel."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Dnd",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Slack Set Snooze Duration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://slack.com/api/dnd.setSnooze",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Turns on Do Not Disturb mode for the current user for the specified number of minutes."
+        },
+        {
+          "info": {
+            "name": "Slack Get Dnd Status for a User",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://slack.com/api/dnd.info",
+            "params": [
+              {
+                "name": "user",
+                "value": "",
+                "type": "query",
+                "description": "User to fetch status for."
+              }
+            ]
+          },
+          "docs": "Retrieves a user's current Do Not Disturb status."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Usergroups",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Slack List All User Groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://slack.com/api/usergroups.list",
+            "params": [
+              {
+                "name": "include_count",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "include_disabled",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "include_users",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List all user groups for a team."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

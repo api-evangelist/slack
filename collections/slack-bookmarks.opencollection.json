@@ -1,0 +1,201 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Slack Bookmarks API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Bookmarks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Add Bookmark",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://slack.com/api/bookmarks.add",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "channel_id",
+                  "value": ""
+                },
+                {
+                  "name": "title",
+                  "value": ""
+                },
+                {
+                  "name": "type",
+                  "value": ""
+                },
+                {
+                  "name": "link",
+                  "value": ""
+                },
+                {
+                  "name": "emoji",
+                  "value": ""
+                },
+                {
+                  "name": "entity_id",
+                  "value": ""
+                }
+              ]
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://slack.com/oauth/v2/authorize",
+              "accessTokenUrl": "https://slack.com/api/oauth.v2.access",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Adds a bookmark to a channel."
+        },
+        {
+          "info": {
+            "name": "Edit Bookmark",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://slack.com/api/bookmarks.edit",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "channel_id",
+                  "value": ""
+                },
+                {
+                  "name": "bookmark_id",
+                  "value": ""
+                },
+                {
+                  "name": "title",
+                  "value": ""
+                },
+                {
+                  "name": "link",
+                  "value": ""
+                },
+                {
+                  "name": "emoji",
+                  "value": ""
+                }
+              ]
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://slack.com/oauth/v2/authorize",
+              "accessTokenUrl": "https://slack.com/api/oauth.v2.access",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Edits an existing bookmark in a channel."
+        },
+        {
+          "info": {
+            "name": "List Bookmarks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://slack.com/api/bookmarks.list",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Authentication token. Requires scope: `bookmarks:read`"
+              },
+              {
+                "name": "channel_id",
+                "value": "",
+                "type": "query",
+                "description": "Channel to list bookmarks for."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://slack.com/oauth/v2/authorize",
+              "accessTokenUrl": "https://slack.com/api/oauth.v2.access",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Lists bookmarks for a channel."
+        },
+        {
+          "info": {
+            "name": "Remove Bookmark",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://slack.com/api/bookmarks.remove",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "channel_id",
+                  "value": ""
+                },
+                {
+                  "name": "bookmark_id",
+                  "value": ""
+                }
+              ]
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://slack.com/oauth/v2/authorize",
+              "accessTokenUrl": "https://slack.com/api/oauth.v2.access",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Removes a bookmark from a channel."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

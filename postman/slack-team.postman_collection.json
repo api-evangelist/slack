@@ -1,0 +1,863 @@
+{
+  "info": {
+    "_postman_id": "2b6e911e-ecc6-4dcd-9e36-3c33c72986c4",
+    "name": "Slack Team API",
+    "description": "Slack\u0019s Team API is the part of the Slack Web API that lets apps read workspace-level (team) information and, for admins, certain audit and billing data. With it, apps can fetch basic workspace identity and metadata (name, domain, icon, enterprise association), discover team preferences and custom profile fields, and, where permitted, retrieve billable info plus access and integration logs for auditing and compliance use cases. This helps apps tailor behavior to a workspace\u0019s settings, build admin dashboards, or automate governance. Access is gated by OAuth scopes (for example, team:read and various admin scopes), and many methods are limited to workspace or org admins; it doesn\u0019t handle messages or individual user data beyond what\u0019s needed to describe the workspace.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T13:19:55.000Z",
+    "updatedAt": "2026-06-05T13:19:56.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-2b6e911e-ecc6-4dcd-9e36-3c33c72986c4"
+  },
+  "item": [
+    {
+      "name": "team.accessLogs",
+      "item": [
+        {
+          "name": "Slack Get Team Accesslogs",
+          "id": "ab4bd3e3-cb80-4a4c-8069-8bf9db7165bc",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/team.accessLogs?token=<string>&before=<string>&count=<string>&page=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "team.accessLogs"
+              ],
+              "query": [
+                {
+                  "description": "(Required) Authentication token. Requires scope: `admin`",
+                  "key": "token",
+                  "value": "<string>"
+                },
+                {
+                  "description": "End of time range of logs to include in results (inclusive).",
+                  "key": "before",
+                  "value": "<string>"
+                },
+                {
+                  "key": "count",
+                  "value": "<string>"
+                },
+                {
+                  "key": "page",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Gets the access logs for the current team."
+          },
+          "response": [
+            {
+              "id": "cedbd203-c803-4c69-a01f-aca13bcf1567",
+              "name": "This response demonstrates pagination and two access log entries.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/team.accessLogs?token=<string>&before=<string>&count=<string>&page=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "team.accessLogs"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Authentication token. Requires scope: `admin`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "End of time range of logs to include in results (inclusive).",
+                      "key": "before",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "count",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"logins\": [],\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  },\n  \"paging\": {\n    \"value\": \"reference #/components/schemas/objs_paging not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:56.000Z",
+              "updatedAt": "2026-06-05T13:19:56.000Z",
+              "uid": "35240-cedbd203-c803-4c69-a01f-aca13bcf1567"
+            },
+            {
+              "id": "65743c94-28d3-4854-b351-8128d3692b9a",
+              "name": "A workspace must be on a paid plan to use this method, otherwise the `paid_only` error is thrown:",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/team.accessLogs?token=<string>&before=<string>&count=<string>&page=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "team.accessLogs"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Authentication token. Requires scope: `admin`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "End of time range of logs to include in results (inclusive).",
+                      "key": "before",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "count",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"invalid_array_arg\",\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  },\n  \"callstack\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:56.000Z",
+              "updatedAt": "2026-06-05T13:19:56.000Z",
+              "uid": "35240-65743c94-28d3-4854-b351-8128d3692b9a"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:56.000Z",
+          "updatedAt": "2026-06-05T13:19:56.000Z",
+          "uid": "35240-ab4bd3e3-cb80-4a4c-8069-8bf9db7165bc"
+        }
+      ],
+      "id": "bd105a3b-6d24-4159-9777-e58e9fb06f30",
+      "createdAt": "2026-06-05T13:19:56.000Z",
+      "updatedAt": "2026-06-05T13:19:56.000Z",
+      "uid": "35240-bd105a3b-6d24-4159-9777-e58e9fb06f30"
+    },
+    {
+      "name": "team.billableInfo",
+      "item": [
+        {
+          "name": "Slack Get Team Billableinfo",
+          "id": "b7d1405a-bacb-4c3b-a4d3-a61358782fb0",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/team.billableInfo?token=<string>&user=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "team.billableInfo"
+              ],
+              "query": [
+                {
+                  "description": "(Required) Authentication token. Requires scope: `admin`",
+                  "key": "token",
+                  "value": "<string>"
+                },
+                {
+                  "description": "A user to retrieve the billable information for. Defaults to all users.",
+                  "key": "user",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Gets billable users information for the current team."
+          },
+          "response": [
+            {
+              "id": "05f4e7fb-9350-471a-a544-b05189d124bf",
+              "name": "Typical success response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/team.billableInfo?token=<string>&user=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "team.billableInfo"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Authentication token. Requires scope: `admin`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "A user to retrieve the billable information for. Defaults to all users.",
+                      "key": "user",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:56.000Z",
+              "updatedAt": "2026-06-05T13:19:56.000Z",
+              "uid": "35240-05f4e7fb-9350-471a-a544-b05189d124bf"
+            },
+            {
+              "id": "ae02af54-cc29-4def-9c31-412e9c7e5fc1",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/team.billableInfo?token=<string>&user=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "team.billableInfo"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Authentication token. Requires scope: `admin`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "A user to retrieve the billable information for. Defaults to all users.",
+                      "key": "user",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:56.000Z",
+              "updatedAt": "2026-06-05T13:19:56.000Z",
+              "uid": "35240-ae02af54-cc29-4def-9c31-412e9c7e5fc1"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:56.000Z",
+          "updatedAt": "2026-06-05T13:19:56.000Z",
+          "uid": "35240-b7d1405a-bacb-4c3b-a4d3-a61358782fb0"
+        }
+      ],
+      "id": "59b10ce7-a0be-4415-b56b-71bcf95677e4",
+      "createdAt": "2026-06-05T13:19:56.000Z",
+      "updatedAt": "2026-06-05T13:19:56.000Z",
+      "uid": "35240-59b10ce7-a0be-4415-b56b-71bcf95677e4"
+    },
+    {
+      "name": "team.info",
+      "item": [
+        {
+          "name": "Slack Get Team Info",
+          "id": "31483ccc-df53-4e7a-85c3-7277f9528ac3",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/team.info?token=<string>&team=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "team.info"
+              ],
+              "query": [
+                {
+                  "description": "(Required) Authentication token. Requires scope: `team:read`",
+                  "key": "token",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Team to get info on, if omitted, will return information about the current team. Will only return team that the authenticated token is allowed to see through external shared channels",
+                  "key": "team",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Gets information about the current team."
+          },
+          "response": [
+            {
+              "id": "1b7326a9-b150-48fc-9613-2be966e31845",
+              "name": "Typical success response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/team.info?token=<string>&team=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "team.info"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Authentication token. Requires scope: `team:read`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Team to get info on, if omitted, will return information about the current team. Will only return team that the authenticated token is allowed to see through external shared channels",
+                      "key": "team",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  },\n  \"team\": {\n    \"value\": \"reference #/components/schemas/objs_team not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:56.000Z",
+              "updatedAt": "2026-06-05T13:19:56.000Z",
+              "uid": "35240-1b7326a9-b150-48fc-9613-2be966e31845"
+            },
+            {
+              "id": "9f86370f-1e9f-482b-91b9-8ef14073265e",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/team.info?token=<string>&team=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "team.info"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Authentication token. Requires scope: `team:read`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Team to get info on, if omitted, will return information about the current team. Will only return team that the authenticated token is allowed to see through external shared channels",
+                      "key": "team",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"invalid_post_type\",\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  },\n  \"callstack\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:56.000Z",
+              "updatedAt": "2026-06-05T13:19:56.000Z",
+              "uid": "35240-9f86370f-1e9f-482b-91b9-8ef14073265e"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:56.000Z",
+          "updatedAt": "2026-06-05T13:19:56.000Z",
+          "uid": "35240-31483ccc-df53-4e7a-85c3-7277f9528ac3"
+        }
+      ],
+      "id": "554aedbf-724a-4f7a-bbd4-c0cd691d0c81",
+      "createdAt": "2026-06-05T13:19:56.000Z",
+      "updatedAt": "2026-06-05T13:19:56.000Z",
+      "uid": "35240-554aedbf-724a-4f7a-bbd4-c0cd691d0c81"
+    },
+    {
+      "name": "team.integrationLogs",
+      "item": [
+        {
+          "name": "Slack Get Team Integrationlogs",
+          "id": "3e8bc71e-a133-4476-9151-8865a79494ac",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/team.integrationLogs?token=<string>&app_id=<string>&change_type=<string>&count=<string>&page=<string>&service_id=<string>&user=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "team.integrationLogs"
+              ],
+              "query": [
+                {
+                  "description": "(Required) Authentication token. Requires scope: `admin`",
+                  "key": "token",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Filter logs to this Slack app. Defaults to all logs.",
+                  "key": "app_id",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Filter logs with this change type. Defaults to all logs.",
+                  "key": "change_type",
+                  "value": "<string>"
+                },
+                {
+                  "key": "count",
+                  "value": "<string>"
+                },
+                {
+                  "key": "page",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Filter logs to this service. Defaults to all logs.",
+                  "key": "service_id",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Filter logs generated by this users actions. Defaults to all logs.",
+                  "key": "user",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Gets the integration logs for the current team."
+          },
+          "response": [
+            {
+              "id": "dda6fb75-30b6-4c53-aaff-9d0bba77befd",
+              "name": "Typical success response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/team.integrationLogs?token=<string>&app_id=<string>&change_type=<string>&count=<string>&page=<string>&service_id=<string>&user=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "team.integrationLogs"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Authentication token. Requires scope: `admin`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter logs to this Slack app. Defaults to all logs.",
+                      "key": "app_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter logs with this change type. Defaults to all logs.",
+                      "key": "change_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "count",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter logs to this service. Defaults to all logs.",
+                      "key": "service_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter logs generated by this users actions. Defaults to all logs.",
+                      "key": "user",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"logs\": [],\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  },\n  \"paging\": {\n    \"value\": \"reference #/components/schemas/objs_paging not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:56.000Z",
+              "updatedAt": "2026-06-05T13:19:56.000Z",
+              "uid": "35240-dda6fb75-30b6-4c53-aaff-9d0bba77befd"
+            },
+            {
+              "id": "16a8ae08-3f3a-428c-9371-6b12d5ddf3c1",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/team.integrationLogs?token=<string>&app_id=<string>&change_type=<string>&count=<string>&page=<string>&service_id=<string>&user=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "team.integrationLogs"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Authentication token. Requires scope: `admin`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter logs to this Slack app. Defaults to all logs.",
+                      "key": "app_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter logs with this change type. Defaults to all logs.",
+                      "key": "change_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "count",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter logs to this service. Defaults to all logs.",
+                      "key": "service_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter logs generated by this users actions. Defaults to all logs.",
+                      "key": "user",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"not_authed\",\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  },\n  \"callstack\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:56.000Z",
+              "updatedAt": "2026-06-05T13:19:56.000Z",
+              "uid": "35240-16a8ae08-3f3a-428c-9371-6b12d5ddf3c1"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:56.000Z",
+          "updatedAt": "2026-06-05T13:19:56.000Z",
+          "uid": "35240-3e8bc71e-a133-4476-9151-8865a79494ac"
+        }
+      ],
+      "id": "e7810d05-c4f2-45dd-b689-6796c6fa7ac9",
+      "createdAt": "2026-06-05T13:19:56.000Z",
+      "updatedAt": "2026-06-05T13:19:56.000Z",
+      "uid": "35240-e7810d05-c4f2-45dd-b689-6796c6fa7ac9"
+    },
+    {
+      "name": "team.profile.get",
+      "item": [
+        {
+          "name": "Slack Get Team Profile Get",
+          "id": "1c38ec61-6d62-403f-b681-f420e66314c8",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/team.profile.get?token=<string>&visibility=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "team.profile.get"
+              ],
+              "query": [
+                {
+                  "description": "(Required) Authentication token. Requires scope: `users.profile:read`",
+                  "key": "token",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Filter by visibility.",
+                  "key": "visibility",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Retrieve a team's profile."
+          },
+          "response": [
+            {
+              "id": "0cc19904-9303-4ec2-aaee-78d97df6e08b",
+              "name": "Typical success response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/team.profile.get?token=<string>&visibility=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "team.profile.get"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Authentication token. Requires scope: `users.profile:read`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter by visibility.",
+                      "key": "visibility",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  },\n  \"profile\": {}\n}",
+              "createdAt": "2026-06-05T13:19:56.000Z",
+              "updatedAt": "2026-06-05T13:19:56.000Z",
+              "uid": "35240-0cc19904-9303-4ec2-aaee-78d97df6e08b"
+            },
+            {
+              "id": "38140443-850c-4274-81ad-df116a581a16",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/team.profile.get?token=<string>&visibility=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "team.profile.get"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Authentication token. Requires scope: `users.profile:read`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter by visibility.",
+                      "key": "visibility",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"invalid_auth\",\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  },\n  \"callstack\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:56.000Z",
+              "updatedAt": "2026-06-05T13:19:56.000Z",
+              "uid": "35240-38140443-850c-4274-81ad-df116a581a16"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:56.000Z",
+          "updatedAt": "2026-06-05T13:19:56.000Z",
+          "uid": "35240-1c38ec61-6d62-403f-b681-f420e66314c8"
+        }
+      ],
+      "id": "9d380af5-b42d-4e78-8517-c7d513f7f153",
+      "createdAt": "2026-06-05T13:19:56.000Z",
+      "updatedAt": "2026-06-05T13:19:56.000Z",
+      "uid": "35240-9d380af5-b42d-4e78-8517-c7d513f7f153"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "/"
+    }
+  ]
+}

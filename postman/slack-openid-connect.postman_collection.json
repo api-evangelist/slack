@@ -1,0 +1,421 @@
+{
+  "info": {
+    "_postman_id": "3c034299-84af-4f9e-86a5-91ce32f52ec5",
+    "name": "Slack OpenID Connect API",
+    "description": "The Slack OpenID Connect API implements the Sign in with Slack flow based on the OpenID Connect standard built on top of OAuth 2.0. It includes openid.connect.token for exchanging an authorization code for an access token and a standard JWT id_token, and openid.connect.userInfo for retrieving identity information about a user who has authenticated via Sign in with Slack.\n\nContact Support:\n Name: Slack Developer Relations",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T13:19:47.000Z",
+    "updatedAt": "2026-06-05T13:19:48.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-3c034299-84af-4f9e-86a5-91ce32f52ec5"
+  },
+  "item": [
+    {
+      "name": "openid.connect.token",
+      "item": [
+        {
+          "name": "Exchange OpenID Connect Token",
+          "id": "2e333093-2d6b-495c-8004-588b04a68aa2",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "description": "(Required) The Slack app's client ID.",
+                  "key": "client_id",
+                  "value": "<string>"
+                },
+                {
+                  "description": "(Required) The Slack app's client secret.",
+                  "key": "client_secret",
+                  "value": "<string>"
+                },
+                {
+                  "description": "(Required) The authorization code received from the Sign in with Slack flow.",
+                  "key": "code",
+                  "value": "<string>"
+                },
+                {
+                  "description": "The redirect URI that was used in the authorization request.",
+                  "key": "redirect_uri",
+                  "value": "<string>"
+                },
+                {
+                  "description": "The grant type, must be \"authorization_code\".",
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                },
+                {
+                  "description": "The refresh token, required when grant_type is refresh_token.",
+                  "key": "refresh_token",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/openid.connect.token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "openid.connect.token"
+              ]
+            },
+            "description": "Exchanges an authorization code for an OpenID Connect access token and ID token."
+          },
+          "response": [
+            {
+              "id": "6efb7efa-7629-49a1-bff0-fcb70cc47e4f",
+              "name": "Successful response with tokens",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) The Slack app's client ID.",
+                      "key": "client_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) The Slack app's client secret.",
+                      "key": "client_secret",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) The authorization code received from the Sign in with Slack flow.",
+                      "key": "code",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The redirect URI that was used in the authorization request.",
+                      "key": "redirect_uri",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The grant type, must be \"authorization_code\".",
+                      "key": "grant_type",
+                      "value": "authorization_code"
+                    },
+                    {
+                      "description": "The refresh token, required when grant_type is refresh_token.",
+                      "key": "refresh_token",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/openid.connect.token",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "openid.connect.token"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": \"<boolean>\",\n  \"access_token\": \"<string>\",\n  \"token_type\": \"<string>\",\n  \"id_token\": \"<string>\",\n  \"refresh_token\": \"<string>\",\n  \"expires_in\": \"<integer>\"\n}",
+              "createdAt": "2026-06-05T13:19:48.000Z",
+              "updatedAt": "2026-06-05T13:19:48.000Z",
+              "uid": "35240-6efb7efa-7629-49a1-bff0-fcb70cc47e4f"
+            },
+            {
+              "id": "d18849c8-8fb1-4efd-b094-676b90440007",
+              "name": "Error response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) The Slack app's client ID.",
+                      "key": "client_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) The Slack app's client secret.",
+                      "key": "client_secret",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) The authorization code received from the Sign in with Slack flow.",
+                      "key": "code",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The redirect URI that was used in the authorization request.",
+                      "key": "redirect_uri",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The grant type, must be \"authorization_code\".",
+                      "key": "grant_type",
+                      "value": "authorization_code"
+                    },
+                    {
+                      "description": "The refresh token, required when grant_type is refresh_token.",
+                      "key": "refresh_token",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/openid.connect.token",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "openid.connect.token"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": \"<boolean>\",\n  \"error\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:48.000Z",
+              "updatedAt": "2026-06-05T13:19:48.000Z",
+              "uid": "35240-d18849c8-8fb1-4efd-b094-676b90440007"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:48.000Z",
+          "updatedAt": "2026-06-05T13:19:48.000Z",
+          "uid": "35240-2e333093-2d6b-495c-8004-588b04a68aa2"
+        }
+      ],
+      "id": "ee1db623-c1a5-4d02-aa25-b64d599ff523",
+      "createdAt": "2026-06-05T13:19:48.000Z",
+      "updatedAt": "2026-06-05T13:19:48.000Z",
+      "uid": "35240-ee1db623-c1a5-4d02-aa25-b64d599ff523"
+    },
+    {
+      "name": "openid.connect.userInfo",
+      "item": [
+        {
+          "name": "Get OpenID Connect User Info",
+          "id": "8039c344-c69e-4256-82f5-72b7950057a4",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "openid email profile",
+                  "type": "string"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://slack.com/api/openid.connect.token",
+                  "type": "string"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://slack.com/openid/connect/authorize",
+                  "type": "string"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/openid.connect.userInfo?token=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "openid.connect.userInfo"
+              ],
+              "query": [
+                {
+                  "description": "(Required) OpenID Connect access token.",
+                  "key": "token",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Retrieves identity information about a user authenticated via Sign in with Slack."
+          },
+          "response": [
+            {
+              "id": "81d8bd0f-c8ff-4176-ad9c-8896bd9f61b8",
+              "name": "Successful response with user identity",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/openid.connect.userInfo?token=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "openid.connect.userInfo"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) OpenID Connect access token.",
+                      "key": "token",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": \"<boolean>\",\n  \"sub\": \"<string>\",\n  \"https://slack.com/user_id\": \"<string>\",\n  \"https://slack.com/team_id\": \"<string>\",\n  \"email\": \"<string>\",\n  \"email_verified\": \"<boolean>\",\n  \"name\": \"<string>\",\n  \"picture\": \"<string>\",\n  \"given_name\": \"<string>\",\n  \"family_name\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:48.000Z",
+              "updatedAt": "2026-06-05T13:19:48.000Z",
+              "uid": "35240-81d8bd0f-c8ff-4176-ad9c-8896bd9f61b8"
+            },
+            {
+              "id": "52770b8d-e2dc-41ac-a0d5-62f26a8c20ea",
+              "name": "Error response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/openid.connect.userInfo?token=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "openid.connect.userInfo"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) OpenID Connect access token.",
+                      "key": "token",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": \"<boolean>\",\n  \"error\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:48.000Z",
+              "updatedAt": "2026-06-05T13:19:48.000Z",
+              "uid": "35240-52770b8d-e2dc-41ac-a0d5-62f26a8c20ea"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:48.000Z",
+          "updatedAt": "2026-06-05T13:19:48.000Z",
+          "uid": "35240-8039c344-c69e-4256-82f5-72b7950057a4"
+        }
+      ],
+      "id": "4574cd66-81fd-4c61-b4e6-fb66d8810312",
+      "createdAt": "2026-06-05T13:19:48.000Z",
+      "updatedAt": "2026-06-05T13:19:48.000Z",
+      "uid": "35240-4574cd66-81fd-4c61-b4e6-fb66d8810312"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://slack.com/api"
+    }
+  ]
+}

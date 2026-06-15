@@ -1,0 +1,185 @@
+{
+  "info": {
+    "_postman_id": "5161ac19-185e-4dd7-ae46-a67febd487bc",
+    "name": "Slack Dialog API",
+    "description": "Slack\u0019s Dialog API lets apps open form-like popups inside Slack to collect structured input from users. Apps trigger a dialog (often from a slash command, message action, or interactive message) by calling dialog.open with a short-lived trigger_id, then present fields like text inputs, textareas, and select menus (including dynamic, server-powered options). When users submit or cancel, Slack sends a dialog_submission or dialog_cancellation payload to the app, which can validate inputs and send dialog_errors for inline feedback before completing the workflow. Dialogs are ephemeral to the user and well-suited for tasks like creating tickets, requesting PTO, or gathering parameters. Note: Slack now recommends using Block Kit modals via the Views API, which supersede legacy dialogs.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T13:19:19.000Z",
+    "updatedAt": "2026-06-05T13:19:20.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-5161ac19-185e-4dd7-ae46-a67febd487bc"
+  },
+  "item": [
+    {
+      "name": "dialog.open",
+      "item": [
+        {
+          "name": "Slack Get Dialog Open",
+          "id": "ba186a92-f66b-49c2-b7e6-e2a7498b123b",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "description": "(Required) Authentication token. Requires scope: `none`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/dialog.open?dialog=<string>&trigger_id=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "dialog.open"
+              ],
+              "query": [
+                {
+                  "description": "(Required) The dialog definition. This must be a JSON-encoded string.",
+                  "key": "dialog",
+                  "value": "<string>"
+                },
+                {
+                  "description": "(Required) Exchange a trigger to post to the user.",
+                  "key": "trigger_id",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Open a dialog with a user"
+          },
+          "response": [
+            {
+              "id": "cfbedf42-58fe-4ad1-a289-a710f9bb342d",
+              "name": "Typical success response is quite minimal.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `none`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/dialog.open?dialog=<string>&trigger_id=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "dialog.open"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The dialog definition. This must be a JSON-encoded string.",
+                      "key": "dialog",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) Exchange a trigger to post to the user.",
+                      "key": "trigger_id",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:20.000Z",
+              "updatedAt": "2026-06-05T13:19:20.000Z",
+              "uid": "35240-cfbedf42-58fe-4ad1-a289-a710f9bb342d"
+            },
+            {
+              "id": "96cc5b1b-be9d-44ad-aab3-cd41e3ecb34d",
+              "name": "Typical error response, before getting to any possible validation errors.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `none`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/dialog.open?dialog=<string>&trigger_id=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "dialog.open"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The dialog definition. This must be a JSON-encoded string.",
+                      "key": "dialog",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) Exchange a trigger to post to the user.",
+                      "key": "trigger_id",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"org_login_required\",\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  },\n  \"callstack\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:20.000Z",
+              "updatedAt": "2026-06-05T13:19:20.000Z",
+              "uid": "35240-96cc5b1b-be9d-44ad-aab3-cd41e3ecb34d"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:20.000Z",
+          "updatedAt": "2026-06-05T13:19:20.000Z",
+          "uid": "35240-ba186a92-f66b-49c2-b7e6-e2a7498b123b"
+        }
+      ],
+      "id": "dc2f5669-09e2-42d9-b11a-007a08703dbd",
+      "createdAt": "2026-06-05T13:19:20.000Z",
+      "updatedAt": "2026-06-05T13:19:20.000Z",
+      "uid": "35240-dc2f5669-09e2-42d9-b11a-007a08703dbd"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "/"
+    }
+  ]
+}

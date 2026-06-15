@@ -1,0 +1,641 @@
+{
+  "info": {
+    "_postman_id": "72ef423f-ba5d-4f54-8afe-191b93cfac86",
+    "name": "Slack Stars API",
+    "description": "The Slack Stars API is a set of Web API methods that let apps manage a user\u0019s starred items\u0014Slack\u0019s legacy personal bookmarking feature. It allows adding or removing a star on items such as messages (via channel and timestamp), files, and file comments, and listing all items a user has starred, typically with pagination and basic metadata. Stars are user-specific and don\u0019t alter the underlying content; they simply mark things for quick reference. Note that Slack has moved toward Saved items and other mechanisms in the client, and the stars.* methods have been deprecated, so availability and support may be limited.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T13:19:54.000Z",
+    "updatedAt": "2026-06-05T13:19:55.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-72ef423f-ba5d-4f54-8afe-191b93cfac86"
+  },
+  "item": [
+    {
+      "name": "stars.add",
+      "item": [
+        {
+          "name": "Slack Post Stars Add",
+          "id": "4a7bc3e6-0745-46c0-9dff-5c26d71b156b",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "(Required) Authentication token. Requires scope: `stars:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "description": "Channel to add star to, or channel where the message to add star to was posted (used with `timestamp`).",
+                  "key": "channel",
+                  "value": "<string>"
+                },
+                {
+                  "description": "File to add star to.",
+                  "key": "file",
+                  "value": "<string>"
+                },
+                {
+                  "description": "File comment to add star to.",
+                  "key": "file_comment",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Timestamp of the message to add star to.",
+                  "key": "timestamp",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/stars.add",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "stars.add"
+              ]
+            },
+            "description": "Adds a star to an item."
+          },
+          "response": [
+            {
+              "id": "fb3c5990-1374-4545-8690-4b0957d3ded4",
+              "name": "Typical success response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `stars:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "Channel to add star to, or channel where the message to add star to was posted (used with `timestamp`).",
+                      "key": "channel",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "File to add star to.",
+                      "key": "file",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "File comment to add star to.",
+                      "key": "file_comment",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Timestamp of the message to add star to.",
+                      "key": "timestamp",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/stars.add",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "stars.add"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:55.000Z",
+              "updatedAt": "2026-06-05T13:19:55.000Z",
+              "uid": "35240-fb3c5990-1374-4545-8690-4b0957d3ded4"
+            },
+            {
+              "id": "e290d21d-2d7d-44f2-9192-2df72c8dd1eb",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `stars:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "Channel to add star to, or channel where the message to add star to was posted (used with `timestamp`).",
+                      "key": "channel",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "File to add star to.",
+                      "key": "file",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "File comment to add star to.",
+                      "key": "file_comment",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Timestamp of the message to add star to.",
+                      "key": "timestamp",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/stars.add",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "stars.add"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"invalid_arg_name\",\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  },\n  \"callstack\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:55.000Z",
+              "updatedAt": "2026-06-05T13:19:55.000Z",
+              "uid": "35240-e290d21d-2d7d-44f2-9192-2df72c8dd1eb"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:55.000Z",
+          "updatedAt": "2026-06-05T13:19:55.000Z",
+          "uid": "35240-4a7bc3e6-0745-46c0-9dff-5c26d71b156b"
+        }
+      ],
+      "id": "d1bc3441-645f-4ff8-8fd6-de8d7c9a3183",
+      "createdAt": "2026-06-05T13:19:55.000Z",
+      "updatedAt": "2026-06-05T13:19:55.000Z",
+      "uid": "35240-d1bc3441-645f-4ff8-8fd6-de8d7c9a3183"
+    },
+    {
+      "name": "stars.list",
+      "item": [
+        {
+          "name": "Slack Get Stars List",
+          "id": "9fc6cea9-6363-4ffc-bbaf-325344d13967",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/stars.list?token=<string>&count=<string>&page=<string>&cursor=<string>&limit=<integer>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "stars.list"
+              ],
+              "query": [
+                {
+                  "description": "Authentication token. Requires scope: `stars:read`",
+                  "key": "token",
+                  "value": "<string>"
+                },
+                {
+                  "key": "count",
+                  "value": "<string>"
+                },
+                {
+                  "key": "page",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Parameter for pagination. Set `cursor` equal to the `next_cursor` attribute returned by the previous request's `response_metadata`. This parameter is optional, but pagination is mandatory: the default value simply fetches the first \"page\" of the collection. See [pagination](/docs/pagination) for more details.",
+                  "key": "cursor",
+                  "value": "<string>"
+                },
+                {
+                  "description": "The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the list hasn't been reached.",
+                  "key": "limit",
+                  "value": "<integer>"
+                }
+              ]
+            },
+            "description": "Lists stars for a user."
+          },
+          "response": [
+            {
+              "id": "33c210ef-8708-4463-8d2c-a81e3a64e5bf",
+              "name": "Typical success response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/stars.list?token=<string>&count=<string>&page=<string>&cursor=<string>&limit=<integer>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "stars.list"
+                  ],
+                  "query": [
+                    {
+                      "description": "Authentication token. Requires scope: `stars:read`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "count",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Parameter for pagination. Set `cursor` equal to the `next_cursor` attribute returned by the previous request's `response_metadata`. This parameter is optional, but pagination is mandatory: the default value simply fetches the first \"page\" of the collection. See [pagination](/docs/pagination) for more details.",
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the list hasn't been reached.",
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"items\": [],\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  },\n  \"paging\": {\n    \"value\": \"reference #/components/schemas/objs_paging not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:55.000Z",
+              "updatedAt": "2026-06-05T13:19:55.000Z",
+              "uid": "35240-33c210ef-8708-4463-8d2c-a81e3a64e5bf"
+            },
+            {
+              "id": "ffc07113-40a9-4060-bf71-aa63d740e1f8",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/stars.list?token=<string>&count=<string>&page=<string>&cursor=<string>&limit=<integer>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "stars.list"
+                  ],
+                  "query": [
+                    {
+                      "description": "Authentication token. Requires scope: `stars:read`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "count",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Parameter for pagination. Set `cursor` equal to the `next_cursor` attribute returned by the previous request's `response_metadata`. This parameter is optional, but pagination is mandatory: the default value simply fetches the first \"page\" of the collection. See [pagination](/docs/pagination) for more details.",
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the list hasn't been reached.",
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"account_inactive\",\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  },\n  \"callstack\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:55.000Z",
+              "updatedAt": "2026-06-05T13:19:55.000Z",
+              "uid": "35240-ffc07113-40a9-4060-bf71-aa63d740e1f8"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:55.000Z",
+          "updatedAt": "2026-06-05T13:19:55.000Z",
+          "uid": "35240-9fc6cea9-6363-4ffc-bbaf-325344d13967"
+        }
+      ],
+      "id": "b636dcbf-552c-4d2e-ab99-c0370a1e187c",
+      "createdAt": "2026-06-05T13:19:55.000Z",
+      "updatedAt": "2026-06-05T13:19:55.000Z",
+      "uid": "35240-b636dcbf-552c-4d2e-ab99-c0370a1e187c"
+    },
+    {
+      "name": "stars.remove",
+      "item": [
+        {
+          "name": "Slack Post Stars Remove",
+          "id": "91e6ed0b-8dcb-4a1b-a13e-c13e8667b47e",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "(Required) Authentication token. Requires scope: `stars:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "description": "Channel to remove star from, or channel where the message to remove star from was posted (used with `timestamp`).",
+                  "key": "channel",
+                  "value": "<string>"
+                },
+                {
+                  "description": "File to remove star from.",
+                  "key": "file",
+                  "value": "<string>"
+                },
+                {
+                  "description": "File comment to remove star from.",
+                  "key": "file_comment",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Timestamp of the message to remove star from.",
+                  "key": "timestamp",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/stars.remove",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "stars.remove"
+              ]
+            },
+            "description": "Removes a star from an item."
+          },
+          "response": [
+            {
+              "id": "a535168e-929c-4cea-94af-c48493ec9169",
+              "name": "Typical success response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `stars:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "Channel to remove star from, or channel where the message to remove star from was posted (used with `timestamp`).",
+                      "key": "channel",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "File to remove star from.",
+                      "key": "file",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "File comment to remove star from.",
+                      "key": "file_comment",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Timestamp of the message to remove star from.",
+                      "key": "timestamp",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/stars.remove",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "stars.remove"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:55.000Z",
+              "updatedAt": "2026-06-05T13:19:55.000Z",
+              "uid": "35240-a535168e-929c-4cea-94af-c48493ec9169"
+            },
+            {
+              "id": "f252c6a0-db56-4eb6-99cf-52c2c0c2b273",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `stars:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "Channel to remove star from, or channel where the message to remove star from was posted (used with `timestamp`).",
+                      "key": "channel",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "File to remove star from.",
+                      "key": "file",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "File comment to remove star from.",
+                      "key": "file_comment",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Timestamp of the message to remove star from.",
+                      "key": "timestamp",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/stars.remove",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "stars.remove"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"org_login_required\",\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  },\n  \"callstack\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:55.000Z",
+              "updatedAt": "2026-06-05T13:19:55.000Z",
+              "uid": "35240-f252c6a0-db56-4eb6-99cf-52c2c0c2b273"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:55.000Z",
+          "updatedAt": "2026-06-05T13:19:55.000Z",
+          "uid": "35240-91e6ed0b-8dcb-4a1b-a13e-c13e8667b47e"
+        }
+      ],
+      "id": "3b0f1fa9-b855-4cce-8297-f35a8ab996d7",
+      "createdAt": "2026-06-05T13:19:55.000Z",
+      "updatedAt": "2026-06-05T13:19:55.000Z",
+      "uid": "35240-3b0f1fa9-b855-4cce-8297-f35a8ab996d7"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "/"
+    }
+  ]
+}

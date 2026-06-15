@@ -1,0 +1,1280 @@
+{
+  "info": {
+    "_postman_id": "c2c95b5c-f9cd-4a6d-9b67-69113419ca43",
+    "name": "Slack Lists API",
+    "description": "The Slack Lists API provides methods for programmatically creating and managing Lists, a structured data surface in Slack for tracking work items, tasks, and records. Methods include slackLists.create and slackLists.update for managing lists, slackLists.items.create, slackLists.items.update, slackLists.items.delete, and slackLists.items.deleteMultiple for managing individual records, slackLists.items.list and slackLists.items.info for retrieving records, and slackLists.download.start for exporting list data.\n\nContact Support:\n Name: Slack Developer Relations",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T13:19:44.000Z",
+    "updatedAt": "2026-06-05T13:19:44.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-c2c95b5c-f9cd-4a6d-9b67-69113419ca43"
+  },
+  "item": [
+    {
+      "name": "slackLists.create",
+      "item": [
+        {
+          "name": "Create List",
+          "id": "ea6f4b33-dad9-4507-8b8a-d4ab61a5b188",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "lists:read lists:write",
+                  "type": "string"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://slack.com/api/oauth.v2.access",
+                  "type": "string"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://slack.com/oauth/v2/authorize",
+                  "type": "string"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "description": "(Required) Authentication token. Requires scope: `lists:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"<string>\",\n  \"channel_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/slackLists.create",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "slackLists.create"
+              ]
+            },
+            "description": "Creates a new Slack List for tracking work items, tasks, or records."
+          },
+          "response": [
+            {
+              "id": "1e31029f-39d2-4aa1-959d-66fa1c649e14",
+              "name": "Successful response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `lists:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"channel_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/slackLists.create",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "slackLists.create"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": \"<boolean>\",\n  \"list\": {}\n}",
+              "createdAt": "2026-06-05T13:19:44.000Z",
+              "updatedAt": "2026-06-05T13:19:44.000Z",
+              "uid": "35240-1e31029f-39d2-4aa1-959d-66fa1c649e14"
+            },
+            {
+              "id": "d24d2ba0-5f48-408a-a8c9-29a66c617392",
+              "name": "Error response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `lists:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"channel_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/slackLists.create",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "slackLists.create"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": \"<boolean>\",\n  \"error\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:44.000Z",
+              "updatedAt": "2026-06-05T13:19:44.000Z",
+              "uid": "35240-d24d2ba0-5f48-408a-a8c9-29a66c617392"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:44.000Z",
+          "updatedAt": "2026-06-05T13:19:44.000Z",
+          "uid": "35240-ea6f4b33-dad9-4507-8b8a-d4ab61a5b188"
+        }
+      ],
+      "id": "34b7d31c-3a76-4e4a-a9ad-2c68cbe38277",
+      "createdAt": "2026-06-05T13:19:44.000Z",
+      "updatedAt": "2026-06-05T13:19:44.000Z",
+      "uid": "35240-34b7d31c-3a76-4e4a-a9ad-2c68cbe38277"
+    },
+    {
+      "name": "slackLists.update",
+      "item": [
+        {
+          "name": "Update List",
+          "id": "5a7dfc0f-c961-4dab-b7a9-e659f04466e0",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "lists:read lists:write",
+                  "type": "string"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://slack.com/api/oauth.v2.access",
+                  "type": "string"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://slack.com/oauth/v2/authorize",
+                  "type": "string"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "description": "(Required) Authentication token. Requires scope: `lists:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"list_id\": \"<string>\",\n  \"title\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/slackLists.update",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "slackLists.update"
+              ]
+            },
+            "description": "Updates an existing Slack List's title or column configuration."
+          },
+          "response": [
+            {
+              "id": "c791e06f-55df-460f-9fa6-10765e9673d0",
+              "name": "Successful response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `lists:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"list_id\": \"<string>\",\n  \"title\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/slackLists.update",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "slackLists.update"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": \"<boolean>\"\n}",
+              "createdAt": "2026-06-05T13:19:44.000Z",
+              "updatedAt": "2026-06-05T13:19:44.000Z",
+              "uid": "35240-c791e06f-55df-460f-9fa6-10765e9673d0"
+            },
+            {
+              "id": "8d8109ed-d8b5-49c9-a2a9-f4d28d6b241d",
+              "name": "Error response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `lists:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"list_id\": \"<string>\",\n  \"title\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/slackLists.update",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "slackLists.update"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": \"<boolean>\",\n  \"error\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:44.000Z",
+              "updatedAt": "2026-06-05T13:19:44.000Z",
+              "uid": "35240-8d8109ed-d8b5-49c9-a2a9-f4d28d6b241d"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:44.000Z",
+          "updatedAt": "2026-06-05T13:19:44.000Z",
+          "uid": "35240-5a7dfc0f-c961-4dab-b7a9-e659f04466e0"
+        }
+      ],
+      "id": "3b44d795-e71f-4717-86d2-f9ef73ac0064",
+      "createdAt": "2026-06-05T13:19:44.000Z",
+      "updatedAt": "2026-06-05T13:19:44.000Z",
+      "uid": "35240-3b44d795-e71f-4717-86d2-f9ef73ac0064"
+    },
+    {
+      "name": "slackLists.items.create",
+      "item": [
+        {
+          "name": "Create List Item",
+          "id": "35ab6eda-7bc2-45aa-838b-3e9c909fe699",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "lists:read lists:write",
+                  "type": "string"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://slack.com/api/oauth.v2.access",
+                  "type": "string"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://slack.com/oauth/v2/authorize",
+                  "type": "string"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "description": "(Required) Authentication token. Requires scope: `lists:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"list_id\": \"<string>\",\n  \"column_values\": {}\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/slackLists.items.create",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "slackLists.items.create"
+              ]
+            },
+            "description": "Creates a new item (row) in a Slack List."
+          },
+          "response": [
+            {
+              "id": "d34b6b9d-209e-43c1-986d-c1d21f7bd17e",
+              "name": "Successful response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `lists:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"list_id\": \"<string>\",\n  \"column_values\": {}\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/slackLists.items.create",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "slackLists.items.create"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": \"<boolean>\",\n  \"item\": {}\n}",
+              "createdAt": "2026-06-05T13:19:44.000Z",
+              "updatedAt": "2026-06-05T13:19:44.000Z",
+              "uid": "35240-d34b6b9d-209e-43c1-986d-c1d21f7bd17e"
+            },
+            {
+              "id": "14d8cc93-4e5a-4581-b6d5-ab01e5ac9af5",
+              "name": "Error response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `lists:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"list_id\": \"<string>\",\n  \"column_values\": {}\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/slackLists.items.create",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "slackLists.items.create"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": \"<boolean>\",\n  \"error\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:44.000Z",
+              "updatedAt": "2026-06-05T13:19:44.000Z",
+              "uid": "35240-14d8cc93-4e5a-4581-b6d5-ab01e5ac9af5"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:44.000Z",
+          "updatedAt": "2026-06-05T13:19:44.000Z",
+          "uid": "35240-35ab6eda-7bc2-45aa-838b-3e9c909fe699"
+        }
+      ],
+      "id": "e6e9b613-8b90-4d5b-bf7a-5a3f72df89bf",
+      "createdAt": "2026-06-05T13:19:44.000Z",
+      "updatedAt": "2026-06-05T13:19:44.000Z",
+      "uid": "35240-e6e9b613-8b90-4d5b-bf7a-5a3f72df89bf"
+    },
+    {
+      "name": "slackLists.items.update",
+      "item": [
+        {
+          "name": "Update List Item",
+          "id": "fdf0cb5d-b366-4507-9bf7-a7a2b3dad73c",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "lists:read lists:write",
+                  "type": "string"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://slack.com/api/oauth.v2.access",
+                  "type": "string"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://slack.com/oauth/v2/authorize",
+                  "type": "string"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "description": "(Required) Authentication token. Requires scope: `lists:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"list_id\": \"<string>\",\n  \"item_id\": \"<string>\",\n  \"column_values\": {}\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/slackLists.items.update",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "slackLists.items.update"
+              ]
+            },
+            "description": "Updates an existing item (row) in a Slack List."
+          },
+          "response": [
+            {
+              "id": "3132e7a6-287c-4770-9320-81263051e4d7",
+              "name": "Successful response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `lists:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"list_id\": \"<string>\",\n  \"item_id\": \"<string>\",\n  \"column_values\": {}\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/slackLists.items.update",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "slackLists.items.update"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": \"<boolean>\"\n}",
+              "createdAt": "2026-06-05T13:19:44.000Z",
+              "updatedAt": "2026-06-05T13:19:44.000Z",
+              "uid": "35240-3132e7a6-287c-4770-9320-81263051e4d7"
+            },
+            {
+              "id": "db8b2582-4a4b-468d-b118-a483db9e8726",
+              "name": "Error response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `lists:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"list_id\": \"<string>\",\n  \"item_id\": \"<string>\",\n  \"column_values\": {}\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/slackLists.items.update",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "slackLists.items.update"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": \"<boolean>\",\n  \"error\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:44.000Z",
+              "updatedAt": "2026-06-05T13:19:44.000Z",
+              "uid": "35240-db8b2582-4a4b-468d-b118-a483db9e8726"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:44.000Z",
+          "updatedAt": "2026-06-05T13:19:44.000Z",
+          "uid": "35240-fdf0cb5d-b366-4507-9bf7-a7a2b3dad73c"
+        }
+      ],
+      "id": "d33ee01e-af69-4df2-899b-b789c11152cd",
+      "createdAt": "2026-06-05T13:19:44.000Z",
+      "updatedAt": "2026-06-05T13:19:44.000Z",
+      "uid": "35240-d33ee01e-af69-4df2-899b-b789c11152cd"
+    },
+    {
+      "name": "slackLists.items.delete",
+      "item": [
+        {
+          "name": "Delete List Item",
+          "id": "76b979e5-856b-4204-b773-51df6ff76c55",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "lists:read lists:write",
+                  "type": "string"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://slack.com/api/oauth.v2.access",
+                  "type": "string"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://slack.com/oauth/v2/authorize",
+                  "type": "string"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "description": "(Required) Authentication token. Requires scope: `lists:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "description": "(Required) ID of the list.",
+                  "key": "list_id",
+                  "value": "<string>"
+                },
+                {
+                  "description": "(Required) ID of the item to delete.",
+                  "key": "item_id",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/slackLists.items.delete",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "slackLists.items.delete"
+              ]
+            },
+            "description": "Deletes a single item (row) from a Slack List."
+          },
+          "response": [
+            {
+              "id": "878abb49-4011-4a6d-bb55-5ec6781724ac",
+              "name": "Successful response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `lists:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) ID of the list.",
+                      "key": "list_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) ID of the item to delete.",
+                      "key": "item_id",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/slackLists.items.delete",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "slackLists.items.delete"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": \"<boolean>\"\n}",
+              "createdAt": "2026-06-05T13:19:44.000Z",
+              "updatedAt": "2026-06-05T13:19:44.000Z",
+              "uid": "35240-878abb49-4011-4a6d-bb55-5ec6781724ac"
+            },
+            {
+              "id": "c4471dd8-59fd-430c-9308-8e216c8e00d9",
+              "name": "Error response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `lists:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) ID of the list.",
+                      "key": "list_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) ID of the item to delete.",
+                      "key": "item_id",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/slackLists.items.delete",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "slackLists.items.delete"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": \"<boolean>\",\n  \"error\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:44.000Z",
+              "updatedAt": "2026-06-05T13:19:44.000Z",
+              "uid": "35240-c4471dd8-59fd-430c-9308-8e216c8e00d9"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:44.000Z",
+          "updatedAt": "2026-06-05T13:19:44.000Z",
+          "uid": "35240-76b979e5-856b-4204-b773-51df6ff76c55"
+        }
+      ],
+      "id": "9b54739e-4cb0-42d8-878b-b2d5776366fd",
+      "createdAt": "2026-06-05T13:19:44.000Z",
+      "updatedAt": "2026-06-05T13:19:44.000Z",
+      "uid": "35240-9b54739e-4cb0-42d8-878b-b2d5776366fd"
+    },
+    {
+      "name": "slackLists.items.list",
+      "item": [
+        {
+          "name": "List Items",
+          "id": "ddfd2616-8e92-4c73-9d3a-90c3725d795b",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "lists:read lists:write",
+                  "type": "string"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://slack.com/api/oauth.v2.access",
+                  "type": "string"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://slack.com/oauth/v2/authorize",
+                  "type": "string"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/slackLists.items.list?token=<string>&list_id=<string>&cursor=<string>&limit=<integer>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "slackLists.items.list"
+              ],
+              "query": [
+                {
+                  "description": "(Required) Authentication token. Requires scope: `lists:read`",
+                  "key": "token",
+                  "value": "<string>"
+                },
+                {
+                  "description": "(Required) ID of the list to retrieve items from.",
+                  "key": "list_id",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Pagination cursor for retrieving additional pages.",
+                  "key": "cursor",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Maximum number of items to return.",
+                  "key": "limit",
+                  "value": "<integer>"
+                }
+              ]
+            },
+            "description": "Lists all items in a Slack List with optional filtering and pagination."
+          },
+          "response": [
+            {
+              "id": "5ea19c6f-86ef-4ff0-aae8-e8810d81e783",
+              "name": "Successful response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/slackLists.items.list?token=<string>&list_id=<string>&cursor=<string>&limit=<integer>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "slackLists.items.list"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Authentication token. Requires scope: `lists:read`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) ID of the list to retrieve items from.",
+                      "key": "list_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Pagination cursor for retrieving additional pages.",
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Maximum number of items to return.",
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": \"<boolean>\",\n  \"response_metadata\": {}\n}",
+              "createdAt": "2026-06-05T13:19:44.000Z",
+              "updatedAt": "2026-06-05T13:19:44.000Z",
+              "uid": "35240-5ea19c6f-86ef-4ff0-aae8-e8810d81e783"
+            },
+            {
+              "id": "ec7dd0a0-0450-47e4-9f24-3d0f955f28a7",
+              "name": "Error response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/slackLists.items.list?token=<string>&list_id=<string>&cursor=<string>&limit=<integer>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "slackLists.items.list"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Authentication token. Requires scope: `lists:read`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) ID of the list to retrieve items from.",
+                      "key": "list_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Pagination cursor for retrieving additional pages.",
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Maximum number of items to return.",
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": \"<boolean>\",\n  \"error\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:44.000Z",
+              "updatedAt": "2026-06-05T13:19:44.000Z",
+              "uid": "35240-ec7dd0a0-0450-47e4-9f24-3d0f955f28a7"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:44.000Z",
+          "updatedAt": "2026-06-05T13:19:44.000Z",
+          "uid": "35240-ddfd2616-8e92-4c73-9d3a-90c3725d795b"
+        }
+      ],
+      "id": "1e33c13b-d218-40ec-908e-5740550205d2",
+      "createdAt": "2026-06-05T13:19:44.000Z",
+      "updatedAt": "2026-06-05T13:19:44.000Z",
+      "uid": "35240-1e33c13b-d218-40ec-908e-5740550205d2"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://slack.com/api"
+    }
+  ]
+}

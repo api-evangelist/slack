@@ -1,0 +1,2063 @@
+{
+  "info": {
+    "_postman_id": "8b040e95-5e32-4308-9850-5c168a014b69",
+    "name": "Slack Users API",
+    "description": "Slack\u0019s Users API is a set of Web API methods that let your app discover and work with people in a Slack workspace. It can list members, fetch details for a specific user, look up users by email, and retrieve profile data such as names, photos, status, time zones, and custom fields. Where permitted, it can also read presence and update a user\u0019s profile or photo with the proper user-level authorization. Developers use it to map real identities to Slack user IDs, personalize experiences, resolve mentions and DMs, and distinguish between human, bot, and app users. Access to specific data and actions depends on scopes (for example, users:read, users:read.email, users.profile:read/write), and certain capabilities like presence have additional restrictions. For provisioning and enterprise directory management, Slack\u0019s SCIM API is used instead.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T13:19:58.000Z",
+    "updatedAt": "2026-06-05T13:19:58.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-8b040e95-5e32-4308-9850-5c168a014b69"
+  },
+  "item": [
+    {
+      "name": "users.conversations",
+      "item": [
+        {
+          "name": "Slack Get Users Conversations",
+          "id": "8aadb8dd-9f0a-4674-8d9a-fac50cfc04b9",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users.conversations?token=<string>&user=<string>&types=<string>&exclude_archived=<boolean>&limit=<integer>&cursor=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users.conversations"
+              ],
+              "query": [
+                {
+                  "description": "Authentication token. Requires scope: `conversations:read`",
+                  "key": "token",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Browse conversations by a specific user ID's membership. Non-public channels are restricted to those where the calling user shares membership.",
+                  "key": "user",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Mix and match channel types by providing a comma-separated list of any combination of `public_channel`, `private_channel`, `mpim`, `im`",
+                  "key": "types",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Set to `true` to exclude archived channels from the list",
+                  "key": "exclude_archived",
+                  "value": "<boolean>"
+                },
+                {
+                  "description": "The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the list hasn't been reached. Must be an integer no larger than 1000.",
+                  "key": "limit",
+                  "value": "<integer>"
+                },
+                {
+                  "description": "Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute returned by a previous request's `response_metadata`. Default value fetches the first \"page\" of the collection. See [pagination](/docs/pagination) for more detail.",
+                  "key": "cursor",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "List conversations the calling user may access."
+          },
+          "response": [
+            {
+              "id": "8d5a1065-e058-4fbd-9206-87f3ee120061",
+              "name": "Typical success response with only public channels. Note how `num_members` and `is_member` are not returned like typical `conversations` objects.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/users.conversations?token=<string>&user=<string>&types=<string>&exclude_archived=<boolean>&limit=<integer>&cursor=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users.conversations"
+                  ],
+                  "query": [
+                    {
+                      "description": "Authentication token. Requires scope: `conversations:read`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Browse conversations by a specific user ID's membership. Non-public channels are restricted to those where the calling user shares membership.",
+                      "key": "user",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Mix and match channel types by providing a comma-separated list of any combination of `public_channel`, `private_channel`, `mpim`, `im`",
+                      "key": "types",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Set to `true` to exclude archived channels from the list",
+                      "key": "exclude_archived",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the list hasn't been reached. Must be an integer no larger than 1000.",
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute returned by a previous request's `response_metadata`. Default value fetches the first \"page\" of the collection. See [pagination](/docs/pagination) for more detail.",
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"channels\": [\n    {\n      \"value\": \"reference #/components/schemas/objs_conversation not found in the OpenAPI spec\"\n    },\n    {\n      \"value\": \"reference #/components/schemas/objs_conversation not found in the OpenAPI spec\"\n    }\n  ],\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  },\n  \"response_metadata\": {}\n}",
+              "createdAt": "2026-06-05T13:19:59.000Z",
+              "updatedAt": "2026-06-05T13:19:59.000Z",
+              "uid": "35240-8d5a1065-e058-4fbd-9206-87f3ee120061"
+            },
+            {
+              "id": "9fa442d4-9e0f-4ace-bfcd-f36f6ce6433c",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/users.conversations?token=<string>&user=<string>&types=<string>&exclude_archived=<boolean>&limit=<integer>&cursor=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users.conversations"
+                  ],
+                  "query": [
+                    {
+                      "description": "Authentication token. Requires scope: `conversations:read`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Browse conversations by a specific user ID's membership. Non-public channels are restricted to those where the calling user shares membership.",
+                      "key": "user",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Mix and match channel types by providing a comma-separated list of any combination of `public_channel`, `private_channel`, `mpim`, `im`",
+                      "key": "types",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Set to `true` to exclude archived channels from the list",
+                      "key": "exclude_archived",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the list hasn't been reached. Must be an integer no larger than 1000.",
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute returned by a previous request's `response_metadata`. Default value fetches the first \"page\" of the collection. See [pagination](/docs/pagination) for more detail.",
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"missing_scope\",\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  },\n  \"callstack\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:59.000Z",
+              "updatedAt": "2026-06-05T13:19:59.000Z",
+              "uid": "35240-9fa442d4-9e0f-4ace-bfcd-f36f6ce6433c"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:59.000Z",
+          "updatedAt": "2026-06-05T13:19:59.000Z",
+          "uid": "35240-8aadb8dd-9f0a-4674-8d9a-fac50cfc04b9"
+        }
+      ],
+      "id": "b844bbfb-f00d-41d6-9a10-997b17f578af",
+      "createdAt": "2026-06-05T13:19:58.000Z",
+      "updatedAt": "2026-06-05T13:19:58.000Z",
+      "uid": "35240-b844bbfb-f00d-41d6-9a10-997b17f578af"
+    },
+    {
+      "name": "users.deletePhoto",
+      "item": [
+        {
+          "name": "Slack Post Users Deletephoto",
+          "id": "740ee321-bbc1-47f9-8b80-8dbc5973907f",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "description": "(Required) Authentication token. Requires scope: `users.profile:write`",
+                  "key": "token",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/users.deletePhoto",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users.deletePhoto"
+              ]
+            },
+            "description": "Delete the user profile photo"
+          },
+          "response": [
+            {
+              "id": "6f2fbc58-fb5b-4408-8eac-81de7ccb6d1d",
+              "name": "Typical success response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) Authentication token. Requires scope: `users.profile:write`",
+                      "key": "token",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users.deletePhoto",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users.deletePhoto"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:59.000Z",
+              "updatedAt": "2026-06-05T13:19:59.000Z",
+              "uid": "35240-6f2fbc58-fb5b-4408-8eac-81de7ccb6d1d"
+            },
+            {
+              "id": "ba346aac-c40b-4882-90d4-daeea8e9b760",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) Authentication token. Requires scope: `users.profile:write`",
+                      "key": "token",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users.deletePhoto",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users.deletePhoto"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"request_timeout\",\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  },\n  \"callstack\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:59.000Z",
+              "updatedAt": "2026-06-05T13:19:59.000Z",
+              "uid": "35240-ba346aac-c40b-4882-90d4-daeea8e9b760"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:59.000Z",
+          "updatedAt": "2026-06-05T13:19:59.000Z",
+          "uid": "35240-740ee321-bbc1-47f9-8b80-8dbc5973907f"
+        }
+      ],
+      "id": "f7a3355f-9a06-4b14-9eba-2c150538f552",
+      "createdAt": "2026-06-05T13:19:58.000Z",
+      "updatedAt": "2026-06-05T13:19:58.000Z",
+      "uid": "35240-f7a3355f-9a06-4b14-9eba-2c150538f552"
+    },
+    {
+      "name": "users.getPresence",
+      "item": [
+        {
+          "name": "Slack Get Users Getpresence",
+          "id": "152ee7ed-b0b1-4369-8caf-b12008d4c4be",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users.getPresence?token=<string>&user=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users.getPresence"
+              ],
+              "query": [
+                {
+                  "description": "(Required) Authentication token. Requires scope: `users:read`",
+                  "key": "token",
+                  "value": "<string>"
+                },
+                {
+                  "description": "User to get presence info on. Defaults to the authed user.",
+                  "key": "user",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Gets user presence information."
+          },
+          "response": [
+            {
+              "id": "8cc0075b-158e-4c03-b3a8-ad7b0f2838fd",
+              "name": "When requesting information for a different user, this method just returns the current presence (either `active` or `away`).",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/users.getPresence?token=<string>&user=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users.getPresence"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Authentication token. Requires scope: `users:read`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "User to get presence info on. Defaults to the authed user.",
+                      "key": "user",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  },\n  \"presence\": \"<string>\",\n  \"auto_away\": \"<boolean>\",\n  \"connection_count\": \"<integer>\",\n  \"last_activity\": \"<integer>\",\n  \"manual_away\": \"<boolean>\",\n  \"online\": \"<boolean>\"\n}",
+              "createdAt": "2026-06-05T13:19:59.000Z",
+              "updatedAt": "2026-06-05T13:19:59.000Z",
+              "uid": "35240-8cc0075b-158e-4c03-b3a8-ad7b0f2838fd"
+            },
+            {
+              "id": "900495b1-49cf-412b-8260-b38544e3c1de",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/users.getPresence?token=<string>&user=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users.getPresence"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Authentication token. Requires scope: `users:read`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "User to get presence info on. Defaults to the authed user.",
+                      "key": "user",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\",\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:59.000Z",
+              "updatedAt": "2026-06-05T13:19:59.000Z",
+              "uid": "35240-900495b1-49cf-412b-8260-b38544e3c1de"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:59.000Z",
+          "updatedAt": "2026-06-05T13:19:59.000Z",
+          "uid": "35240-152ee7ed-b0b1-4369-8caf-b12008d4c4be"
+        }
+      ],
+      "id": "66dc5b28-d507-44c2-9cad-405743d390c6",
+      "createdAt": "2026-06-05T13:19:58.000Z",
+      "updatedAt": "2026-06-05T13:19:58.000Z",
+      "uid": "35240-66dc5b28-d507-44c2-9cad-405743d390c6"
+    },
+    {
+      "name": "users.identity",
+      "item": [
+        {
+          "name": "Slack Get Users Identity",
+          "id": "8d24ba38-9e3e-4892-90ba-e88f5044d3b5",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users.identity?token=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users.identity"
+              ],
+              "query": [
+                {
+                  "description": "Authentication token. Requires scope: `identity.basic`",
+                  "key": "token",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Get a user's identity."
+          },
+          "response": [
+            {
+              "id": "b89d3c55-f40d-4827-9ba1-1afeb38c9492",
+              "name": "You will receive at a minimum the following information:",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/users.identity?token=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users.identity"
+                  ],
+                  "query": [
+                    {
+                      "description": "Authentication token. Requires scope: `identity.basic`",
+                      "key": "token",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "<array>",
+              "createdAt": "2026-06-05T13:19:59.000Z",
+              "updatedAt": "2026-06-05T13:19:59.000Z",
+              "uid": "35240-b89d3c55-f40d-4827-9ba1-1afeb38c9492"
+            },
+            {
+              "id": "9251a280-29f1-4935-887b-19f9a7ccb880",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/users.identity?token=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users.identity"
+                  ],
+                  "query": [
+                    {
+                      "description": "Authentication token. Requires scope: `identity.basic`",
+                      "key": "token",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"invalid_post_type\",\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  },\n  \"callstack\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:59.000Z",
+              "updatedAt": "2026-06-05T13:19:59.000Z",
+              "uid": "35240-9251a280-29f1-4935-887b-19f9a7ccb880"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:59.000Z",
+          "updatedAt": "2026-06-05T13:19:59.000Z",
+          "uid": "35240-8d24ba38-9e3e-4892-90ba-e88f5044d3b5"
+        }
+      ],
+      "id": "b38c21cd-6239-4576-b0d0-50dc05bd3bc2",
+      "createdAt": "2026-06-05T13:19:58.000Z",
+      "updatedAt": "2026-06-05T13:19:58.000Z",
+      "uid": "35240-b38c21cd-6239-4576-b0d0-50dc05bd3bc2"
+    },
+    {
+      "name": "users.info",
+      "item": [
+        {
+          "name": "Slack Get Users Info",
+          "id": "2de83356-8683-4aa4-97f7-e913ebcc8e91",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users.info?token=<string>&include_locale=<boolean>&user=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users.info"
+              ],
+              "query": [
+                {
+                  "description": "(Required) Authentication token. Requires scope: `users:read`",
+                  "key": "token",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Set this to `true` to receive the locale for this user. Defaults to `false`",
+                  "key": "include_locale",
+                  "value": "<boolean>"
+                },
+                {
+                  "description": "User to get info on",
+                  "key": "user",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Gets information about a user."
+          },
+          "response": [
+            {
+              "id": "bbd47918-b4d3-4761-9f5c-52290ca28d4a",
+              "name": "Typical success response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/users.info?token=<string>&include_locale=<boolean>&user=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users.info"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Authentication token. Requires scope: `users:read`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Set this to `true` to receive the locale for this user. Defaults to `false`",
+                      "key": "include_locale",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "User to get info on",
+                      "key": "user",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  },\n  \"user\": {\n    \"value\": \"reference #/components/schemas/objs_user not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:59.000Z",
+              "updatedAt": "2026-06-05T13:19:59.000Z",
+              "uid": "35240-bbd47918-b4d3-4761-9f5c-52290ca28d4a"
+            },
+            {
+              "id": "8f0ff6af-3716-47e6-8c8b-4ed37ead1d6a",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/users.info?token=<string>&include_locale=<boolean>&user=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users.info"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Authentication token. Requires scope: `users:read`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Set this to `true` to receive the locale for this user. Defaults to `false`",
+                      "key": "include_locale",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "User to get info on",
+                      "key": "user",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"invalid_array_arg\",\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  },\n  \"callstack\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:59.000Z",
+              "updatedAt": "2026-06-05T13:19:59.000Z",
+              "uid": "35240-8f0ff6af-3716-47e6-8c8b-4ed37ead1d6a"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:59.000Z",
+          "updatedAt": "2026-06-05T13:19:59.000Z",
+          "uid": "35240-2de83356-8683-4aa4-97f7-e913ebcc8e91"
+        }
+      ],
+      "id": "40bea115-237a-4985-8e13-bccae465388d",
+      "createdAt": "2026-06-05T13:19:58.000Z",
+      "updatedAt": "2026-06-05T13:19:58.000Z",
+      "uid": "35240-40bea115-237a-4985-8e13-bccae465388d"
+    },
+    {
+      "name": "users.list",
+      "item": [
+        {
+          "name": "Slack Get Users List",
+          "id": "b185083d-b307-4daf-8f67-bb5b03f2df36",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users.list?token=<string>&limit=<integer>&cursor=<string>&include_locale=<boolean>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users.list"
+              ],
+              "query": [
+                {
+                  "description": "Authentication token. Requires scope: `users:read`",
+                  "key": "token",
+                  "value": "<string>"
+                },
+                {
+                  "description": "The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the users list hasn't been reached. Providing no `limit` value will result in Slack attempting to deliver you the entire result set. If the collection is too large you may experience `limit_required` or HTTP 500 errors.",
+                  "key": "limit",
+                  "value": "<integer>"
+                },
+                {
+                  "description": "Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute returned by a previous request's `response_metadata`. Default value fetches the first \"page\" of the collection. See [pagination](/docs/pagination) for more detail.",
+                  "key": "cursor",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Set this to `true` to receive the locale for users. Defaults to `false`",
+                  "key": "include_locale",
+                  "value": "<boolean>"
+                }
+              ]
+            },
+            "description": "Lists all users in a Slack team."
+          },
+          "response": [
+            {
+              "id": "8ee1d634-62a1-4a45-a37d-4c12716830b4",
+              "name": "Typical success response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/users.list?token=<string>&limit=<integer>&cursor=<string>&include_locale=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users.list"
+                  ],
+                  "query": [
+                    {
+                      "description": "Authentication token. Requires scope: `users:read`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the users list hasn't been reached. Providing no `limit` value will result in Slack attempting to deliver you the entire result set. If the collection is too large you may experience `limit_required` or HTTP 500 errors.",
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute returned by a previous request's `response_metadata`. Default value fetches the first \"page\" of the collection. See [pagination](/docs/pagination) for more detail.",
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Set this to `true` to receive the locale for users. Defaults to `false`",
+                      "key": "include_locale",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"cache_ts\": \"<integer>\",\n  \"members\": [\n    {\n      \"value\": \"reference #/components/schemas/objs_user not found in the OpenAPI spec\"\n    }\n  ],\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  },\n  \"response_metadata\": {\n    \"value\": \"reference #/components/schemas/objs_response_metadata not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:59.000Z",
+              "updatedAt": "2026-06-05T13:19:59.000Z",
+              "uid": "35240-8ee1d634-62a1-4a45-a37d-4c12716830b4"
+            },
+            {
+              "id": "eec2bf09-f8bc-4a0c-9628-5eac6c297178",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/users.list?token=<string>&limit=<integer>&cursor=<string>&include_locale=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users.list"
+                  ],
+                  "query": [
+                    {
+                      "description": "Authentication token. Requires scope: `users:read`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the users list hasn't been reached. Providing no `limit` value will result in Slack attempting to deliver you the entire result set. If the collection is too large you may experience `limit_required` or HTTP 500 errors.",
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute returned by a previous request's `response_metadata`. Default value fetches the first \"page\" of the collection. See [pagination](/docs/pagination) for more detail.",
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Set this to `true` to receive the locale for users. Defaults to `false`",
+                      "key": "include_locale",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"limit_required\",\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  },\n  \"callstack\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:59.000Z",
+              "updatedAt": "2026-06-05T13:19:59.000Z",
+              "uid": "35240-eec2bf09-f8bc-4a0c-9628-5eac6c297178"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:59.000Z",
+          "updatedAt": "2026-06-05T13:19:59.000Z",
+          "uid": "35240-b185083d-b307-4daf-8f67-bb5b03f2df36"
+        }
+      ],
+      "id": "6875ed0b-84b1-40b5-82c1-bac31622a00e",
+      "createdAt": "2026-06-05T13:19:58.000Z",
+      "updatedAt": "2026-06-05T13:19:58.000Z",
+      "uid": "35240-6875ed0b-84b1-40b5-82c1-bac31622a00e"
+    },
+    {
+      "name": "users.lookupByEmail",
+      "item": [
+        {
+          "name": "Slack Get Users Lookupbyemail",
+          "id": "0d00fae5-611a-438b-8fc5-55e5aaa2fab9",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users.lookupByEmail?token=<string>&email=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users.lookupByEmail"
+              ],
+              "query": [
+                {
+                  "description": "(Required) Authentication token. Requires scope: `users:read.email`",
+                  "key": "token",
+                  "value": "<string>"
+                },
+                {
+                  "description": "(Required) An email address belonging to a user in the workspace",
+                  "key": "email",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Find a user with an email address."
+          },
+          "response": [
+            {
+              "id": "4f44712f-f2f8-4c1f-b53d-5752fe13f19b",
+              "name": "Typical success response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/users.lookupByEmail?token=<string>&email=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users.lookupByEmail"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Authentication token. Requires scope: `users:read.email`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) An email address belonging to a user in the workspace",
+                      "key": "email",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  },\n  \"user\": {\n    \"value\": \"reference #/components/schemas/objs_user not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:59.000Z",
+              "updatedAt": "2026-06-05T13:19:59.000Z",
+              "uid": "35240-4f44712f-f2f8-4c1f-b53d-5752fe13f19b"
+            },
+            {
+              "id": "2017f84d-567f-4905-95fd-f4e42568574e",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/users.lookupByEmail?token=<string>&email=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users.lookupByEmail"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Authentication token. Requires scope: `users:read.email`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) An email address belonging to a user in the workspace",
+                      "key": "email",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"invalid_arg_name\",\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  },\n  \"callstack\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:59.000Z",
+              "updatedAt": "2026-06-05T13:19:59.000Z",
+              "uid": "35240-2017f84d-567f-4905-95fd-f4e42568574e"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:59.000Z",
+          "updatedAt": "2026-06-05T13:19:59.000Z",
+          "uid": "35240-0d00fae5-611a-438b-8fc5-55e5aaa2fab9"
+        }
+      ],
+      "id": "9766ab5c-5a4a-48fa-b215-71312d2cb632",
+      "createdAt": "2026-06-05T13:19:58.000Z",
+      "updatedAt": "2026-06-05T13:19:58.000Z",
+      "uid": "35240-9766ab5c-5a4a-48fa-b215-71312d2cb632"
+    },
+    {
+      "name": "users.profile.get",
+      "item": [
+        {
+          "name": "Slack Get Users Profile Get",
+          "id": "0cc61ffd-bf73-4d0b-9020-12518a89c5b5",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users.profile.get?token=<string>&include_labels=<boolean>&user=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users.profile.get"
+              ],
+              "query": [
+                {
+                  "description": "(Required) Authentication token. Requires scope: `users.profile:read`",
+                  "key": "token",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Include labels for each ID in custom profile fields",
+                  "key": "include_labels",
+                  "value": "<boolean>"
+                },
+                {
+                  "description": "User to retrieve profile info for",
+                  "key": "user",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Retrieves a user's profile information."
+          },
+          "response": [
+            {
+              "id": "b37e394a-1d29-4c14-9a6a-6f4ddc749e10",
+              "name": "Typical success response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/users.profile.get?token=<string>&include_labels=<boolean>&user=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users.profile.get"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Authentication token. Requires scope: `users.profile:read`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Include labels for each ID in custom profile fields",
+                      "key": "include_labels",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "User to retrieve profile info for",
+                      "key": "user",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  },\n  \"profile\": {\n    \"value\": \"reference #/components/schemas/objs_user_profile not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:59.000Z",
+              "updatedAt": "2026-06-05T13:19:59.000Z",
+              "uid": "35240-b37e394a-1d29-4c14-9a6a-6f4ddc749e10"
+            },
+            {
+              "id": "2b6644fa-c59e-464e-9664-83c248078ad6",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/users.profile.get?token=<string>&include_labels=<boolean>&user=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users.profile.get"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Authentication token. Requires scope: `users.profile:read`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Include labels for each ID in custom profile fields",
+                      "key": "include_labels",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "User to retrieve profile info for",
+                      "key": "user",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"invalid_json\",\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  },\n  \"callstack\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:59.000Z",
+              "updatedAt": "2026-06-05T13:19:59.000Z",
+              "uid": "35240-2b6644fa-c59e-464e-9664-83c248078ad6"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:59.000Z",
+          "updatedAt": "2026-06-05T13:19:59.000Z",
+          "uid": "35240-0cc61ffd-bf73-4d0b-9020-12518a89c5b5"
+        }
+      ],
+      "id": "d6fbd197-a8b6-422b-b466-c66d7e3d9556",
+      "createdAt": "2026-06-05T13:19:58.000Z",
+      "updatedAt": "2026-06-05T13:19:58.000Z",
+      "uid": "35240-d6fbd197-a8b6-422b-b466-c66d7e3d9556"
+    },
+    {
+      "name": "users.profile.set",
+      "item": [
+        {
+          "name": "Slack Post Users Profile Set",
+          "id": "105636b6-04a8-4ae3-978f-3946d806cb0f",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "(Required) Authentication token. Requires scope: `users.profile:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "description": "Name of a single key to set. Usable only if `profile` is not passed.",
+                  "key": "name",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Collection of key:value pairs presented as a URL-encoded JSON hash. At most 50 fields may be set. Each field name is limited to 255 characters.",
+                  "key": "profile",
+                  "value": "<string>"
+                },
+                {
+                  "description": "ID of user to change. This argument may only be specified by team admins on paid teams.",
+                  "key": "user",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Value to set a single key to. Usable only if `profile` is not passed.",
+                  "key": "value",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/users.profile.set",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users.profile.set"
+              ]
+            },
+            "description": "Set the profile information for a user."
+          },
+          "response": [
+            {
+              "id": "1a2af041-02c9-407c-aaad-78b14bda02fd",
+              "name": "Typical success response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `users.profile:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "Name of a single key to set. Usable only if `profile` is not passed.",
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Collection of key:value pairs presented as a URL-encoded JSON hash. At most 50 fields may be set. Each field name is limited to 255 characters.",
+                      "key": "profile",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "ID of user to change. This argument may only be specified by team admins on paid teams.",
+                      "key": "user",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Value to set a single key to. Usable only if `profile` is not passed.",
+                      "key": "value",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users.profile.set",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users.profile.set"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  },\n  \"profile\": {\n    \"value\": \"reference #/components/schemas/objs_user_profile not found in the OpenAPI spec\"\n  },\n  \"username\": \"<string>\",\n  \"email_pending\": \"<email>\"\n}",
+              "createdAt": "2026-06-05T13:19:59.000Z",
+              "updatedAt": "2026-06-05T13:19:59.000Z",
+              "uid": "35240-1a2af041-02c9-407c-aaad-78b14bda02fd"
+            },
+            {
+              "id": "8208b707-d5a3-45bd-ac1d-b1307ce4c9af",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `users.profile:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "Name of a single key to set. Usable only if `profile` is not passed.",
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Collection of key:value pairs presented as a URL-encoded JSON hash. At most 50 fields may be set. Each field name is limited to 255 characters.",
+                      "key": "profile",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "ID of user to change. This argument may only be specified by team admins on paid teams.",
+                      "key": "user",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Value to set a single key to. Usable only if `profile` is not passed.",
+                      "key": "value",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users.profile.set",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users.profile.set"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"user_is_bot\",\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  },\n  \"callstack\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:59.000Z",
+              "updatedAt": "2026-06-05T13:19:59.000Z",
+              "uid": "35240-8208b707-d5a3-45bd-ac1d-b1307ce4c9af"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:59.000Z",
+          "updatedAt": "2026-06-05T13:19:59.000Z",
+          "uid": "35240-105636b6-04a8-4ae3-978f-3946d806cb0f"
+        }
+      ],
+      "id": "d9a8fc8f-1f54-4d2b-a982-00cb2df15a42",
+      "createdAt": "2026-06-05T13:19:58.000Z",
+      "updatedAt": "2026-06-05T13:19:58.000Z",
+      "uid": "35240-d9a8fc8f-1f54-4d2b-a982-00cb2df15a42"
+    },
+    {
+      "name": "users.setActive",
+      "item": [
+        {
+          "name": "Slack Post Users Setactive",
+          "id": "ab2aac28-25ed-421f-b786-7315a4cd0203",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "(Required) Authentication token. Requires scope: `users:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users.setActive",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users.setActive"
+              ]
+            },
+            "description": "Marked a user as active. Deprecated and non-functional."
+          },
+          "response": [
+            {
+              "id": "93b724b3-d111-46b0-bc98-e13600065677",
+              "name": "Typical success response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `users:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/users.setActive",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users.setActive"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:59.000Z",
+              "updatedAt": "2026-06-05T13:19:59.000Z",
+              "uid": "35240-93b724b3-d111-46b0-bc98-e13600065677"
+            },
+            {
+              "id": "e5e2c3c5-d717-486e-9ea8-432751872a6a",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `users:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/users.setActive",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users.setActive"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"invalid_auth\",\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  },\n  \"callstack\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:59.000Z",
+              "updatedAt": "2026-06-05T13:19:59.000Z",
+              "uid": "35240-e5e2c3c5-d717-486e-9ea8-432751872a6a"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:59.000Z",
+          "updatedAt": "2026-06-05T13:19:59.000Z",
+          "uid": "35240-ab2aac28-25ed-421f-b786-7315a4cd0203"
+        }
+      ],
+      "id": "f4483f17-2d0a-40ea-9790-ba92105d012f",
+      "createdAt": "2026-06-05T13:19:58.000Z",
+      "updatedAt": "2026-06-05T13:19:58.000Z",
+      "uid": "35240-f4483f17-2d0a-40ea-9790-ba92105d012f"
+    },
+    {
+      "name": "users.setPhoto",
+      "item": [
+        {
+          "name": "Slack Post Users Setphoto",
+          "id": "9588f8df-3e84-4537-97e1-02001859991a",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "description": "(Required) Authentication token. Requires scope: `users.profile:write`",
+                  "key": "token",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Width/height of crop box (always square)",
+                  "key": "crop_w",
+                  "value": "<string>"
+                },
+                {
+                  "description": "X coordinate of top-left corner of crop box",
+                  "key": "crop_x",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Y coordinate of top-left corner of crop box",
+                  "key": "crop_y",
+                  "value": "<string>"
+                },
+                {
+                  "description": "File contents via `multipart/form-data`.",
+                  "key": "image",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/users.setPhoto",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users.setPhoto"
+              ]
+            },
+            "description": "Set the user profile photo"
+          },
+          "response": [
+            {
+              "id": "d9a615ba-053a-411e-b0c7-fb83e908932c",
+              "name": "Typical success response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) Authentication token. Requires scope: `users.profile:write`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Width/height of crop box (always square)",
+                      "key": "crop_w",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "X coordinate of top-left corner of crop box",
+                      "key": "crop_x",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Y coordinate of top-left corner of crop box",
+                      "key": "crop_y",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "File contents via `multipart/form-data`.",
+                      "key": "image",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users.setPhoto",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users.setPhoto"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  },\n  \"profile\": {}\n}",
+              "createdAt": "2026-06-05T13:19:59.000Z",
+              "updatedAt": "2026-06-05T13:19:59.000Z",
+              "uid": "35240-d9a615ba-053a-411e-b0c7-fb83e908932c"
+            },
+            {
+              "id": "0e02bcb3-78f6-4355-81be-320296d9a867",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) Authentication token. Requires scope: `users.profile:write`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Width/height of crop box (always square)",
+                      "key": "crop_w",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "X coordinate of top-left corner of crop box",
+                      "key": "crop_x",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Y coordinate of top-left corner of crop box",
+                      "key": "crop_y",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "File contents via `multipart/form-data`.",
+                      "key": "image",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users.setPhoto",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users.setPhoto"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"json_not_object\",\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  },\n  \"callstack\": \"<string>\",\n  \"debug_step\": \"<string>\",\n  \"dims\": \"<string>\",\n  \"time_ident\": \"<integer>\"\n}",
+              "createdAt": "2026-06-05T13:19:59.000Z",
+              "updatedAt": "2026-06-05T13:19:59.000Z",
+              "uid": "35240-0e02bcb3-78f6-4355-81be-320296d9a867"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:59.000Z",
+          "updatedAt": "2026-06-05T13:19:59.000Z",
+          "uid": "35240-9588f8df-3e84-4537-97e1-02001859991a"
+        }
+      ],
+      "id": "9707e581-e420-48b1-abb9-f494926133b9",
+      "createdAt": "2026-06-05T13:19:58.000Z",
+      "updatedAt": "2026-06-05T13:19:58.000Z",
+      "uid": "35240-9707e581-e420-48b1-abb9-f494926133b9"
+    },
+    {
+      "name": "users.setPresence",
+      "item": [
+        {
+          "name": "Slack Post Users Setpresence",
+          "id": "e42245ab-2dcb-458a-b562-a0e807afee77",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "(Required) Authentication token. Requires scope: `users:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "description": "(Required) Either `auto` or `away`",
+                  "key": "presence",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/users.setPresence",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users.setPresence"
+              ]
+            },
+            "description": "Manually sets user presence."
+          },
+          "response": [
+            {
+              "id": "2b3b188b-a3b2-46d8-be57-6402ce462817",
+              "name": "Typical success response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `users:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) Either `auto` or `away`",
+                      "key": "presence",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users.setPresence",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users.setPresence"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:59.000Z",
+              "updatedAt": "2026-06-05T13:19:59.000Z",
+              "uid": "35240-2b3b188b-a3b2-46d8-be57-6402ce462817"
+            },
+            {
+              "id": "80aaa14f-9466-4b05-be27-304eb7dca1bc",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `users:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) Either `auto` or `away`",
+                      "key": "presence",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users.setPresence",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users.setPresence"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"invalid_json\",\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  },\n  \"callstack\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:59.000Z",
+              "updatedAt": "2026-06-05T13:19:59.000Z",
+              "uid": "35240-80aaa14f-9466-4b05-be27-304eb7dca1bc"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:59.000Z",
+          "updatedAt": "2026-06-05T13:19:59.000Z",
+          "uid": "35240-e42245ab-2dcb-458a-b562-a0e807afee77"
+        }
+      ],
+      "id": "b7a5b154-adc5-4457-8b99-4bba3d975366",
+      "createdAt": "2026-06-05T13:19:58.000Z",
+      "updatedAt": "2026-06-05T13:19:58.000Z",
+      "uid": "35240-b7a5b154-adc5-4457-8b99-4bba3d975366"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "/"
+    }
+  ]
+}

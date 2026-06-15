@@ -1,0 +1,2696 @@
+{
+  "info": {
+    "_postman_id": "2575ed65-604b-4ab9-987e-cae0a2274c21",
+    "name": "Slack Files API",
+    "description": "Slack\u0019s Files API lets apps programmatically upload, share, and manage files in Slack. Apps can upload binaries (images, docs, code snippets) or register links to external files, then attach them to channels, DMs, or threads with optional captions. The API supports retrieving file metadata and content, listing and filtering files, generating or revoking public share links, and deleting files, with access controlled by app scopes and channel membership. For large uploads, a two-step flow provides an upload URL before finalizing the file, and related Events API notifications (for example, file_created and file_shared) let apps react to changes. Common uses include import/export pipelines, compliance and archiving tools, and integrations with cloud storage.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T13:19:23.000Z",
+    "updatedAt": "2026-06-05T13:19:23.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-2575ed65-604b-4ab9-987e-cae0a2274c21"
+  },
+  "item": [
+    {
+      "name": "files.comments.delete",
+      "item": [
+        {
+          "name": "Slack Post Files Comments Delete",
+          "id": "c63e1916-c80f-4dc6-a5db-0ebc44d616ea",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "Authentication token. Requires scope: `files:write:user`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "description": "File to delete a comment from.",
+                  "key": "file",
+                  "value": "<string>"
+                },
+                {
+                  "description": "The comment to delete.",
+                  "key": "id",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/files.comments.delete",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "files.comments.delete"
+              ]
+            },
+            "description": "Deletes an existing comment on a file."
+          },
+          "response": [
+            {
+              "id": "1cb2e19d-e22d-44a5-b8f1-c82df1a5f34d",
+              "name": "Standard success response is very simple",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Authentication token. Requires scope: `files:write:user`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "File to delete a comment from.",
+                      "key": "file",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The comment to delete.",
+                      "key": "id",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/files.comments.delete",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "files.comments.delete"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:24.000Z",
+              "updatedAt": "2026-06-05T13:19:24.000Z",
+              "uid": "35240-1cb2e19d-e22d-44a5-b8f1-c82df1a5f34d"
+            },
+            {
+              "id": "aa0b91b7-bf24-4768-9e6d-cd349c04f68a",
+              "name": "Standard failure response when used with an invalid token",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Authentication token. Requires scope: `files:write:user`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "File to delete a comment from.",
+                      "key": "file",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The comment to delete.",
+                      "key": "id",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/files.comments.delete",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "files.comments.delete"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"invalid_auth\",\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  },\n  \"callstack\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:24.000Z",
+              "updatedAt": "2026-06-05T13:19:24.000Z",
+              "uid": "35240-aa0b91b7-bf24-4768-9e6d-cd349c04f68a"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:24.000Z",
+          "updatedAt": "2026-06-05T13:19:24.000Z",
+          "uid": "35240-c63e1916-c80f-4dc6-a5db-0ebc44d616ea"
+        }
+      ],
+      "id": "960cdc1b-06c1-42d1-b85c-11c858b7c571",
+      "createdAt": "2026-06-05T13:19:24.000Z",
+      "updatedAt": "2026-06-05T13:19:24.000Z",
+      "uid": "35240-960cdc1b-06c1-42d1-b85c-11c858b7c571"
+    },
+    {
+      "name": "files.delete",
+      "item": [
+        {
+          "name": "Slack Post Files Delete",
+          "id": "e5470024-8ba6-4a41-ae85-3cd73cbe25e7",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "Authentication token. Requires scope: `files:write:user`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "description": "ID of file to delete.",
+                  "key": "file",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/files.delete",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "files.delete"
+              ]
+            },
+            "description": "Deletes a file."
+          },
+          "response": [
+            {
+              "id": "fa15d2ef-978a-49f5-810e-61604eb20ee6",
+              "name": "Typical success response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Authentication token. Requires scope: `files:write:user`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "ID of file to delete.",
+                      "key": "file",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/files.delete",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "files.delete"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:24.000Z",
+              "updatedAt": "2026-06-05T13:19:24.000Z",
+              "uid": "35240-fa15d2ef-978a-49f5-810e-61604eb20ee6"
+            },
+            {
+              "id": "60a2b91e-39ad-45ee-8ebc-2d2f4785f553",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Authentication token. Requires scope: `files:write:user`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "ID of file to delete.",
+                      "key": "file",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/files.delete",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "files.delete"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"upgrade_required\",\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  },\n  \"callstack\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:24.000Z",
+              "updatedAt": "2026-06-05T13:19:24.000Z",
+              "uid": "35240-60a2b91e-39ad-45ee-8ebc-2d2f4785f553"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:24.000Z",
+          "updatedAt": "2026-06-05T13:19:24.000Z",
+          "uid": "35240-e5470024-8ba6-4a41-ae85-3cd73cbe25e7"
+        }
+      ],
+      "id": "cd04b6a1-ec17-4aa6-a4a6-977a6c9f7db4",
+      "createdAt": "2026-06-05T13:19:24.000Z",
+      "updatedAt": "2026-06-05T13:19:24.000Z",
+      "uid": "35240-cd04b6a1-ec17-4aa6-a4a6-977a6c9f7db4"
+    },
+    {
+      "name": "files.info",
+      "item": [
+        {
+          "name": "Slack Get Files Info",
+          "id": "f659b8c6-1537-45a2-a9c1-68ec69269078",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/files.info?token=<string>&file=<string>&count=<string>&page=<string>&limit=<integer>&cursor=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "files.info"
+              ],
+              "query": [
+                {
+                  "description": "Authentication token. Requires scope: `files:read`",
+                  "key": "token",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Specify a file by providing its ID.",
+                  "key": "file",
+                  "value": "<string>"
+                },
+                {
+                  "key": "count",
+                  "value": "<string>"
+                },
+                {
+                  "key": "page",
+                  "value": "<string>"
+                },
+                {
+                  "description": "The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the list hasn't been reached.",
+                  "key": "limit",
+                  "value": "<integer>"
+                },
+                {
+                  "description": "Parameter for pagination. File comments are paginated for a single file. Set `cursor` equal to the `next_cursor` attribute returned by the previous request's `response_metadata`. This parameter is optional, but pagination is mandatory: the default value simply fetches the first \"page\" of the collection of comments. See [pagination](/docs/pagination) for more details.",
+                  "key": "cursor",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Gets information about a file."
+          },
+          "response": [
+            {
+              "id": "b2de4940-a1fd-4cf5-9554-7cec7e3ae9b3",
+              "name": "Typical success response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/files.info?token=<string>&file=<string>&count=<string>&page=<string>&limit=<integer>&cursor=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "files.info"
+                  ],
+                  "query": [
+                    {
+                      "description": "Authentication token. Requires scope: `files:read`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Specify a file by providing its ID.",
+                      "key": "file",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "count",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the list hasn't been reached.",
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Parameter for pagination. File comments are paginated for a single file. Set `cursor` equal to the `next_cursor` attribute returned by the previous request's `response_metadata`. This parameter is optional, but pagination is mandatory: the default value simply fetches the first \"page\" of the collection of comments. See [pagination](/docs/pagination) for more details.",
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"comments\": {\n    \"value\": \"reference #/components/schemas/objs_comments not found in the OpenAPI spec\"\n  },\n  \"file\": {\n    \"value\": \"reference #/components/schemas/objs_file not found in the OpenAPI spec\"\n  },\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  },\n  \"editor\": {\n    \"value\": \"reference #/components/schemas/defs_user_id not found in the OpenAPI spec\"\n  },\n  \"paging\": {\n    \"value\": \"reference #/components/schemas/objs_paging not found in the OpenAPI spec\"\n  },\n  \"response_metadata\": {\n    \"value\": \"reference #/components/schemas/objs_response_metadata not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:24.000Z",
+              "updatedAt": "2026-06-05T13:19:24.000Z",
+              "uid": "35240-b2de4940-a1fd-4cf5-9554-7cec7e3ae9b3"
+            },
+            {
+              "id": "a7ac4e5a-916c-4a09-bc8d-d215f8cdf167",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/files.info?token=<string>&file=<string>&count=<string>&page=<string>&limit=<integer>&cursor=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "files.info"
+                  ],
+                  "query": [
+                    {
+                      "description": "Authentication token. Requires scope: `files:read`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Specify a file by providing its ID.",
+                      "key": "file",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "count",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the list hasn't been reached.",
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Parameter for pagination. File comments are paginated for a single file. Set `cursor` equal to the `next_cursor` attribute returned by the previous request's `response_metadata`. This parameter is optional, but pagination is mandatory: the default value simply fetches the first \"page\" of the collection of comments. See [pagination](/docs/pagination) for more details.",
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"invalid_auth\",\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  },\n  \"callstack\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:24.000Z",
+              "updatedAt": "2026-06-05T13:19:24.000Z",
+              "uid": "35240-a7ac4e5a-916c-4a09-bc8d-d215f8cdf167"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:24.000Z",
+          "updatedAt": "2026-06-05T13:19:24.000Z",
+          "uid": "35240-f659b8c6-1537-45a2-a9c1-68ec69269078"
+        }
+      ],
+      "id": "7f4abae9-6fbc-44aa-ba6c-0ad76b19429c",
+      "createdAt": "2026-06-05T13:19:24.000Z",
+      "updatedAt": "2026-06-05T13:19:24.000Z",
+      "uid": "35240-7f4abae9-6fbc-44aa-ba6c-0ad76b19429c"
+    },
+    {
+      "name": "files.list",
+      "item": [
+        {
+          "name": "Slack Get Files List",
+          "id": "bdb6825d-bca9-4804-9807-cb58f5680755",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/files.list?token=<string>&user=<string>&channel=<string>&ts_from=<number>&ts_to=<number>&types=<string>&count=<string>&page=<string>&show_files_hidden_by_limit=<boolean>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "files.list"
+              ],
+              "query": [
+                {
+                  "description": "Authentication token. Requires scope: `files:read`",
+                  "key": "token",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Filter files created by a single user.",
+                  "key": "user",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Filter files appearing in a specific channel, indicated by its ID.",
+                  "key": "channel",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Filter files created after this timestamp (inclusive).",
+                  "key": "ts_from",
+                  "value": "<number>"
+                },
+                {
+                  "description": "Filter files created before this timestamp (inclusive).",
+                  "key": "ts_to",
+                  "value": "<number>"
+                },
+                {
+                  "description": "Filter files by type ([see below](#file_types)). You can pass multiple values in the types argument, like `types=spaces,snippets`.The default value is `all`, which does not filter the list.",
+                  "key": "types",
+                  "value": "<string>"
+                },
+                {
+                  "key": "count",
+                  "value": "<string>"
+                },
+                {
+                  "key": "page",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Show truncated file info for files hidden due to being too old, and the team who owns the file being over the file limit.",
+                  "key": "show_files_hidden_by_limit",
+                  "value": "<boolean>"
+                }
+              ]
+            },
+            "description": "List for a team, in a channel, or from a user with applied filters."
+          },
+          "response": [
+            {
+              "id": "9417405b-6fa7-4ba6-83b5-70a96086589f",
+              "name": "Typical success response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/files.list?token=<string>&user=<string>&channel=<string>&ts_from=<number>&ts_to=<number>&types=<string>&count=<string>&page=<string>&show_files_hidden_by_limit=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "files.list"
+                  ],
+                  "query": [
+                    {
+                      "description": "Authentication token. Requires scope: `files:read`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter files created by a single user.",
+                      "key": "user",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter files appearing in a specific channel, indicated by its ID.",
+                      "key": "channel",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter files created after this timestamp (inclusive).",
+                      "key": "ts_from",
+                      "value": "<number>"
+                    },
+                    {
+                      "description": "Filter files created before this timestamp (inclusive).",
+                      "key": "ts_to",
+                      "value": "<number>"
+                    },
+                    {
+                      "description": "Filter files by type ([see below](#file_types)). You can pass multiple values in the types argument, like `types=spaces,snippets`.The default value is `all`, which does not filter the list.",
+                      "key": "types",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "count",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Show truncated file info for files hidden due to being too old, and the team who owns the file being over the file limit.",
+                      "key": "show_files_hidden_by_limit",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"files\": [\n    {\n      \"value\": \"reference #/components/schemas/objs_file not found in the OpenAPI spec\"\n    },\n    {\n      \"value\": \"reference #/components/schemas/objs_file not found in the OpenAPI spec\"\n    }\n  ],\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  },\n  \"paging\": {\n    \"value\": \"reference #/components/schemas/objs_paging not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:24.000Z",
+              "updatedAt": "2026-06-05T13:19:24.000Z",
+              "uid": "35240-9417405b-6fa7-4ba6-83b5-70a96086589f"
+            },
+            {
+              "id": "ca250bcf-2b20-40d5-aaaf-3fc031ef052d",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/files.list?token=<string>&user=<string>&channel=<string>&ts_from=<number>&ts_to=<number>&types=<string>&count=<string>&page=<string>&show_files_hidden_by_limit=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "files.list"
+                  ],
+                  "query": [
+                    {
+                      "description": "Authentication token. Requires scope: `files:read`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter files created by a single user.",
+                      "key": "user",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter files appearing in a specific channel, indicated by its ID.",
+                      "key": "channel",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter files created after this timestamp (inclusive).",
+                      "key": "ts_from",
+                      "value": "<number>"
+                    },
+                    {
+                      "description": "Filter files created before this timestamp (inclusive).",
+                      "key": "ts_to",
+                      "value": "<number>"
+                    },
+                    {
+                      "description": "Filter files by type ([see below](#file_types)). You can pass multiple values in the types argument, like `types=spaces,snippets`.The default value is `all`, which does not filter the list.",
+                      "key": "types",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "count",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Show truncated file info for files hidden due to being too old, and the team who owns the file being over the file limit.",
+                      "key": "show_files_hidden_by_limit",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"invalid_array_arg\",\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  },\n  \"callstack\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:24.000Z",
+              "updatedAt": "2026-06-05T13:19:24.000Z",
+              "uid": "35240-ca250bcf-2b20-40d5-aaaf-3fc031ef052d"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:24.000Z",
+          "updatedAt": "2026-06-05T13:19:24.000Z",
+          "uid": "35240-bdb6825d-bca9-4804-9807-cb58f5680755"
+        }
+      ],
+      "id": "7b7d849a-36de-4e94-b7d1-dd421fc3dda9",
+      "createdAt": "2026-06-05T13:19:24.000Z",
+      "updatedAt": "2026-06-05T13:19:24.000Z",
+      "uid": "35240-7b7d849a-36de-4e94-b7d1-dd421fc3dda9"
+    },
+    {
+      "name": "files.remote.add",
+      "item": [
+        {
+          "name": "Slack Post Files Remote Add",
+          "id": "cabbe900-a8e6-4f32-a7dd-b827c8dc3d7a",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "description": "Authentication token. Requires scope: `remote_files:write`",
+                  "key": "token",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Creator defined GUID for the file.",
+                  "key": "external_id",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Title of the file being shared.",
+                  "key": "title",
+                  "value": "<string>"
+                },
+                {
+                  "description": "type of file",
+                  "key": "filetype",
+                  "value": "<string>"
+                },
+                {
+                  "description": "URL of the remote file.",
+                  "key": "external_url",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Preview of the document via `multipart/form-data`.",
+                  "key": "preview_image",
+                  "value": "<string>"
+                },
+                {
+                  "description": "A text file (txt, pdf, doc, etc.) containing textual search terms that are used to improve discovery of the remote file.",
+                  "key": "indexable_file_contents",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/files.remote.add",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "files.remote.add"
+              ]
+            },
+            "description": "Adds a file from a remote service"
+          },
+          "response": [
+            {
+              "id": "6ff61638-7180-4f77-809a-977f830346fc",
+              "name": "Typical success response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "Authentication token. Requires scope: `remote_files:write`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Creator defined GUID for the file.",
+                      "key": "external_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Title of the file being shared.",
+                      "key": "title",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "type of file",
+                      "key": "filetype",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "URL of the remote file.",
+                      "key": "external_url",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Preview of the document via `multipart/form-data`.",
+                      "key": "preview_image",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "A text file (txt, pdf, doc, etc.) containing textual search terms that are used to improve discovery of the remote file.",
+                      "key": "indexable_file_contents",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/files.remote.add",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "files.remote.add"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:24.000Z",
+              "updatedAt": "2026-06-05T13:19:24.000Z",
+              "uid": "35240-6ff61638-7180-4f77-809a-977f830346fc"
+            },
+            {
+              "id": "d611ce49-3ecf-49fa-bc20-e9fe1c51caff",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "Authentication token. Requires scope: `remote_files:write`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Creator defined GUID for the file.",
+                      "key": "external_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Title of the file being shared.",
+                      "key": "title",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "type of file",
+                      "key": "filetype",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "URL of the remote file.",
+                      "key": "external_url",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Preview of the document via `multipart/form-data`.",
+                      "key": "preview_image",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "A text file (txt, pdf, doc, etc.) containing textual search terms that are used to improve discovery of the remote file.",
+                      "key": "indexable_file_contents",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/files.remote.add",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "files.remote.add"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:24.000Z",
+              "updatedAt": "2026-06-05T13:19:24.000Z",
+              "uid": "35240-d611ce49-3ecf-49fa-bc20-e9fe1c51caff"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:24.000Z",
+          "updatedAt": "2026-06-05T13:19:24.000Z",
+          "uid": "35240-cabbe900-a8e6-4f32-a7dd-b827c8dc3d7a"
+        }
+      ],
+      "id": "be639da4-a969-4f3d-a487-cb174a91412b",
+      "createdAt": "2026-06-05T13:19:24.000Z",
+      "updatedAt": "2026-06-05T13:19:24.000Z",
+      "uid": "35240-be639da4-a969-4f3d-a487-cb174a91412b"
+    },
+    {
+      "name": "files.remote.info",
+      "item": [
+        {
+          "name": "Slack Get Files Remote Info",
+          "id": "074225ee-7ffa-4be7-a642-5ed8c7681d0e",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/files.remote.info?token=<string>&file=<string>&external_id=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "files.remote.info"
+              ],
+              "query": [
+                {
+                  "description": "Authentication token. Requires scope: `remote_files:read`",
+                  "key": "token",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Specify a file by providing its ID.",
+                  "key": "file",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Creator defined GUID for the file.",
+                  "key": "external_id",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Retrieve information about a remote file added to Slack"
+          },
+          "response": [
+            {
+              "id": "13a83dc0-9cc8-47ec-81ad-da7ed033c1cf",
+              "name": "Typical success response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/files.remote.info?token=<string>&file=<string>&external_id=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "files.remote.info"
+                  ],
+                  "query": [
+                    {
+                      "description": "Authentication token. Requires scope: `remote_files:read`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Specify a file by providing its ID.",
+                      "key": "file",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Creator defined GUID for the file.",
+                      "key": "external_id",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:24.000Z",
+              "updatedAt": "2026-06-05T13:19:24.000Z",
+              "uid": "35240-13a83dc0-9cc8-47ec-81ad-da7ed033c1cf"
+            },
+            {
+              "id": "50c91d84-a46e-40fb-8ffd-ffc1a1ffcac4",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/files.remote.info?token=<string>&file=<string>&external_id=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "files.remote.info"
+                  ],
+                  "query": [
+                    {
+                      "description": "Authentication token. Requires scope: `remote_files:read`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Specify a file by providing its ID.",
+                      "key": "file",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Creator defined GUID for the file.",
+                      "key": "external_id",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:24.000Z",
+              "updatedAt": "2026-06-05T13:19:24.000Z",
+              "uid": "35240-50c91d84-a46e-40fb-8ffd-ffc1a1ffcac4"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:24.000Z",
+          "updatedAt": "2026-06-05T13:19:24.000Z",
+          "uid": "35240-074225ee-7ffa-4be7-a642-5ed8c7681d0e"
+        }
+      ],
+      "id": "de73e6e3-e185-43d0-814f-53fadaeacc3b",
+      "createdAt": "2026-06-05T13:19:24.000Z",
+      "updatedAt": "2026-06-05T13:19:24.000Z",
+      "uid": "35240-de73e6e3-e185-43d0-814f-53fadaeacc3b"
+    },
+    {
+      "name": "files.remote.list",
+      "item": [
+        {
+          "name": "Slack Get Files Remote List",
+          "id": "9e476419-f9be-42b4-bdc4-d13e493347d2",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/files.remote.list?token=<string>&channel=<string>&ts_from=<number>&ts_to=<number>&limit=<integer>&cursor=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "files.remote.list"
+              ],
+              "query": [
+                {
+                  "description": "Authentication token. Requires scope: `remote_files:read`",
+                  "key": "token",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Filter files appearing in a specific channel, indicated by its ID.",
+                  "key": "channel",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Filter files created after this timestamp (inclusive).",
+                  "key": "ts_from",
+                  "value": "<number>"
+                },
+                {
+                  "description": "Filter files created before this timestamp (inclusive).",
+                  "key": "ts_to",
+                  "value": "<number>"
+                },
+                {
+                  "description": "The maximum number of items to return.",
+                  "key": "limit",
+                  "value": "<integer>"
+                },
+                {
+                  "description": "Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute returned by a previous request's `response_metadata`. Default value fetches the first \"page\" of the collection. See [pagination](/docs/pagination) for more detail.",
+                  "key": "cursor",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Retrieve information about a remote file added to Slack"
+          },
+          "response": [
+            {
+              "id": "dfa8db8e-2f4e-4073-85f3-0723da65dc3d",
+              "name": "Typical success response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/files.remote.list?token=<string>&channel=<string>&ts_from=<number>&ts_to=<number>&limit=<integer>&cursor=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "files.remote.list"
+                  ],
+                  "query": [
+                    {
+                      "description": "Authentication token. Requires scope: `remote_files:read`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter files appearing in a specific channel, indicated by its ID.",
+                      "key": "channel",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter files created after this timestamp (inclusive).",
+                      "key": "ts_from",
+                      "value": "<number>"
+                    },
+                    {
+                      "description": "Filter files created before this timestamp (inclusive).",
+                      "key": "ts_to",
+                      "value": "<number>"
+                    },
+                    {
+                      "description": "The maximum number of items to return.",
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute returned by a previous request's `response_metadata`. Default value fetches the first \"page\" of the collection. See [pagination](/docs/pagination) for more detail.",
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:24.000Z",
+              "updatedAt": "2026-06-05T13:19:24.000Z",
+              "uid": "35240-dfa8db8e-2f4e-4073-85f3-0723da65dc3d"
+            },
+            {
+              "id": "919d01de-faf6-42e7-afb1-5a0b35df34c4",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/files.remote.list?token=<string>&channel=<string>&ts_from=<number>&ts_to=<number>&limit=<integer>&cursor=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "files.remote.list"
+                  ],
+                  "query": [
+                    {
+                      "description": "Authentication token. Requires scope: `remote_files:read`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter files appearing in a specific channel, indicated by its ID.",
+                      "key": "channel",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter files created after this timestamp (inclusive).",
+                      "key": "ts_from",
+                      "value": "<number>"
+                    },
+                    {
+                      "description": "Filter files created before this timestamp (inclusive).",
+                      "key": "ts_to",
+                      "value": "<number>"
+                    },
+                    {
+                      "description": "The maximum number of items to return.",
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute returned by a previous request's `response_metadata`. Default value fetches the first \"page\" of the collection. See [pagination](/docs/pagination) for more detail.",
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:24.000Z",
+              "updatedAt": "2026-06-05T13:19:24.000Z",
+              "uid": "35240-919d01de-faf6-42e7-afb1-5a0b35df34c4"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:24.000Z",
+          "updatedAt": "2026-06-05T13:19:24.000Z",
+          "uid": "35240-9e476419-f9be-42b4-bdc4-d13e493347d2"
+        }
+      ],
+      "id": "5ef8755c-00e1-468f-ac71-b78854eb879a",
+      "createdAt": "2026-06-05T13:19:24.000Z",
+      "updatedAt": "2026-06-05T13:19:24.000Z",
+      "uid": "35240-5ef8755c-00e1-468f-ac71-b78854eb879a"
+    },
+    {
+      "name": "files.remote.remove",
+      "item": [
+        {
+          "name": "Slack Post Files Remote Remove",
+          "id": "bad75e94-da0d-430e-9d4d-977af662fe93",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "description": "Authentication token. Requires scope: `remote_files:write`",
+                  "key": "token",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Specify a file by providing its ID.",
+                  "key": "file",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Creator defined GUID for the file.",
+                  "key": "external_id",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/files.remote.remove",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "files.remote.remove"
+              ]
+            },
+            "description": "Remove a remote file."
+          },
+          "response": [
+            {
+              "id": "ad4c1fc0-3644-49aa-a55e-4689ef832b0c",
+              "name": "Typical success response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "Authentication token. Requires scope: `remote_files:write`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Specify a file by providing its ID.",
+                      "key": "file",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Creator defined GUID for the file.",
+                      "key": "external_id",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/files.remote.remove",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "files.remote.remove"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:24.000Z",
+              "updatedAt": "2026-06-05T13:19:24.000Z",
+              "uid": "35240-ad4c1fc0-3644-49aa-a55e-4689ef832b0c"
+            },
+            {
+              "id": "585fa854-f13e-4f03-8be7-690b14028b91",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "Authentication token. Requires scope: `remote_files:write`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Specify a file by providing its ID.",
+                      "key": "file",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Creator defined GUID for the file.",
+                      "key": "external_id",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/files.remote.remove",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "files.remote.remove"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:24.000Z",
+              "updatedAt": "2026-06-05T13:19:24.000Z",
+              "uid": "35240-585fa854-f13e-4f03-8be7-690b14028b91"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:24.000Z",
+          "updatedAt": "2026-06-05T13:19:24.000Z",
+          "uid": "35240-bad75e94-da0d-430e-9d4d-977af662fe93"
+        }
+      ],
+      "id": "84de380d-21f5-4f12-af03-19ec7ee64136",
+      "createdAt": "2026-06-05T13:19:24.000Z",
+      "updatedAt": "2026-06-05T13:19:24.000Z",
+      "uid": "35240-84de380d-21f5-4f12-af03-19ec7ee64136"
+    },
+    {
+      "name": "files.remote.share",
+      "item": [
+        {
+          "name": "Slack Get Files Remote Share",
+          "id": "630a0e89-64df-449b-99cc-fed0ff43ea7f",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/files.remote.share?token=<string>&file=<string>&external_id=<string>&channels=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "files.remote.share"
+              ],
+              "query": [
+                {
+                  "description": "Authentication token. Requires scope: `remote_files:share`",
+                  "key": "token",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Specify a file registered with Slack by providing its ID. Either this field or `external_id` or both are required.",
+                  "key": "file",
+                  "value": "<string>"
+                },
+                {
+                  "description": "The globally unique identifier (GUID) for the file, as set by the app registering the file with Slack.  Either this field or `file` or both are required.",
+                  "key": "external_id",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Comma-separated list of channel IDs where the file will be shared.",
+                  "key": "channels",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Share a remote file into a channel."
+          },
+          "response": [
+            {
+              "id": "305ab7a7-06da-4ef6-9c9e-09da221cccbf",
+              "name": "Typical success response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/files.remote.share?token=<string>&file=<string>&external_id=<string>&channels=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "files.remote.share"
+                  ],
+                  "query": [
+                    {
+                      "description": "Authentication token. Requires scope: `remote_files:share`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Specify a file registered with Slack by providing its ID. Either this field or `external_id` or both are required.",
+                      "key": "file",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The globally unique identifier (GUID) for the file, as set by the app registering the file with Slack.  Either this field or `file` or both are required.",
+                      "key": "external_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated list of channel IDs where the file will be shared.",
+                      "key": "channels",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:24.000Z",
+              "updatedAt": "2026-06-05T13:19:24.000Z",
+              "uid": "35240-305ab7a7-06da-4ef6-9c9e-09da221cccbf"
+            },
+            {
+              "id": "94a8756d-e1dc-4eb7-934d-1590fe8b7d74",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/files.remote.share?token=<string>&file=<string>&external_id=<string>&channels=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "files.remote.share"
+                  ],
+                  "query": [
+                    {
+                      "description": "Authentication token. Requires scope: `remote_files:share`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Specify a file registered with Slack by providing its ID. Either this field or `external_id` or both are required.",
+                      "key": "file",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The globally unique identifier (GUID) for the file, as set by the app registering the file with Slack.  Either this field or `file` or both are required.",
+                      "key": "external_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated list of channel IDs where the file will be shared.",
+                      "key": "channels",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:24.000Z",
+              "updatedAt": "2026-06-05T13:19:24.000Z",
+              "uid": "35240-94a8756d-e1dc-4eb7-934d-1590fe8b7d74"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:24.000Z",
+          "updatedAt": "2026-06-05T13:19:24.000Z",
+          "uid": "35240-630a0e89-64df-449b-99cc-fed0ff43ea7f"
+        }
+      ],
+      "id": "bdae3e7c-9222-400d-b734-f7d4abc574cf",
+      "createdAt": "2026-06-05T13:19:24.000Z",
+      "updatedAt": "2026-06-05T13:19:24.000Z",
+      "uid": "35240-bdae3e7c-9222-400d-b734-f7d4abc574cf"
+    },
+    {
+      "name": "files.remote.update",
+      "item": [
+        {
+          "name": "Slack Post Files Remote Update",
+          "id": "95663c6f-a5b3-43b7-8981-5e38a2f0c3ea",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "description": "Authentication token. Requires scope: `remote_files:write`",
+                  "key": "token",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Specify a file by providing its ID.",
+                  "key": "file",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Creator defined GUID for the file.",
+                  "key": "external_id",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Title of the file being shared.",
+                  "key": "title",
+                  "value": "<string>"
+                },
+                {
+                  "description": "type of file",
+                  "key": "filetype",
+                  "value": "<string>"
+                },
+                {
+                  "description": "URL of the remote file.",
+                  "key": "external_url",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Preview of the document via `multipart/form-data`.",
+                  "key": "preview_image",
+                  "value": "<string>"
+                },
+                {
+                  "description": "File containing contents that can be used to improve searchability for the remote file.",
+                  "key": "indexable_file_contents",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/files.remote.update",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "files.remote.update"
+              ]
+            },
+            "description": "Updates an existing remote file."
+          },
+          "response": [
+            {
+              "id": "2845dfa6-a603-4954-b28e-6a3c7f1ca63d",
+              "name": "Typical success response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "Authentication token. Requires scope: `remote_files:write`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Specify a file by providing its ID.",
+                      "key": "file",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Creator defined GUID for the file.",
+                      "key": "external_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Title of the file being shared.",
+                      "key": "title",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "type of file",
+                      "key": "filetype",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "URL of the remote file.",
+                      "key": "external_url",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Preview of the document via `multipart/form-data`.",
+                      "key": "preview_image",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "File containing contents that can be used to improve searchability for the remote file.",
+                      "key": "indexable_file_contents",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/files.remote.update",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "files.remote.update"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:24.000Z",
+              "updatedAt": "2026-06-05T13:19:24.000Z",
+              "uid": "35240-2845dfa6-a603-4954-b28e-6a3c7f1ca63d"
+            },
+            {
+              "id": "4f93a2fd-1351-455f-8d07-d781d8d52701",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "Authentication token. Requires scope: `remote_files:write`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Specify a file by providing its ID.",
+                      "key": "file",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Creator defined GUID for the file.",
+                      "key": "external_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Title of the file being shared.",
+                      "key": "title",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "type of file",
+                      "key": "filetype",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "URL of the remote file.",
+                      "key": "external_url",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Preview of the document via `multipart/form-data`.",
+                      "key": "preview_image",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "File containing contents that can be used to improve searchability for the remote file.",
+                      "key": "indexable_file_contents",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/files.remote.update",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "files.remote.update"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:24.000Z",
+              "updatedAt": "2026-06-05T13:19:24.000Z",
+              "uid": "35240-4f93a2fd-1351-455f-8d07-d781d8d52701"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:24.000Z",
+          "updatedAt": "2026-06-05T13:19:24.000Z",
+          "uid": "35240-95663c6f-a5b3-43b7-8981-5e38a2f0c3ea"
+        }
+      ],
+      "id": "9b3d7164-5bcd-4f42-9615-2a36482cf87c",
+      "createdAt": "2026-06-05T13:19:24.000Z",
+      "updatedAt": "2026-06-05T13:19:24.000Z",
+      "uid": "35240-9b3d7164-5bcd-4f42-9615-2a36482cf87c"
+    },
+    {
+      "name": "files.revokePublicURL",
+      "item": [
+        {
+          "name": "Slack Post Files Revokepublicurl",
+          "id": "3e0215f1-a6b2-463d-837e-22af4e16f5f7",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "Authentication token. Requires scope: `files:write:user`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "description": "File to revoke",
+                  "key": "file",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/files.revokePublicURL",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "files.revokePublicURL"
+              ]
+            },
+            "description": "Revokes public/external sharing access for a file"
+          },
+          "response": [
+            {
+              "id": "d764fc2f-c0e6-42b1-ace1-31232ba373fb",
+              "name": "Typical success response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Authentication token. Requires scope: `files:write:user`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "File to revoke",
+                      "key": "file",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/files.revokePublicURL",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "files.revokePublicURL"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"file\": {\n    \"value\": \"reference #/components/schemas/objs_file not found in the OpenAPI spec\"\n  },\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:24.000Z",
+              "updatedAt": "2026-06-05T13:19:24.000Z",
+              "uid": "35240-d764fc2f-c0e6-42b1-ace1-31232ba373fb"
+            },
+            {
+              "id": "6cca562c-561e-4ca8-98fc-19f6e8bef0bc",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Authentication token. Requires scope: `files:write:user`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "File to revoke",
+                      "key": "file",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/files.revokePublicURL",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "files.revokePublicURL"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"user_is_restricted\",\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  },\n  \"callstack\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:24.000Z",
+              "updatedAt": "2026-06-05T13:19:24.000Z",
+              "uid": "35240-6cca562c-561e-4ca8-98fc-19f6e8bef0bc"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:24.000Z",
+          "updatedAt": "2026-06-05T13:19:24.000Z",
+          "uid": "35240-3e0215f1-a6b2-463d-837e-22af4e16f5f7"
+        }
+      ],
+      "id": "9635f6bb-c943-40ee-89c5-9e10aa44f12b",
+      "createdAt": "2026-06-05T13:19:24.000Z",
+      "updatedAt": "2026-06-05T13:19:24.000Z",
+      "uid": "35240-9635f6bb-c943-40ee-89c5-9e10aa44f12b"
+    },
+    {
+      "name": "files.sharedPublicURL",
+      "item": [
+        {
+          "name": "Slack Post Files Sharedpublicurl",
+          "id": "04becfc3-04da-471f-af4f-d6943ba0f191",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "Authentication token. Requires scope: `files:write:user`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "description": "File to share",
+                  "key": "file",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/files.sharedPublicURL",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "files.sharedPublicURL"
+              ]
+            },
+            "description": "Enables a file for public/external sharing."
+          },
+          "response": [
+            {
+              "id": "9a5c8b46-3d68-42ae-aaae-3c4212dfd1e5",
+              "name": "Typical success response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Authentication token. Requires scope: `files:write:user`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "File to share",
+                      "key": "file",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/files.sharedPublicURL",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "files.sharedPublicURL"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"file\": {\n    \"value\": \"reference #/components/schemas/objs_file not found in the OpenAPI spec\"\n  },\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:24.000Z",
+              "updatedAt": "2026-06-05T13:19:24.000Z",
+              "uid": "35240-9a5c8b46-3d68-42ae-aaae-3c4212dfd1e5"
+            },
+            {
+              "id": "48bb0bbe-03e3-4798-9273-609cb7816d97",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Authentication token. Requires scope: `files:write:user`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "File to share",
+                      "key": "file",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/files.sharedPublicURL",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "files.sharedPublicURL"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"file_not_found\",\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  },\n  \"callstack\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:24.000Z",
+              "updatedAt": "2026-06-05T13:19:24.000Z",
+              "uid": "35240-48bb0bbe-03e3-4798-9273-609cb7816d97"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:24.000Z",
+          "updatedAt": "2026-06-05T13:19:24.000Z",
+          "uid": "35240-04becfc3-04da-471f-af4f-d6943ba0f191"
+        }
+      ],
+      "id": "7dee17fe-f60c-4144-a0bd-0564b84715c9",
+      "createdAt": "2026-06-05T13:19:24.000Z",
+      "updatedAt": "2026-06-05T13:19:24.000Z",
+      "uid": "35240-7dee17fe-f60c-4144-a0bd-0564b84715c9"
+    },
+    {
+      "name": "files.upload",
+      "item": [
+        {
+          "name": "Slack Post Files Upload",
+          "id": "3dd20038-5b82-454b-84d2-8226a89af88a",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "description": "Authentication token. Requires scope: `files:write:user`",
+                  "key": "token",
+                  "value": "<string>"
+                },
+                {
+                  "description": "File contents via `multipart/form-data`. If omitting this parameter, you must submit `content`.",
+                  "key": "file",
+                  "value": "<string>"
+                },
+                {
+                  "description": "File contents via a POST variable. If omitting this parameter, you must provide a `file`.",
+                  "key": "content",
+                  "value": "<string>"
+                },
+                {
+                  "description": "A [file type](/types/file#file_types) identifier.",
+                  "key": "filetype",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Filename of file.",
+                  "key": "filename",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Title of file.",
+                  "key": "title",
+                  "value": "<string>"
+                },
+                {
+                  "description": "The message text introducing the file in specified `channels`.",
+                  "key": "initial_comment",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Comma-separated list of channel names or IDs where the file will be shared.",
+                  "key": "channels",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Provide another message's `ts` value to upload this file as a reply. Never use a reply's `ts` value; use its parent instead.",
+                  "key": "thread_ts",
+                  "value": "<number>"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/files.upload",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "files.upload"
+              ]
+            },
+            "description": "Uploads or creates a file."
+          },
+          "response": [
+            {
+              "id": "fbaf5c10-6ecf-4aba-a226-473ec0fbee55",
+              "name": "Success response after uploading a file to a channel with an initial message",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "Authentication token. Requires scope: `files:write:user`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "File contents via `multipart/form-data`. If omitting this parameter, you must submit `content`.",
+                      "key": "file",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "File contents via a POST variable. If omitting this parameter, you must provide a `file`.",
+                      "key": "content",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "A [file type](/types/file#file_types) identifier.",
+                      "key": "filetype",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filename of file.",
+                      "key": "filename",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Title of file.",
+                      "key": "title",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The message text introducing the file in specified `channels`.",
+                      "key": "initial_comment",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated list of channel names or IDs where the file will be shared.",
+                      "key": "channels",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Provide another message's `ts` value to upload this file as a reply. Never use a reply's `ts` value; use its parent instead.",
+                      "key": "thread_ts",
+                      "value": "<number>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/files.upload",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "files.upload"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"file\": {\n    \"value\": \"reference #/components/schemas/objs_file not found in the OpenAPI spec\"\n  },\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_true not found in the OpenAPI spec\"\n  }\n}",
+              "createdAt": "2026-06-05T13:19:24.000Z",
+              "updatedAt": "2026-06-05T13:19:24.000Z",
+              "uid": "35240-fbaf5c10-6ecf-4aba-a226-473ec0fbee55"
+            },
+            {
+              "id": "d6576108-150a-47ec-8c48-add8251f593d",
+              "name": "Typical error response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "Authentication token. Requires scope: `files:write:user`",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "File contents via `multipart/form-data`. If omitting this parameter, you must submit `content`.",
+                      "key": "file",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "File contents via a POST variable. If omitting this parameter, you must provide a `file`.",
+                      "key": "content",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "A [file type](/types/file#file_types) identifier.",
+                      "key": "filetype",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filename of file.",
+                      "key": "filename",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Title of file.",
+                      "key": "title",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The message text introducing the file in specified `channels`.",
+                      "key": "initial_comment",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated list of channel names or IDs where the file will be shared.",
+                      "key": "channels",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Provide another message's `ts` value to upload this file as a reply. Never use a reply's `ts` value; use its parent instead.",
+                      "key": "thread_ts",
+                      "value": "<number>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/files.upload",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "files.upload"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"upgrade_required\",\n  \"ok\": {\n    \"value\": \"reference #/components/schemas/defs_ok_false not found in the OpenAPI spec\"\n  },\n  \"callstack\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:24.000Z",
+              "updatedAt": "2026-06-05T13:19:24.000Z",
+              "uid": "35240-d6576108-150a-47ec-8c48-add8251f593d"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:24.000Z",
+          "updatedAt": "2026-06-05T13:19:24.000Z",
+          "uid": "35240-3dd20038-5b82-454b-84d2-8226a89af88a"
+        }
+      ],
+      "id": "ce45572c-f184-45f9-8615-6a137d9c72b3",
+      "createdAt": "2026-06-05T13:19:24.000Z",
+      "updatedAt": "2026-06-05T13:19:24.000Z",
+      "uid": "35240-ce45572c-f184-45f9-8615-6a137d9c72b3"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "/"
+    }
+  ]
+}

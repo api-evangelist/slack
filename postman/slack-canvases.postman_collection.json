@@ -1,0 +1,1256 @@
+{
+  "info": {
+    "_postman_id": "5df55227-4563-4dcb-8f59-af12f3bc2524",
+    "name": "Slack Canvases API",
+    "description": "The Slack Canvases API lets apps programmatically create, edit, delete, and manage access to Slack Canvases, which are rich document surfaces embedded within Slack. Key methods include canvases.create for creating standalone canvases, canvases.edit for modifying content with operations like insert, replace, and delete, canvases.delete for removing canvases, and canvases.access.set and canvases.access.delete for managing who can view or edit a canvas.\n\nContact Support:\n Name: Slack Developer Relations",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T13:19:14.000Z",
+    "updatedAt": "2026-06-05T13:19:15.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-5df55227-4563-4dcb-8f59-af12f3bc2524"
+  },
+  "item": [
+    {
+      "name": "canvases.create",
+      "item": [
+        {
+          "name": "Create Canvas",
+          "id": "6cc21f69-aae4-463a-9ce2-7898c9cada4b",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "canvases:read canvases:write",
+                  "type": "string"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://slack.com/api/oauth.v2.access",
+                  "type": "string"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://slack.com/oauth/v2/authorize",
+                  "type": "string"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "description": "(Required) Authentication token. Requires scope: `canvases:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"<string>\",\n  \"document_content\": {}\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/canvases.create",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "canvases.create"
+              ]
+            },
+            "description": "Creates a Slack Canvas."
+          },
+          "response": [
+            {
+              "id": "03a537d1-14df-4a49-b687-69565f56b687",
+              "name": "Successful response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `canvases:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"document_content\": {}\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/canvases.create",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "canvases.create"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": \"<boolean>\",\n  \"canvas_id\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:15.000Z",
+              "updatedAt": "2026-06-05T13:19:15.000Z",
+              "uid": "35240-03a537d1-14df-4a49-b687-69565f56b687"
+            },
+            {
+              "id": "2b2ca2ca-50fa-42ed-beb1-297b75ac213a",
+              "name": "Error response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `canvases:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"document_content\": {}\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/canvases.create",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "canvases.create"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": \"<boolean>\",\n  \"error\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:15.000Z",
+              "updatedAt": "2026-06-05T13:19:15.000Z",
+              "uid": "35240-2b2ca2ca-50fa-42ed-beb1-297b75ac213a"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:15.000Z",
+          "updatedAt": "2026-06-05T13:19:15.000Z",
+          "uid": "35240-6cc21f69-aae4-463a-9ce2-7898c9cada4b"
+        }
+      ],
+      "id": "235051f7-2e6b-413a-af1c-d59404ce03da",
+      "createdAt": "2026-06-05T13:19:15.000Z",
+      "updatedAt": "2026-06-05T13:19:15.000Z",
+      "uid": "35240-235051f7-2e6b-413a-af1c-d59404ce03da"
+    },
+    {
+      "name": "canvases.delete",
+      "item": [
+        {
+          "name": "Delete Canvas",
+          "id": "dea1c08c-698e-4ee6-923f-9c6947fb92b7",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "canvases:read canvases:write",
+                  "type": "string"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://slack.com/api/oauth.v2.access",
+                  "type": "string"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://slack.com/oauth/v2/authorize",
+                  "type": "string"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "description": "(Required) Authentication token. Requires scope: `canvases:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "description": "(Required) ID of the canvas to delete.",
+                  "key": "canvas_id",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/canvases.delete",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "canvases.delete"
+              ]
+            },
+            "description": "Deletes a Slack Canvas."
+          },
+          "response": [
+            {
+              "id": "9500102c-411b-4614-bb6a-5c9bfec1d156",
+              "name": "Successful response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `canvases:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) ID of the canvas to delete.",
+                      "key": "canvas_id",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/canvases.delete",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "canvases.delete"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": \"<boolean>\"\n}",
+              "createdAt": "2026-06-05T13:19:15.000Z",
+              "updatedAt": "2026-06-05T13:19:15.000Z",
+              "uid": "35240-9500102c-411b-4614-bb6a-5c9bfec1d156"
+            },
+            {
+              "id": "251a2414-c334-4d32-aaa3-1898d52d8ac6",
+              "name": "Error response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `canvases:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) ID of the canvas to delete.",
+                      "key": "canvas_id",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/canvases.delete",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "canvases.delete"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": \"<boolean>\",\n  \"error\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:15.000Z",
+              "updatedAt": "2026-06-05T13:19:15.000Z",
+              "uid": "35240-251a2414-c334-4d32-aaa3-1898d52d8ac6"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:15.000Z",
+          "updatedAt": "2026-06-05T13:19:15.000Z",
+          "uid": "35240-dea1c08c-698e-4ee6-923f-9c6947fb92b7"
+        }
+      ],
+      "id": "12cc1881-a882-411a-bd63-197f44dbcfef",
+      "createdAt": "2026-06-05T13:19:15.000Z",
+      "updatedAt": "2026-06-05T13:19:15.000Z",
+      "uid": "35240-12cc1881-a882-411a-bd63-197f44dbcfef"
+    },
+    {
+      "name": "canvases.edit",
+      "item": [
+        {
+          "name": "Edit Canvas",
+          "id": "2cfbe81d-1a25-4714-80b4-da0c1400e9c0",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "canvases:read canvases:write",
+                  "type": "string"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://slack.com/api/oauth.v2.access",
+                  "type": "string"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://slack.com/oauth/v2/authorize",
+                  "type": "string"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "description": "(Required) Authentication token. Requires scope: `canvases:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"canvas_id\": \"<string>\",\n  \"changes\": []\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/canvases.edit",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "canvases.edit"
+              ]
+            },
+            "description": "Edits a Slack Canvas by inserting, replacing, or deleting content sections."
+          },
+          "response": [
+            {
+              "id": "8a964558-f258-4db8-82c2-287e56c7c735",
+              "name": "Successful response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `canvases:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"canvas_id\": \"<string>\",\n  \"changes\": []\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/canvases.edit",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "canvases.edit"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": \"<boolean>\"\n}",
+              "createdAt": "2026-06-05T13:19:15.000Z",
+              "updatedAt": "2026-06-05T13:19:15.000Z",
+              "uid": "35240-8a964558-f258-4db8-82c2-287e56c7c735"
+            },
+            {
+              "id": "f734e5b1-4faa-40a5-9a18-a9200481d55c",
+              "name": "Error response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `canvases:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"canvas_id\": \"<string>\",\n  \"changes\": []\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/canvases.edit",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "canvases.edit"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": \"<boolean>\",\n  \"error\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:15.000Z",
+              "updatedAt": "2026-06-05T13:19:15.000Z",
+              "uid": "35240-f734e5b1-4faa-40a5-9a18-a9200481d55c"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:15.000Z",
+          "updatedAt": "2026-06-05T13:19:15.000Z",
+          "uid": "35240-2cfbe81d-1a25-4714-80b4-da0c1400e9c0"
+        }
+      ],
+      "id": "ce3e038f-02d9-4393-89a1-71d759930030",
+      "createdAt": "2026-06-05T13:19:15.000Z",
+      "updatedAt": "2026-06-05T13:19:15.000Z",
+      "uid": "35240-ce3e038f-02d9-4393-89a1-71d759930030"
+    },
+    {
+      "name": "canvases.access.delete",
+      "item": [
+        {
+          "name": "Delete Canvas Access",
+          "id": "f5f168d2-b64a-45a8-a835-8d8ed90c9ba2",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "canvases:read canvases:write",
+                  "type": "string"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://slack.com/api/oauth.v2.access",
+                  "type": "string"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://slack.com/oauth/v2/authorize",
+                  "type": "string"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "description": "(Required) Authentication token. Requires scope: `canvases:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"canvas_id\": \"<string>\",\n  \"user_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/canvases.access.delete",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "canvases.access.delete"
+              ]
+            },
+            "description": "Removes access to a canvas for specified users or groups."
+          },
+          "response": [
+            {
+              "id": "b3cb0d60-2f44-4722-9191-de9331b7c4ad",
+              "name": "Successful response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `canvases:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"canvas_id\": \"<string>\",\n  \"user_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/canvases.access.delete",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "canvases.access.delete"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": \"<boolean>\"\n}",
+              "createdAt": "2026-06-05T13:19:15.000Z",
+              "updatedAt": "2026-06-05T13:19:15.000Z",
+              "uid": "35240-b3cb0d60-2f44-4722-9191-de9331b7c4ad"
+            },
+            {
+              "id": "b946863d-110a-4512-b74e-7d8618f6098d",
+              "name": "Error response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `canvases:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"canvas_id\": \"<string>\",\n  \"user_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/canvases.access.delete",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "canvases.access.delete"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": \"<boolean>\",\n  \"error\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:15.000Z",
+              "updatedAt": "2026-06-05T13:19:15.000Z",
+              "uid": "35240-b946863d-110a-4512-b74e-7d8618f6098d"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:15.000Z",
+          "updatedAt": "2026-06-05T13:19:15.000Z",
+          "uid": "35240-f5f168d2-b64a-45a8-a835-8d8ed90c9ba2"
+        }
+      ],
+      "id": "800630d9-b38c-4ca3-a450-e3a9a981bfa5",
+      "createdAt": "2026-06-05T13:19:15.000Z",
+      "updatedAt": "2026-06-05T13:19:15.000Z",
+      "uid": "35240-800630d9-b38c-4ca3-a450-e3a9a981bfa5"
+    },
+    {
+      "name": "canvases.access.set",
+      "item": [
+        {
+          "name": "Set Canvas Access",
+          "id": "dc122b29-f75e-479d-9ecf-203bba818137",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "canvases:read canvases:write",
+                  "type": "string"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://slack.com/api/oauth.v2.access",
+                  "type": "string"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://slack.com/oauth/v2/authorize",
+                  "type": "string"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "description": "(Required) Authentication token. Requires scope: `canvases:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"canvas_id\": \"<string>\",\n  \"access_level\": \"write\",\n  \"user_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"channel_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/canvases.access.set",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "canvases.access.set"
+              ]
+            },
+            "description": "Sets access controls for a canvas, granting view or edit access to users or groups."
+          },
+          "response": [
+            {
+              "id": "8184a4f4-60f4-41b9-890e-10bb50359d24",
+              "name": "Successful response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `canvases:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"canvas_id\": \"<string>\",\n  \"access_level\": \"write\",\n  \"user_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"channel_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/canvases.access.set",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "canvases.access.set"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": \"<boolean>\"\n}",
+              "createdAt": "2026-06-05T13:19:15.000Z",
+              "updatedAt": "2026-06-05T13:19:15.000Z",
+              "uid": "35240-8184a4f4-60f4-41b9-890e-10bb50359d24"
+            },
+            {
+              "id": "2ae88537-b61c-478a-a708-eb05304cbc5e",
+              "name": "Error response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `canvases:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"canvas_id\": \"<string>\",\n  \"access_level\": \"write\",\n  \"user_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"channel_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/canvases.access.set",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "canvases.access.set"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": \"<boolean>\",\n  \"error\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:15.000Z",
+              "updatedAt": "2026-06-05T13:19:15.000Z",
+              "uid": "35240-2ae88537-b61c-478a-a708-eb05304cbc5e"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:15.000Z",
+          "updatedAt": "2026-06-05T13:19:15.000Z",
+          "uid": "35240-dc122b29-f75e-479d-9ecf-203bba818137"
+        }
+      ],
+      "id": "e4535e7e-a7fa-4149-82cc-2a1a382b4982",
+      "createdAt": "2026-06-05T13:19:15.000Z",
+      "updatedAt": "2026-06-05T13:19:15.000Z",
+      "uid": "35240-e4535e7e-a7fa-4149-82cc-2a1a382b4982"
+    },
+    {
+      "name": "canvases.sections.lookup",
+      "item": [
+        {
+          "name": "Lookup Canvas Sections",
+          "id": "c9388f62-1c7a-4e3e-bd06-764a2c123fd8",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "canvases:read canvases:write",
+                  "type": "string"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://slack.com/api/oauth.v2.access",
+                  "type": "string"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://slack.com/oauth/v2/authorize",
+                  "type": "string"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "description": "(Required) Authentication token. Requires scope: `canvases:read`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"canvas_id\": \"<string>\",\n  \"criteria\": {}\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/canvases.sections.lookup",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "canvases.sections.lookup"
+              ]
+            },
+            "description": "Looks up sections in a canvas by type or criteria."
+          },
+          "response": [
+            {
+              "id": "2e90a462-fcec-4500-b0b2-1b59a48a5d75",
+              "name": "Successful response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `canvases:read`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"canvas_id\": \"<string>\",\n  \"criteria\": {}\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/canvases.sections.lookup",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "canvases.sections.lookup"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": \"<boolean>\"\n}",
+              "createdAt": "2026-06-05T13:19:15.000Z",
+              "updatedAt": "2026-06-05T13:19:15.000Z",
+              "uid": "35240-2e90a462-fcec-4500-b0b2-1b59a48a5d75"
+            },
+            {
+              "id": "04ba534b-e361-4815-b05d-a49e778b8bb5",
+              "name": "Error response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token. Requires scope: `canvases:read`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"canvas_id\": \"<string>\",\n  \"criteria\": {}\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/canvases.sections.lookup",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "canvases.sections.lookup"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ok\": \"<boolean>\",\n  \"error\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T13:19:15.000Z",
+              "updatedAt": "2026-06-05T13:19:15.000Z",
+              "uid": "35240-04ba534b-e361-4815-b05d-a49e778b8bb5"
+            }
+          ],
+          "createdAt": "2026-06-05T13:19:15.000Z",
+          "updatedAt": "2026-06-05T13:19:15.000Z",
+          "uid": "35240-c9388f62-1c7a-4e3e-bd06-764a2c123fd8"
+        }
+      ],
+      "id": "d5694b3d-cf7b-4dad-873a-3d3466196f79",
+      "createdAt": "2026-06-05T13:19:15.000Z",
+      "updatedAt": "2026-06-05T13:19:15.000Z",
+      "uid": "35240-d5694b3d-cf7b-4dad-873a-3d3466196f79"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://slack.com/api"
+    }
+  ]
+}
