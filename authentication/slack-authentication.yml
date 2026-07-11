@@ -1,0 +1,34 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/slack-assistant-openapi.yml, openapi/slack-bookmarks-openapi.yml, openapi/slack-canvases-openapi.yml,
+  openapi/slack-emoji-openapi.yml, openapi/slack-functions-openapi.yml, openapi/slack-lists-openapi.yml,
+  openapi/slack-openid-connect-openapi.yml, openapi/slack-web-api-openapi.yml
+summary:
+  types:
+  - http
+  - oauth2
+  oauth2_flows:
+  - authorizationCode
+schemes:
+- name: slackAuth
+  type: oauth2
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://slack.com/oauth/v2/authorize
+    tokenUrl: https://slack.com/api/oauth.v2.access
+    scopes: 1
+  sources:
+  - openapi/slack-assistant-openapi.yml
+  - openapi/slack-bookmarks-openapi.yml
+  - openapi/slack-canvases-openapi.yml
+  - openapi/slack-emoji-openapi.yml
+  - openapi/slack-functions-openapi.yml
+  - openapi/slack-lists-openapi.yml
+  - openapi/slack-openid-connect-openapi.yml
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  description: Slack API uses Bearer token authentication. Pass a bot token or user token in
+    the Authorization header.
+  sources:
+  - openapi/slack-web-api-openapi.yml
