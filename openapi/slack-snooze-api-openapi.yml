@@ -1,0 +1,219 @@
+openapi: 3.1.0
+info:
+  version: '1.0'
+  title: Slack Admin Access Snooze API
+  description: "The Slack Admin API is a set of privileged endpoints\x14primarily under admin.* with related SCIM and Audit Logs APIs\x14that lets Enterprise Grid owners and admins automate organization\x11 wide management and governance. It covers user lifecycle (provision, suspend, assign roles), workspace and channel administration across workspaces (create, move, archive channels; manage membership and settings), app governance (approve/deny or allowlist/ban apps and install them to workspaces), invite request handling, and security/compliance controls such as information barriers, session and authentication policies, and org\x11level analytics exports. These APIs require elevated admin scopes and are commonly used to power automated onboarding/offboarding, centralized channel and app controls, and integrations with identity, ITSM, and compliance systems."
+tags:
+- name: Snooze
+paths:
+  /dnd.endSnooze:
+    post:
+      tags:
+      - Snooze
+      description: Ends the current user's snooze mode immediately.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/dnd.endSnooze
+      operationId: postDndEndsnooze
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `dnd:write`'
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: dnd.endSnooze schema
+                required:
+                - dnd_enabled
+                - next_dnd_end_ts
+                - next_dnd_start_ts
+                - ok
+                - snooze_enabled
+                type: object
+                properties:
+                  dnd_enabled:
+                    type: boolean
+                  next_dnd_end_ts:
+                    type: integer
+                  next_dnd_start_ts:
+                    type: integer
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                  snooze_enabled:
+                    type: boolean
+                additionalProperties: false
+                description: Schema for successful response from dnd.endSnooze method
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: dnd.endSnooze error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - snooze_not_active
+                    - snooze_end_failed
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - token_revoked
+                    - no_permission
+                    - org_login_required
+                    - user_is_bot
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - fatal_error
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from dnd.endSnooze method
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - dnd:write
+      summary: Slack Post End Do Not Disturb Snooze
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /dnd.setSnooze:
+    post:
+      tags:
+      - Snooze
+      description: Turns on Do Not Disturb mode for the current user, or changes its duration.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/dnd.setSnooze
+      operationId: postDndSetsnooze
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - num_minutes
+              - token
+              type: object
+              properties:
+                token:
+                  type: string
+                  description: 'Authentication token. Requires scope: `dnd:write`'
+                num_minutes:
+                  type: string
+                  description: Number of minutes, from now, to snooze until.
+        required: true
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: dnd.setSnooze schema
+                required:
+                - ok
+                - snooze_enabled
+                - snooze_endtime
+                - snooze_remaining
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                  snooze_enabled:
+                    type: boolean
+                  snooze_endtime:
+                    type: integer
+                  snooze_remaining:
+                    type: integer
+                additionalProperties: false
+                description: Schema for successful response from dnd.setSnooze method
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: dnd.setSnooze error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - missing_duration
+                    - snooze_failed
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - token_revoked
+                    - no_permission
+                    - org_login_required
+                    - user_is_bot
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - too_long
+                    - fatal_error
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from dnd.setSnooze method
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - dnd:write
+      summary: Slack Post Do Not Disturb Snooze
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK

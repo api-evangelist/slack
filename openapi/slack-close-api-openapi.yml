@@ -1,0 +1,121 @@
+openapi: 3.1.0
+info:
+  version: '1.0'
+  title: Slack Admin Access Close API
+  description: "The Slack Admin API is a set of privileged endpoints\x14primarily under admin.* with related SCIM and Audit Logs APIs\x14that lets Enterprise Grid owners and admins automate organization\x11 wide management and governance. It covers user lifecycle (provision, suspend, assign roles), workspace and channel administration across workspaces (create, move, archive channels; manage membership and settings), app governance (approve/deny or allowlist/ban apps and install them to workspaces), invite request handling, and security/compliance controls such as information barriers, session and authentication policies, and org\x11level analytics exports. These APIs require elevated admin scopes and are commonly used to power automated onboarding/offboarding, centralized channel and app controls, and integrations with identity, ITSM, and compliance systems."
+tags:
+- name: Close
+paths:
+  /conversations.close:
+    post:
+      tags:
+      - Close
+      description: Closes a direct message or multi-person direct message.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/conversations.close
+      operationId: postConversationsClose
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `conversations:write`'
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                channel:
+                  type: string
+                  description: Conversation to close.
+          application/json:
+            schema:
+              type: object
+              properties:
+                channel:
+                  type: string
+                  description: Conversation to close.
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: conversations.close success schema
+                required:
+                - ok
+                type: object
+                properties:
+                  already_closed:
+                    type: boolean
+                  no_op:
+                    type: boolean
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: false
+                description: Schema for successful response conversations.close method
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: conversations.close error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - method_not_supported_for_channel_type
+                    - channel_not_found
+                    - user_does_not_own_channel
+                    - missing_scope
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                  needed:
+                    type: string
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                  provided:
+                    type: string
+                additionalProperties: false
+                description: Schema for error response from conversations.close method
+              example:
+                error: channel_not_found
+                ok: false
+      security:
+      - slackAuth:
+        - channels:write
+        - groups:write
+        - im:write
+        - mpim:write
+      summary: Slack Post Conversations Close
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK

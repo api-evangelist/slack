@@ -1,0 +1,122 @@
+openapi: 3.1.0
+info:
+  version: '1.0'
+  title: Slack Admin Access Push API
+  description: "The Slack Admin API is a set of privileged endpoints\x14primarily under admin.* with related SCIM and Audit Logs APIs\x14that lets Enterprise Grid owners and admins automate organization\x11 wide management and governance. It covers user lifecycle (provision, suspend, assign roles), workspace and channel administration across workspaces (create, move, archive channels; manage membership and settings), app governance (approve/deny or allowlist/ban apps and install them to workspaces), invite request handling, and security/compliance controls such as information barriers, session and authentication policies, and org\x11level analytics exports. These APIs require elevated admin scopes and are commonly used to power automated onboarding/offboarding, centralized channel and app controls, and integrations with identity, ITSM, and compliance systems."
+tags:
+- name: Push
+paths:
+  /views.push:
+    get:
+      tags:
+      - Push
+      description: Push a view onto the stack of a root view.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/views.push
+      operationId: getViewsPush
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `none`'
+        required: true
+        schema:
+          type: string
+      - name: trigger_id
+        in: query
+        description: Exchange a trigger to post to the user.
+        required: true
+        schema:
+          type: string
+      - name: view
+        in: query
+        description: A [view payload](/reference/surfaces/views). This must be a JSON-encoded string.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Typical success response includes the pushed view payload.
+          content:
+            application/json:
+              schema:
+                title: Default success template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: true
+                description: This method either only returns a brief _OK_ response or a verbose schema is not available for this method.
+              example:
+                ok: true
+                view:
+                  app_id: AAD3351BQ
+                  blocks:
+                  - block_id: edit_details
+                    element:
+                      action_id: detail_input
+                      type: plain_text_input
+                    label:
+                      text: Edit details
+                      type: plain_text
+                    type: input
+                  bot_id: BADF7A34H
+                  callback_id: view_4
+                  clear_on_close: true
+                  close:
+                    emoji: true
+                    text: Back
+                    type: plain_text
+                  external_id: ''
+                  hash: 1569362015.55b5e41b
+                  id: VNM522E2U
+                  notify_on_close: false
+                  previous_view_id: null
+                  private_metadata: ''
+                  root_view_id: VNN729E3U
+                  state:
+                    values: {}
+                  submit:
+                    emoji: true
+                    text: Save
+                    type: plain_text
+                  team_id: T9M4RL1JM
+                  title:
+                    emoji: true
+                    text: Pushed Modal
+                    type: plain_text
+                  type: modal
+        default:
+          description: Typical error response.
+          content:
+            application/json:
+              schema:
+                title: Default error template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: true
+                description: This method either only returns a brief _not OK_ response or a verbose schema is not available for this method.
+              example:
+                error: invalid_arguments
+                ok: false
+                response_metadata:
+                  messages:
+                  - 'missing required field: title'
+      security:
+      - slackAuth:
+        - none
+      summary: Slack Get Views Push
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK

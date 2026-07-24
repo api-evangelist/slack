@@ -1,0 +1,175 @@
+openapi: 3.1.0
+info:
+  version: '1.0'
+  title: Slack Admin Access Upload API
+  description: "The Slack Admin API is a set of privileged endpoints\x14primarily under admin.* with related SCIM and Audit Logs APIs\x14that lets Enterprise Grid owners and admins automate organization\x11 wide management and governance. It covers user lifecycle (provision, suspend, assign roles), workspace and channel administration across workspaces (create, move, archive channels; manage membership and settings), app governance (approve/deny or allowlist/ban apps and install them to workspaces), invite request handling, and security/compliance controls such as information barriers, session and authentication policies, and org\x11level analytics exports. These APIs require elevated admin scopes and are commonly used to power automated onboarding/offboarding, centralized channel and app controls, and integrations with identity, ITSM, and compliance systems."
+tags:
+- name: Upload
+paths:
+  /files.upload:
+    post:
+      tags:
+      - Upload
+      description: Uploads or creates a file.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/files.upload
+      operationId: postFilesUpload
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+                  description: 'Authentication token. Requires scope: `files:write:user`'
+                file:
+                  type: string
+                  description: File contents via `multipart/form-data`. If omitting this parameter, you must submit `content`.
+                content:
+                  type: string
+                  description: File contents via a POST variable. If omitting this parameter, you must provide a `file`.
+                filetype:
+                  type: string
+                  description: A [file type](/types/file#file_types) identifier.
+                filename:
+                  type: string
+                  description: Filename of file.
+                title:
+                  type: string
+                  description: Title of file.
+                initial_comment:
+                  type: string
+                  description: The message text introducing the file in specified `channels`.
+                channels:
+                  type: string
+                  description: Comma-separated list of channel names or IDs where the file will be shared.
+                thread_ts:
+                  type: number
+                  description: Provide another message's `ts` value to upload this file as a reply. Never use a reply's `ts` value; use its parent instead.
+      responses:
+        '200':
+          description: Success response after uploading a file to a channel with an initial message
+          content:
+            application/json:
+              schema:
+                title: files.upload schema
+                required:
+                - file
+                - ok
+                type: object
+                properties:
+                  file:
+                    $ref: '#/components/schemas/objs_file'
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: false
+                description: Schema for successful response files.upload method
+              example:
+                file:
+                  channels: []
+                  comments_count: 0
+                  created: 1532293501
+                  display_as_bot: false
+                  editable: false
+                  external_type: ''
+                  filetype: gif
+                  groups: []
+                  has_rich_preview: false
+                  id: F0TD00400
+                  image_exif_rotation: 1
+                  ims:
+                  - D0L4B9P0Q
+                  is_external: false
+                  is_public: false
+                  is_starred: false
+                  mimetype: image/jpeg
+                  mode: hosted
+                  name: dramacat.gif
+                  original_h: 366
+                  original_w: 526
+                  permalink: https://.../dramacat.gif
+                  permalink_public: https://.../More-Path-Components
+                  pretty_type: JPEG
+                  public_url_shared: false
+                  shares:
+                    private:
+                      D0L4B9P0Q:
+                      - reply_count: 0
+                        reply_users: []
+                        reply_users_count: 0
+                        ts: '1532293503.000001'
+                  size: 43518
+                  thumb_160: https://.../dramacat_160.gif
+                  thumb_360: https://.../dramacat_360.gif
+                  thumb_360_h: 250
+                  thumb_360_w: 360
+                  thumb_480: https://.../dramacat_480.gif
+                  thumb_480_h: 334
+                  thumb_480_w: 480
+                  thumb_64: https://.../dramacat_64.gif
+                  thumb_80: https://.../dramacat_80.gif
+                  timestamp: 1532293501
+                  title: dramacat
+                  url_private: https://.../dramacat.gif
+                  url_private_download: https://.../dramacat.gif
+                  user: U0L4B9NSU
+                  username: ''
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: files.upload error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - posting_to_general_channel_denied
+                    - invalid_channel
+                    - file_uploads_disabled
+                    - file_uploads_except_images_disabled
+                    - storage_limit_reached
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - no_permission
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response files.upload method
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - files:write:user
+      summary: Slack Post Files Upload
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK

@@ -1,0 +1,507 @@
+openapi: 3.1.0
+info:
+  version: '1.0'
+  title: Slack Admin Access Settings API
+  description: "The Slack Admin API is a set of privileged endpoints\x14primarily under admin.* with related SCIM and Audit Logs APIs\x14that lets Enterprise Grid owners and admins automate organization\x11 wide management and governance. It covers user lifecycle (provision, suspend, assign roles), workspace and channel administration across workspaces (create, move, archive channels; manage membership and settings), app governance (approve/deny or allowlist/ban apps and install them to workspaces), invite request handling, and security/compliance controls such as information barriers, session and authentication policies, and org\x11level analytics exports. These APIs require elevated admin scopes and are commonly used to power automated onboarding/offboarding, centralized channel and app controls, and integrations with identity, ITSM, and compliance systems."
+tags:
+- name: Settings
+paths:
+  /admin.teams.settings.info:
+    get:
+      tags:
+      - Settings
+      description: Fetch information about settings in a workspace
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/admin.teams.settings.info
+      operationId: getAdminTeamsSettingsInfo
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.teams:read`'
+        required: true
+        schema:
+          type: string
+      - name: team_id
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: Default success template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: true
+                description: This method either only returns a brief _OK_ response or a verbose schema is not available for this method.
+              example:
+                ok: true
+                team:
+                  default_channels: array
+                  domain: string
+                  email_domain: string
+                  enterprise_id: string
+                  enterprise_name: string
+                  icon: array
+                  id: string
+                  name: string
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: Default error template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: true
+                description: This method either only returns a brief _not OK_ response or a verbose schema is not available for this method.
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - admin.teams:read
+      summary: Slack Get Admin Teams Settings Info
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /admin.teams.settings.setDefaultChannels:
+    post:
+      tags:
+      - Settings
+      description: Set the default channels of a workspace.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/admin.teams.settings.setDefaultChannels
+      operationId: postAdminTeamsSettingsSetdefaultchannels
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - channel_ids
+              - team_id
+              - token
+              type: object
+              properties:
+                token:
+                  type: string
+                  description: 'Authentication token. Requires scope: `admin.teams:write`'
+                team_id:
+                  type: string
+                  description: ID for the workspace to set the default channel for.
+                channel_ids:
+                  type: string
+                  description: An array of channel IDs.
+        required: true
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: Default success template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: true
+                description: This method either only returns a brief _OK_ response or a verbose schema is not available for this method.
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: Default error template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: true
+                description: This method either only returns a brief _not OK_ response or a verbose schema is not available for this method.
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - admin.teams:write
+      summary: Slack Post Admin Teams Settings Setdefaultchannels
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /admin.teams.settings.setDescription:
+    post:
+      tags:
+      - Settings
+      description: Set the description of a given workspace.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/admin.teams.settings.setDescription
+      operationId: postAdminTeamsSettingsSetdescription
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.teams:write`'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - description
+              - team_id
+              type: object
+              properties:
+                team_id:
+                  type: string
+                  description: ID for the workspace to set the description for.
+                description:
+                  type: string
+                  description: The new description for the workspace.
+          application/json:
+            schema:
+              required:
+              - description
+              - team_id
+              type: object
+              properties:
+                team_id:
+                  type: string
+                  description: ID for the workspace to set the description for.
+                description:
+                  type: string
+                  description: The new description for the workspace.
+        required: true
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: Default success template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: true
+                description: This method either only returns a brief _OK_ response or a verbose schema is not available for this method.
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: Default error template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: true
+                description: This method either only returns a brief _not OK_ response or a verbose schema is not available for this method.
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - admin.teams:write
+      summary: Slack Post Admin Teams Settings Setdescription
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /admin.teams.settings.setDiscoverability:
+    post:
+      tags:
+      - Settings
+      description: An API method that allows admins to set the discoverability of a given workspace
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/admin.teams.settings.setDiscoverability
+      operationId: postAdminTeamsSettingsSetdiscoverability
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.teams:write`'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - discoverability
+              - team_id
+              type: object
+              properties:
+                team_id:
+                  type: string
+                  description: The ID of the workspace to set discoverability on.
+                discoverability:
+                  type: string
+                  description: This workspace's discovery setting. It must be set to one of `open`, `invite_only`, `closed`, or `unlisted`.
+          application/json:
+            schema:
+              required:
+              - discoverability
+              - team_id
+              type: object
+              properties:
+                team_id:
+                  type: string
+                  description: The ID of the workspace to set discoverability on.
+                discoverability:
+                  type: string
+                  description: This workspace's discovery setting. It must be set to one of `open`, `invite_only`, `closed`, or `unlisted`.
+        required: true
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: Default success template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: true
+                description: This method either only returns a brief _OK_ response or a verbose schema is not available for this method.
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: Default error template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: true
+                description: This method either only returns a brief _not OK_ response or a verbose schema is not available for this method.
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - admin.teams:write
+      summary: Slack Post Admin Teams Settings Setdiscoverability
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /admin.teams.settings.setIcon:
+    post:
+      tags:
+      - Settings
+      description: Sets the icon of a workspace.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/admin.teams.settings.setIcon
+      operationId: postAdminTeamsSettingsSeticon
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - image_url
+              - team_id
+              - token
+              type: object
+              properties:
+                token:
+                  type: string
+                  description: 'Authentication token. Requires scope: `admin.teams:write`'
+                image_url:
+                  type: string
+                  description: Image URL for the icon
+                team_id:
+                  type: string
+                  description: ID for the workspace to set the icon for.
+        required: true
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: Default success template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: true
+                description: This method either only returns a brief _OK_ response or a verbose schema is not available for this method.
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: Default error template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: true
+                description: This method either only returns a brief _not OK_ response or a verbose schema is not available for this method.
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - admin.teams:write
+      summary: Slack Post Admin Teams Settings Seticon
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /admin.teams.settings.setName:
+    post:
+      tags:
+      - Settings
+      description: Set the name of a given workspace.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/admin.teams.settings.setName
+      operationId: postAdminTeamsSettingsSetname
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.teams:write`'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - name
+              - team_id
+              type: object
+              properties:
+                team_id:
+                  type: string
+                  description: ID for the workspace to set the name for.
+                name:
+                  type: string
+                  description: The new name of the workspace.
+          application/json:
+            schema:
+              required:
+              - name
+              - team_id
+              type: object
+              properties:
+                team_id:
+                  type: string
+                  description: ID for the workspace to set the name for.
+                name:
+                  type: string
+                  description: The new name of the workspace.
+        required: true
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: Default success template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: true
+                description: This method either only returns a brief _OK_ response or a verbose schema is not available for this method.
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: Default error template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: true
+                description: This method either only returns a brief _not OK_ response or a verbose schema is not available for this method.
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - admin.teams:write
+      summary: Slack Post Admin Teams Settings Setname
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK

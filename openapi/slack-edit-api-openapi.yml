@@ -1,0 +1,139 @@
+openapi: 3.1.0
+info:
+  version: '1.0'
+  title: Slack Admin Access Edit API
+  description: "The Slack Admin API is a set of privileged endpoints\x14primarily under admin.* with related SCIM and Audit Logs APIs\x14that lets Enterprise Grid owners and admins automate organization\x11 wide management and governance. It covers user lifecycle (provision, suspend, assign roles), workspace and channel administration across workspaces (create, move, archive channels; manage membership and settings), app governance (approve/deny or allowlist/ban apps and install them to workspaces), invite request handling, and security/compliance controls such as information barriers, session and authentication policies, and org\x11level analytics exports. These APIs require elevated admin scopes and are commonly used to power automated onboarding/offboarding, centralized channel and app controls, and integrations with identity, ITSM, and compliance systems."
+tags:
+- name: Edit
+paths:
+  /bookmarks.edit:
+    post:
+      tags:
+      - Edit
+      summary: Edit Bookmark
+      description: Edits an existing bookmark in a channel.
+      operationId: postBookmarksEdit
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `bookmarks:write`'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - channel_id
+              - bookmark_id
+              type: object
+              properties:
+                channel_id:
+                  type: string
+                  description: Channel containing the bookmark.
+                bookmark_id:
+                  type: string
+                  description: ID of the bookmark to edit.
+                title:
+                  type: string
+                  description: New title of the bookmark.
+                link:
+                  type: string
+                  description: New URL of the bookmark.
+                emoji:
+                  type: string
+                  description: New emoji tag for the bookmark.
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  bookmark:
+                    type: object
+              example:
+                ok: true
+        default:
+          description: Error response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  error:
+                    type: string
+              example:
+                ok: false
+                error: invalid_auth
+      security:
+      - slackAuth:
+        - bookmarks:write
+  /canvases.edit:
+    post:
+      tags:
+      - Edit
+      summary: Edit Canvas
+      description: Edits a Slack Canvas by inserting, replacing, or deleting content sections.
+      operationId: postCanvasesEdit
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `canvases:write`'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+              - canvas_id
+              - changes
+              type: object
+              properties:
+                canvas_id:
+                  type: string
+                  description: ID of the canvas to edit.
+                changes:
+                  type: array
+                  description: Array of change operations (insert_at_start, insert_at_end, insert_after, insert_before, replace, delete).
+                  items:
+                    type: object
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+              example:
+                ok: true
+        default:
+          description: Error response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  error:
+                    type: string
+              example:
+                ok: false
+                error: canvas_not_found
+      security:
+      - slackAuth:
+        - canvases:write

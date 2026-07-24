@@ -1,0 +1,69 @@
+openapi: 3.1.0
+info:
+  version: '1.0'
+  title: Slack Admin Access Emoji API
+  description: "The Slack Admin API is a set of privileged endpoints\x14primarily under admin.* with related SCIM and Audit Logs APIs\x14that lets Enterprise Grid owners and admins automate organization\x11 wide management and governance. It covers user lifecycle (provision, suspend, assign roles), workspace and channel administration across workspaces (create, move, archive channels; manage membership and settings), app governance (approve/deny or allowlist/ban apps and install them to workspaces), invite request handling, and security/compliance controls such as information barriers, session and authentication policies, and org\x11level analytics exports. These APIs require elevated admin scopes and are commonly used to power automated onboarding/offboarding, centralized channel and app controls, and integrations with identity, ITSM, and compliance systems."
+tags:
+- name: Emoji
+paths:
+  /emoji.list:
+    get:
+      tags:
+      - Emoji
+      summary: List Emoji
+      description: Lists custom emoji for a team.
+      operationId: getEmojiList
+      parameters:
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `emoji:read`'
+        required: true
+        schema:
+          type: string
+      - name: include_categories
+        in: query
+        description: If true, includes emoji categories.
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Successful response returning custom emoji map
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  emoji:
+                    type: object
+                    description: A map of emoji names to their image URLs or aliases.
+                    additionalProperties:
+                      type: string
+                  cache_ts:
+                    type: string
+                    description: A timestamp for caching purposes.
+              example:
+                ok: true
+                emoji:
+                  bowtie: https://emoji.slack-edge.com/T123/bowtie/a1234.png
+                  squirrel: https://emoji.slack-edge.com/T123/squirrel/b5678.png
+                  glitch_crab: alias:crab
+                cache_ts: 1449272148.xxxxxxx
+        default:
+          description: Error response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  error:
+                    type: string
+              example:
+                ok: false
+                error: not_authed
+      security:
+      - slackAuth:
+        - emoji:read

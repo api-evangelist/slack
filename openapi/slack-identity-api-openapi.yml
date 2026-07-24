@@ -1,0 +1,252 @@
+openapi: 3.1.0
+info:
+  version: '1.0'
+  title: Slack Admin Access Identity API
+  description: "The Slack Admin API is a set of privileged endpoints\x14primarily under admin.* with related SCIM and Audit Logs APIs\x14that lets Enterprise Grid owners and admins automate organization\x11 wide management and governance. It covers user lifecycle (provision, suspend, assign roles), workspace and channel administration across workspaces (create, move, archive channels; manage membership and settings), app governance (approve/deny or allowlist/ban apps and install them to workspaces), invite request handling, and security/compliance controls such as information barriers, session and authentication policies, and org\x11level analytics exports. These APIs require elevated admin scopes and are commonly used to power automated onboarding/offboarding, centralized channel and app controls, and integrations with identity, ITSM, and compliance systems."
+tags:
+- name: Identity
+paths:
+  /openid.connect.token:
+    post:
+      tags:
+      - Identity
+      summary: Exchange OpenID Connect Token
+      description: Exchanges an authorization code for an OpenID Connect access token and ID token.
+      operationId: postOpenIdConnectToken
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - client_id
+              - client_secret
+              - code
+              type: object
+              properties:
+                client_id:
+                  type: string
+                  description: The Slack app's client ID.
+                client_secret:
+                  type: string
+                  description: The Slack app's client secret.
+                code:
+                  type: string
+                  description: The authorization code received from the Sign in with Slack flow.
+                redirect_uri:
+                  type: string
+                  description: The redirect URI that was used in the authorization request.
+                grant_type:
+                  type: string
+                  description: The grant type, must be "authorization_code".
+                  enum:
+                  - authorization_code
+                  - refresh_token
+                refresh_token:
+                  type: string
+                  description: The refresh token, required when grant_type is refresh_token.
+      responses:
+        '200':
+          description: Successful response with tokens
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  access_token:
+                    type: string
+                    description: The OpenID Connect access token.
+                  token_type:
+                    type: string
+                    description: The token type (Bearer).
+                  id_token:
+                    type: string
+                    description: A signed JWT ID token containing the user's identity claims.
+                  refresh_token:
+                    type: string
+                    description: A refresh token for obtaining new access tokens.
+                  expires_in:
+                    type: integer
+                    description: Token expiration time in seconds.
+              example:
+                ok: true
+                access_token: xoxp-1234
+                token_type: Bearer
+                id_token: eyJhbGciOiJSUzI1NiJ9.example
+        default:
+          description: Error response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  error:
+                    type: string
+              example:
+                ok: false
+                error: invalid_client_id
+  /openid.connect.userInfo:
+    get:
+      tags:
+      - Identity
+      summary: Get OpenID Connect User Info
+      description: Retrieves identity information about a user authenticated via Sign in with Slack.
+      operationId: getOpenIdConnectUserInfo
+      parameters:
+      - name: token
+        in: query
+        description: OpenID Connect access token.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response with user identity
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  sub:
+                    type: string
+                    description: Subject identifier (the user's Slack ID).
+                  https://slack.com/user_id:
+                    type: string
+                    description: The user's Slack user ID.
+                  https://slack.com/team_id:
+                    type: string
+                    description: The user's team ID.
+                  email:
+                    type: string
+                    description: The user's email address.
+                  email_verified:
+                    type: boolean
+                    description: Whether the email address has been verified.
+                  name:
+                    type: string
+                    description: The user's display name.
+                  picture:
+                    type: string
+                    description: URL to the user's profile picture.
+                  given_name:
+                    type: string
+                    description: The user's given name.
+                  family_name:
+                    type: string
+                    description: The user's family name.
+              example:
+                ok: true
+                sub: U0R7JM
+                email: krane@example.com
+                email_verified: true
+                name: Krane
+                picture: https://secure.gravatar.com/avatar/example.jpg
+        default:
+          description: Error response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  error:
+                    type: string
+              example:
+                ok: false
+                error: not_authed
+      security:
+      - slackAuth:
+        - openid
+  /users.identity:
+    get:
+      tags:
+      - Identity
+      description: Get a user's identity.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/users.identity
+      operationId: getUsersIdentity
+      parameters:
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `identity.basic`'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 'You will receive at a minimum the following information:'
+          content:
+            application/json:
+              schema:
+                title: users.identity schema
+                type: array
+                description: Schema for successful response from users.identity method
+              example:
+                ok: true
+                team:
+                  id: T0G9PQBBK
+                user:
+                  id: U0G9QF9C6
+                  name: Sonny Whether
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: users.identity error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - token_revoked
+                    - no_permission
+                    - org_login_required
+                    - user_is_bot
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - fatal_error
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from users.identity method
+              example:
+                error: account_inactive
+                ok: false
+      security:
+      - slackAuth:
+        - identity.basic
+      summary: Slack Get Users Identity
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK

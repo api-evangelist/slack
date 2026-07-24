@@ -1,0 +1,220 @@
+openapi: 3.1.0
+info:
+  version: '1.0'
+  title: Slack Admin Access Archive API
+  description: "The Slack Admin API is a set of privileged endpoints\x14primarily under admin.* with related SCIM and Audit Logs APIs\x14that lets Enterprise Grid owners and admins automate organization\x11 wide management and governance. It covers user lifecycle (provision, suspend, assign roles), workspace and channel administration across workspaces (create, move, archive channels; manage membership and settings), app governance (approve/deny or allowlist/ban apps and install them to workspaces), invite request handling, and security/compliance controls such as information barriers, session and authentication policies, and org\x11level analytics exports. These APIs require elevated admin scopes and are commonly used to power automated onboarding/offboarding, centralized channel and app controls, and integrations with identity, ITSM, and compliance systems."
+tags:
+- name: Archive
+paths:
+  /admin.conversations.archive:
+    post:
+      tags:
+      - Archive
+      description: Archive a public or private channel.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/admin.conversations.archive
+      operationId: postAdminConversationsArchive
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.conversations:write`'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - channel_id
+              type: object
+              properties:
+                channel_id:
+                  type: string
+                  description: The channel to archive.
+          application/json:
+            schema:
+              required:
+              - channel_id
+              type: object
+              properties:
+                channel_id:
+                  type: string
+                  description: The channel to archive.
+        required: true
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: admin.conversations.archive schema
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: false
+                description: Schema for successful response of admin.conversations.archive
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: admin.conversations.archive error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - feature_not_enabled
+                    - channel_not_found
+                    - channel_type_not_supported
+                    - default_org_wide_channel
+                    - already_archived
+                    - cant_archive_general
+                    - restricted_action
+                    - could_not_archive_channel
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from admin.conversations.archive
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - admin.conversations:write
+      summary: Slack Post Admin Conversations Archive
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /conversations.archive:
+    post:
+      tags:
+      - Archive
+      description: Archives a conversation.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/conversations.archive
+      operationId: postConversationsArchive
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `conversations:write`'
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                channel:
+                  type: string
+                  description: ID of conversation to archive
+          application/json:
+            schema:
+              type: object
+              properties:
+                channel:
+                  type: string
+                  description: ID of conversation to archive
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: conversations.archive success schema
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: false
+                description: Schema for successful response conversations.archive method
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: conversations.archive error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - method_not_supported_for_channel_type
+                    - missing_scope
+                    - not_supported
+                    - channel_not_found
+                    - already_archived
+                    - cant_archive_general
+                    - restricted_action
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - user_is_bot
+                    - user_is_restricted
+                    - user_is_ultra_restricted
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - team_added_to_org
+                    - missing_charset
+                    - superfluous_charset
+                  needed:
+                    type: string
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                  provided:
+                    type: string
+                additionalProperties: false
+                description: Schema for error response from conversations.archive method
+              example:
+                error: channel_not_found
+                ok: false
+      security:
+      - slackAuth:
+        - channels:write
+        - groups:write
+        - im:write
+        - mpim:write
+      summary: Slack Post Conversations Archive
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK

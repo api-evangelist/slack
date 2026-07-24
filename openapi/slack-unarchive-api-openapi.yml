@@ -1,0 +1,217 @@
+openapi: 3.1.0
+info:
+  version: '1.0'
+  title: Slack Admin Access Unarchive API
+  description: "The Slack Admin API is a set of privileged endpoints\x14primarily under admin.* with related SCIM and Audit Logs APIs\x14that lets Enterprise Grid owners and admins automate organization\x11 wide management and governance. It covers user lifecycle (provision, suspend, assign roles), workspace and channel administration across workspaces (create, move, archive channels; manage membership and settings), app governance (approve/deny or allowlist/ban apps and install them to workspaces), invite request handling, and security/compliance controls such as information barriers, session and authentication policies, and org\x11level analytics exports. These APIs require elevated admin scopes and are commonly used to power automated onboarding/offboarding, centralized channel and app controls, and integrations with identity, ITSM, and compliance systems."
+tags:
+- name: Unarchive
+paths:
+  /admin.conversations.unarchive:
+    post:
+      tags:
+      - Unarchive
+      description: Unarchive a public or private channel.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/admin.conversations.unarchive
+      operationId: postAdminConversationsUnarchive
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.conversations:write`'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - channel_id
+              type: object
+              properties:
+                channel_id:
+                  type: string
+                  description: The channel to unarchive.
+          application/json:
+            schema:
+              required:
+              - channel_id
+              type: object
+              properties:
+                channel_id:
+                  type: string
+                  description: The channel to unarchive.
+        required: true
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: admin.conversations.unarchive schema
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: false
+                description: Schema for successful response of admin.conversations.unarchive
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: admin.conversations.unarchive error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - feature_not_enabled
+                    - channel_not_found
+                    - channel_not_archived
+                    - channel_type_not_supported
+                    - restricted_action
+                    - could_not_unarchive_channel
+                    - default_org_wide_channel
+                    - missing_scope
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from admin.conversations.unarchive
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - admin.conversations:write
+      summary: Slack Post Admin Conversations Unarchive
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /conversations.unarchive:
+    post:
+      tags:
+      - Unarchive
+      description: Reverses conversation archival.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/conversations.unarchive
+      operationId: postConversationsUnarchive
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `conversations:write`'
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                channel:
+                  type: string
+                  description: ID of conversation to unarchive
+          application/json:
+            schema:
+              type: object
+              properties:
+                channel:
+                  type: string
+                  description: ID of conversation to unarchive
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: conversations.unarchive success schema
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: false
+                description: Schema for successful response from conversations.unarchive method
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: conversations.unarchive error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - method_not_supported_for_channel_type
+                    - missing_scope
+                    - channel_not_found
+                    - not_archived
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - user_is_bot
+                    - user_is_restricted
+                    - user_is_ultra_restricted
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - team_added_to_org
+                    - missing_charset
+                    - superfluous_charset
+                  needed:
+                    type: string
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                  provided:
+                    type: string
+                additionalProperties: false
+                description: Schema for error response from conversations.unarchive method
+              example:
+                error: channel_not_found
+                ok: false
+      security:
+      - slackAuth:
+        - channels:write
+        - groups:write
+        - im:write
+        - mpim:write
+      summary: Slack Post Conversations Unarchive
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK

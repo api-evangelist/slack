@@ -1,0 +1,968 @@
+openapi: 3.1.0
+info:
+  version: '1.0'
+  title: Slack Admin Access Add API
+  description: "The Slack Admin API is a set of privileged endpoints\x14primarily under admin.* with related SCIM and Audit Logs APIs\x14that lets Enterprise Grid owners and admins automate organization\x11 wide management and governance. It covers user lifecycle (provision, suspend, assign roles), workspace and channel administration across workspaces (create, move, archive channels; manage membership and settings), app governance (approve/deny or allowlist/ban apps and install them to workspaces), invite request handling, and security/compliance controls such as information barriers, session and authentication policies, and org\x11level analytics exports. These APIs require elevated admin scopes and are commonly used to power automated onboarding/offboarding, centralized channel and app controls, and integrations with identity, ITSM, and compliance systems."
+tags:
+- name: Add
+paths:
+  /admin.emoji.add:
+    post:
+      tags:
+      - Add
+      description: Add an emoji.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/admin.emoji.add
+      operationId: postAdminEmojiAdd
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - name
+              - token
+              - url
+              type: object
+              properties:
+                token:
+                  type: string
+                  description: 'Authentication token. Requires scope: `admin.teams:write`'
+                name:
+                  type: string
+                  description: The name of the emoji to be removed. Colons (`:myemoji:`) around the value are not required, although they may be included.
+                url:
+                  type: string
+                  description: The URL of a file to use as an image for the emoji. Square images under 128KB and with transparent backgrounds work best.
+        required: true
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: Default success template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: true
+                description: This method either only returns a brief _OK_ response or a verbose schema is not available for this method.
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: Default error template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: true
+                description: This method either only returns a brief _not OK_ response or a verbose schema is not available for this method.
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - admin.teams:write
+      summary: Slack Post Admin Emoji Add
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /bookmarks.add:
+    post:
+      tags:
+      - Add
+      summary: Add Bookmark
+      description: Adds a bookmark to a channel.
+      operationId: postBookmarksAdd
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `bookmarks:write`'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - channel_id
+              - title
+              - type
+              type: object
+              properties:
+                channel_id:
+                  type: string
+                  description: Channel to add the bookmark to.
+                title:
+                  type: string
+                  description: Title of the bookmark.
+                type:
+                  type: string
+                  description: Type of bookmark (e.g., link).
+                  enum:
+                  - link
+                link:
+                  type: string
+                  description: URL of the bookmark.
+                emoji:
+                  type: string
+                  description: Emoji tag for the bookmark.
+                entity_id:
+                  type: string
+                  description: ID of the entity being bookmarked.
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  bookmark:
+                    type: object
+              example:
+                ok: true
+        default:
+          description: Error response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  error:
+                    type: string
+              example:
+                ok: false
+                error: invalid_auth
+      security:
+      - slackAuth:
+        - bookmarks:write
+  /calls.add:
+    post:
+      tags:
+      - Add
+      description: Registers a new Call.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/calls.add
+      operationId: calls_add
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `calls:write`'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - external_unique_id
+              - join_url
+              type: object
+              properties:
+                external_unique_id:
+                  type: string
+                  description: An ID supplied by the 3rd-party Call provider. It must be unique across all Calls from that service.
+                external_display_id:
+                  type: string
+                  description: An optional, human-readable ID supplied by the 3rd-party Call provider. If supplied, this ID will be displayed in the Call object.
+                join_url:
+                  type: string
+                  description: The URL required for a client to join the Call.
+                desktop_app_join_url:
+                  type: string
+                  description: When supplied, available Slack clients will attempt to directly launch the 3rd-party Call with this URL.
+                date_start:
+                  type: integer
+                  description: Call start time in UTC UNIX timestamp format
+                  format: int32
+                title:
+                  type: string
+                  description: The name of the Call.
+                created_by:
+                  type: string
+                  description: The valid Slack user ID of the user who created this Call. When this method is called with a user token, the `created_by` field is optional and defaults to the authed user of the token. Otherwise, the field is required.
+                users:
+                  type: string
+                  description: The list of users to register as participants in the Call. [Read more on how to specify users here](/apis/calls#users).
+          application/json:
+            schema:
+              required:
+              - external_unique_id
+              - join_url
+              type: object
+              properties:
+                external_unique_id:
+                  type: string
+                  description: An ID supplied by the 3rd-party Call provider. It must be unique across all Calls from that service.
+                external_display_id:
+                  type: string
+                  description: An optional, human-readable ID supplied by the 3rd-party Call provider. If supplied, this ID will be displayed in the Call object.
+                join_url:
+                  type: string
+                  description: The URL required for a client to join the Call.
+                desktop_app_join_url:
+                  type: string
+                  description: When supplied, available Slack clients will attempt to directly launch the 3rd-party Call with this URL.
+                date_start:
+                  type: integer
+                  description: Call start time in UTC UNIX timestamp format
+                  format: int32
+                title:
+                  type: string
+                  description: The name of the Call.
+                created_by:
+                  type: string
+                  description: The valid Slack user ID of the user who created this Call. When this method is called with a user token, the `created_by` field is optional and defaults to the authed user of the token. Otherwise, the field is required.
+                users:
+                  type: string
+                  description: The list of users to register as participants in the Call. [Read more on how to specify users here](/apis/calls#users).
+        required: true
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: Default success template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: true
+                description: This method either only returns a brief _OK_ response or a verbose schema is not available for this method.
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: Default error template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: true
+                description: This method either only returns a brief _not OK_ response or a verbose schema is not available for this method.
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - calls:write
+      summary: Slack Post Calls Add
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        PascalCaseOperationTags: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /calls.participants.add:
+    post:
+      tags:
+      - Add
+      description: Registers new participants added to a Call.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/calls.participants.add
+      operationId: calls_participants_add
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `calls:write`'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - id
+              - users
+              type: object
+              properties:
+                id:
+                  type: string
+                  description: '`id` returned by the [`calls.add`](/methods/calls.add) method.'
+                users:
+                  type: string
+                  description: The list of users to add as participants in the Call. [Read more on how to specify users here](/apis/calls#users).
+          application/json:
+            schema:
+              required:
+              - id
+              - users
+              type: object
+              properties:
+                id:
+                  type: string
+                  description: '`id` returned by the [`calls.add`](/methods/calls.add) method.'
+                users:
+                  type: string
+                  description: The list of users to add as participants in the Call. [Read more on how to specify users here](/apis/calls#users).
+        required: true
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: Default success template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: true
+                description: This method either only returns a brief _OK_ response or a verbose schema is not available for this method.
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: Default error template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: true
+                description: This method either only returns a brief _not OK_ response or a verbose schema is not available for this method.
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - calls:write
+      summary: Slack Post Calls Participants Add
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        PascalCaseOperationTags: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /files.remote.add:
+    post:
+      tags:
+      - Add
+      description: Adds a file from a remote service
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/files.remote.add
+      operationId: postFilesRemoteAdd
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+                  description: 'Authentication token. Requires scope: `remote_files:write`'
+                external_id:
+                  type: string
+                  description: Creator defined GUID for the file.
+                title:
+                  type: string
+                  description: Title of the file being shared.
+                filetype:
+                  type: string
+                  description: type of file
+                external_url:
+                  type: string
+                  description: URL of the remote file.
+                preview_image:
+                  type: string
+                  description: Preview of the document via `multipart/form-data`.
+                indexable_file_contents:
+                  type: string
+                  description: A text file (txt, pdf, doc, etc.) containing textual search terms that are used to improve discovery of the remote file.
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: Default success template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: true
+                description: This method either only returns a brief _OK_ response or a verbose schema is not available for this method.
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: Default error template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: true
+                description: This method either only returns a brief _not OK_ response or a verbose schema is not available for this method.
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - remote_files:write
+      summary: Slack Post Files Remote Add
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /pins.add:
+    post:
+      tags:
+      - Add
+      description: Pins an item to a channel.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/pins.add
+      operationId: postPinsAdd
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `pins:write`'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - channel
+              type: object
+              properties:
+                channel:
+                  type: string
+                  description: Channel to pin the item in.
+                timestamp:
+                  type: string
+                  description: Timestamp of the message to pin.
+          application/json:
+            schema:
+              required:
+              - channel
+              type: object
+              properties:
+                channel:
+                  type: string
+                  description: Channel to pin the item in.
+                timestamp:
+                  type: string
+                  description: Timestamp of the message to pin.
+        required: true
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: pins.add schema
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: false
+                description: Schema for successful response from pins.add method
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: pins.add error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - bad_timestamp
+                    - message_not_found
+                    - channel_not_found
+                    - no_item_specified
+                    - already_pinned
+                    - permission_denied
+                    - file_not_shared
+                    - not_pinnable
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - no_permission
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from pins.add method
+              example:
+                error: channel_not_found
+                ok: false
+      security:
+      - slackAuth:
+        - pins:write
+      summary: Slack Post Pins Add
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /reactions.add:
+    post:
+      tags:
+      - Add
+      description: Adds a reaction to an item.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/reactions.add
+      operationId: postReactionsAdd
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `reactions:write`'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - channel
+              - name
+              - timestamp
+              type: object
+              properties:
+                channel:
+                  type: string
+                  description: Channel where the message to add reaction to was posted.
+                name:
+                  type: string
+                  description: Reaction (emoji) name.
+                timestamp:
+                  type: string
+                  description: Timestamp of the message to add reaction to.
+          application/json:
+            schema:
+              required:
+              - channel
+              - name
+              - timestamp
+              type: object
+              properties:
+                channel:
+                  type: string
+                  description: Channel where the message to add reaction to was posted.
+                name:
+                  type: string
+                  description: Reaction (emoji) name.
+                timestamp:
+                  type: string
+                  description: Timestamp of the message to add reaction to.
+        required: true
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: reactions.add schema
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: false
+                description: Schema for successful response from reactions.add method
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: reactions.add error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - bad_timestamp
+                    - message_not_found
+                    - no_item_specified
+                    - invalid_name
+                    - already_reacted
+                    - too_many_emoji
+                    - too_many_reactions
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - no_permission
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from reactions.add method
+              example:
+                error: already_reacted
+                ok: false
+      security:
+      - slackAuth:
+        - reactions:write
+      summary: Slack Post Reactions Add
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /reminders.add:
+    post:
+      tags:
+      - Add
+      description: Creates a reminder.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/reminders.add
+      operationId: postRemindersAdd
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `reminders:write`'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - text
+              - time
+              type: object
+              properties:
+                text:
+                  type: string
+                  description: The content of the reminder
+                time:
+                  type: string
+                  description: 'When this reminder should happen: the Unix timestamp (up to five years from now), the number of seconds until the reminder (if within 24 hours), or a natural language description (Ex. "in 15 minutes," or "every Thursday")'
+                user:
+                  type: string
+                  description: The user who will receive the reminder. If no user is specified, the reminder will go to user who created it.
+          application/json:
+            schema:
+              required:
+              - text
+              - time
+              type: object
+              properties:
+                text:
+                  type: string
+                  description: The content of the reminder
+                time:
+                  type: string
+                  description: 'When this reminder should happen: the Unix timestamp (up to five years from now), the number of seconds until the reminder (if within 24 hours), or a natural language description (Ex. "in 15 minutes," or "every Thursday")'
+                user:
+                  type: string
+                  description: The user who will receive the reminder. If no user is specified, the reminder will go to user who created it.
+        required: true
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: reminders.add schema
+                required:
+                - ok
+                - reminder
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                  reminder:
+                    $ref: '#/components/schemas/objs_reminder'
+                additionalProperties: false
+                description: Schema for successful response from reminders.add method
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: reminders.add error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - cannot_parse
+                    - user_not_found
+                    - cannot_add_bot
+                    - cannot_add_slackbot
+                    - cannot_add_others
+                    - cannot_add_others_recurring
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - token_revoked
+                    - no_permission
+                    - org_login_required
+                    - user_is_bot
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - fatal_error
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from reminders.add method
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - reminders:write
+      summary: Slack Post Reminders Add
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /stars.add:
+    post:
+      tags:
+      - Add
+      description: Adds a star to an item.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/stars.add
+      operationId: postStarsAdd
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `stars:write`'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                channel:
+                  type: string
+                  description: Channel to add star to, or channel where the message to add star to was posted (used with `timestamp`).
+                file:
+                  type: string
+                  description: File to add star to.
+                file_comment:
+                  type: string
+                  description: File comment to add star to.
+                timestamp:
+                  type: string
+                  description: Timestamp of the message to add star to.
+          application/json:
+            schema:
+              type: object
+              properties:
+                channel:
+                  type: string
+                  description: Channel to add star to, or channel where the message to add star to was posted (used with `timestamp`).
+                file:
+                  type: string
+                  description: File to add star to.
+                file_comment:
+                  type: string
+                  description: File comment to add star to.
+                timestamp:
+                  type: string
+                  description: Timestamp of the message to add star to.
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: stars.add schema
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: false
+                description: Schema for successful response from stars.add method
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: stars.add error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - bad_timestamp
+                    - message_not_found
+                    - file_not_found
+                    - file_comment_not_found
+                    - channel_not_found
+                    - no_item_specified
+                    - already_starred
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - token_revoked
+                    - no_permission
+                    - org_login_required
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - fatal_error
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from stars.add method
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - stars:write
+      summary: Slack Post Stars Add
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK

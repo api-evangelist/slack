@@ -1,0 +1,110 @@
+openapi: 3.1.0
+info:
+  version: '1.0'
+  title: Slack Admin Access Reminders API
+  description: "The Slack Admin API is a set of privileged endpoints\x14primarily under admin.* with related SCIM and Audit Logs APIs\x14that lets Enterprise Grid owners and admins automate organization\x11 wide management and governance. It covers user lifecycle (provision, suspend, assign roles), workspace and channel administration across workspaces (create, move, archive channels; manage membership and settings), app governance (approve/deny or allowlist/ban apps and install them to workspaces), invite request handling, and security/compliance controls such as information barriers, session and authentication policies, and org\x11level analytics exports. These APIs require elevated admin scopes and are commonly used to power automated onboarding/offboarding, centralized channel and app controls, and integrations with identity, ITSM, and compliance systems."
+tags:
+- name: Reminders
+  description: Create and manage reminders
+paths:
+  /reminders.add:
+    post:
+      tags:
+      - Reminders
+      summary: Slack Create a Reminder
+      description: Creates a reminder for a user.
+      operationId: remindersAdd
+      externalDocs:
+        description: API method documentation
+        url: https://docs.slack.dev/reference/methods/reminders.add
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - text
+              - time
+              properties:
+                text:
+                  type: string
+                  description: The content of the reminder.
+                time:
+                  type: string
+                  description: 'When this reminder should happen: Unix timestamp, or a human-readable natural language string.'
+                user:
+                  type: string
+                  description: The user to receive the reminder. If not specified, defaults to the caller.
+      responses:
+        '200':
+          description: Reminder created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  reminder:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      creator:
+                        type: string
+                      user:
+                        type: string
+                      text:
+                        type: string
+                      recurring:
+                        type: boolean
+                      time:
+                        type: integer
+                      complete_ts:
+                        type: integer
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /reminders.list:
+    get:
+      tags:
+      - Reminders
+      summary: Slack List All Reminders
+      description: Lists all reminders created by or for a given user.
+      operationId: remindersList
+      externalDocs:
+        description: API method documentation
+        url: https://docs.slack.dev/reference/methods/reminders.list
+      responses:
+        '200':
+          description: Reminders listed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  reminders:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        creator:
+                          type: string
+                        user:
+                          type: string
+                        text:
+                          type: string
+                        recurring:
+                          type: boolean
+                        time:
+                          type: integer
+                        complete_ts:
+                          type: integer
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK

@@ -1,0 +1,86 @@
+openapi: 3.1.0
+info:
+  version: '1.0'
+  title: Slack Admin Access Auth API
+  description: "The Slack Admin API is a set of privileged endpoints\x14primarily under admin.* with related SCIM and Audit Logs APIs\x14that lets Enterprise Grid owners and admins automate organization\x11 wide management and governance. It covers user lifecycle (provision, suspend, assign roles), workspace and channel administration across workspaces (create, move, archive channels; manage membership and settings), app governance (approve/deny or allowlist/ban apps and install them to workspaces), invite request handling, and security/compliance controls such as information barriers, session and authentication policies, and org\x11level analytics exports. These APIs require elevated admin scopes and are commonly used to power automated onboarding/offboarding, centralized channel and app controls, and integrations with identity, ITSM, and compliance systems."
+tags:
+- name: Auth
+  description: Authentication and authorization methods
+paths:
+  /auth.test:
+    post:
+      tags:
+      - Auth
+      summary: Slack Test Authentication
+      description: Checks authentication and tells the caller who they are. Returns information about the token holder including user ID, team ID, and team name.
+      operationId: authTest
+      externalDocs:
+        description: API method documentation
+        url: https://docs.slack.dev/reference/methods/auth.test
+      responses:
+        '200':
+          description: Successful authentication test
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  url:
+                    type: string
+                    description: URL of the team
+                  team:
+                    type: string
+                    description: Team name
+                  user:
+                    type: string
+                    description: User name
+                  team_id:
+                    type: string
+                    description: Team ID
+                  user_id:
+                    type: string
+                    description: User ID
+                  bot_id:
+                    type: string
+                    description: Bot user ID (if token belongs to a bot)
+                  is_enterprise_install:
+                    type: boolean
+                    description: Whether this is an enterprise install
+                required:
+                - ok
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /auth.revoke:
+    post:
+      tags:
+      - Auth
+      summary: Slack Revoke an Access Token
+      description: Revokes the access token that is used to call this method.
+      operationId: authRevoke
+      externalDocs:
+        description: API method documentation
+        url: https://docs.slack.dev/reference/methods/auth.revoke
+      parameters:
+      - name: test
+        in: query
+        description: Setting this parameter to true triggers a testing mode.
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Token revoked
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  revoked:
+                    type: boolean
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK

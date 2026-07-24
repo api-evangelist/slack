@@ -1,0 +1,84 @@
+openapi: 3.1.0
+info:
+  version: '1.0'
+  title: Slack Admin Access Usergroups API
+  description: "The Slack Admin API is a set of privileged endpoints\x14primarily under admin.* with related SCIM and Audit Logs APIs\x14that lets Enterprise Grid owners and admins automate organization\x11 wide management and governance. It covers user lifecycle (provision, suspend, assign roles), workspace and channel administration across workspaces (create, move, archive channels; manage membership and settings), app governance (approve/deny or allowlist/ban apps and install them to workspaces), invite request handling, and security/compliance controls such as information barriers, session and authentication policies, and org\x11level analytics exports. These APIs require elevated admin scopes and are commonly used to power automated onboarding/offboarding, centralized channel and app controls, and integrations with identity, ITSM, and compliance systems."
+tags:
+- name: Usergroups
+  description: Manage user groups
+paths:
+  /usergroups.list:
+    get:
+      tags:
+      - Usergroups
+      summary: Slack List All User Groups
+      description: List all user groups for a team.
+      operationId: usergroupsList
+      externalDocs:
+        description: API method documentation
+        url: https://docs.slack.dev/reference/methods/usergroups.list
+      parameters:
+      - name: include_count
+        in: query
+        schema:
+          type: boolean
+      - name: include_disabled
+        in: query
+        schema:
+          type: boolean
+      - name: include_users
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: User groups listed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  usergroups:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        team_id:
+                          type: string
+                        is_usergroup:
+                          type: boolean
+                        name:
+                          type: string
+                        description:
+                          type: string
+                        handle:
+                          type: string
+                        is_external:
+                          type: boolean
+                        date_create:
+                          type: integer
+                        date_update:
+                          type: integer
+                        date_delete:
+                          type: integer
+                        auto_type:
+                          type: string
+                        created_by:
+                          type: string
+                        updated_by:
+                          type: string
+                        deleted_by:
+                          type: string
+                        user_count:
+                          type: integer
+                        users:
+                          type: array
+                          items:
+                            type: string
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK

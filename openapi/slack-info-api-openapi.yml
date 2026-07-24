@@ -1,0 +1,1276 @@
+openapi: 3.1.0
+info:
+  version: '1.0'
+  title: Slack Admin Access Info API
+  description: "The Slack Admin API is a set of privileged endpoints\x14primarily under admin.* with related SCIM and Audit Logs APIs\x14that lets Enterprise Grid owners and admins automate organization\x11 wide management and governance. It covers user lifecycle (provision, suspend, assign roles), workspace and channel administration across workspaces (create, move, archive channels; manage membership and settings), app governance (approve/deny or allowlist/ban apps and install them to workspaces), invite request handling, and security/compliance controls such as information barriers, session and authentication policies, and org\x11level analytics exports. These APIs require elevated admin scopes and are commonly used to power automated onboarding/offboarding, centralized channel and app controls, and integrations with identity, ITSM, and compliance systems."
+tags:
+- name: Info
+paths:
+  /admin.teams.settings.info:
+    get:
+      tags:
+      - Info
+      description: Fetch information about settings in a workspace
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/admin.teams.settings.info
+      operationId: getAdminTeamsSettingsInfo
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.teams:read`'
+        required: true
+        schema:
+          type: string
+      - name: team_id
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: Default success template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: true
+                description: This method either only returns a brief _OK_ response or a verbose schema is not available for this method.
+              example:
+                ok: true
+                team:
+                  default_channels: array
+                  domain: string
+                  email_domain: string
+                  enterprise_id: string
+                  enterprise_name: string
+                  icon: array
+                  id: string
+                  name: string
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: Default error template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: true
+                description: This method either only returns a brief _not OK_ response or a verbose schema is not available for this method.
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - admin.teams:read
+      summary: Slack Get Admin Teams Settings Info
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /apps.permissions.info:
+    get:
+      tags:
+      - Info
+      description: Returns list of permissions this app has on a team.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/apps.permissions.info
+      operationId: getAppsPermissionsInfo
+      parameters:
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `none`'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Standard success response when used with a user token
+          content:
+            application/json:
+              schema:
+                title: apps.permissions.info schema
+                required:
+                - info
+                - ok
+                type: object
+                properties:
+                  info:
+                    required:
+                    - app_home
+                    - channel
+                    - group
+                    - im
+                    - mpim
+                    - team
+                    type: object
+                    properties:
+                      app_home:
+                        type: object
+                        properties:
+                          resources:
+                            $ref: '#/components/schemas/objs_resources'
+                          scopes:
+                            $ref: '#/components/schemas/objs_scopes'
+                      channel:
+                        type: object
+                        properties:
+                          resources:
+                            $ref: '#/components/schemas/objs_resources'
+                          scopes:
+                            $ref: '#/components/schemas/objs_scopes'
+                      group:
+                        type: object
+                        properties:
+                          resources:
+                            $ref: '#/components/schemas/objs_resources'
+                          scopes:
+                            $ref: '#/components/schemas/objs_scopes'
+                      im:
+                        type: object
+                        properties:
+                          resources:
+                            $ref: '#/components/schemas/objs_resources'
+                          scopes:
+                            $ref: '#/components/schemas/objs_scopes'
+                      mpim:
+                        type: object
+                        properties:
+                          resources:
+                            $ref: '#/components/schemas/objs_resources'
+                          scopes:
+                            $ref: '#/components/schemas/objs_scopes'
+                      team:
+                        required:
+                        - resources
+                        - scopes
+                        type: object
+                        properties:
+                          resources:
+                            $ref: '#/components/schemas/objs_resources'
+                          scopes:
+                            $ref: '#/components/schemas/objs_scopes'
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: false
+                description: Schema for successful response from apps.permissions.info method
+              example:
+                info:
+                  app_home:
+                    resources:
+                      ids:
+                      - D0C0NU1Q8
+                      - D0BH95DLH
+                    scopes:
+                    - chat:write
+                    - im:history
+                    - im:read
+                  channel:
+                    resources:
+                      excluded_ids: []
+                      ids:
+                      - C061FA5PB
+                      wildcard: false
+                    scopes:
+                    - channels:read
+                  group:
+                    resources:
+                      ids: []
+                    scopes: []
+                  im:
+                    resources:
+                      ids: []
+                    scopes: []
+                  mpim:
+                    resources:
+                      ids: []
+                    scopes: []
+                  team:
+                    resources:
+                      ids: []
+                    scopes: []
+                ok: true
+        default:
+          description: Standard failure response when used with an invalid token
+          content:
+            application/json:
+              schema:
+                title: apps.permissions.info error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - token_revoked
+                    - no_permission
+                    - org_login_required
+                    - user_is_bot
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - fatal_error
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from apps.permissions.info method
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - none
+      summary: Slack Get Apps Permissions Info
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /bots.info:
+    get:
+      tags:
+      - Info
+      description: Gets information about a bot user.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/bots.info
+      operationId: getBotsInfo
+      parameters:
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `users:read`'
+        required: true
+        schema:
+          type: string
+      - name: bot
+        in: query
+        description: Bot user to get info on
+        schema:
+          type: string
+      responses:
+        '200':
+          description: When successful, returns bot info by bot ID.
+          content:
+            application/json:
+              schema:
+                title: bots.info schema
+                required:
+                - bot
+                - ok
+                type: object
+                properties:
+                  bot:
+                    type: object
+                    additionalProperties: false
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: false
+                description: Schema for successful response from bots.info method
+              example:
+                bot:
+                  app_id: A161CLERW
+                  deleted: false
+                  icons:
+                    image_36: https://...
+                    image_48: https://...
+                    image_72: https://...
+                  id: B061F7JD2
+                  name: beforebot
+                  updated: 1449272004
+                  user_id: U012ABCDEF
+                ok: true
+        default:
+          description: When no bot can be found, it returns an error.
+          content:
+            application/json:
+              schema:
+                title: bots.info error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - bot_not_found
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - token_revoked
+                    - no_permission
+                    - org_login_required
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - fatal_error
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from bots.info method
+              example:
+                error: bot_not_found
+                ok: false
+      security:
+      - slackAuth:
+        - users:read
+      summary: Slack Get Bots Info
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /calls.info:
+    get:
+      tags:
+      - Info
+      description: Returns information about a Call.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/calls.info
+      operationId: calls_info
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `calls:read`'
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: query
+        description: '`id` of the Call returned by the [`calls.add`](/methods/calls.add) method.'
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: Default success template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: true
+                description: This method either only returns a brief _OK_ response or a verbose schema is not available for this method.
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: Default error template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: true
+                description: This method either only returns a brief _not OK_ response or a verbose schema is not available for this method.
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - calls:read
+      summary: Slack Get Calls Info
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        PascalCaseOperationTags: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /conversations.info:
+    get:
+      tags:
+      - Info
+      description: Retrieve information about a conversation.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/conversations.info
+      operationId: getConversationsInfo
+      parameters:
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `conversations:read`'
+        schema:
+          type: string
+      - name: channel
+        in: query
+        description: Conversation ID to learn more about
+        schema:
+          type: string
+      - name: include_locale
+        in: query
+        description: Set this to `true` to receive the locale for this conversation. Defaults to `false`
+        schema:
+          type: boolean
+      - name: include_num_members
+        in: query
+        description: Set to `true` to include the member count for the specified conversation. Defaults to `false`
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Typical success response for a public channel. (Also, a response from a private channel and a multi-party IM is very similar to this example.)
+          content:
+            application/json:
+              schema:
+                title: conversations.info success schema
+                required:
+                - channel
+                - ok
+                type: object
+                properties:
+                  channel:
+                    $ref: '#/components/schemas/objs_conversation'
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: false
+                description: Schema for successful response conversations.info
+              example:
+                channel:
+                  created: 1449252889
+                  creator: W012A3BCD
+                  id: C012AB3CD
+                  is_archived: false
+                  is_channel: true
+                  is_ext_shared: false
+                  is_general: true
+                  is_group: false
+                  is_im: false
+                  is_member: true
+                  is_mpim: false
+                  is_org_shared: false
+                  is_pending_ext_shared: false
+                  is_private: false
+                  is_read_only: false
+                  is_shared: false
+                  last_read: '1502126650.228446'
+                  locale: en-US
+                  name: general
+                  name_normalized: general
+                  parent_conversation: null
+                  pending_shared: []
+                  previous_names:
+                  - specifics
+                  - abstractions
+                  - etc
+                  purpose:
+                    creator: W012A3BCD
+                    last_set: 1449709364
+                    value: This part of the workspace is for fun. Make fun here.
+                  topic:
+                    creator: W012A3BCD
+                    last_set: 1449709364
+                    value: For public discussion of generalities
+                  unlinked: 0
+                ok: true
+        default:
+          description: Typical error response when a channel cannot be found
+          content:
+            application/json:
+              schema:
+                title: conversations.info error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - missing_scope
+                    - channel_not_found
+                    - team_added_to_org
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                  needed:
+                    type: string
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                  provided:
+                    type: string
+                additionalProperties: false
+                description: Schema for error response from conversations.info method
+              example:
+                error: channel_not_found
+                ok: false
+      security:
+      - slackAuth:
+        - channels:read
+        - groups:read
+        - im:read
+        - mpim:read
+      summary: Slack Get Conversations Info
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /dnd.info:
+    get:
+      tags:
+      - Info
+      description: Retrieves a user's current Do Not Disturb status.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/dnd.info
+      operationId: getDndInfo
+      parameters:
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `dnd:read`'
+        schema:
+          type: string
+      - name: user
+        in: query
+        description: User to fetch status for (defaults to current user)
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: dnd.info schema
+                required:
+                - dnd_enabled
+                - next_dnd_end_ts
+                - next_dnd_start_ts
+                - ok
+                type: object
+                properties:
+                  dnd_enabled:
+                    type: boolean
+                  next_dnd_end_ts:
+                    type: integer
+                  next_dnd_start_ts:
+                    type: integer
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                  snooze_enabled:
+                    type: boolean
+                  snooze_endtime:
+                    type: integer
+                  snooze_remaining:
+                    type: integer
+                additionalProperties: false
+                description: Schema for successful response from dnd.info method
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: dnd.info error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - user_not_found
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - token_revoked
+                    - no_permission
+                    - org_login_required
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - fatal_error
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from dnd.info method
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - dnd:read
+      summary: Slack Get Do Not Disturb Info
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /files.info:
+    get:
+      tags:
+      - Info
+      description: Gets information about a file.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/files.info
+      operationId: getFilesInfo
+      parameters:
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `files:read`'
+        schema:
+          type: string
+      - name: file
+        in: query
+        description: Specify a file by providing its ID.
+        schema:
+          type: string
+      - name: count
+        in: query
+        schema:
+          type: string
+      - name: page
+        in: query
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the list hasn't been reached.
+        schema:
+          type: integer
+      - name: cursor
+        in: query
+        description: 'Parameter for pagination. File comments are paginated for a single file. Set `cursor` equal to the `next_cursor` attribute returned by the previous request''s `response_metadata`. This parameter is optional, but pagination is mandatory: the default value simply fetches the first "page" of the collection of comments. See [pagination](/docs/pagination) for more details.'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: files.info schema
+                required:
+                - comments
+                - file
+                - ok
+                type: object
+                properties:
+                  comments:
+                    $ref: '#/components/schemas/objs_comments'
+                  editor:
+                    $ref: '#/components/schemas/defs_user_id'
+                  file:
+                    $ref: '#/components/schemas/objs_file'
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                  paging:
+                    $ref: '#/components/schemas/objs_paging'
+                  response_metadata:
+                    $ref: '#/components/schemas/objs_response_metadata'
+                additionalProperties: false
+                description: Schema for successful response from files.info method
+              example:
+                comments: []
+                file:
+                  channels:
+                  - C0T8SE4AU
+                  comments_count: 0
+                  created: 1531763342
+                  deanimate_gif: https://.../tedair_deanimate_gif.png
+                  display_as_bot: false
+                  editable: false
+                  external_type: ''
+                  filetype: gif
+                  groups: []
+                  has_rich_preview: false
+                  id: F0S43PZDF
+                  image_exif_rotation: 1
+                  ims: []
+                  is_external: false
+                  is_public: true
+                  is_starred: false
+                  mimetype: image/gif
+                  mode: hosted
+                  name: tedair.gif
+                  original_h: 226
+                  original_w: 176
+                  permalink: https://.../tedair.gif
+                  permalink_public: https://.../...
+                  pjpeg: https://.../tedair_pjpeg.jpg
+                  pretty_type: GIF
+                  public_url_shared: false
+                  shares:
+                    public:
+                      C0T8SE4AU:
+                      - channel_name: file-under
+                        latest_reply: '1531763348.000001'
+                        reply_count: 1
+                        reply_users:
+                        - U061F7AUR
+                        reply_users_count: 1
+                        team_id: T061EG9R6
+                        thread_ts: '1531763273.000015'
+                        ts: '1531763348.000001'
+                  size: 137531
+                  thumb_160: https://.../tedair_=_160.png
+                  thumb_360: https://.../tedair_360.png
+                  thumb_360_gif: https://.../tedair_360.gif
+                  thumb_360_h: 226
+                  thumb_360_w: 176
+                  thumb_64: https://.../tedair_64.png
+                  thumb_80: https://.../tedair_80.png
+                  timestamp: 1531763342
+                  title: tedair.gif
+                  url_private: https://.../tedair.gif
+                  url_private_download: https://.../tedair.gif
+                  user: U061F7AUR
+                  username: ''
+                ok: true
+                response_metadata:
+                  next_cursor: dGVhbTpDMUg5UkVTR0w=
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: files.info error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - file_not_found
+                    - file_deleted
+                    - timezone_count_failed
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - no_permission
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from files.info method
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - files:read
+      summary: Slack Get Files Info
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /files.remote.info:
+    get:
+      tags:
+      - Info
+      description: Retrieve information about a remote file added to Slack
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/files.remote.info
+      operationId: getFilesRemoteInfo
+      parameters:
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `remote_files:read`'
+        schema:
+          type: string
+      - name: file
+        in: query
+        description: Specify a file by providing its ID.
+        schema:
+          type: string
+      - name: external_id
+        in: query
+        description: Creator defined GUID for the file.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: Default success template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: true
+                description: This method either only returns a brief _OK_ response or a verbose schema is not available for this method.
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: Default error template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: true
+                description: This method either only returns a brief _not OK_ response or a verbose schema is not available for this method.
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - remote_files:read
+      summary: Slack Get Files Remote Info
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /reminders.info:
+    get:
+      tags:
+      - Info
+      description: Gets information about a reminder.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/reminders.info
+      operationId: getRemindersInfo
+      parameters:
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `reminders:read`'
+        schema:
+          type: string
+      - name: reminder
+        in: query
+        description: The ID of the reminder
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: reminders.info schema
+                required:
+                - ok
+                - reminder
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                  reminder:
+                    $ref: '#/components/schemas/objs_reminder'
+                additionalProperties: false
+                description: Schema for successful response from reminders.info method
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: reminders.info error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - not_found
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - token_revoked
+                    - no_permission
+                    - org_login_required
+                    - user_is_bot
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - fatal_error
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from reminders.info method
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - reminders:read
+      summary: Slack Get Reminders Info
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /team.info:
+    get:
+      tags:
+      - Info
+      description: Gets information about the current team.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/team.info
+      operationId: getTeamInfo
+      parameters:
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `team:read`'
+        required: true
+        schema:
+          type: string
+      - name: team
+        in: query
+        description: Team to get info on, if omitted, will return information about the current team. Will only return team that the authenticated token is allowed to see through external shared channels
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: team.info schema
+                required:
+                - ok
+                - team
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                  team:
+                    $ref: '#/components/schemas/objs_team'
+                additionalProperties: false
+                description: Schema for successful response from team.info method
+              example:
+                ok: true
+                team:
+                  domain: example
+                  email_domain: example.com
+                  enterprise_id: E1234A12AB
+                  enterprise_name: Umbrella Corporation
+                  icon:
+                    image_102: https://...
+                    image_132: https://...
+                    image_34: https://...
+                    image_44: https://...
+                    image_68: https://...
+                    image_88: https://...
+                    image_default: true
+                  id: T12345
+                  name: My Team
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: team.info error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - token_revoked
+                    - no_permission
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - fatal_error
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from team.info method
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - team:read
+      summary: Slack Get Team Info
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /users.info:
+    get:
+      tags:
+      - Info
+      description: Gets information about a user.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/users.info
+      operationId: getUsersInfo
+      parameters:
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `users:read`'
+        required: true
+        schema:
+          type: string
+      - name: include_locale
+        in: query
+        description: Set this to `true` to receive the locale for this user. Defaults to `false`
+        schema:
+          type: boolean
+      - name: user
+        in: query
+        description: User to get info on
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: users.info success schema
+                required:
+                - ok
+                - user
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                  user:
+                    $ref: '#/components/schemas/objs_user'
+                additionalProperties: true
+                description: Schema for successful response from users.info method
+              example:
+                ok: true
+                user:
+                  color: 9f69e7
+                  deleted: false
+                  has_2fa: false
+                  id: W012A3CDE
+                  is_admin: true
+                  is_app_user: false
+                  is_bot: false
+                  is_owner: false
+                  is_primary_owner: false
+                  is_restricted: false
+                  is_ultra_restricted: false
+                  name: spengler
+                  profile:
+                    avatar_hash: ge3b51ca72de
+                    display_name: spengler
+                    display_name_normalized: spengler
+                    email: spengler@ghostbusters.example.com
+                    image_192: https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg
+                    image_24: https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg
+                    image_32: https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg
+                    image_48: https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg
+                    image_512: https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg
+                    image_72: https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg
+                    image_original: https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg
+                    real_name: Egon Spengler
+                    real_name_normalized: Egon Spengler
+                    status_emoji: ':books:'
+                    status_text: Print is dead
+                    team: T012AB3C4
+                  real_name: Egon Spengler
+                  team_id: T012AB3C4
+                  tz: America/Los_Angeles
+                  tz_label: Pacific Daylight Time
+                  tz_offset: -25200
+                  updated: 1502138686
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: users.info error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                  error:
+                    type: string
+                    enum:
+                    - user_not_found
+                    - user_not_visible
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from users.info method
+              example:
+                error: user_not_found
+                ok: false
+      security:
+      - slackAuth:
+        - users:read
+      summary: Slack Get Users Info
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK

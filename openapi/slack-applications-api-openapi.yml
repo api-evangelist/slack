@@ -1,0 +1,1389 @@
+openapi: 3.1.0
+info:
+  version: '1.0'
+  title: Slack Admin Access Applications API
+  description: "The Slack Admin API is a set of privileged endpoints\x14primarily under admin.* with related SCIM and Audit Logs APIs\x14that lets Enterprise Grid owners and admins automate organization\x11 wide management and governance. It covers user lifecycle (provision, suspend, assign roles), workspace and channel administration across workspaces (create, move, archive channels; manage membership and settings), app governance (approve/deny or allowlist/ban apps and install them to workspaces), invite request handling, and security/compliance controls such as information barriers, session and authentication policies, and org\x11level analytics exports. These APIs require elevated admin scopes and are commonly used to power automated onboarding/offboarding, centralized channel and app controls, and integrations with identity, ITSM, and compliance systems."
+tags:
+- name: Applications
+paths:
+  /admin.apps.approve:
+    post:
+      tags:
+      - Applications
+      description: Approve an app for installation on a workspace.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/admin.apps.approve
+      operationId: postAdminAppsApprove
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.apps:write`'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                app_id:
+                  type: string
+                  description: The id of the app to approve.
+                request_id:
+                  type: string
+                  description: The id of the request to approve.
+                team_id:
+                  type: string
+          application/json:
+            schema:
+              type: object
+              properties:
+                app_id:
+                  type: string
+                  description: The id of the app to approve.
+                request_id:
+                  type: string
+                  description: The id of the request to approve.
+                team_id:
+                  type: string
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: Default success template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: true
+                description: This method either only returns a brief _OK_ response or a verbose schema is not available for this method.
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: Default error template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: true
+                description: This method either only returns a brief _not OK_ response or a verbose schema is not available for this method.
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - admin.apps:write
+      summary: Slack Post Admin Apps Approve
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /admin.apps.approved.list:
+    get:
+      tags:
+      - Applications
+      description: List approved apps for an org or workspace.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/admin.apps.approved.list
+      operationId: getAdminAppsApprovedList
+      parameters:
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `admin.apps:read`'
+        required: true
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: The maximum number of items to return. Must be between 1 - 1000 both inclusive.
+        schema:
+          type: integer
+      - name: cursor
+        in: query
+        description: Set `cursor` to `next_cursor` returned by the previous call to list items in the next page
+        schema:
+          type: string
+      - name: team_id
+        in: query
+        schema:
+          type: string
+      - name: enterprise_id
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: Default success template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: true
+                description: This method either only returns a brief _OK_ response or a verbose schema is not available for this method.
+              example:
+                approved_apps:
+                - app:
+                    additional_info: ''
+                    app_directory_url: https://myteam.enterprise.slack.com/apps/A0W7UKG8E-my-test-app
+                    app_homepage_url: https://www.slack.com
+                    description: test app
+                    help_url: https://www.slack.com
+                    icons:
+                      image_1024: https://3026743124446w96_2bd4ea1ad1f89a23c242_1024.png
+                      image_128: https://30267341249446w6_2bd4ea1ad1f89a23c242_128.png
+                      image_192: https://30267431249446w6_2bd4ea1ad1f89a23c242_192.png
+                      image_32: https://302674312496446w_2bd4ea1ad1f89a23c242_32.png
+                      image_36: https://302674312496446w_2bd4ea1ad1f89a23c242_36.png
+                      image_48: https://302674312496446w_2bd4ea1ad1f89a23c242_48.png
+                      image_512: https://30267431249446w6_2bd4ea1ad1f89a23c242_512.png
+                      image_64: https://302674312496446w_2bd4ea1ad1f89a23c242_64.png
+                      image_72: https://302674312496446w_2bd4ea1ad1f89a23c242_72.png
+                      image_96: https://302674312496446w_2bd4ea1ad1f89a23c242_96.png
+                      image_original: https://302674446w12496_2bd4ea1ad1f89a23c242_original.png
+                    id: A0W7UKG8E
+                    is_app_directory_approved: false
+                    is_internal: false
+                    name: My Test App
+                    privacy_policy_url: https://www.slack.com
+                  date_updated: 1574296707
+                  last_resolved_by:
+                    actor_id: W0G82F4FD
+                    actor_type: user
+                  scopes:
+                  - description: Add the ability for people to direct message or mention @my_test_app
+                    is_sensitive: true
+                    name: bot
+                    token_type: bot
+                ok: true
+                response_metadata:
+                  next_cursor: ''
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: Default error template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: true
+                description: This method either only returns a brief _not OK_ response or a verbose schema is not available for this method.
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - admin.apps:read
+      summary: Slack Get Admin Apps Approved List
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /admin.apps.requests.list:
+    get:
+      tags:
+      - Applications
+      description: List app requests for a team/workspace.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/admin.apps.requests.list
+      operationId: getAdminAppsRequestsList
+      parameters:
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `admin.apps:read`'
+        required: true
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: The maximum number of items to return. Must be between 1 - 1000 both inclusive.
+        schema:
+          type: integer
+      - name: cursor
+        in: query
+        description: Set `cursor` to `next_cursor` returned by the previous call to list items in the next page
+        schema:
+          type: string
+      - name: team_id
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: Default success template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: true
+                description: This method either only returns a brief _OK_ response or a verbose schema is not available for this method.
+              example:
+                app_requests:
+                - app:
+                    additional_info: ''
+                    app_directory_url: https://acmecorp.slack.com/apps/A061BL8RQ0-test-app
+                    app_homepage_url: ''
+                    description: ''
+                    help_url: ''
+                    icons:
+                      image_1024: /cdn/15258203/img/testapp/service_1024.png
+                      image_128: /cdn/157258203/img/testapp/service_128.png
+                      image_192: /cdn/157258203/img/testapp/service_192.png
+                      image_32: /cdn/157658203/img/testapp/service_32.png
+                      image_36: /cdn/157658203/img/testapp/service_36.png
+                      image_48: /cdn/157658203/img/testapp/service_48.png
+                      image_512: /cdn/15758203/img/testapp/service_512.png
+                      image_64: /cdn/157658203/img/testapp/service_64.png
+                      image_72: /cdn/157658203/img/testapp/service_72.png
+                      image_96: /cdn/157658203/img/testapp/service_96.png
+                    id: A061BL8RQ0
+                    is_app_directory_approved: true
+                    is_internal: false
+                    name: Test App
+                    privacy_policy_url: https://testapp.com/privacy
+                  date_created: 1578956327
+                  id: Ar0XJGFLMLS
+                  message: test test again
+                  previous_resolution: null
+                  scopes:
+                  - description: Post messages to specific channels in Slack
+                    is_sensitive: false
+                    name: incoming-webhook
+                    token_type: user
+                  team:
+                    domain: acmecorp
+                    id: T0M94LNUCR
+                    name: Acme Corp
+                  user:
+                    email: janedoe@example.com
+                    id: W08RA9G5HR
+                    name: Jane Doe
+                ok: true
+                response_metadata:
+                  next_cursor: ''
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: Default error template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: true
+                description: This method either only returns a brief _not OK_ response or a verbose schema is not available for this method.
+              example:
+                error: missing_scope
+                needed: admin.apps:read
+                ok: false
+                provided: read,client,admin,identify,post,apps
+      security:
+      - slackAuth:
+        - admin.apps:read
+      summary: Slack Get Admin Apps Requests List
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /admin.apps.restrict:
+    post:
+      tags:
+      - Applications
+      description: Restrict an app for installation on a workspace.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/admin.apps.restrict
+      operationId: postAdminAppsRestrict
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.apps:write`'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                app_id:
+                  type: string
+                  description: The id of the app to restrict.
+                request_id:
+                  type: string
+                  description: The id of the request to restrict.
+                team_id:
+                  type: string
+          application/json:
+            schema:
+              type: object
+              properties:
+                app_id:
+                  type: string
+                  description: The id of the app to restrict.
+                request_id:
+                  type: string
+                  description: The id of the request to restrict.
+                team_id:
+                  type: string
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: Default success template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: true
+                description: This method either only returns a brief _OK_ response or a verbose schema is not available for this method.
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: Default error template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: true
+                description: This method either only returns a brief _not OK_ response or a verbose schema is not available for this method.
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - admin.apps:write
+      summary: Slack Post Admin Apps Restrict
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /admin.apps.restricted.list:
+    get:
+      tags:
+      - Applications
+      description: List restricted apps for an org or workspace.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/admin.apps.restricted.list
+      operationId: getAdminAppsRestrictedList
+      parameters:
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `admin.apps:read`'
+        required: true
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: The maximum number of items to return. Must be between 1 - 1000 both inclusive.
+        schema:
+          type: integer
+      - name: cursor
+        in: query
+        description: Set `cursor` to `next_cursor` returned by the previous call to list items in the next page
+        schema:
+          type: string
+      - name: team_id
+        in: query
+        schema:
+          type: string
+      - name: enterprise_id
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: Default success template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: true
+                description: This method either only returns a brief _OK_ response or a verbose schema is not available for this method.
+              example:
+                ok: true
+                response_metadata:
+                  next_cursor: ''
+                restricted_apps:
+                - app:
+                    additional_info: ''
+                    app_directory_url: https://myteam.enterprise.slack.com/apps/A0FDLP8M2L-my-test-app
+                    app_homepage_url: https://example.com
+                    description: A fun test app for Slack
+                    help_url: https://example.com
+                    icons:
+                      image_1024: https://1433265338rl878408_eb57dbc818daa4ba15d6_1024.png
+                      image_128: https://4332653438rl87808_eb57dbc818daa4ba15d6_128.png
+                      image_192: https://4332653438rl87808_eb57dbc818daa4ba15d6_192.png
+                      image_32: https://143326534038rl8788_eb57dbc818daa4ba15d6_32.png
+                      image_36: https://143326534038rl8788_eb57dbc818daa4ba15d6_36.png
+                      image_48: https://143326534038rl8788_eb57dbc818daa4ba15d6_48.png
+                      image_512: https://4332653438rl87808_eb57dbc818daa4ba15d6_512.png
+                      image_64: https://143326534038rl8788_eb57dbc818daa4ba15d6_64.png
+                      image_72: https://143326534038rl8788_eb57dbc818daa4ba15d6_72.png
+                      image_96: https://143326534038rl8788_eb57dbc818daa4ba15d6_96.png
+                      image_original: https://143338rl8782653408_eb57dbc818daa4ba15d6_original.png
+                    id: A0FDLP8M2L
+                    is_app_directory_approved: true
+                    is_internal: false
+                    name: My Test App
+                    privacy_policy_url: https://example.com
+                  date_updated: 1574296721
+                  last_resolved_by:
+                    actor_id: W0G82LMFD
+                    actor_type: user
+                  scopes:
+                  - description: Upload, edit, and delete files on the user's behalf
+                    is_sensitive: true
+                    name: files:write:user
+                    token_type: user
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: Default error template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: true
+                description: This method either only returns a brief _not OK_ response or a verbose schema is not available for this method.
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - admin.apps:read
+      summary: Slack Get Admin Apps Restricted List
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /apps.event.authorizations.list:
+    get:
+      tags:
+      - Applications
+      description: Get a list of authorizations for the given event context. Each authorization represents an app installation that the event is visible to.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/apps.event.authorizations.list
+      operationId: getAppsEventAuthorizationsList
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `authorizations:read`'
+        required: true
+        schema:
+          type: string
+      - name: event_context
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: cursor
+        in: query
+        schema:
+          type: string
+      - name: limit
+        in: query
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: Default success template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: true
+                description: This method either only returns a brief _OK_ response or a verbose schema is not available for this method.
+              example:
+                authorizations:
+                  enterprise_id: string
+                  is_bot: string
+                  team_id: string
+                  user_id: string
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: Default error template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: true
+                description: This method either only returns a brief _not OK_ response or a verbose schema is not available for this method.
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - authorizations:read
+      summary: Slack Get Apps Event Authorizations List
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /apps.permissions.info:
+    get:
+      tags:
+      - Applications
+      description: Returns list of permissions this app has on a team.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/apps.permissions.info
+      operationId: getAppsPermissionsInfo
+      parameters:
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `none`'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Standard success response when used with a user token
+          content:
+            application/json:
+              schema:
+                title: apps.permissions.info schema
+                required:
+                - info
+                - ok
+                type: object
+                properties:
+                  info:
+                    required:
+                    - app_home
+                    - channel
+                    - group
+                    - im
+                    - mpim
+                    - team
+                    type: object
+                    properties:
+                      app_home:
+                        type: object
+                        properties:
+                          resources:
+                            $ref: '#/components/schemas/objs_resources'
+                          scopes:
+                            $ref: '#/components/schemas/objs_scopes'
+                      channel:
+                        type: object
+                        properties:
+                          resources:
+                            $ref: '#/components/schemas/objs_resources'
+                          scopes:
+                            $ref: '#/components/schemas/objs_scopes'
+                      group:
+                        type: object
+                        properties:
+                          resources:
+                            $ref: '#/components/schemas/objs_resources'
+                          scopes:
+                            $ref: '#/components/schemas/objs_scopes'
+                      im:
+                        type: object
+                        properties:
+                          resources:
+                            $ref: '#/components/schemas/objs_resources'
+                          scopes:
+                            $ref: '#/components/schemas/objs_scopes'
+                      mpim:
+                        type: object
+                        properties:
+                          resources:
+                            $ref: '#/components/schemas/objs_resources'
+                          scopes:
+                            $ref: '#/components/schemas/objs_scopes'
+                      team:
+                        required:
+                        - resources
+                        - scopes
+                        type: object
+                        properties:
+                          resources:
+                            $ref: '#/components/schemas/objs_resources'
+                          scopes:
+                            $ref: '#/components/schemas/objs_scopes'
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: false
+                description: Schema for successful response from apps.permissions.info method
+              example:
+                info:
+                  app_home:
+                    resources:
+                      ids:
+                      - D0C0NU1Q8
+                      - D0BH95DLH
+                    scopes:
+                    - chat:write
+                    - im:history
+                    - im:read
+                  channel:
+                    resources:
+                      excluded_ids: []
+                      ids:
+                      - C061FA5PB
+                      wildcard: false
+                    scopes:
+                    - channels:read
+                  group:
+                    resources:
+                      ids: []
+                    scopes: []
+                  im:
+                    resources:
+                      ids: []
+                    scopes: []
+                  mpim:
+                    resources:
+                      ids: []
+                    scopes: []
+                  team:
+                    resources:
+                      ids: []
+                    scopes: []
+                ok: true
+        default:
+          description: Standard failure response when used with an invalid token
+          content:
+            application/json:
+              schema:
+                title: apps.permissions.info error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - token_revoked
+                    - no_permission
+                    - org_login_required
+                    - user_is_bot
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - fatal_error
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from apps.permissions.info method
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - none
+      summary: Slack Get Apps Permissions Info
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /apps.permissions.request:
+    get:
+      tags:
+      - Applications
+      description: Allows an app to request additional scopes
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/apps.permissions.request
+      operationId: getAppsPermissionsRequest
+      parameters:
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `none`'
+        required: true
+        schema:
+          type: string
+      - name: scopes
+        in: query
+        description: A comma separated list of scopes to request for
+        required: true
+        schema:
+          type: string
+      - name: trigger_id
+        in: query
+        description: Token used to trigger the permissions API
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Standard success response when used with a user token
+          content:
+            application/json:
+              schema:
+                title: apps.permissions.request schema
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: false
+                description: Schema for successful response from apps.permissions.request method
+              example:
+                ok: true
+        default:
+          description: Standard failure response when trigger_id is invalid
+          content:
+            application/json:
+              schema:
+                title: apps.permissions.request error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - invalid_trigger
+                    - trigger_exchanged
+                    - invalid_scope
+                    - invalid_user
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - token_revoked
+                    - no_permission
+                    - org_login_required
+                    - user_is_bot
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - fatal_error
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from apps.permissions.request method
+              example:
+                error: invalid_trigger_id
+                ok: false
+      security:
+      - slackAuth:
+        - none
+      summary: Slack Get Apps Permissions Request
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /apps.permissions.resources.list:
+    get:
+      tags:
+      - Applications
+      description: Returns list of resource grants this app has on a team.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/apps.permissions.resources.list
+      operationId: getAppsPermissionsResourcesList
+      parameters:
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `none`'
+        required: true
+        schema:
+          type: string
+      - name: cursor
+        in: query
+        description: Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute returned by a previous request's `response_metadata`. Default value fetches the first "page" of the collection. See [pagination](/docs/pagination) for more detail.
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: The maximum number of items to return.
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Typical successful paginated response
+          content:
+            application/json:
+              schema:
+                title: apps.permissions.resources.list success schema
+                required:
+                - ok
+                - resources
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                  resources:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          title: An ID for a resource
+                          type: string
+                        type:
+                          title: The type of resource the `id` corresponds to
+                          type: string
+                  response_metadata:
+                    type: object
+                    additionalProperties: false
+                additionalProperties: true
+                description: Schema for successful response apps.permissions.resources.list method
+              example:
+                ok: true
+                resources:
+                - id: T0DES3UAN
+                  type: team
+                - id: D024BFF1M
+                  type: app_home
+                - id: C024BE91L
+                  type: channel
+                response_metadata:
+                  next_cursor: dGVhbTpDMUg5UkVTR0w=
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: apps.permissions.resources.list error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - invalid_cursor
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - token_revoked
+                    - no_permission
+                    - org_login_required
+                    - user_is_bot
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - fatal_error
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from apps.permissions.resources.list method
+              example:
+                error: invalid_cursor
+                ok: false
+      security:
+      - slackAuth:
+        - none
+      summary: Slack Get Apps Permissions Resources List
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /apps.permissions.scopes.list:
+    get:
+      tags:
+      - Applications
+      description: Returns list of scopes this app has on a team.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/apps.permissions.scopes.list
+      operationId: getAppsPermissionsScopesList
+      parameters:
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `none`'
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Typical successful paginated response
+          content:
+            application/json:
+              schema:
+                title: api.permissions.scopes.list success schema
+                required:
+                - ok
+                - scopes
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                  scopes:
+                    type: object
+                    additionalProperties: true
+                additionalProperties: true
+                description: Schema for successful response api.permissions.scopes.list method
+              example:
+                ok: true
+                scopes:
+                  app_home:
+                  - chat:write
+                  - im:history
+                  - im:read
+                  channel:
+                  - channels:history
+                  - chat:write
+                  group:
+                  - chat:write
+                  im:
+                  - chat:write
+                  mpim:
+                  - chat:write
+                  team:
+                  - users:read
+                  user: []
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: apps.permissions.scopes.list error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - token_revoked
+                    - no_permission
+                    - org_login_required
+                    - user_is_bot
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - fatal_error
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from apps.permissions.scopes.list method
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - none
+      summary: Slack Get Apps Permissions Scopes List
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /apps.permissions.users.list:
+    get:
+      tags:
+      - Applications
+      description: Returns list of user grants and corresponding scopes this app has on a team.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/apps.permissions.users.list
+      operationId: getAppsPermissionsUsersList
+      parameters:
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `none`'
+        required: true
+        schema:
+          type: string
+      - name: cursor
+        in: query
+        description: Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute returned by a previous request's `response_metadata`. Default value fetches the first "page" of the collection. See [pagination](/docs/pagination) for more detail.
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: The maximum number of items to return.
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Typical successful paginated response
+          content:
+            application/json:
+              schema:
+                title: Default success template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: true
+                description: This method either only returns a brief _OK_ response or a verbose schema is not available for this method.
+              example:
+                ok: true
+                resources:
+                - id: U0DES3UAN
+                  scopes:
+                  - dnd:write:user
+                  - reminders:write:user
+                - id: U024BFF1M
+                  scopes:
+                  - reminders:write:user
+                response_metadata:
+                  next_cursor: dGVhbTdPMUg5UkFTT0w=
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: Default error template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: true
+                description: This method either only returns a brief _not OK_ response or a verbose schema is not available for this method.
+              example:
+                error: invalid_cursor
+                ok: false
+      security:
+      - slackAuth:
+        - none
+      summary: Slack Get Apps Permissions Users List
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /apps.permissions.users.request:
+    get:
+      tags:
+      - Applications
+      description: Enables an app to trigger a permissions modal to grant an app access to a user access scope.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/apps.permissions.users.request
+      operationId: getAppsPermissionsUsersRequest
+      parameters:
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `none`'
+        required: true
+        schema:
+          type: string
+      - name: scopes
+        in: query
+        description: A comma separated list of user scopes to request for
+        required: true
+        schema:
+          type: string
+      - name: trigger_id
+        in: query
+        description: Token used to trigger the request
+        required: true
+        schema:
+          type: string
+      - name: user
+        in: query
+        description: The user this scope is being requested for
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Standard success response when used with a user token
+          content:
+            application/json:
+              schema:
+                title: Default success template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: true
+                description: This method either only returns a brief _OK_ response or a verbose schema is not available for this method.
+              example:
+                ok: true
+        default:
+          description: Standard failure response when trigger_id is invalid
+          content:
+            application/json:
+              schema:
+                title: Default error template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: true
+                description: This method either only returns a brief _not OK_ response or a verbose schema is not available for this method.
+              example:
+                error: invalid_trigger_id
+                ok: false
+      security:
+      - slackAuth:
+        - none
+      summary: Slack Get Apps Permissions Users Request
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /apps.uninstall:
+    get:
+      tags:
+      - Applications
+      description: Uninstalls your app from a workspace.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/apps.uninstall
+      operationId: getAppsUninstall
+      parameters:
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `none`'
+        schema:
+          type: string
+      - name: client_id
+        in: query
+        description: Issued when you created your application.
+        schema:
+          type: string
+      - name: client_secret
+        in: query
+        description: Issued when you created your application.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: apps.uninstall schema
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: false
+                description: Schema for successful response from apps.uninstall method
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: apps.uninstall error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - invalid_client_id
+                    - bad_client_secret
+                    - client_id_token_mismatch
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - token_revoked
+                    - no_permission
+                    - org_login_required
+                    - user_is_bot
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - fatal_error
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from apps.uninstall method
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - none
+      summary: Slack Get Apps Uninstall
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK

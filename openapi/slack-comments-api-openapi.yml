@@ -1,0 +1,114 @@
+openapi: 3.1.0
+info:
+  version: '1.0'
+  title: Slack Admin Access Comments API
+  description: "The Slack Admin API is a set of privileged endpoints\x14primarily under admin.* with related SCIM and Audit Logs APIs\x14that lets Enterprise Grid owners and admins automate organization\x11 wide management and governance. It covers user lifecycle (provision, suspend, assign roles), workspace and channel administration across workspaces (create, move, archive channels; manage membership and settings), app governance (approve/deny or allowlist/ban apps and install them to workspaces), invite request handling, and security/compliance controls such as information barriers, session and authentication policies, and org\x11level analytics exports. These APIs require elevated admin scopes and are commonly used to power automated onboarding/offboarding, centralized channel and app controls, and integrations with identity, ITSM, and compliance systems."
+tags:
+- name: Comments
+paths:
+  /files.comments.delete:
+    post:
+      tags:
+      - Comments
+      description: Deletes an existing comment on a file.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/files.comments.delete
+      operationId: postFilesCommentsDelete
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `files:write:user`'
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  description: File to delete a comment from.
+                id:
+                  type: string
+                  description: The comment to delete.
+          application/json:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  description: File to delete a comment from.
+                id:
+                  type: string
+                  description: The comment to delete.
+      responses:
+        '200':
+          description: Standard success response is very simple
+          content:
+            application/json:
+              schema:
+                title: files.comments.delete schema
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: false
+                description: Schema for successful response files.comments.delete method
+              example:
+                ok: true
+        default:
+          description: Standard failure response when used with an invalid token
+          content:
+            application/json:
+              schema:
+                title: files.comments.delete error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - cant_delete
+                    - comment_not_found
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - no_permission
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response files.comments.delete method
+              example:
+                error: file_not_found
+                ok: false
+      security:
+      - slackAuth:
+        - files:write:user
+      summary: Slack Post Files Comments Delete
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK

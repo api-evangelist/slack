@@ -1,0 +1,344 @@
+openapi: 3.1.0
+info:
+  version: '1.0'
+  title: Slack Admin Access Rename API
+  description: "The Slack Admin API is a set of privileged endpoints\x14primarily under admin.* with related SCIM and Audit Logs APIs\x14that lets Enterprise Grid owners and admins automate organization\x11 wide management and governance. It covers user lifecycle (provision, suspend, assign roles), workspace and channel administration across workspaces (create, move, archive channels; manage membership and settings), app governance (approve/deny or allowlist/ban apps and install them to workspaces), invite request handling, and security/compliance controls such as information barriers, session and authentication policies, and org\x11level analytics exports. These APIs require elevated admin scopes and are commonly used to power automated onboarding/offboarding, centralized channel and app controls, and integrations with identity, ITSM, and compliance systems."
+tags:
+- name: Rename
+paths:
+  /admin.conversations.rename:
+    post:
+      tags:
+      - Rename
+      description: Rename a public or private channel.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/admin.conversations.rename
+      operationId: postAdminConversationsRename
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.conversations:write`'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - channel_id
+              - name
+              type: object
+              properties:
+                channel_id:
+                  type: string
+                  description: The channel to rename.
+                name:
+                  type: string
+          application/json:
+            schema:
+              required:
+              - channel_id
+              - name
+              type: object
+              properties:
+                channel_id:
+                  type: string
+                  description: The channel to rename.
+                name:
+                  type: string
+        required: true
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: admin.conversations.rename schema
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: false
+                description: Schema for successful response of admin.conversations.rename
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: admin.conversations.unarchive error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - feature_not_enabled
+                    - channel_not_found
+                    - channel_type_not_supported
+                    - restricted_action
+                    - could_not_rename_channel
+                    - default_org_wide_channel
+                    - name_taken
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from admin.conversations.rename
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - admin.conversations:write
+      summary: Slack Post Admin Conversations Rename
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /admin.emoji.rename:
+    post:
+      tags:
+      - Rename
+      description: Rename an emoji.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/admin.emoji.rename
+      operationId: postAdminEmojiRename
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - name
+              - new_name
+              - token
+              type: object
+              properties:
+                token:
+                  type: string
+                  description: 'Authentication token. Requires scope: `admin.teams:write`'
+                name:
+                  type: string
+                  description: The name of the emoji to be renamed. Colons (`:myemoji:`) around the value are not required, although they may be included.
+                new_name:
+                  type: string
+                  description: The new name of the emoji.
+        required: true
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: Default success template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: true
+                description: This method either only returns a brief _OK_ response or a verbose schema is not available for this method.
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: Default error template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: true
+                description: This method either only returns a brief _not OK_ response or a verbose schema is not available for this method.
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - admin.teams:write
+      summary: Slack Post Admin Emoji Rename
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /conversations.rename:
+    post:
+      tags:
+      - Rename
+      description: Renames a conversation.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/conversations.rename
+      operationId: postConversationsRename
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `conversations:write`'
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                channel:
+                  type: string
+                  description: ID of conversation to rename
+                name:
+                  type: string
+                  description: New name for conversation.
+          application/json:
+            schema:
+              type: object
+              properties:
+                channel:
+                  type: string
+                  description: ID of conversation to rename
+                name:
+                  type: string
+                  description: New name for conversation.
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: conversations.rename success schema
+                required:
+                - channel
+                - ok
+                type: object
+                properties:
+                  channel:
+                    $ref: '#/components/schemas/objs_conversation'
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: false
+                description: Schema for successful response from conversations.rename method
+              example:
+                channel:
+                  created: 1449252889
+                  creator: W012A3BCD
+                  id: C012AB3CD
+                  is_archived: false
+                  is_channel: true
+                  is_ext_shared: false
+                  is_general: true
+                  is_group: false
+                  is_im: false
+                  is_member: true
+                  is_mpim: false
+                  is_org_shared: false
+                  is_pending_ext_shared: false
+                  is_private: false
+                  is_read_only: false
+                  is_shared: false
+                  last_read: '1502126650.228446'
+                  locale: en-US
+                  name: general
+                  name_normalized: general
+                  num_members: 23
+                  pending_shared: []
+                  previous_names:
+                  - specifics
+                  - abstractions
+                  - etc
+                  purpose:
+                    creator: W012A3BCD
+                    last_set: 1449709364
+                    value: This part of the workspace is for fun. Make fun here.
+                  topic:
+                    creator: W012A3BCD
+                    last_set: 1449709364
+                    value: For public discussion of generalities
+                  unlinked: 0
+                ok: true
+        default:
+          description: Typical error response when the calling user is not a member of the conversation
+          content:
+            application/json:
+              schema:
+                title: conversations.rename error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - user_is_restricted
+                    - method_not_supported_for_channel_type
+                    - missing_scope
+                    - channel_not_found
+                    - not_in_channel
+                    - not_authorized
+                    - invalid_name
+                    - name_taken
+                    - invalid_name_required
+                    - invalid_name_punctuation
+                    - invalid_name_maxlength
+                    - invalid_name_specials
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                  needed:
+                    type: string
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                  provided:
+                    type: string
+                additionalProperties: false
+                description: Schema for error response from conversations.rename method
+              example:
+                error: not_in_channel
+                ok: false
+      security:
+      - slackAuth:
+        - channels:write
+        - groups:write
+        - im:write
+        - mpim:write
+      summary: Slack Post Conversations Rename
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK

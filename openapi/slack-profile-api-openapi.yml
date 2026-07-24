@@ -1,0 +1,426 @@
+openapi: 3.1.0
+info:
+  version: '1.0'
+  title: Slack Admin Access Profile API
+  description: "The Slack Admin API is a set of privileged endpoints\x14primarily under admin.* with related SCIM and Audit Logs APIs\x14that lets Enterprise Grid owners and admins automate organization\x11 wide management and governance. It covers user lifecycle (provision, suspend, assign roles), workspace and channel administration across workspaces (create, move, archive channels; manage membership and settings), app governance (approve/deny or allowlist/ban apps and install them to workspaces), invite request handling, and security/compliance controls such as information barriers, session and authentication policies, and org\x11level analytics exports. These APIs require elevated admin scopes and are commonly used to power automated onboarding/offboarding, centralized channel and app controls, and integrations with identity, ITSM, and compliance systems."
+tags:
+- name: Profile
+paths:
+  /team.profile.get:
+    get:
+      tags:
+      - Profile
+      description: Retrieve a team's profile.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/team.profile.get
+      operationId: getTeamProfileGet
+      parameters:
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `users.profile:read`'
+        required: true
+        schema:
+          type: string
+      - name: visibility
+        in: query
+        description: Filter by visibility.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: team.profile.get success schema
+                required:
+                - ok
+                - profile
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                  profile:
+                    type: object
+                    additionalProperties: false
+                additionalProperties: false
+                description: Schema for successful response from team.profile.get method
+              example:
+                ok: true
+                profile:
+                  fields:
+                  - hint: Enter the extension to reach your desk
+                    id: Xf06054AAA
+                    is_hidden: 1
+                    label: Phone extension
+                    options: null
+                    ordering: 0
+                    possible_values: null
+                    type: text
+                  - hint: When you were born
+                    id: Xf06054BBB
+                    label: Date of birth
+                    options: null
+                    ordering: 1
+                    possible_values: null
+                    type: date
+                  - hint: Enter a link to your Facebook profile
+                    id: Xf06054CCC
+                    label: Facebook
+                    options: null
+                    ordering: 2
+                    possible_values: null
+                    type: link
+                  - hint: Hogwarts, obviously
+                    id: Xf06054DDD
+                    label: House
+                    options: null
+                    ordering: 3
+                    possible_values:
+                    - Gryffindor
+                    - Hufflepuff
+                    - Ravenclaw
+                    - Slytherin
+                    type: options_list
+                  - hint: Office location (LDAP)
+                    id: Xf06054EEE
+                    label: Location
+                    options:
+                      is_protected: 1
+                    ordering: 4
+                    possible_values: null
+                    type: text
+                  - hint: The boss
+                    id: Xf06054FFF
+                    label: Manager
+                    options: null
+                    ordering: 5
+                    possible_values: null
+                    type: user
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: team.profile.get error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - no_permission
+                    - user_is_bot
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_typ
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeou
+                    - upgrade_required
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from team.profile.get method
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - users.profile:read
+      summary: Slack Get Team Profile Get
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /users.profile.get:
+    get:
+      tags:
+      - Profile
+      description: Retrieves a user's profile information.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/users.profile.get
+      operationId: getUsersProfileGet
+      parameters:
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `users.profile:read`'
+        required: true
+        schema:
+          type: string
+      - name: include_labels
+        in: query
+        description: Include labels for each ID in custom profile fields
+        schema:
+          type: boolean
+      - name: user
+        in: query
+        description: User to retrieve profile info for
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: users.profile.get schema
+                required:
+                - ok
+                - profile
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                  profile:
+                    $ref: '#/components/schemas/objs_user_profile'
+                additionalProperties: false
+                description: Schema for successful response from users.profile.get method
+              example:
+                ok: true
+                profile:
+                  avatar_hash: ge3b51ca72de
+                  display_name: spengler
+                  display_name_normalized: spengler
+                  email: spengler@ghostbusters.example.com
+                  image_192: https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg
+                  image_24: https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg
+                  image_32: https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg
+                  image_48: https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg
+                  image_512: https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg
+                  image_72: https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg
+                  image_original: https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg
+                  real_name: Egon Spengler
+                  real_name_normalized: Egon Spengler
+                  status_emoji: ':books:'
+                  status_expiration: 0
+                  status_text: Print is dead
+                  team: T012AB3C4
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: users.profile.get error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - user_not_found
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - token_revoked
+                    - no_permission
+                    - org_login_required
+                    - user_is_bot
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - fatal_error
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from users.profile.get method
+              example:
+                error: user_not_found
+                ok: false
+      security:
+      - slackAuth:
+        - users.profile:read
+      summary: Slack Get Users Profile Get
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /users.profile.set:
+    post:
+      tags:
+      - Profile
+      description: Set the profile information for a user.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/users.profile.set
+      operationId: postUsersProfileSet
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `users.profile:write`'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Name of a single key to set. Usable only if `profile` is not passed.
+                profile:
+                  type: string
+                  description: Collection of key:value pairs presented as a URL-encoded JSON hash. At most 50 fields may be set. Each field name is limited to 255 characters.
+                user:
+                  type: string
+                  description: ID of user to change. This argument may only be specified by team admins on paid teams.
+                value:
+                  type: string
+                  description: Value to set a single key to. Usable only if `profile` is not passed.
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Name of a single key to set. Usable only if `profile` is not passed.
+                profile:
+                  type: string
+                  description: Collection of key:value pairs presented as a URL-encoded JSON hash. At most 50 fields may be set. Each field name is limited to 255 characters.
+                user:
+                  type: string
+                  description: ID of user to change. This argument may only be specified by team admins on paid teams.
+                value:
+                  type: string
+                  description: Value to set a single key to. Usable only if `profile` is not passed.
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: users.profile.set schema
+                required:
+                - ok
+                - profile
+                - username
+                type: object
+                properties:
+                  email_pending:
+                    type: string
+                    format: email
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                  profile:
+                    $ref: '#/components/schemas/objs_user_profile'
+                  username:
+                    type: string
+                additionalProperties: false
+                description: Schema for successful response from users.profile.set method
+              example:
+                ok: true
+                profile:
+                  avatar_hash: ge3b51ca72de
+                  display_name: spengler
+                  display_name_normalized: spengler
+                  email: spengler@ghostbusters.example.com
+                  image_192: https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg
+                  image_24: https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg
+                  image_32: https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg
+                  image_48: https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg
+                  image_512: https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg
+                  image_72: https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg
+                  real_name: Egon Spengler
+                  real_name_normalized: Egon Spengler
+                  status_emoji: ':books:'
+                  status_expiration: 0
+                  status_text: Print is dead
+                  team: T012AB3C4
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: users.profile.set error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - reserved_name
+                    - invalid_profile
+                    - profile_set_failed
+                    - not_admin
+                    - not_app_admin
+                    - cannot_update_admin_user
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - token_revoked
+                    - no_permission
+                    - org_login_required
+                    - user_is_bot
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - fatal_error
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from users.profile.set method
+              example:
+                error: invalid_profile
+                ok: false
+      security:
+      - slackAuth:
+        - users.profile:write
+      summary: Slack Post Users Profile Set
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK

@@ -1,0 +1,493 @@
+openapi: 3.1.0
+info:
+  version: '1.0'
+  title: Slack Admin Access Search API
+  description: "The Slack Admin API is a set of privileged endpoints\x14primarily under admin.* with related SCIM and Audit Logs APIs\x14that lets Enterprise Grid owners and admins automate organization\x11 wide management and governance. It covers user lifecycle (provision, suspend, assign roles), workspace and channel administration across workspaces (create, move, archive channels; manage membership and settings), app governance (approve/deny or allowlist/ban apps and install them to workspaces), invite request handling, and security/compliance controls such as information barriers, session and authentication policies, and org\x11level analytics exports. These APIs require elevated admin scopes and are commonly used to power automated onboarding/offboarding, centralized channel and app controls, and integrations with identity, ITSM, and compliance systems."
+tags:
+- name: Search
+paths:
+  /admin.conversations.search:
+    get:
+      tags:
+      - Search
+      description: Search for public or private channels in an Enterprise organization.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/admin.conversations.search
+      operationId: getAdminConversationsSearch
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.conversations:read`'
+        required: true
+        schema:
+          type: string
+      - name: team_ids
+        in: query
+        description: Comma separated string of team IDs, signifying the workspaces to search through.
+        schema:
+          type: string
+      - name: query
+        in: query
+        description: Name of the the channel to query by.
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: Maximum number of items to be returned. Must be between 1 - 20 both inclusive. Default is 10.
+        schema:
+          type: integer
+      - name: cursor
+        in: query
+        description: Set `cursor` to `next_cursor` returned by the previous call to list items in the next page.
+        schema:
+          type: string
+      - name: search_channel_types
+        in: query
+        description: The type of channel to include or exclude in the search. For example `private` will search private channels, while `private_exclude` will exclude them. For a full list of types, check the [Types section](#types).
+        schema:
+          type: string
+      - name: sort
+        in: query
+        description: 'Possible values are `relevant` (search ranking based on what we think is closest), `name` (alphabetical), `member_count` (number of users in the channel), and `created` (date channel was created). You can optionally pair this with the `sort_dir` arg to change how it is sorted '
+        schema:
+          type: string
+      - name: sort_dir
+        in: query
+        description: Sort direction. Possible values are `asc` for ascending order like (1, 2, 3) or (a, b, c), and `desc` for descending order like (3, 2, 1) or (c, b, a)
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: admin.conversations.search schema
+                required:
+                - channels
+                - next_cursor
+                type: object
+                properties:
+                  channels:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/objs_channel'
+                  next_cursor:
+                    type: string
+                additionalProperties: false
+                description: Schema for successful response of admin.conversations.search
+              example:
+                channels:
+                - created: 1449252889
+                  creator: U012A3CDE
+                  id: C012AB3CD
+                  is_archived: false
+                  is_channel: true
+                  is_ext_shared: false
+                  is_general: true
+                  is_group: false
+                  is_im: false
+                  is_member: true
+                  is_mpim: false
+                  is_org_shared: false
+                  is_pending_ext_shared: false
+                  is_private: false
+                  is_shared: false
+                  name: general
+                  name_normalized: general
+                  num_members: 4
+                  pending_shared: []
+                  previous_names: []
+                  purpose:
+                    creator: ''
+                    last_set: 0
+                    value: This channel is for team-wide communication and announcements. All team members are in this channel.
+                  topic:
+                    creator: ''
+                    last_set: 0
+                    value: Company-wide announcements and work-based matters
+                  unlinked: 0
+                ok: true
+                response_metadata:
+                  next_cursor: dGVhbTpDMDYxRkE1UEI=
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: admin.conversations.search error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - feature_not_enabled
+                    - not_an_admin
+                    - not_an_enterprise
+                    - team_not_found
+                    - not_allowed
+                    - invalid_auth
+                    - invalid_cursor
+                    - invalid_search_channel_type
+                    - invalid_sort
+                    - invalid_sort_dir
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from admin.conversations.search
+              example:
+                error: not_an_enterprise
+                ok: false
+      security:
+      - slackAuth:
+        - admin.conversations:read
+      summary: Slack Get Admin Conversations Search
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /search.messages:
+    get:
+      tags:
+      - Search
+      description: Searches for messages matching a query.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/search.messages
+      operationId: getSearchMessages
+      parameters:
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `search:read`'
+        required: true
+        schema:
+          type: string
+      - name: count
+        in: query
+        description: Pass the number of results you want per "page". Maximum of `100`.
+        schema:
+          type: integer
+      - name: highlight
+        in: query
+        description: Pass a value of `true` to enable query highlight markers (see below).
+        schema:
+          type: boolean
+      - name: page
+        in: query
+        schema:
+          type: integer
+      - name: query
+        in: query
+        description: Search query.
+        required: true
+        schema:
+          type: string
+      - name: sort
+        in: query
+        description: Return matches sorted by either `score` or `timestamp`.
+        schema:
+          type: string
+      - name: sort_dir
+        in: query
+        description: Change sort direction to ascending (`asc`) or descending (`desc`).
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: Default success template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: true
+                description: This method either only returns a brief _OK_ response or a verbose schema is not available for this method.
+              example:
+                messages:
+                  matches:
+                  - channel:
+                      id: C12345678
+                      is_ext_shared: false
+                      is_mpim: false
+                      is_org_shared: false
+                      is_pending_ext_shared: false
+                      is_private: false
+                      is_shared: false
+                      name: general
+                      pending_shared: []
+                    iid: cb64bdaa-c1e8-4631-8a91-0f78080113e9
+                    permalink: https://hitchhikers.slack.com/archives/C12345678/p1508284197000015
+                    team: T12345678
+                    text: The meaning of life the universe and everything is 42.
+                    ts: '1508284197.000015'
+                    type: message
+                    user: U2U85N1RV
+                    username: roach
+                  - channel:
+                      id: C12345678
+                      is_ext_shared: false
+                      is_mpim: false
+                      is_org_shared: false
+                      is_pending_ext_shared: false
+                      is_private: false
+                      is_shared: false
+                      name: random
+                      pending_shared: []
+                    iid: 9a00d3c9-bd2d-45b0-988b-6cff99ae2a90
+                    permalink: https://hitchhikers.slack.com/archives/C12345678/p1508795665000236
+                    team: T12345678
+                    text: The meaning of life the universe and everything is 101010
+                    ts: '1508795665.000236'
+                    type: message
+                    user: ''
+                    username: robot overlord
+                  pagination:
+                    first: 1
+                    last: 2
+                    page: 1
+                    page_count: 1
+                    per_page: 20
+                    total_count: 2
+                  paging:
+                    count: 20
+                    page: 1
+                    pages: 1
+                    total: 2
+                  total: 2
+                ok: true
+                query: The meaning of life the universe and everything
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: Default error template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: true
+                description: This method either only returns a brief _not OK_ response or a verbose schema is not available for this method.
+              example:
+                error: No query passed
+                ok: false
+      security:
+      - slackAuth:
+        - search:read
+      summary: Slack Get Search Messages
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /search.files:
+    get:
+      tags:
+      - Search
+      summary: Slack Search for Files
+      description: Searches for files matching a query.
+      operationId: searchFiles
+      externalDocs:
+        description: API method documentation
+        url: https://docs.slack.dev/reference/methods/search.files
+      parameters:
+      - name: query
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: count
+        in: query
+        schema:
+          type: integer
+          default: 20
+      - name: highlight
+        in: query
+        schema:
+          type: boolean
+      - name: page
+        in: query
+        schema:
+          type: integer
+          default: 1
+      - name: sort
+        in: query
+        schema:
+          type: string
+          enum:
+          - score
+          - timestamp
+      - name: sort_dir
+        in: query
+        schema:
+          type: string
+          enum:
+          - asc
+          - desc
+      responses:
+        '200':
+          description: Search results returned
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  query:
+                    type: string
+                  files:
+                    type: object
+                    properties:
+                      total:
+                        type: integer
+                      matches:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/File'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    File:
+      type: object
+      description: A Slack file object representing an uploaded file with its metadata and sharing information.
+      properties:
+        id:
+          type: string
+          description: Unique file identifier.
+          example: abc123
+        created:
+          type: integer
+          description: Unix timestamp of when the file was created.
+          example: 10
+        timestamp:
+          type: integer
+          description: Unix timestamp.
+          example: 10
+        name:
+          type: string
+          description: The file name.
+          example: Example Title
+        title:
+          type: string
+          description: Title of the file.
+          example: Example Title
+        mimetype:
+          type: string
+          description: MIME type of the file.
+          example: example_value
+        filetype:
+          type: string
+          description: Slack file type identifier (e.g., "png", "pdf", "snippet").
+          example: example_value
+        pretty_type:
+          type: string
+          description: Human-readable file type.
+          example: example_value
+        user:
+          type: string
+          description: User ID of the user who uploaded the file.
+          example: example_value
+        user_team:
+          type: string
+          description: Team ID of the user who uploaded the file.
+          example: example_value
+        editable:
+          type: boolean
+          description: Whether the file content is editable.
+          example: true
+        size:
+          type: integer
+          description: File size in bytes.
+          example: 10
+        mode:
+          type: string
+          description: File mode (e.g., "hosted", "external", "snippet", "post").
+          example: example_value
+        is_external:
+          type: boolean
+          description: Whether the file is externally hosted.
+          example: true
+        external_type:
+          type: string
+          description: Type of external file.
+          example: example_value
+        is_public:
+          type: boolean
+          description: Whether the file is public.
+          example: true
+        public_url_shared:
+          type: boolean
+          example: https://www.example.com
+        display_as_bot:
+          type: boolean
+          example: true
+        username:
+          type: string
+          example: example_value
+        url_private:
+          type: string
+          format: uri
+          description: URL to access the file. Requires authentication.
+          example: https://www.example.com
+        url_private_download:
+          type: string
+          format: uri
+          description: URL to download the file. Requires authentication.
+          example: https://www.example.com
+        permalink:
+          type: string
+          format: uri
+          description: Permalink URL for the file.
+          example: https://www.example.com
+        permalink_public:
+          type: string
+          format: uri
+          description: Public permalink URL for the file (if shared publicly).
+          example: https://www.example.com
+        channels:
+          type: array
+          description: Array of channel IDs where the file is shared.
+          items:
+            type: string
+          example: []
+        groups:
+          type: array
+          description: Array of private channel IDs where the file is shared.
+          items:
+            type: string
+          example: []
+        ims:
+          type: array
+          description: Array of DM IDs where the file is shared.
+          items:
+            type: string
+          example: []
+        shares:
+          type: object
+          description: Sharing information broken down by type.
+          example: example_value
+        comments_count:
+          type: integer
+          description: Number of comments on the file.
+          example: 10

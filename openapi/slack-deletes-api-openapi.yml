@@ -1,0 +1,541 @@
+openapi: 3.1.0
+info:
+  version: '1.0'
+  title: Slack Admin Access Deletes API
+  description: "The Slack Admin API is a set of privileged endpoints\x14primarily under admin.* with related SCIM and Audit Logs APIs\x14that lets Enterprise Grid owners and admins automate organization\x11 wide management and governance. It covers user lifecycle (provision, suspend, assign roles), workspace and channel administration across workspaces (create, move, archive channels; manage membership and settings), app governance (approve/deny or allowlist/ban apps and install them to workspaces), invite request handling, and security/compliance controls such as information barriers, session and authentication policies, and org\x11level analytics exports. These APIs require elevated admin scopes and are commonly used to power automated onboarding/offboarding, centralized channel and app controls, and integrations with identity, ITSM, and compliance systems."
+tags:
+- name: Deletes
+paths:
+  /admin.conversations.delete:
+    post:
+      tags:
+      - Deletes
+      description: Delete a public or private channel.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/admin.conversations.delete
+      operationId: postAdminConversationsDelete
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.conversations:write`'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - channel_id
+              type: object
+              properties:
+                channel_id:
+                  type: string
+                  description: The channel to delete.
+          application/json:
+            schema:
+              required:
+              - channel_id
+              type: object
+              properties:
+                channel_id:
+                  type: string
+                  description: The channel to delete.
+        required: true
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: admin.conversations.delete schema
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: false
+                description: Schema for successful response of admin.conversations.delete
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: admin.conversations.delete error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - feature_not_enabled
+                    - not_an_admin
+                    - channel_not_found
+                    - channel_type_not_supported
+                    - default_org_wide_channel
+                    - restricted_action
+                    - could_not_delete_channel
+                    - missing_scope
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from admin.conversations.delete
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - admin.conversations:write
+      summary: Slack Post Admin Conversations Delete
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /chat.delete:
+    post:
+      tags:
+      - Deletes
+      description: Deletes a message.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/chat.delete
+      operationId: postChatDelete
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `chat:write`'
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                ts:
+                  type: number
+                  description: Timestamp of the message to be deleted.
+                channel:
+                  type: string
+                  description: Channel containing the message to be deleted.
+                as_user:
+                  type: boolean
+                  description: Pass true to delete the message as the authed user with `chat:write:user` scope. [Bot users](/bot-users) in this context are considered authed users. If unused or false, the message will be deleted with `chat:write:bot` scope.
+          application/json:
+            schema:
+              type: object
+              properties:
+                ts:
+                  type: number
+                  description: Timestamp of the message to be deleted.
+                channel:
+                  type: string
+                  description: Channel containing the message to be deleted.
+                as_user:
+                  type: boolean
+                  description: Pass true to delete the message as the authed user with `chat:write:user` scope. [Bot users](/bot-users) in this context are considered authed users. If unused or false, the message will be deleted with `chat:write:bot` scope.
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: chat.delete success schema
+                required:
+                - channel
+                - ok
+                - ts
+                type: object
+                properties:
+                  channel:
+                    $ref: '#/components/schemas/defs_channel'
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                  ts:
+                    $ref: '#/components/schemas/defs_ts'
+                additionalProperties: false
+                description: Schema for successful response of chat.delete method
+              example:
+                channel: C024BE91L
+                ok: true
+                ts: '1401383885.000061'
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: chat.delete error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - message_not_found
+                    - channel_not_found
+                    - cant_delete_message
+                    - compliance_exports_prevent_deletion
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - token_revoked
+                    - no_permission
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - fatal_error
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from chat.delete method
+              example:
+                error: message_not_found
+                ok: false
+      security:
+      - slackAuth:
+        - chat:write:user
+        - chat:write:bot
+      summary: Slack Post Chat Delete
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /files.comments.delete:
+    post:
+      tags:
+      - Deletes
+      description: Deletes an existing comment on a file.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/files.comments.delete
+      operationId: postFilesCommentsDelete
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `files:write:user`'
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  description: File to delete a comment from.
+                id:
+                  type: string
+                  description: The comment to delete.
+          application/json:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  description: File to delete a comment from.
+                id:
+                  type: string
+                  description: The comment to delete.
+      responses:
+        '200':
+          description: Standard success response is very simple
+          content:
+            application/json:
+              schema:
+                title: files.comments.delete schema
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: false
+                description: Schema for successful response files.comments.delete method
+              example:
+                ok: true
+        default:
+          description: Standard failure response when used with an invalid token
+          content:
+            application/json:
+              schema:
+                title: files.comments.delete error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - cant_delete
+                    - comment_not_found
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - no_permission
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response files.comments.delete method
+              example:
+                error: file_not_found
+                ok: false
+      security:
+      - slackAuth:
+        - files:write:user
+      summary: Slack Post Files Comments Delete
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /files.delete:
+    post:
+      tags:
+      - Deletes
+      description: Deletes a file.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/files.delete
+      operationId: postFilesDelete
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `files:write:user`'
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  description: ID of file to delete.
+          application/json:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  description: ID of file to delete.
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: files.delete schema
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: false
+                description: Schema for successful response files.delete method
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: files.delete error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - file_not_found
+                    - file_deleted
+                    - cant_delete_file
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - no_permission
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response files.delete method
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - files:write:user
+      summary: Slack Post Files Delete
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /reminders.delete:
+    post:
+      tags:
+      - Deletes
+      description: Deletes a reminder.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/reminders.delete
+      operationId: postRemindersDelete
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `reminders:write`'
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                reminder:
+                  type: string
+                  description: The ID of the reminder
+          application/json:
+            schema:
+              type: object
+              properties:
+                reminder:
+                  type: string
+                  description: The ID of the reminder
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: reminders.delete schema
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: false
+                description: Schema for successful response from reminders.delete method
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: reminders.delete error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - not_found
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - token_revoked
+                    - no_permission
+                    - org_login_required
+                    - user_is_bot
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - fatal_error
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from reminders.delete method
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - reminders:write
+      summary: Slack Post Reminders Delete
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK

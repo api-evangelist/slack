@@ -1,0 +1,128 @@
+openapi: 3.1.0
+info:
+  version: '1.0'
+  title: Slack Admin Access Kick API
+  description: "The Slack Admin API is a set of privileged endpoints\x14primarily under admin.* with related SCIM and Audit Logs APIs\x14that lets Enterprise Grid owners and admins automate organization\x11 wide management and governance. It covers user lifecycle (provision, suspend, assign roles), workspace and channel administration across workspaces (create, move, archive channels; manage membership and settings), app governance (approve/deny or allowlist/ban apps and install them to workspaces), invite request handling, and security/compliance controls such as information barriers, session and authentication policies, and org\x11level analytics exports. These APIs require elevated admin scopes and are commonly used to power automated onboarding/offboarding, centralized channel and app controls, and integrations with identity, ITSM, and compliance systems."
+tags:
+- name: Kick
+paths:
+  /conversations.kick:
+    post:
+      tags:
+      - Kick
+      description: Removes a user from a conversation.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/conversations.kick
+      operationId: postConversationsKick
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `conversations:write`'
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                channel:
+                  type: string
+                  description: ID of conversation to remove user from.
+                user:
+                  type: string
+                  description: User ID to be removed.
+          application/json:
+            schema:
+              type: object
+              properties:
+                channel:
+                  type: string
+                  description: ID of conversation to remove user from.
+                user:
+                  type: string
+                  description: User ID to be removed.
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: conversations.kick success schema
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: false
+                description: Schema for successful response conversations.kick method
+              example:
+                ok: true
+        default:
+          description: Typical error response when you attempt to kick yourself from a channel
+          content:
+            application/json:
+              schema:
+                title: conversations.kick error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - method_not_supported_for_channel_type
+                    - missing_scope
+                    - channel_not_found
+                    - user_not_found
+                    - cant_kick_self
+                    - not_in_channel
+                    - cant_kick_from_general
+                    - restricted_action
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - user_is_bot
+                    - user_is_restricted
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                  needed:
+                    type: string
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                  provided:
+                    type: string
+                additionalProperties: false
+                description: Schema for error response conversations.kick method
+              example:
+                error: cant_kick_self
+                ok: false
+      security:
+      - slackAuth:
+        - channels:write
+        - groups:write
+        - im:write
+        - mpim:write
+      summary: Slack Post Conversations Kick
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK

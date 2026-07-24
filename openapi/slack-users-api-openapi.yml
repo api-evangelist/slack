@@ -1,0 +1,3695 @@
+openapi: 3.1.0
+info:
+  version: '1.0'
+  title: Slack Admin Access Users API
+  description: "The Slack Admin API is a set of privileged endpoints\x14primarily under admin.* with related SCIM and Audit Logs APIs\x14that lets Enterprise Grid owners and admins automate organization\x11 wide management and governance. It covers user lifecycle (provision, suspend, assign roles), workspace and channel administration across workspaces (create, move, archive channels; manage membership and settings), app governance (approve/deny or allowlist/ban apps and install them to workspaces), invite request handling, and security/compliance controls such as information barriers, session and authentication policies, and org\x11level analytics exports. These APIs require elevated admin scopes and are commonly used to power automated onboarding/offboarding, centralized channel and app controls, and integrations with identity, ITSM, and compliance systems."
+tags:
+- name: Users
+paths:
+  /admin.users.assign:
+    post:
+      tags:
+      - Users
+      description: Add an Enterprise user to a workspace.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/admin.users.assign
+      operationId: postAdminUsersAssign
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.users:write`'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - team_id
+              - user_id
+              type: object
+              properties:
+                team_id:
+                  type: string
+                  description: The ID (`T1234`) of the workspace.
+                user_id:
+                  type: string
+                  description: The ID of the user to add to the workspace.
+                is_restricted:
+                  type: boolean
+                  description: True if user should be added to the workspace as a guest.
+                is_ultra_restricted:
+                  type: boolean
+                  description: True if user should be added to the workspace as a single-channel guest.
+                channel_ids:
+                  type: string
+                  description: Comma separated values of channel IDs to add user in the new workspace.
+          application/json:
+            schema:
+              required:
+              - team_id
+              - user_id
+              type: object
+              properties:
+                team_id:
+                  type: string
+                  description: The ID (`T1234`) of the workspace.
+                user_id:
+                  type: string
+                  description: The ID of the user to add to the workspace.
+                is_restricted:
+                  type: boolean
+                  description: True if user should be added to the workspace as a guest.
+                is_ultra_restricted:
+                  type: boolean
+                  description: True if user should be added to the workspace as a single-channel guest.
+                channel_ids:
+                  type: string
+                  description: Comma separated values of channel IDs to add user in the new workspace.
+        required: true
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: Default success template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: true
+                description: This method either only returns a brief _OK_ response or a verbose schema is not available for this method.
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: Default error template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: true
+                description: This method either only returns a brief _not OK_ response or a verbose schema is not available for this method.
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - admin.users:write
+      summary: Slack Post Admin Users Assign
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /admin.users.invite:
+    post:
+      tags:
+      - Users
+      description: Invite a user to a workspace.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/admin.users.invite
+      operationId: postAdminUsersInvite
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.users:write`'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - channel_ids
+              - email
+              - team_id
+              type: object
+              properties:
+                team_id:
+                  type: string
+                  description: The ID (`T1234`) of the workspace.
+                email:
+                  type: string
+                  description: The email address of the person to invite.
+                channel_ids:
+                  type: string
+                  description: A comma-separated list of `channel_id`s for this user to join. At least one channel is required.
+                custom_message:
+                  type: string
+                  description: An optional message to send to the user in the invite email.
+                real_name:
+                  type: string
+                  description: Full name of the user.
+                resend:
+                  type: boolean
+                  description: 'Allow this invite to be resent in the future if a user has not signed up yet. (default: false)'
+                is_restricted:
+                  type: boolean
+                  description: 'Is this user a multi-channel guest user? (default: false)'
+                is_ultra_restricted:
+                  type: boolean
+                  description: 'Is this user a single channel guest user? (default: false)'
+                guest_expiration_ts:
+                  type: string
+                  description: Timestamp when guest account should be disabled. Only include this timestamp if you are inviting a guest user and you want their account to expire on a certain date.
+          application/json:
+            schema:
+              required:
+              - channel_ids
+              - email
+              - team_id
+              type: object
+              properties:
+                team_id:
+                  type: string
+                  description: The ID (`T1234`) of the workspace.
+                email:
+                  type: string
+                  description: The email address of the person to invite.
+                channel_ids:
+                  type: string
+                  description: A comma-separated list of `channel_id`s for this user to join. At least one channel is required.
+                custom_message:
+                  type: string
+                  description: An optional message to send to the user in the invite email.
+                real_name:
+                  type: string
+                  description: Full name of the user.
+                resend:
+                  type: boolean
+                  description: 'Allow this invite to be resent in the future if a user has not signed up yet. (default: false)'
+                is_restricted:
+                  type: boolean
+                  description: 'Is this user a multi-channel guest user? (default: false)'
+                is_ultra_restricted:
+                  type: boolean
+                  description: 'Is this user a single channel guest user? (default: false)'
+                guest_expiration_ts:
+                  type: string
+                  description: Timestamp when guest account should be disabled. Only include this timestamp if you are inviting a guest user and you want their account to expire on a certain date.
+        required: true
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: Default success template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: true
+                description: This method either only returns a brief _OK_ response or a verbose schema is not available for this method.
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: Default error template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: true
+                description: This method either only returns a brief _not OK_ response or a verbose schema is not available for this method.
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - admin.users:write
+      summary: Slack Post Admin Users Invite
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /admin.users.list:
+    get:
+      tags:
+      - Users
+      description: List users on a workspace
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/admin.users.list
+      operationId: getAdminUsersList
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.users:read`'
+        required: true
+        schema:
+          type: string
+      - name: team_id
+        in: query
+        description: The ID (`T1234`) of the workspace.
+        required: true
+        schema:
+          type: string
+      - name: cursor
+        in: query
+        description: Set `cursor` to `next_cursor` returned by the previous call to list items in the next page.
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: Limit for how many users to be retrieved per page
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: Default success template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: true
+                description: This method either only returns a brief _OK_ response or a verbose schema is not available for this method.
+              example:
+                ok: true
+                users:
+                - email: bront@slack.com
+                  id: T1234
+                  is_admin: false
+                  is_bot: false
+                  is_owner: false
+                  is_primary_owner: false
+                  is_restricted: false
+                  is_ultra_restricted: false
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: Default error template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: true
+                description: This method either only returns a brief _not OK_ response or a verbose schema is not available for this method.
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - admin.users:read
+      summary: Slack Get Admin Users List
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /admin.users.remove:
+    post:
+      tags:
+      - Users
+      description: Remove a user from a workspace.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/admin.users.remove
+      operationId: postAdminUsersRemove
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.users:write`'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - team_id
+              - user_id
+              type: object
+              properties:
+                team_id:
+                  type: string
+                  description: The ID (`T1234`) of the workspace.
+                user_id:
+                  type: string
+                  description: The ID of the user to remove.
+          application/json:
+            schema:
+              required:
+              - team_id
+              - user_id
+              type: object
+              properties:
+                team_id:
+                  type: string
+                  description: The ID (`T1234`) of the workspace.
+                user_id:
+                  type: string
+                  description: The ID of the user to remove.
+        required: true
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: Default success template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: true
+                description: This method either only returns a brief _OK_ response or a verbose schema is not available for this method.
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: Default error template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: true
+                description: This method either only returns a brief _not OK_ response or a verbose schema is not available for this method.
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - admin.users:write
+      summary: Slack Post Admin Users Remove
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /admin.users.session.invalidate:
+    post:
+      tags:
+      - Users
+      description: Invalidate a single session for a user by session_id
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/admin.users.session.invalidate
+      operationId: postAdminUsersSessionInvalidate
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.users:write`'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - session_id
+              - team_id
+              type: object
+              properties:
+                team_id:
+                  type: string
+                  description: ID of the team that the session belongs to
+                session_id:
+                  type: integer
+                  format: int32
+          application/json:
+            schema:
+              required:
+              - session_id
+              - team_id
+              type: object
+              properties:
+                team_id:
+                  type: string
+                  description: ID of the team that the session belongs to
+                session_id:
+                  type: integer
+                  format: int32
+        required: true
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: Default success template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: true
+                description: This method either only returns a brief _OK_ response or a verbose schema is not available for this method.
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: Default error template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: true
+                description: This method either only returns a brief _not OK_ response or a verbose schema is not available for this method.
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - admin.users:write
+      summary: Slack Post Admin Users Session Invalidate
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /admin.users.session.reset:
+    post:
+      tags:
+      - Users
+      description: Wipes all valid sessions on all devices for a given user
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/admin.users.session.reset
+      operationId: postAdminUsersSessionReset
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.users:write`'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - user_id
+              type: object
+              properties:
+                user_id:
+                  type: string
+                  description: The ID of the user to wipe sessions for
+                mobile_only:
+                  type: boolean
+                  description: 'Only expire mobile sessions (default: false)'
+                web_only:
+                  type: boolean
+                  description: 'Only expire web sessions (default: false)'
+          application/json:
+            schema:
+              required:
+              - user_id
+              type: object
+              properties:
+                user_id:
+                  type: string
+                  description: The ID of the user to wipe sessions for
+                mobile_only:
+                  type: boolean
+                  description: 'Only expire mobile sessions (default: false)'
+                web_only:
+                  type: boolean
+                  description: 'Only expire web sessions (default: false)'
+        required: true
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: Default success template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: true
+                description: This method either only returns a brief _OK_ response or a verbose schema is not available for this method.
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: Default error template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: true
+                description: This method either only returns a brief _not OK_ response or a verbose schema is not available for this method.
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - admin.users:write
+      summary: Slack Post Admin Users Session Reset
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /admin.users.setAdmin:
+    post:
+      tags:
+      - Users
+      description: Set an existing guest, regular user, or owner to be an admin user.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/admin.users.setAdmin
+      operationId: postAdminUsersSetadmin
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.users:write`'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - team_id
+              - user_id
+              type: object
+              properties:
+                team_id:
+                  type: string
+                  description: The ID (`T1234`) of the workspace.
+                user_id:
+                  type: string
+                  description: The ID of the user to designate as an admin.
+          application/json:
+            schema:
+              required:
+              - team_id
+              - user_id
+              type: object
+              properties:
+                team_id:
+                  type: string
+                  description: The ID (`T1234`) of the workspace.
+                user_id:
+                  type: string
+                  description: The ID of the user to designate as an admin.
+        required: true
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: Default success template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: true
+                description: This method either only returns a brief _OK_ response or a verbose schema is not available for this method.
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: Default error template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: true
+                description: This method either only returns a brief _not OK_ response or a verbose schema is not available for this method.
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - admin.users:write
+      summary: Slack Post Admin Users Setadmin
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /admin.users.setExpiration:
+    post:
+      tags:
+      - Users
+      description: Set an expiration for a guest user
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/admin.users.setExpiration
+      operationId: postAdminUsersSetexpiration
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.users:write`'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - expiration_ts
+              - team_id
+              - user_id
+              type: object
+              properties:
+                team_id:
+                  type: string
+                  description: The ID (`T1234`) of the workspace.
+                user_id:
+                  type: string
+                  description: The ID of the user to set an expiration for.
+                expiration_ts:
+                  type: integer
+                  description: Timestamp when guest account should be disabled.
+                  format: int32
+          application/json:
+            schema:
+              required:
+              - expiration_ts
+              - team_id
+              - user_id
+              type: object
+              properties:
+                team_id:
+                  type: string
+                  description: The ID (`T1234`) of the workspace.
+                user_id:
+                  type: string
+                  description: The ID of the user to set an expiration for.
+                expiration_ts:
+                  type: integer
+                  description: Timestamp when guest account should be disabled.
+                  format: int32
+        required: true
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: Default success template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: true
+                description: This method either only returns a brief _OK_ response or a verbose schema is not available for this method.
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: Default error template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: true
+                description: This method either only returns a brief _not OK_ response or a verbose schema is not available for this method.
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - admin.users:write
+      summary: Slack Post Admin Users Setexpiration
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /admin.users.setOwner:
+    post:
+      tags:
+      - Users
+      description: Set an existing guest, regular user, or admin user to be a workspace owner.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/admin.users.setOwner
+      operationId: postAdminUsersSetowner
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.users:write`'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - team_id
+              - user_id
+              type: object
+              properties:
+                team_id:
+                  type: string
+                  description: The ID (`T1234`) of the workspace.
+                user_id:
+                  type: string
+                  description: Id of the user to promote to owner.
+          application/json:
+            schema:
+              required:
+              - team_id
+              - user_id
+              type: object
+              properties:
+                team_id:
+                  type: string
+                  description: The ID (`T1234`) of the workspace.
+                user_id:
+                  type: string
+                  description: Id of the user to promote to owner.
+        required: true
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: Default success template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: true
+                description: This method either only returns a brief _OK_ response or a verbose schema is not available for this method.
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: Default error template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: true
+                description: This method either only returns a brief _not OK_ response or a verbose schema is not available for this method.
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - admin.users:write
+      summary: Slack Post Admin Users Setowner
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /admin.users.setRegular:
+    post:
+      tags:
+      - Users
+      description: Set an existing guest user, admin user, or owner to be a regular user.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/admin.users.setRegular
+      operationId: postAdminUsersSetregular
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.users:write`'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - team_id
+              - user_id
+              type: object
+              properties:
+                team_id:
+                  type: string
+                  description: The ID (`T1234`) of the workspace.
+                user_id:
+                  type: string
+                  description: The ID of the user to designate as a regular user.
+          application/json:
+            schema:
+              required:
+              - team_id
+              - user_id
+              type: object
+              properties:
+                team_id:
+                  type: string
+                  description: The ID (`T1234`) of the workspace.
+                user_id:
+                  type: string
+                  description: The ID of the user to designate as a regular user.
+        required: true
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: Default success template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: true
+                description: This method either only returns a brief _OK_ response or a verbose schema is not available for this method.
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: Default error template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: true
+                description: This method either only returns a brief _not OK_ response or a verbose schema is not available for this method.
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - admin.users:write
+      summary: Slack Post Admin Users Setregular
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /apps.permissions.users.list:
+    get:
+      tags:
+      - Users
+      description: Returns list of user grants and corresponding scopes this app has on a team.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/apps.permissions.users.list
+      operationId: getAppsPermissionsUsersList
+      parameters:
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `none`'
+        required: true
+        schema:
+          type: string
+      - name: cursor
+        in: query
+        description: Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute returned by a previous request's `response_metadata`. Default value fetches the first "page" of the collection. See [pagination](/docs/pagination) for more detail.
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: The maximum number of items to return.
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Typical successful paginated response
+          content:
+            application/json:
+              schema:
+                title: Default success template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: true
+                description: This method either only returns a brief _OK_ response or a verbose schema is not available for this method.
+              example:
+                ok: true
+                resources:
+                - id: U0DES3UAN
+                  scopes:
+                  - dnd:write:user
+                  - reminders:write:user
+                - id: U024BFF1M
+                  scopes:
+                  - reminders:write:user
+                response_metadata:
+                  next_cursor: dGVhbTdPMUg5UkFTT0w=
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: Default error template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: true
+                description: This method either only returns a brief _not OK_ response or a verbose schema is not available for this method.
+              example:
+                error: invalid_cursor
+                ok: false
+      security:
+      - slackAuth:
+        - none
+      summary: Slack Get Apps Permissions Users List
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /apps.permissions.users.request:
+    get:
+      tags:
+      - Users
+      description: Enables an app to trigger a permissions modal to grant an app access to a user access scope.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/apps.permissions.users.request
+      operationId: getAppsPermissionsUsersRequest
+      parameters:
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `none`'
+        required: true
+        schema:
+          type: string
+      - name: scopes
+        in: query
+        description: A comma separated list of user scopes to request for
+        required: true
+        schema:
+          type: string
+      - name: trigger_id
+        in: query
+        description: Token used to trigger the request
+        required: true
+        schema:
+          type: string
+      - name: user
+        in: query
+        description: The user this scope is being requested for
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Standard success response when used with a user token
+          content:
+            application/json:
+              schema:
+                title: Default success template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: true
+                description: This method either only returns a brief _OK_ response or a verbose schema is not available for this method.
+              example:
+                ok: true
+        default:
+          description: Standard failure response when trigger_id is invalid
+          content:
+            application/json:
+              schema:
+                title: Default error template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: true
+                description: This method either only returns a brief _not OK_ response or a verbose schema is not available for this method.
+              example:
+                error: invalid_trigger_id
+                ok: false
+      security:
+      - slackAuth:
+        - none
+      summary: Slack Get Apps Permissions Users Request
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /openid.connect.userInfo:
+    get:
+      tags:
+      - Users
+      summary: Get OpenID Connect User Info
+      description: Retrieves identity information about a user authenticated via Sign in with Slack.
+      operationId: getOpenIdConnectUserInfo
+      parameters:
+      - name: token
+        in: query
+        description: OpenID Connect access token.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response with user identity
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  sub:
+                    type: string
+                    description: Subject identifier (the user's Slack ID).
+                  https://slack.com/user_id:
+                    type: string
+                    description: The user's Slack user ID.
+                  https://slack.com/team_id:
+                    type: string
+                    description: The user's team ID.
+                  email:
+                    type: string
+                    description: The user's email address.
+                  email_verified:
+                    type: boolean
+                    description: Whether the email address has been verified.
+                  name:
+                    type: string
+                    description: The user's display name.
+                  picture:
+                    type: string
+                    description: URL to the user's profile picture.
+                  given_name:
+                    type: string
+                    description: The user's given name.
+                  family_name:
+                    type: string
+                    description: The user's family name.
+              example:
+                ok: true
+                sub: U0R7JM
+                email: krane@example.com
+                email_verified: true
+                name: Krane
+                picture: https://secure.gravatar.com/avatar/example.jpg
+        default:
+          description: Error response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  error:
+                    type: string
+              example:
+                ok: false
+                error: not_authed
+      security:
+      - slackAuth:
+        - openid
+  /usergroups.create:
+    post:
+      tags:
+      - Users
+      description: Create a User Group
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/usergroups.create
+      operationId: postUsergroupsCreate
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `usergroups:write`'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - name
+              type: object
+              properties:
+                channels:
+                  type: string
+                  description: A comma separated string of encoded channel IDs for which the User Group uses as a default.
+                description:
+                  type: string
+                  description: A short description of the User Group.
+                handle:
+                  type: string
+                  description: A mention handle. Must be unique among channels, users and User Groups.
+                include_count:
+                  type: boolean
+                  description: Include the number of users in each User Group.
+                name:
+                  type: string
+                  description: A name for the User Group. Must be unique among User Groups.
+          application/json:
+            schema:
+              required:
+              - name
+              type: object
+              properties:
+                channels:
+                  type: string
+                  description: A comma separated string of encoded channel IDs for which the User Group uses as a default.
+                description:
+                  type: string
+                  description: A short description of the User Group.
+                handle:
+                  type: string
+                  description: A mention handle. Must be unique among channels, users and User Groups.
+                include_count:
+                  type: boolean
+                  description: Include the number of users in each User Group.
+                name:
+                  type: string
+                  description: A name for the User Group. Must be unique among User Groups.
+        required: true
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: usergroups.create schema
+                required:
+                - ok
+                - usergroup
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                  usergroup:
+                    $ref: '#/components/schemas/objs_subteam'
+                additionalProperties: false
+                description: Schema for successful response from usergroups.create method
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: usergroups.create error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - permission_denied
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - token_revoked
+                    - no_permission
+                    - org_login_required
+                    - user_is_bot
+                    - user_is_restricted
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - fatal_error
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from usergroups.create method
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - usergroups:write
+      summary: Slack Post User Groups Create
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /usergroups.disable:
+    post:
+      tags:
+      - Users
+      description: Disable an existing User Group
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/usergroups.disable
+      operationId: postUsergroupsDisable
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `usergroups:write`'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - usergroup
+              type: object
+              properties:
+                include_count:
+                  type: boolean
+                  description: Include the number of users in the User Group.
+                usergroup:
+                  type: string
+                  description: The encoded ID of the User Group to disable.
+          application/json:
+            schema:
+              required:
+              - usergroup
+              type: object
+              properties:
+                include_count:
+                  type: boolean
+                  description: Include the number of users in the User Group.
+                usergroup:
+                  type: string
+                  description: The encoded ID of the User Group to disable.
+        required: true
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: usergroups.disable schema
+                required:
+                - ok
+                - usergroup
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                  usergroup:
+                    $ref: '#/components/schemas/objs_subteam'
+                additionalProperties: false
+                description: Schema for successful response from usergroups.disable method
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: usergroups.disable error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - permission_denied
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - token_revoked
+                    - no_permission
+                    - org_login_required
+                    - user_is_bot
+                    - user_is_restricted
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - fatal_error
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from usergroups.disable method
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - usergroups:write
+      summary: Slack Post User Groups Disable
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /usergroups.enable:
+    post:
+      tags:
+      - Users
+      description: Enable a User Group
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/usergroups.enable
+      operationId: postUsergroupsEnable
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `usergroups:write`'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - usergroup
+              type: object
+              properties:
+                include_count:
+                  type: boolean
+                  description: Include the number of users in the User Group.
+                usergroup:
+                  type: string
+                  description: The encoded ID of the User Group to enable.
+          application/json:
+            schema:
+              required:
+              - usergroup
+              type: object
+              properties:
+                include_count:
+                  type: boolean
+                  description: Include the number of users in the User Group.
+                usergroup:
+                  type: string
+                  description: The encoded ID of the User Group to enable.
+        required: true
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: usergroups.enable schema
+                required:
+                - ok
+                - usergroup
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                  usergroup:
+                    $ref: '#/components/schemas/objs_subteam'
+                additionalProperties: false
+                description: Schema for successful response from usergroups.enable method
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: usergroups.enable error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - token_revoked
+                    - no_permission
+                    - org_login_required
+                    - user_is_bot
+                    - user_is_restricted
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_require
+                    - fatal_error
+                    - missing_charset
+                    - superfluous_charset
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from usergroups.enable method
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - usergroups:write
+      summary: Slack Post User Groups Enable
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /usergroups.list:
+    get:
+      tags:
+      - Users
+      description: List all User Groups for a team
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/usergroups.list
+      operationId: getUsergroupsList
+      parameters:
+      - name: include_users
+        in: query
+        description: Include the list of users for each User Group.
+        schema:
+          type: boolean
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `usergroups:read`'
+        required: true
+        schema:
+          type: string
+      - name: include_count
+        in: query
+        description: Include the number of users in each User Group.
+        schema:
+          type: boolean
+      - name: include_disabled
+        in: query
+        description: Include disabled User Groups.
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: usergroups.list schema
+                required:
+                - ok
+                - usergroups
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                  usergroups:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/objs_subteam'
+                additionalProperties: false
+                description: Schema for successful response from usergroups.list method
+              example:
+                ok: true
+                usergroups:
+                - auto_type: admin
+                  created_by: USLACKBOT
+                  date_create: 1446598059
+                  date_delete: 0
+                  date_update: 1446670362
+                  deleted_by: null
+                  description: A group of all Administrators on your team.
+                  handle: admins
+                  id: S0614TZR7
+                  is_external: false
+                  is_usergroup: true
+                  name: Team Admins
+                  prefs:
+                    channels: []
+                    groups: []
+                  team_id: T060RNRCH
+                  updated_by: U060RNRCZ
+                  user_count: '2'
+                - auto_type: owner
+                  created_by: USLACKBOT
+                  date_create: 1446678371
+                  date_delete: 0
+                  date_update: 1446678371
+                  deleted_by: null
+                  description: A group of all Owners on your team.
+                  handle: owners
+                  id: S06158AV7
+                  is_external: false
+                  is_usergroup: true
+                  name: Team Owners
+                  prefs:
+                    channels: []
+                    groups: []
+                  team_id: T060RNRCH
+                  updated_by: USLACKBOT
+                  user_count: '1'
+                - auto_type: null
+                  created_by: U060RNRCZ
+                  date_create: 1446746793
+                  date_delete: 1446748865
+                  date_update: 1446747767
+                  deleted_by: null
+                  description: Marketing gurus, PR experts and product advocates.
+                  handle: marketing-team
+                  id: S0615G0KT
+                  is_external: false
+                  is_usergroup: true
+                  name: Marketing Team
+                  prefs:
+                    channels: []
+                    groups: []
+                  team_id: T060RNRCH
+                  updated_by: U060RNRCZ
+                  user_count: '0'
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: usergroups.list error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - token_revoked
+                    - no_permission
+                    - org_login_required
+                    - user_is_bot
+                    - user_is_restricted
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_require
+                    - fatal_error
+                    - missing_charset
+                    - superfluous_charset
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from usergroups.list method
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - usergroups:read
+      summary: Slack Get User Groups List
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /usergroups.update:
+    post:
+      tags:
+      - Users
+      description: Update an existing User Group
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/usergroups.update
+      operationId: postUsergroupsUpdate
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `usergroups:write`'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - usergroup
+              type: object
+              properties:
+                handle:
+                  type: string
+                  description: A mention handle. Must be unique among channels, users and User Groups.
+                description:
+                  type: string
+                  description: A short description of the User Group.
+                channels:
+                  type: string
+                  description: A comma separated string of encoded channel IDs for which the User Group uses as a default.
+                include_count:
+                  type: boolean
+                  description: Include the number of users in the User Group.
+                usergroup:
+                  type: string
+                  description: The encoded ID of the User Group to update.
+                name:
+                  type: string
+                  description: A name for the User Group. Must be unique among User Groups.
+          application/json:
+            schema:
+              required:
+              - usergroup
+              type: object
+              properties:
+                handle:
+                  type: string
+                  description: A mention handle. Must be unique among channels, users and User Groups.
+                description:
+                  type: string
+                  description: A short description of the User Group.
+                channels:
+                  type: string
+                  description: A comma separated string of encoded channel IDs for which the User Group uses as a default.
+                include_count:
+                  type: boolean
+                  description: Include the number of users in the User Group.
+                usergroup:
+                  type: string
+                  description: The encoded ID of the User Group to update.
+                name:
+                  type: string
+                  description: A name for the User Group. Must be unique among User Groups.
+        required: true
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: usergroups.update schema
+                required:
+                - ok
+                - usergroup
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                  usergroup:
+                    $ref: '#/components/schemas/objs_subteam'
+                additionalProperties: false
+                description: Schema for successful response from usergroups.update method
+              example:
+                ok: true
+                usergroup:
+                  auto_type: null
+                  created_by: U060R4BJ4
+                  date_create: 1447096577
+                  date_delete: 0
+                  date_update: 1447102109
+                  deleted_by: null
+                  description: Marketing gurus, PR experts and product advocates.
+                  handle: marketing-team
+                  id: S0616NG6M
+                  is_external: false
+                  is_usergroup: true
+                  name: Marketing Team
+                  prefs:
+                    channels: []
+                    groups: []
+                  team_id: T060R4BHN
+                  updated_by: U060R4BJ4
+                  user_count: 1
+                  users:
+                  - U060R4BJ4
+                  - U060RNRCZ
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: usergroups.update error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - permission_denied
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - token_revoked
+                    - no_permission
+                    - org_login_required
+                    - user_is_bot
+                    - user_is_restricted
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_require
+                    - fatal_error
+                    - missing_charset
+                    - superfluous_charset
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from usergroups.update method
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - usergroups:write
+      summary: Slack Post User Groups Update
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /usergroups.users.list:
+    get:
+      tags:
+      - Users
+      description: List all users in a User Group
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/usergroups.users.list
+      operationId: getUsergroupsUsersList
+      parameters:
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `usergroups:read`'
+        required: true
+        schema:
+          type: string
+      - name: include_disabled
+        in: query
+        description: Allow results that involve disabled User Groups.
+        schema:
+          type: boolean
+      - name: usergroup
+        in: query
+        description: The encoded ID of the User Group to update.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Standard success response when used with a user token
+          content:
+            application/json:
+              schema:
+                title: usergroups.users.list schema
+                required:
+                - ok
+                - users
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                  users:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/defs_user_id'
+                additionalProperties: false
+                description: Schema for successful response from usergroups.users.list method
+              example:
+                ok: true
+                users:
+                - U060R4BJ4
+                - W123A4BC5
+        default:
+          description: Standard failure response when used with an invalid token
+          content:
+            application/json:
+              schema:
+                title: usergroups.users.list error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - token_revoked
+                    - no_permission
+                    - org_login_required
+                    - user_is_bot
+                    - user_is_restricted
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_require
+                    - fatal_error
+                    - missing_charset
+                    - superfluous_charset
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from usergroups.users.list method
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - usergroups:read
+      summary: Slack Get User Groups Users List
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /usergroups.users.update:
+    post:
+      tags:
+      - Users
+      description: Update the list of users for a User Group
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/usergroups.users.update
+      operationId: postUsergroupsUsersUpdate
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `usergroups:write`'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - usergroup
+              - users
+              type: object
+              properties:
+                include_count:
+                  type: boolean
+                  description: Include the number of users in the User Group.
+                usergroup:
+                  type: string
+                  description: The encoded ID of the User Group to update.
+                users:
+                  type: string
+                  description: A comma separated string of encoded user IDs that represent the entire list of users for the User Group.
+          application/json:
+            schema:
+              required:
+              - usergroup
+              - users
+              type: object
+              properties:
+                include_count:
+                  type: boolean
+                  description: Include the number of users in the User Group.
+                usergroup:
+                  type: string
+                  description: The encoded ID of the User Group to update.
+                users:
+                  type: string
+                  description: A comma separated string of encoded user IDs that represent the entire list of users for the User Group.
+        required: true
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: usergroups.users.update schema
+                required:
+                - ok
+                - usergroup
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                  usergroup:
+                    $ref: '#/components/schemas/objs_subteam'
+                additionalProperties: false
+                description: Schema for successful response from usergroups.users.update method
+              example:
+                ok: true
+                usergroup:
+                  auto_type: null
+                  created_by: U060R4BJ4
+                  date_create: 1447096577
+                  date_delete: 0
+                  date_update: 1447102109
+                  deleted_by: null
+                  description: Marketing gurus, PR experts and product advocates.
+                  handle: marketing-team
+                  id: S0616NG6M
+                  is_external: false
+                  is_usergroup: true
+                  name: Marketing Team
+                  prefs:
+                    channels: []
+                    groups: []
+                  team_id: T060R4BHN
+                  updated_by: U060R4BJ4
+                  user_count: 1
+                  users:
+                  - U060R4BJ4
+                  - U060RNRCZ
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: usergroups.users.update error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - permission_denied
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - token_revoked
+                    - no_permission
+                    - org_login_required
+                    - user_is_bot
+                    - user_is_restricted
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_require
+                    - fatal_error
+                    - missing_charset
+                    - superfluous_charset
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from usergroups.users.update method
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - usergroups:write
+      summary: Slack Post User Groups Users Update
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /users.conversations:
+    get:
+      tags:
+      - Users
+      description: List conversations the calling user may access.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/users.conversations
+      operationId: getUsersConversations
+      parameters:
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `conversations:read`'
+        schema:
+          type: string
+      - name: user
+        in: query
+        description: Browse conversations by a specific user ID's membership. Non-public channels are restricted to those where the calling user shares membership.
+        schema:
+          type: string
+      - name: types
+        in: query
+        description: Mix and match channel types by providing a comma-separated list of any combination of `public_channel`, `private_channel`, `mpim`, `im`
+        schema:
+          type: string
+      - name: exclude_archived
+        in: query
+        description: Set to `true` to exclude archived channels from the list
+        schema:
+          type: boolean
+      - name: limit
+        in: query
+        description: The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the list hasn't been reached. Must be an integer no larger than 1000.
+        schema:
+          type: integer
+      - name: cursor
+        in: query
+        description: Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute returned by a previous request's `response_metadata`. Default value fetches the first "page" of the collection. See [pagination](/docs/pagination) for more detail.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Typical success response with only public channels. Note how `num_members` and `is_member` are not returned like typical `conversations` objects.
+          content:
+            application/json:
+              schema:
+                title: users.conversations success schema
+                required:
+                - channels
+                - ok
+                type: object
+                properties:
+                  channels:
+                    uniqueItems: true
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/objs_conversation'
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                  response_metadata:
+                    type: object
+                    additionalProperties: false
+                additionalProperties: true
+                description: Schema for successful response from users.conversations method. Returned conversation objects do not include `num_members` or `is_member`
+              example:
+                channels:
+                - created: 1449252889
+                  creator: U012A3CDE
+                  id: C012AB3CD
+                  is_archived: false
+                  is_channel: true
+                  is_ext_shared: false
+                  is_general: true
+                  is_group: false
+                  is_im: false
+                  is_mpim: false
+                  is_org_shared: false
+                  is_pending_ext_shared: false
+                  is_private: false
+                  is_shared: false
+                  name: general
+                  name_normalized: general
+                  pending_shared: []
+                  previous_names: []
+                  purpose:
+                    creator: ''
+                    last_set: 0
+                    value: This channel is for team-wide communication and announcements. All team members are in this channel.
+                  topic:
+                    creator: ''
+                    last_set: 0
+                    value: Company-wide announcements and work-based matters
+                  unlinked: 0
+                - created: 1449252889
+                  creator: U061F7AUR
+                  id: C061EG9T2
+                  is_archived: false
+                  is_channel: true
+                  is_ext_shared: false
+                  is_general: false
+                  is_group: false
+                  is_im: false
+                  is_mpim: false
+                  is_org_shared: false
+                  is_pending_ext_shared: false
+                  is_private: false
+                  is_shared: false
+                  name: random
+                  name_normalized: random
+                  pending_shared: []
+                  previous_names: []
+                  purpose:
+                    creator: ''
+                    last_set: 0
+                    value: A place for non-work-related flimflam, faffing, hodge-podge or jibber-jabber you'd prefer to keep out of more focused work-related channels.
+                  topic:
+                    creator: ''
+                    last_set: 0
+                    value: Non-work banter and water cooler conversation
+                  unlinked: 0
+                ok: true
+                response_metadata:
+                  next_cursor: dGVhbTpDMDYxRkE1UEI=
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: users.conversations error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - method_not_supported_for_channel_type
+                    - missing_scope
+                    - invalid_types
+                    - invalid_cursor
+                    - invalid_limit
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - token_revoked
+                    - no_permission
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - fatal_error
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from users.conversations method
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - channels:read
+        - groups:read
+        - im:read
+        - mpim:read
+      summary: Slack Get Users Conversations
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /users.deletePhoto:
+    post:
+      tags:
+      - Users
+      description: Delete the user profile photo
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/users.deletePhoto
+      operationId: postUsersDeletephoto
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - token
+              type: object
+              properties:
+                token:
+                  type: string
+                  description: 'Authentication token. Requires scope: `users.profile:write`'
+        required: true
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: users.deletePhoto schema
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: false
+                description: Schema for successful response from users.deletePhoto method
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: users.deletePhoto error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - token_revoked
+                    - no_permission
+                    - org_login_required
+                    - user_is_bot
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - fatal_error
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from users.deletePhoto method
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - users.profile:write
+      summary: Slack Post Users Deletephoto
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /users.getPresence:
+    get:
+      tags:
+      - Users
+      description: Gets user presence information.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/users.getPresence
+      operationId: getUsersGetpresence
+      parameters:
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `users:read`'
+        required: true
+        schema:
+          type: string
+      - name: user
+        in: query
+        description: User to get presence info on. Defaults to the authed user.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: When requesting information for a different user, this method just returns the current presence (either `active` or `away`).
+          content:
+            application/json:
+              schema:
+                title: 'API method: users.getPresence'
+                required:
+                - ok
+                - presence
+                type: object
+                properties:
+                  auto_away:
+                    type: boolean
+                  connection_count:
+                    type: integer
+                  last_activity:
+                    type: integer
+                  manual_away:
+                    type: boolean
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                  online:
+                    type: boolean
+                  presence:
+                    type: string
+                additionalProperties: true
+                description: Generated from users.getPresence with shasum e7251aec575d8863f9e0eb38663ae9dc26655f65
+              example:
+                ok: true
+                presence: active
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: users.counts error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  error:
+                    type: string
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties:
+                  type: object
+                  properties: {}
+                description: Schema for error response users.getPresence method
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - users:read
+      summary: Slack Get Users Getpresence
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /users.identity:
+    get:
+      tags:
+      - Users
+      description: Get a user's identity.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/users.identity
+      operationId: getUsersIdentity
+      parameters:
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `identity.basic`'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 'You will receive at a minimum the following information:'
+          content:
+            application/json:
+              schema:
+                title: users.identity schema
+                type: array
+                description: Schema for successful response from users.identity method
+              example:
+                ok: true
+                team:
+                  id: T0G9PQBBK
+                user:
+                  id: U0G9QF9C6
+                  name: Sonny Whether
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: users.identity error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - token_revoked
+                    - no_permission
+                    - org_login_required
+                    - user_is_bot
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - fatal_error
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from users.identity method
+              example:
+                error: account_inactive
+                ok: false
+      security:
+      - slackAuth:
+        - identity.basic
+      summary: Slack Get Users Identity
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /users.info:
+    get:
+      tags:
+      - Users
+      description: Gets information about a user.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/users.info
+      operationId: getUsersInfo
+      parameters:
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `users:read`'
+        required: true
+        schema:
+          type: string
+      - name: include_locale
+        in: query
+        description: Set this to `true` to receive the locale for this user. Defaults to `false`
+        schema:
+          type: boolean
+      - name: user
+        in: query
+        description: User to get info on
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: users.info success schema
+                required:
+                - ok
+                - user
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                  user:
+                    $ref: '#/components/schemas/objs_user'
+                additionalProperties: true
+                description: Schema for successful response from users.info method
+              example:
+                ok: true
+                user:
+                  color: 9f69e7
+                  deleted: false
+                  has_2fa: false
+                  id: W012A3CDE
+                  is_admin: true
+                  is_app_user: false
+                  is_bot: false
+                  is_owner: false
+                  is_primary_owner: false
+                  is_restricted: false
+                  is_ultra_restricted: false
+                  name: spengler
+                  profile:
+                    avatar_hash: ge3b51ca72de
+                    display_name: spengler
+                    display_name_normalized: spengler
+                    email: spengler@ghostbusters.example.com
+                    image_192: https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg
+                    image_24: https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg
+                    image_32: https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg
+                    image_48: https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg
+                    image_512: https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg
+                    image_72: https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg
+                    image_original: https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg
+                    real_name: Egon Spengler
+                    real_name_normalized: Egon Spengler
+                    status_emoji: ':books:'
+                    status_text: Print is dead
+                    team: T012AB3C4
+                  real_name: Egon Spengler
+                  team_id: T012AB3C4
+                  tz: America/Los_Angeles
+                  tz_label: Pacific Daylight Time
+                  tz_offset: -25200
+                  updated: 1502138686
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: users.info error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                  error:
+                    type: string
+                    enum:
+                    - user_not_found
+                    - user_not_visible
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from users.info method
+              example:
+                error: user_not_found
+                ok: false
+      security:
+      - slackAuth:
+        - users:read
+      summary: Slack Get Users Info
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /users.list:
+    get:
+      tags:
+      - Users
+      description: Lists all users in a Slack team.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/users.list
+      operationId: getUsersList
+      parameters:
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `users:read`'
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the users list hasn't been reached. Providing no `limit` value will result in Slack attempting to deliver you the entire result set. If the collection is too large you may experience `limit_required` or HTTP 500 errors.
+        schema:
+          type: integer
+      - name: cursor
+        in: query
+        description: Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute returned by a previous request's `response_metadata`. Default value fetches the first "page" of the collection. See [pagination](/docs/pagination) for more detail.
+        schema:
+          type: string
+      - name: include_locale
+        in: query
+        description: Set this to `true` to receive the locale for users. Defaults to `false`
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: users.list schema
+                required:
+                - cache_ts
+                - members
+                - ok
+                type: object
+                properties:
+                  cache_ts:
+                    type: integer
+                  members:
+                    minItems: 1
+                    uniqueItems: true
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/objs_user'
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                  response_metadata:
+                    $ref: '#/components/schemas/objs_response_metadata'
+                additionalProperties: false
+                description: Schema for successful response from users.list method
+              example:
+                cache_ts: 1498777272
+                members:
+                - color: 9f69e7
+                  deleted: false
+                  has_2fa: false
+                  id: W012A3CDE
+                  is_admin: true
+                  is_app_user: false
+                  is_bot: false
+                  is_owner: false
+                  is_primary_owner: false
+                  is_restricted: false
+                  is_ultra_restricted: false
+                  name: spengler
+                  profile:
+                    avatar_hash: ge3b51ca72de
+                    display_name: spengler
+                    display_name_normalized: spengler
+                    email: spengler@ghostbusters.example.com
+                    image_192: https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg
+                    image_24: https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg
+                    image_32: https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg
+                    image_48: https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg
+                    image_512: https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg
+                    image_72: https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg
+                    real_name: Egon Spengler
+                    real_name_normalized: Egon Spengler
+                    status_emoji: ':books:'
+                    status_text: Print is dead
+                    team: T012AB3C4
+                  real_name: spengler
+                  team_id: T012AB3C4
+                  tz: America/Los_Angeles
+                  tz_label: Pacific Daylight Time
+                  tz_offset: -25200
+                  updated: 1502138686
+                - color: 9f69e7
+                  deleted: false
+                  has_2fa: false
+                  id: W07QCRPA4
+                  is_admin: true
+                  is_bot: false
+                  is_owner: false
+                  is_primary_owner: false
+                  is_restricted: false
+                  is_ultra_restricted: false
+                  name: glinda
+                  profile:
+                    avatar_hash: 8fbdd10b41c6
+                    display_name: Glinda the Fairly Good
+                    display_name_normalized: Glinda the Fairly Good
+                    email: glenda@south.oz.coven
+                    first_name: Glinda
+                    image_1024: https://a.slack-edge.com...png
+                    image_192: https://a.slack-edge.com...png
+                    image_24: https://a.slack-edge.com...png
+                    image_32: https://a.slack-edge.com...png
+                    image_48: https://a.slack-edge.com...png
+                    image_512: https://a.slack-edge.com...png
+                    image_72: https://a.slack-edge.com...png
+                    image_original: https://a.slack-edge.com...png
+                    last_name: Southgood
+                    phone: ''
+                    real_name: Glinda Southgood
+                    real_name_normalized: Glinda Southgood
+                    skype: ''
+                    title: Glinda the Good
+                  real_name: Glinda Southgood
+                  team_id: T0G9PQBBK
+                  tz: America/Los_Angeles
+                  tz_label: Pacific Daylight Time
+                  tz_offset: -25200
+                  updated: 1480527098
+                ok: true
+                response_metadata:
+                  next_cursor: dXNlcjpVMEc5V0ZYTlo=
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: users.list error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - limit_required
+                    - invalid_cursor
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - no_permission
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - fatal_error
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from users.list method
+              example:
+                error: invalid_cursor
+                ok: false
+      security:
+      - slackAuth:
+        - users:read
+      summary: Slack Get Users List
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /users.lookupByEmail:
+    get:
+      tags:
+      - Users
+      description: Find a user with an email address.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/users.lookupByEmail
+      operationId: getUsersLookupbyemail
+      parameters:
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `users:read.email`'
+        required: true
+        schema:
+          type: string
+      - name: email
+        in: query
+        description: An email address belonging to a user in the workspace
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: users.lookupByEmail success schema
+                required:
+                - ok
+                - user
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                  user:
+                    $ref: '#/components/schemas/objs_user'
+                additionalProperties: true
+                description: Schema for successful response from users.lookupByEmail method
+              example:
+                ok: true
+                user:
+                  color: 9f69e7
+                  deleted: false
+                  has_2fa: false
+                  id: W012A3CDE
+                  is_admin: true
+                  is_app_user: false
+                  is_bot: false
+                  is_owner: false
+                  is_primary_owner: false
+                  is_restricted: false
+                  is_ultra_restricted: false
+                  name: spengler
+                  profile:
+                    avatar_hash: ge3b51ca72de
+                    display_name: spengler
+                    display_name_normalized: spengler
+                    email: spengler@ghostbusters.example.com
+                    image_192: https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg
+                    image_24: https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg
+                    image_32: https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg
+                    image_48: https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg
+                    image_512: https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg
+                    image_72: https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg
+                    real_name: Egon Spengler
+                    real_name_normalized: Egon Spengler
+                    status_emoji: ':books:'
+                    status_text: Print is dead
+                    team: T012AB3C4
+                  real_name: Egon Spengler
+                  team_id: T012AB3C4
+                  tz: America/Los_Angeles
+                  tz_label: Pacific Daylight Time
+                  tz_offset: -25200
+                  updated: 1502138686
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: users.lookupByEmail error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - users_not_found
+                    - enterprise_is_restricted
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - no_permission
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - fatal_error
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from users.lookupByEmail method
+              example:
+                error: users_not_found
+                ok: false
+      security:
+      - slackAuth:
+        - users:read.email
+      summary: Slack Get Users Lookupbyemail
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /users.profile.get:
+    get:
+      tags:
+      - Users
+      description: Retrieves a user's profile information.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/users.profile.get
+      operationId: getUsersProfileGet
+      parameters:
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `users.profile:read`'
+        required: true
+        schema:
+          type: string
+      - name: include_labels
+        in: query
+        description: Include labels for each ID in custom profile fields
+        schema:
+          type: boolean
+      - name: user
+        in: query
+        description: User to retrieve profile info for
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: users.profile.get schema
+                required:
+                - ok
+                - profile
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                  profile:
+                    $ref: '#/components/schemas/objs_user_profile'
+                additionalProperties: false
+                description: Schema for successful response from users.profile.get method
+              example:
+                ok: true
+                profile:
+                  avatar_hash: ge3b51ca72de
+                  display_name: spengler
+                  display_name_normalized: spengler
+                  email: spengler@ghostbusters.example.com
+                  image_192: https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg
+                  image_24: https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg
+                  image_32: https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg
+                  image_48: https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg
+                  image_512: https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg
+                  image_72: https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg
+                  image_original: https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg
+                  real_name: Egon Spengler
+                  real_name_normalized: Egon Spengler
+                  status_emoji: ':books:'
+                  status_expiration: 0
+                  status_text: Print is dead
+                  team: T012AB3C4
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: users.profile.get error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - user_not_found
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - token_revoked
+                    - no_permission
+                    - org_login_required
+                    - user_is_bot
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - fatal_error
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from users.profile.get method
+              example:
+                error: user_not_found
+                ok: false
+      security:
+      - slackAuth:
+        - users.profile:read
+      summary: Slack Get Users Profile Get
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /users.profile.set:
+    post:
+      tags:
+      - Users
+      description: Set the profile information for a user.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/users.profile.set
+      operationId: postUsersProfileSet
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `users.profile:write`'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Name of a single key to set. Usable only if `profile` is not passed.
+                profile:
+                  type: string
+                  description: Collection of key:value pairs presented as a URL-encoded JSON hash. At most 50 fields may be set. Each field name is limited to 255 characters.
+                user:
+                  type: string
+                  description: ID of user to change. This argument may only be specified by team admins on paid teams.
+                value:
+                  type: string
+                  description: Value to set a single key to. Usable only if `profile` is not passed.
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Name of a single key to set. Usable only if `profile` is not passed.
+                profile:
+                  type: string
+                  description: Collection of key:value pairs presented as a URL-encoded JSON hash. At most 50 fields may be set. Each field name is limited to 255 characters.
+                user:
+                  type: string
+                  description: ID of user to change. This argument may only be specified by team admins on paid teams.
+                value:
+                  type: string
+                  description: Value to set a single key to. Usable only if `profile` is not passed.
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: users.profile.set schema
+                required:
+                - ok
+                - profile
+                - username
+                type: object
+                properties:
+                  email_pending:
+                    type: string
+                    format: email
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                  profile:
+                    $ref: '#/components/schemas/objs_user_profile'
+                  username:
+                    type: string
+                additionalProperties: false
+                description: Schema for successful response from users.profile.set method
+              example:
+                ok: true
+                profile:
+                  avatar_hash: ge3b51ca72de
+                  display_name: spengler
+                  display_name_normalized: spengler
+                  email: spengler@ghostbusters.example.com
+                  image_192: https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg
+                  image_24: https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg
+                  image_32: https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg
+                  image_48: https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg
+                  image_512: https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg
+                  image_72: https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg
+                  real_name: Egon Spengler
+                  real_name_normalized: Egon Spengler
+                  status_emoji: ':books:'
+                  status_expiration: 0
+                  status_text: Print is dead
+                  team: T012AB3C4
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: users.profile.set error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - reserved_name
+                    - invalid_profile
+                    - profile_set_failed
+                    - not_admin
+                    - not_app_admin
+                    - cannot_update_admin_user
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - token_revoked
+                    - no_permission
+                    - org_login_required
+                    - user_is_bot
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - fatal_error
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from users.profile.set method
+              example:
+                error: invalid_profile
+                ok: false
+      security:
+      - slackAuth:
+        - users.profile:write
+      summary: Slack Post Users Profile Set
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /users.setActive:
+    post:
+      tags:
+      - Users
+      description: Marked a user as active. Deprecated and non-functional.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/users.setActive
+      operationId: postUsersSetactive
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `users:write`'
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: users.setActive schema
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: false
+                description: Schema for successful response from users.setActive method
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: users.setActive error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - token_revoked
+                    - no_permission
+                    - org_login_required
+                    - ekm_access_denied
+                    - missing_scope
+                    - invalid_arguments
+                    - invalid_arg_name
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - request_timeout
+                    - fatal_error
+                    - internal_error
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from users.setActive method
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - users:write
+      summary: Slack Post Users Setactive
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /users.setPhoto:
+    post:
+      tags:
+      - Users
+      description: Set the user profile photo
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/users.setPhoto
+      operationId: postUsersSetphoto
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - token
+              type: object
+              properties:
+                token:
+                  type: string
+                  description: 'Authentication token. Requires scope: `users.profile:write`'
+                crop_w:
+                  type: string
+                  description: Width/height of crop box (always square)
+                crop_x:
+                  type: string
+                  description: X coordinate of top-left corner of crop box
+                crop_y:
+                  type: string
+                  description: Y coordinate of top-left corner of crop box
+                image:
+                  type: string
+                  description: File contents via `multipart/form-data`.
+        required: true
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: users.setPhoto schema
+                required:
+                - ok
+                - profile
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                  profile:
+                    type: object
+                    additionalProperties: false
+                additionalProperties: false
+                description: Schema for successful response from users.setPhoto method
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: users.setPhoto error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  debug_step:
+                    type: string
+                    description: possibly DEV/QA only
+                  dims:
+                    type: string
+                    description: possibly DEV/QA only
+                  error:
+                    type: string
+                    enum:
+                    - bad_image
+                    - too_large
+                    - too_many_frames
+                    - not_found
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - token_revoked
+                    - no_permission
+                    - org_login_required
+                    - user_is_bot
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - fatal_error
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                  time_ident:
+                    type: integer
+                    description: possibly DEV/QA only
+                additionalProperties: false
+                description: Schema for error response from users.setPhoto method
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - users.profile:write
+      summary: Slack Post Users Setphoto
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /users.setPresence:
+    post:
+      tags:
+      - Users
+      description: Manually sets user presence.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/users.setPresence
+      operationId: postUsersSetpresence
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `users:write`'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - presence
+              type: object
+              properties:
+                presence:
+                  type: string
+                  description: Either `auto` or `away`
+          application/json:
+            schema:
+              required:
+              - presence
+              type: object
+              properties:
+                presence:
+                  type: string
+                  description: Either `auto` or `away`
+        required: true
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: users.setPresence schema
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: false
+                description: Schema for successful response from users.setPresence method
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: users.setPresence error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - invalid_presence
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - token_revoked
+                    - no_permission
+                    - org_login_required
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - fatal_error
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from users.setPresence method
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - users:write
+      summary: Slack Post Users Setpresence
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK

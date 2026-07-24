@@ -1,0 +1,80 @@
+openapi: 3.1.0
+info:
+  version: '1.0'
+  title: Slack Admin Access Set API
+  description: "The Slack Admin API is a set of privileged endpoints\x14primarily under admin.* with related SCIM and Audit Logs APIs\x14that lets Enterprise Grid owners and admins automate organization\x11 wide management and governance. It covers user lifecycle (provision, suspend, assign roles), workspace and channel administration across workspaces (create, move, archive channels; manage membership and settings), app governance (approve/deny or allowlist/ban apps and install them to workspaces), invite request handling, and security/compliance controls such as information barriers, session and authentication policies, and org\x11level analytics exports. These APIs require elevated admin scopes and are commonly used to power automated onboarding/offboarding, centralized channel and app controls, and integrations with identity, ITSM, and compliance systems."
+tags:
+- name: Set
+paths:
+  /canvases.access.set:
+    post:
+      tags:
+      - Set
+      summary: Set Canvas Access
+      description: Sets access controls for a canvas, granting view or edit access to users or groups.
+      operationId: postCanvasesAccessSet
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `canvases:write`'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+              - canvas_id
+              - access_level
+              type: object
+              properties:
+                canvas_id:
+                  type: string
+                  description: ID of the canvas.
+                access_level:
+                  type: string
+                  description: Access level to grant (read, write).
+                  enum:
+                  - read
+                  - write
+                user_ids:
+                  type: array
+                  description: User IDs to grant access to.
+                  items:
+                    type: string
+                channel_ids:
+                  type: array
+                  description: Channel IDs to grant access to.
+                  items:
+                    type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+              example:
+                ok: true
+        default:
+          description: Error response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  error:
+                    type: string
+              example:
+                ok: false
+                error: canvas_not_found
+      security:
+      - slackAuth:
+        - canvases:write

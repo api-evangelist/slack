@@ -1,0 +1,4372 @@
+openapi: 3.1.0
+info:
+  version: '1.0'
+  title: Slack Admin Access Conversations API
+  description: "The Slack Admin API is a set of privileged endpoints\x14primarily under admin.* with related SCIM and Audit Logs APIs\x14that lets Enterprise Grid owners and admins automate organization\x11 wide management and governance. It covers user lifecycle (provision, suspend, assign roles), workspace and channel administration across workspaces (create, move, archive channels; manage membership and settings), app governance (approve/deny or allowlist/ban apps and install them to workspaces), invite request handling, and security/compliance controls such as information barriers, session and authentication policies, and org\x11level analytics exports. These APIs require elevated admin scopes and are commonly used to power automated onboarding/offboarding, centralized channel and app controls, and integrations with identity, ITSM, and compliance systems."
+tags:
+- name: Conversations
+paths:
+  /admin.conversations.archive:
+    post:
+      tags:
+      - Conversations
+      description: Archive a public or private channel.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/admin.conversations.archive
+      operationId: postAdminConversationsArchive
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.conversations:write`'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - channel_id
+              type: object
+              properties:
+                channel_id:
+                  type: string
+                  description: The channel to archive.
+          application/json:
+            schema:
+              required:
+              - channel_id
+              type: object
+              properties:
+                channel_id:
+                  type: string
+                  description: The channel to archive.
+        required: true
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: admin.conversations.archive schema
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: false
+                description: Schema for successful response of admin.conversations.archive
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: admin.conversations.archive error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - feature_not_enabled
+                    - channel_not_found
+                    - channel_type_not_supported
+                    - default_org_wide_channel
+                    - already_archived
+                    - cant_archive_general
+                    - restricted_action
+                    - could_not_archive_channel
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from admin.conversations.archive
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - admin.conversations:write
+      summary: Slack Post Admin Conversations Archive
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /admin.conversations.convertToPrivate:
+    post:
+      tags:
+      - Conversations
+      description: Convert a public channel to a private channel.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/admin.conversations.convertToPrivate
+      operationId: postAdminConversationsConverttoprivate
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.conversations:write`'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - channel_id
+              type: object
+              properties:
+                channel_id:
+                  type: string
+                  description: The channel to convert to private.
+          application/json:
+            schema:
+              required:
+              - channel_id
+              type: object
+              properties:
+                channel_id:
+                  type: string
+                  description: The channel to convert to private.
+        required: true
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: admin.conversations.convertToPrivate schema
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: false
+                description: Schema for successful response of admin.conversations.convertToPrivate
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: admin.conversations.convertToPrivate error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - feature_not_enabled
+                    - restricted_action
+                    - name_taken
+                    - channel_not_found
+                    - channel_type_not_supported
+                    - default_org_wide_channel
+                    - method_not_supported_for_channel_type
+                    - could_not_convert_channel
+                    - external_channel_migrating
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from admin.conversations.convertToPrivate
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - admin.conversations:write
+      summary: Slack Post Admin Conversations Converttoprivate
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /admin.conversations.create:
+    post:
+      tags:
+      - Conversations
+      description: Create a public or private channel-based conversation.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/admin.conversations.create
+      operationId: postAdminConversationsCreate
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.conversations:write`'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - is_private
+              - name
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Name of the public or private channel to create.
+                description:
+                  type: string
+                  description: Description of the public or private channel to create.
+                is_private:
+                  type: boolean
+                  description: When `true`, creates a private channel instead of a public channel
+                org_wide:
+                  type: boolean
+                  description: 'When `true`, the channel will be available org-wide. Note: if the channel is not `org_wide=true`, you must specify a `team_id` for this channel'
+                team_id:
+                  type: string
+                  description: 'The workspace to create the channel in. Note: this argument is required unless you set `org_wide=true`.'
+          application/json:
+            schema:
+              required:
+              - is_private
+              - name
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Name of the public or private channel to create.
+                description:
+                  type: string
+                  description: Description of the public or private channel to create.
+                is_private:
+                  type: boolean
+                  description: When `true`, creates a private channel instead of a public channel
+                org_wide:
+                  type: boolean
+                  description: 'When `true`, the channel will be available org-wide. Note: if the channel is not `org_wide=true`, you must specify a `team_id` for this channel'
+                team_id:
+                  type: string
+                  description: 'The workspace to create the channel in. Note: this argument is required unless you set `org_wide=true`.'
+        required: true
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: admin.conversations.create schema
+                required:
+                - ok
+                type: object
+                properties:
+                  channel_id:
+                    $ref: '#/components/schemas/defs_channel_id'
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: false
+                description: Schema for successful response of admin.conversations.create
+              example:
+                channel_id: C12345
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: admin.conversations.create error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - feature_not_enabled
+                    - name_taken
+                    - restricted_action
+                    - team_not_found
+                    - invalid_team
+                    - invalid_name
+                    - could_not_create_channel
+                    - team_id_or_org_required
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from admin.conversations.create
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - admin.conversations:write
+      summary: Slack Post Admin Conversations Create
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /admin.conversations.delete:
+    post:
+      tags:
+      - Conversations
+      description: Delete a public or private channel.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/admin.conversations.delete
+      operationId: postAdminConversationsDelete
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.conversations:write`'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - channel_id
+              type: object
+              properties:
+                channel_id:
+                  type: string
+                  description: The channel to delete.
+          application/json:
+            schema:
+              required:
+              - channel_id
+              type: object
+              properties:
+                channel_id:
+                  type: string
+                  description: The channel to delete.
+        required: true
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: admin.conversations.delete schema
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: false
+                description: Schema for successful response of admin.conversations.delete
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: admin.conversations.delete error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - feature_not_enabled
+                    - not_an_admin
+                    - channel_not_found
+                    - channel_type_not_supported
+                    - default_org_wide_channel
+                    - restricted_action
+                    - could_not_delete_channel
+                    - missing_scope
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from admin.conversations.delete
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - admin.conversations:write
+      summary: Slack Post Admin Conversations Delete
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /admin.conversations.disconnectShared:
+    post:
+      tags:
+      - Conversations
+      description: Disconnect a connected channel from one or more workspaces.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/admin.conversations.disconnectShared
+      operationId: postAdminConversationsDisconnectshared
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.conversations:write`'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - channel_id
+              type: object
+              properties:
+                channel_id:
+                  type: string
+                  description: The channel to be disconnected from some workspaces.
+                leaving_team_ids:
+                  type: string
+                  description: The team to be removed from the channel. Currently only a single team id can be specified.
+          application/json:
+            schema:
+              required:
+              - channel_id
+              type: object
+              properties:
+                channel_id:
+                  type: string
+                  description: The channel to be disconnected from some workspaces.
+                leaving_team_ids:
+                  type: string
+                  description: The team to be removed from the channel. Currently only a single team id can be specified.
+        required: true
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: admin.conversations.rename schema
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: false
+                description: Schema for successful response of admin.conversations.disconnectShared
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: admin.conversations.disconnectShared error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - feature_not_enabled
+                    - not_an_admin
+                    - not_an_enterprise
+                    - channel_not_found
+                    - not_supported
+                    - team_not_found
+                    - restricted_action
+                    - missing_scope
+                    - leaving_team_not_in_channel
+                    - no_teams_to_disconnect
+                    - leaving_team_required
+                    - cannot_kick_team
+                    - cannot_kick_home_team
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from admin.conversations.disconnectShared
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - admin.conversations:write
+      summary: Slack Post Admin Conversations Disconnectshared
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /admin.conversations.ekm.listOriginalConnectedChannelInfo:
+    get:
+      tags:
+      - Conversations
+      description: List all disconnected channels i.e., channels that were once connected to other workspaces and then disconnected and the corresponding original channel IDs for key revocation with EKM.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/admin.conversations.ekm.listOriginalConnectedChannelInfo
+      operationId: getAdminConversationsEkmListoriginalconnectedchannelinfo
+      parameters:
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `admin.conversations:read`'
+        required: true
+        schema:
+          type: string
+      - name: channel_ids
+        in: query
+        description: A comma-separated list of channels to filter to.
+        schema:
+          type: string
+      - name: team_ids
+        in: query
+        description: A comma-separated list of the workspaces to which the channels you would like returned belong.
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: The maximum number of items to return. Must be between 1 - 1000 both inclusive.
+        schema:
+          type: integer
+      - name: cursor
+        in: query
+        description: Set `cursor` to `next_cursor` returned by the previous call to list items in the next page.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: Default success template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: true
+                description: This method either only returns a brief _OK_ response or a verbose schema is not available for this method.
+              example:
+                channels:
+                - id: string
+                  internal_team_ids: array
+                  original_connected_channel_id: string
+                  original_connected_host_id: string
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: Default error template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: true
+                description: This method either only returns a brief _not OK_ response or a verbose schema is not available for this method.
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - admin.conversations:read
+      summary: Slack Get Admin Conversations Ekm Listoriginalconnectedchannelinfo
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /admin.conversations.getConversationPrefs:
+    get:
+      tags:
+      - Conversations
+      description: Get conversation preferences for a public or private channel.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/admin.conversations.getConversationPrefs
+      operationId: getAdminConversationsGetconversationprefs
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.conversations:read`'
+        required: true
+        schema:
+          type: string
+      - name: channel_id
+        in: query
+        description: The channel to get preferences for.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: admin.conversations.getConversationPrefs schema
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                  prefs:
+                    type: object
+                    properties:
+                      can_thread:
+                        type: object
+                        properties:
+                          type:
+                            type: array
+                            items:
+                              type: string
+                          user:
+                            type: array
+                            items:
+                              type: string
+                      who_can_post:
+                        type: object
+                        properties:
+                          type:
+                            type: array
+                            items:
+                              type: string
+                          user:
+                            type: array
+                            items:
+                              type: string
+                additionalProperties: false
+                description: Schema for successful response of admin.conversations.getConversationPrefs
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: admin.conversations.unarchive error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - feature_not_enabled
+                    - not_an_admin
+                    - not_an_enterprise
+                    - restricted_action
+                    - missing_scope
+                    - channel_not_found
+                    - channel_type_not_supported
+                    - could_not_get_conversation_prefs
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from admin.conversations.getConversationPrefs
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - admin.conversations:read
+      summary: Slack Get Admin Conversations Getconversationprefs
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /admin.conversations.getTeams:
+    get:
+      tags:
+      - Conversations
+      description: Get all the workspaces a given public or private channel is connected to within this Enterprise org.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/admin.conversations.getTeams
+      operationId: getAdminConversationsGetteams
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.conversations:read`'
+        required: true
+        schema:
+          type: string
+      - name: channel_id
+        in: query
+        description: The channel to determine connected workspaces within the organization for.
+        required: true
+        schema:
+          type: string
+      - name: cursor
+        in: query
+        description: Set `cursor` to `next_cursor` returned by the previous call to list items in the next page
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: The maximum number of items to return. Must be between 1 - 1000 both inclusive.
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: admin.conversations.getTeams schema
+                required:
+                - ok
+                - team_ids
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                  response_metadata:
+                    type: object
+                    additionalProperties: false
+                  team_ids:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/defs_team'
+                additionalProperties: false
+                description: Schema for successful response of admin.conversations.getTeams
+              example:
+                ok: true
+                teams:
+                - T1234
+                - T5678
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: admin.conversations.getTeams error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - feature_not_enabled
+                    - channel_not_found
+                    - channel_type_not_supported
+                    - unsupported_team_type
+                    - restricted_action
+                    - could_not_get_teams
+                    - invalid_cursor
+                    - invalid_limit
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from admin.conversations.getTeams
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - admin.conversations:read
+      summary: Slack Get Admin Conversations Getteams
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /admin.conversations.invite:
+    post:
+      tags:
+      - Conversations
+      description: Invite a user to a public or private channel.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/admin.conversations.invite
+      operationId: postAdminConversationsInvite
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.conversations:write`'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - channel_id
+              - user_ids
+              type: object
+              properties:
+                user_ids:
+                  type: string
+                  description: The users to invite.
+                channel_id:
+                  type: string
+                  description: The channel that the users will be invited to.
+          application/json:
+            schema:
+              required:
+              - channel_id
+              - user_ids
+              type: object
+              properties:
+                user_ids:
+                  type: string
+                  description: The users to invite.
+                channel_id:
+                  type: string
+                  description: The channel that the users will be invited to.
+        required: true
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: admin.conversations.invite schema
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: false
+                description: Schema for successful response of admin.conversations.invite
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: admin.conversations.invite error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - feature_not_enabled
+                    - channel_not_found
+                    - channel_type_not_supported
+                    - default_org_wide_channel
+                    - restricted_action
+                    - user_must_be_admin
+                    - failed_for_some_users
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: true
+                description: Schema for error response from admin.conversations.invite
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - admin.conversations:write
+      summary: Slack Post Admin Conversations Invite
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /admin.conversations.rename:
+    post:
+      tags:
+      - Conversations
+      description: Rename a public or private channel.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/admin.conversations.rename
+      operationId: postAdminConversationsRename
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.conversations:write`'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - channel_id
+              - name
+              type: object
+              properties:
+                channel_id:
+                  type: string
+                  description: The channel to rename.
+                name:
+                  type: string
+          application/json:
+            schema:
+              required:
+              - channel_id
+              - name
+              type: object
+              properties:
+                channel_id:
+                  type: string
+                  description: The channel to rename.
+                name:
+                  type: string
+        required: true
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: admin.conversations.rename schema
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: false
+                description: Schema for successful response of admin.conversations.rename
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: admin.conversations.unarchive error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - feature_not_enabled
+                    - channel_not_found
+                    - channel_type_not_supported
+                    - restricted_action
+                    - could_not_rename_channel
+                    - default_org_wide_channel
+                    - name_taken
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from admin.conversations.rename
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - admin.conversations:write
+      summary: Slack Post Admin Conversations Rename
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /admin.conversations.restrictAccess.addGroup:
+    post:
+      tags:
+      - Conversations
+      description: Add an allowlist of IDP groups for accessing a channel
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/admin.conversations.restrictAccess.addGroup
+      operationId: postAdminConversationsRestrictaccessAddgroup
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - channel_id
+              - group_id
+              - token
+              type: object
+              properties:
+                token:
+                  type: string
+                  description: 'Authentication token. Requires scope: `admin.conversations:write`'
+                team_id:
+                  type: string
+                  description: The workspace where the channel exists. This argument is required for channels only tied to one workspace, and optional for channels that are shared across an organization.
+                group_id:
+                  type: string
+                  description: The [IDP Group](https://slack.com/help/articles/115001435788-Connect-identity-provider-groups-to-your-Enterprise-Grid-org) ID to be an allowlist for the private channel.
+                channel_id:
+                  type: string
+                  description: The channel to link this group to.
+        required: true
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: Default success template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: true
+                description: This method either only returns a brief _OK_ response or a verbose schema is not available for this method.
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: Default error template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: true
+                description: This method either only returns a brief _not OK_ response or a verbose schema is not available for this method.
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - admin.conversations:write
+      summary: Slack Post Admin Conversations Restrictaccess Addgroup
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /admin.conversations.restrictAccess.listGroups:
+    get:
+      tags:
+      - Conversations
+      description: List all IDP Groups linked to a channel
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/admin.conversations.restrictAccess.listGroups
+      operationId: getAdminConversationsRestrictaccessListgroups
+      parameters:
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `admin.conversations:read`'
+        required: true
+        schema:
+          type: string
+      - name: channel_id
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: team_id
+        in: query
+        description: The workspace where the channel exists. This argument is required for channels only tied to one workspace, and optional for channels that are shared across an organization.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: Default success template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: true
+                description: This method either only returns a brief _OK_ response or a verbose schema is not available for this method.
+              example:
+                group_ids:
+                - YOUR_GROUP_ID
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: Default error template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: true
+                description: This method either only returns a brief _not OK_ response or a verbose schema is not available for this method.
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - admin.conversations:read
+      summary: Slack Get Admin Conversations Restrictaccess Listgroups
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /admin.conversations.restrictAccess.removeGroup:
+    post:
+      tags:
+      - Conversations
+      description: Remove a linked IDP group linked from a private channel
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/admin.conversations.restrictAccess.removeGroup
+      operationId: postAdminConversationsRestrictaccessRemovegroup
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - channel_id
+              - group_id
+              - team_id
+              - token
+              type: object
+              properties:
+                token:
+                  type: string
+                  description: 'Authentication token. Requires scope: `admin.conversations:write`'
+                team_id:
+                  type: string
+                  description: The workspace where the channel exists. This argument is required for channels only tied to one workspace, and optional for channels that are shared across an organization.
+                group_id:
+                  type: string
+                  description: The [IDP Group](https://slack.com/help/articles/115001435788-Connect-identity-provider-groups-to-your-Enterprise-Grid-org) ID to remove from the private channel.
+                channel_id:
+                  type: string
+                  description: The channel to remove the linked group from.
+        required: true
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: Default success template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: true
+                description: This method either only returns a brief _OK_ response or a verbose schema is not available for this method.
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: Default error template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: true
+                description: This method either only returns a brief _not OK_ response or a verbose schema is not available for this method.
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - admin.conversations:write
+      summary: Slack Post Admin Conversations Restrictaccess Removegroup
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /admin.conversations.search:
+    get:
+      tags:
+      - Conversations
+      description: Search for public or private channels in an Enterprise organization.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/admin.conversations.search
+      operationId: getAdminConversationsSearch
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.conversations:read`'
+        required: true
+        schema:
+          type: string
+      - name: team_ids
+        in: query
+        description: Comma separated string of team IDs, signifying the workspaces to search through.
+        schema:
+          type: string
+      - name: query
+        in: query
+        description: Name of the the channel to query by.
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: Maximum number of items to be returned. Must be between 1 - 20 both inclusive. Default is 10.
+        schema:
+          type: integer
+      - name: cursor
+        in: query
+        description: Set `cursor` to `next_cursor` returned by the previous call to list items in the next page.
+        schema:
+          type: string
+      - name: search_channel_types
+        in: query
+        description: The type of channel to include or exclude in the search. For example `private` will search private channels, while `private_exclude` will exclude them. For a full list of types, check the [Types section](#types).
+        schema:
+          type: string
+      - name: sort
+        in: query
+        description: 'Possible values are `relevant` (search ranking based on what we think is closest), `name` (alphabetical), `member_count` (number of users in the channel), and `created` (date channel was created). You can optionally pair this with the `sort_dir` arg to change how it is sorted '
+        schema:
+          type: string
+      - name: sort_dir
+        in: query
+        description: Sort direction. Possible values are `asc` for ascending order like (1, 2, 3) or (a, b, c), and `desc` for descending order like (3, 2, 1) or (c, b, a)
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: admin.conversations.search schema
+                required:
+                - channels
+                - next_cursor
+                type: object
+                properties:
+                  channels:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/objs_channel'
+                  next_cursor:
+                    type: string
+                additionalProperties: false
+                description: Schema for successful response of admin.conversations.search
+              example:
+                channels:
+                - created: 1449252889
+                  creator: U012A3CDE
+                  id: C012AB3CD
+                  is_archived: false
+                  is_channel: true
+                  is_ext_shared: false
+                  is_general: true
+                  is_group: false
+                  is_im: false
+                  is_member: true
+                  is_mpim: false
+                  is_org_shared: false
+                  is_pending_ext_shared: false
+                  is_private: false
+                  is_shared: false
+                  name: general
+                  name_normalized: general
+                  num_members: 4
+                  pending_shared: []
+                  previous_names: []
+                  purpose:
+                    creator: ''
+                    last_set: 0
+                    value: This channel is for team-wide communication and announcements. All team members are in this channel.
+                  topic:
+                    creator: ''
+                    last_set: 0
+                    value: Company-wide announcements and work-based matters
+                  unlinked: 0
+                ok: true
+                response_metadata:
+                  next_cursor: dGVhbTpDMDYxRkE1UEI=
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: admin.conversations.search error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - feature_not_enabled
+                    - not_an_admin
+                    - not_an_enterprise
+                    - team_not_found
+                    - not_allowed
+                    - invalid_auth
+                    - invalid_cursor
+                    - invalid_search_channel_type
+                    - invalid_sort
+                    - invalid_sort_dir
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from admin.conversations.search
+              example:
+                error: not_an_enterprise
+                ok: false
+      security:
+      - slackAuth:
+        - admin.conversations:read
+      summary: Slack Get Admin Conversations Search
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /admin.conversations.setConversationPrefs:
+    post:
+      tags:
+      - Conversations
+      description: Set the posting permissions for a public or private channel.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/admin.conversations.setConversationPrefs
+      operationId: postAdminConversationsSetconversationprefs
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.conversations:write`'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - channel_id
+              - prefs
+              type: object
+              properties:
+                channel_id:
+                  type: string
+                  description: The channel to set the prefs for
+                prefs:
+                  type: string
+                  description: The prefs for this channel in a stringified JSON format.
+          application/json:
+            schema:
+              required:
+              - channel_id
+              - prefs
+              type: object
+              properties:
+                channel_id:
+                  type: string
+                  description: The channel to set the prefs for
+                prefs:
+                  type: string
+                  description: The prefs for this channel in a stringified JSON format.
+        required: true
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: admin.conversations.setConversationPrefs schema
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: false
+                description: Schema for successful response of admin.conversations.setConversationPrefs
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: admin.conversations.setConversationPrefs error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - feature_not_enabled
+                    - not_an_admin
+                    - channel_not_found
+                    - channel_type_not_supported
+                    - restricted_action
+                    - missing_scope
+                    - could_not_set_channel_pref
+                    - default_org_wide_channel
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from admin.conversations.setConversationPrefs
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - admin.conversations:write
+      summary: Slack Post Admin Conversations Setconversationprefs
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /admin.conversations.setTeams:
+    post:
+      tags:
+      - Conversations
+      description: Set the workspaces in an Enterprise grid org that connect to a public or private channel.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/admin.conversations.setTeams
+      operationId: postAdminConversationsSetteams
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.conversations:write`'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - channel_id
+              type: object
+              properties:
+                channel_id:
+                  type: string
+                  description: The encoded `channel_id` to add or remove to workspaces.
+                team_id:
+                  type: string
+                  description: The workspace to which the channel belongs. Omit this argument if the channel is a cross-workspace shared channel.
+                target_team_ids:
+                  type: string
+                  description: A comma-separated list of workspaces to which the channel should be shared. Not required if the channel is being shared org-wide.
+                org_channel:
+                  type: boolean
+                  description: True if channel has to be converted to an org channel
+          application/json:
+            schema:
+              required:
+              - channel_id
+              type: object
+              properties:
+                channel_id:
+                  type: string
+                  description: The encoded `channel_id` to add or remove to workspaces.
+                team_id:
+                  type: string
+                  description: The workspace to which the channel belongs. Omit this argument if the channel is a cross-workspace shared channel.
+                target_team_ids:
+                  type: string
+                  description: A comma-separated list of workspaces to which the channel should be shared. Not required if the channel is being shared org-wide.
+                org_channel:
+                  type: boolean
+                  description: True if channel has to be converted to an org channel
+        required: true
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: Default success template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: true
+                description: This method either only returns a brief _OK_ response or a verbose schema is not available for this method.
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: Default error template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: true
+                description: This method either only returns a brief _not OK_ response or a verbose schema is not available for this method.
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - admin.conversations:write
+      summary: Slack Post Admin Conversations Setteams
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /admin.conversations.unarchive:
+    post:
+      tags:
+      - Conversations
+      description: Unarchive a public or private channel.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/admin.conversations.unarchive
+      operationId: postAdminConversationsUnarchive
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.conversations:write`'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - channel_id
+              type: object
+              properties:
+                channel_id:
+                  type: string
+                  description: The channel to unarchive.
+          application/json:
+            schema:
+              required:
+              - channel_id
+              type: object
+              properties:
+                channel_id:
+                  type: string
+                  description: The channel to unarchive.
+        required: true
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: admin.conversations.unarchive schema
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: false
+                description: Schema for successful response of admin.conversations.unarchive
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: admin.conversations.unarchive error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - feature_not_enabled
+                    - channel_not_found
+                    - channel_not_archived
+                    - channel_type_not_supported
+                    - restricted_action
+                    - could_not_unarchive_channel
+                    - default_org_wide_channel
+                    - missing_scope
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from admin.conversations.unarchive
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - admin.conversations:write
+      summary: Slack Post Admin Conversations Unarchive
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /conversations.archive:
+    post:
+      tags:
+      - Conversations
+      description: Archives a conversation.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/conversations.archive
+      operationId: postConversationsArchive
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `conversations:write`'
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                channel:
+                  type: string
+                  description: ID of conversation to archive
+          application/json:
+            schema:
+              type: object
+              properties:
+                channel:
+                  type: string
+                  description: ID of conversation to archive
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: conversations.archive success schema
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: false
+                description: Schema for successful response conversations.archive method
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: conversations.archive error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - method_not_supported_for_channel_type
+                    - missing_scope
+                    - not_supported
+                    - channel_not_found
+                    - already_archived
+                    - cant_archive_general
+                    - restricted_action
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - user_is_bot
+                    - user_is_restricted
+                    - user_is_ultra_restricted
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - team_added_to_org
+                    - missing_charset
+                    - superfluous_charset
+                  needed:
+                    type: string
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                  provided:
+                    type: string
+                additionalProperties: false
+                description: Schema for error response from conversations.archive method
+              example:
+                error: channel_not_found
+                ok: false
+      security:
+      - slackAuth:
+        - channels:write
+        - groups:write
+        - im:write
+        - mpim:write
+      summary: Slack Post Conversations Archive
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /conversations.close:
+    post:
+      tags:
+      - Conversations
+      description: Closes a direct message or multi-person direct message.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/conversations.close
+      operationId: postConversationsClose
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `conversations:write`'
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                channel:
+                  type: string
+                  description: Conversation to close.
+          application/json:
+            schema:
+              type: object
+              properties:
+                channel:
+                  type: string
+                  description: Conversation to close.
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: conversations.close success schema
+                required:
+                - ok
+                type: object
+                properties:
+                  already_closed:
+                    type: boolean
+                  no_op:
+                    type: boolean
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: false
+                description: Schema for successful response conversations.close method
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: conversations.close error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - method_not_supported_for_channel_type
+                    - channel_not_found
+                    - user_does_not_own_channel
+                    - missing_scope
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                  needed:
+                    type: string
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                  provided:
+                    type: string
+                additionalProperties: false
+                description: Schema for error response from conversations.close method
+              example:
+                error: channel_not_found
+                ok: false
+      security:
+      - slackAuth:
+        - channels:write
+        - groups:write
+        - im:write
+        - mpim:write
+      summary: Slack Post Conversations Close
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /conversations.create:
+    post:
+      tags:
+      - Conversations
+      description: Initiates a public or private channel-based conversation
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/conversations.create
+      operationId: postConversationsCreate
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `conversations:write`'
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Name of the public or private channel to create
+                is_private:
+                  type: boolean
+                  description: Create a private channel instead of a public one
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Name of the public or private channel to create
+                is_private:
+                  type: boolean
+                  description: Create a private channel instead of a public one
+      responses:
+        '200':
+          description: If successful, the command returns a rather stark [conversation object](/types/conversation)
+          content:
+            application/json:
+              schema:
+                title: conversations.create success schema
+                required:
+                - channel
+                - ok
+                type: object
+                properties:
+                  channel:
+                    $ref: '#/components/schemas/objs_conversation'
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: false
+                description: Schema for successful response conversations.create method
+              example:
+                channel:
+                  created: 1504554479
+                  creator: U0123456
+                  id: C0EAQDV4Z
+                  is_archived: false
+                  is_channel: true
+                  is_ext_shared: false
+                  is_general: false
+                  is_group: false
+                  is_im: false
+                  is_member: true
+                  is_mpim: false
+                  is_org_shared: false
+                  is_pending_ext_shared: false
+                  is_private: false
+                  is_shared: false
+                  last_read: '0000000000.000000'
+                  latest: null
+                  name: endeavor
+                  name_normalized: endeavor
+                  pending_shared: []
+                  previous_names: []
+                  priority: 0
+                  purpose:
+                    creator: ''
+                    last_set: 0
+                    value: ''
+                  topic:
+                    creator: ''
+                    last_set: 0
+                    value: ''
+                  unlinked: 0
+                  unread_count: 0
+                  unread_count_display: 0
+                ok: true
+        default:
+          description: Typical error response when name already in use
+          content:
+            application/json:
+              schema:
+                title: conversations.create error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  detail:
+                    type: string
+                  error:
+                    type: string
+                    enum:
+                    - method_not_supported_for_channel_type
+                    - missing_scope
+                    - name_taken
+                    - restricted_action
+                    - no_channel
+                    - invalid_name_required
+                    - invalid_name_punctuation
+                    - invalid_name_maxlength
+                    - invalid_name_specials
+                    - invalid_name
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - user_is_bot
+                    - user_is_restricted
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                  needed:
+                    type: string
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                  provided:
+                    type: string
+                additionalProperties: false
+                description: Schema for error response from conversations.create method
+              example:
+                error: name_taken
+                ok: false
+      security:
+      - slackAuth:
+        - channels:write
+        - groups:write
+        - im:write
+        - mpim:write
+      summary: Slack Post Conversations Create
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /conversations.history:
+    get:
+      tags:
+      - Conversations
+      description: Fetches a conversation's history of messages and events.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/conversations.history
+      operationId: getConversationsHistory
+      parameters:
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `conversations:history`'
+        schema:
+          type: string
+      - name: channel
+        in: query
+        description: Conversation ID to fetch history for.
+        schema:
+          type: string
+      - name: latest
+        in: query
+        description: End of time range of messages to include in results.
+        schema:
+          type: number
+      - name: oldest
+        in: query
+        description: Start of time range of messages to include in results.
+        schema:
+          type: number
+      - name: inclusive
+        in: query
+        description: Include messages with latest or oldest timestamp in results only when either timestamp is specified.
+        schema:
+          type: boolean
+      - name: limit
+        in: query
+        description: The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the users list hasn't been reached.
+        schema:
+          type: integer
+      - name: cursor
+        in: query
+        description: Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute returned by a previous request's `response_metadata`. Default value fetches the first "page" of the collection. See [pagination](/docs/pagination) for more detail.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Typical success response containing a channel's messages
+          content:
+            application/json:
+              schema:
+                title: conversations.history success schema
+                required:
+                - channel_actions_count
+                - channel_actions_ts
+                - has_more
+                - messages
+                - ok
+                - pin_count
+                type: object
+                properties:
+                  channel_actions_count:
+                    type: integer
+                  channel_actions_ts:
+                    type: object
+                  has_more:
+                    type: boolean
+                  messages:
+                    minItems: 1
+                    uniqueItems: true
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/objs_message'
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                  pin_count:
+                    type: integer
+                additionalProperties: false
+                description: Schema for successful response from conversations.history method
+              example:
+                has_more: true
+                messages:
+                - text: I find you punny and would like to smell your nose letter
+                  ts: '1512085950.000216'
+                  type: message
+                  user: U012AB3CDE
+                - text: What, you want to smell my shoes better?
+                  ts: '1512104434.000490'
+                  type: message
+                  user: U061F7AUR
+                ok: true
+                pin_count: 0
+                response_metadata:
+                  next_cursor: bmV4dF90czoxNTEyMDg1ODYxMDAwNTQz
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: conversations.history error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - missing_scope
+                    - channel_not_found
+                    - invalid_ts_latest
+                    - invalid_ts_oldest
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                  needed:
+                    type: string
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                  provided:
+                    type: string
+                additionalProperties: false
+                description: Schema for error response from conversations.history method
+              example:
+                error: channel_not_found
+                ok: false
+      security:
+      - slackAuth:
+        - channels:history
+        - groups:history
+        - im:history
+        - mpim:history
+      summary: Slack Get Conversations History
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /conversations.info:
+    get:
+      tags:
+      - Conversations
+      description: Retrieve information about a conversation.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/conversations.info
+      operationId: getConversationsInfo
+      parameters:
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `conversations:read`'
+        schema:
+          type: string
+      - name: channel
+        in: query
+        description: Conversation ID to learn more about
+        schema:
+          type: string
+      - name: include_locale
+        in: query
+        description: Set this to `true` to receive the locale for this conversation. Defaults to `false`
+        schema:
+          type: boolean
+      - name: include_num_members
+        in: query
+        description: Set to `true` to include the member count for the specified conversation. Defaults to `false`
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Typical success response for a public channel. (Also, a response from a private channel and a multi-party IM is very similar to this example.)
+          content:
+            application/json:
+              schema:
+                title: conversations.info success schema
+                required:
+                - channel
+                - ok
+                type: object
+                properties:
+                  channel:
+                    $ref: '#/components/schemas/objs_conversation'
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: false
+                description: Schema for successful response conversations.info
+              example:
+                channel:
+                  created: 1449252889
+                  creator: W012A3BCD
+                  id: C012AB3CD
+                  is_archived: false
+                  is_channel: true
+                  is_ext_shared: false
+                  is_general: true
+                  is_group: false
+                  is_im: false
+                  is_member: true
+                  is_mpim: false
+                  is_org_shared: false
+                  is_pending_ext_shared: false
+                  is_private: false
+                  is_read_only: false
+                  is_shared: false
+                  last_read: '1502126650.228446'
+                  locale: en-US
+                  name: general
+                  name_normalized: general
+                  parent_conversation: null
+                  pending_shared: []
+                  previous_names:
+                  - specifics
+                  - abstractions
+                  - etc
+                  purpose:
+                    creator: W012A3BCD
+                    last_set: 1449709364
+                    value: This part of the workspace is for fun. Make fun here.
+                  topic:
+                    creator: W012A3BCD
+                    last_set: 1449709364
+                    value: For public discussion of generalities
+                  unlinked: 0
+                ok: true
+        default:
+          description: Typical error response when a channel cannot be found
+          content:
+            application/json:
+              schema:
+                title: conversations.info error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - missing_scope
+                    - channel_not_found
+                    - team_added_to_org
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                  needed:
+                    type: string
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                  provided:
+                    type: string
+                additionalProperties: false
+                description: Schema for error response from conversations.info method
+              example:
+                error: channel_not_found
+                ok: false
+      security:
+      - slackAuth:
+        - channels:read
+        - groups:read
+        - im:read
+        - mpim:read
+      summary: Slack Get Conversations Info
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /conversations.invite:
+    post:
+      tags:
+      - Conversations
+      description: Invites users to a channel.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/conversations.invite
+      operationId: postConversationsInvite
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `conversations:write`'
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                channel:
+                  type: string
+                  description: The ID of the public or private channel to invite user(s) to.
+                users:
+                  type: string
+                  description: A comma separated list of user IDs. Up to 1000 users may be listed.
+          application/json:
+            schema:
+              type: object
+              properties:
+                channel:
+                  type: string
+                  description: The ID of the public or private channel to invite user(s) to.
+                users:
+                  type: string
+                  description: A comma separated list of user IDs. Up to 1000 users may be listed.
+      responses:
+        '200':
+          description: Typical success response when an invitation is extended
+          content:
+            application/json:
+              schema:
+                title: conversations.invite error schema
+                required:
+                - channel
+                - ok
+                type: object
+                properties:
+                  channel:
+                    $ref: '#/components/schemas/objs_conversation'
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: false
+                description: Schema for successful response from conversations.invite method
+              example:
+                channel:
+                  created: 1449252889
+                  creator: W012A3BCD
+                  id: C012AB3CD
+                  is_archived: false
+                  is_channel: true
+                  is_ext_shared: false
+                  is_general: true
+                  is_group: false
+                  is_im: false
+                  is_member: true
+                  is_mpim: false
+                  is_org_shared: false
+                  is_pending_ext_shared: false
+                  is_private: false
+                  is_read_only: false
+                  is_shared: false
+                  last_read: '1502126650.228446'
+                  locale: en-US
+                  name: general
+                  name_normalized: general
+                  num_members: 23
+                  pending_shared: []
+                  previous_names:
+                  - specifics
+                  - abstractions
+                  - etc
+                  purpose:
+                    creator: W012A3BCD
+                    last_set: 1449709364
+                    value: This part of the workspace is for fun. Make fun here.
+                  topic:
+                    creator: W012A3BCD
+                    last_set: 1449709364
+                    value: For public discussion of generalities
+                  unlinked: 0
+                ok: true
+        default:
+          description: Typical error response when an invite is attempted on a conversation type that does not support it
+          content:
+            application/json:
+              schema:
+                title: conversations.invite error schema
+                required:
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - method_not_supported_for_channel_type
+                    - missing_scope
+                    - channel_not_found
+                    - user_not_found
+                    - no_user
+                    - cant_invite_self
+                    - not_in_channel
+                    - already_in_channel
+                    - is_archived
+                    - cant_invite
+                    - too_many_users
+                    - ura_max_channels
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - user_is_bot
+                    - user_is_restricted
+                    - user_is_ultra_restricted
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - team_added_to_org
+                    - missing_charset
+                    - superfluous_charset
+                  errors:
+                    title: errors is returned when an error associates an user
+                    minItems: 1
+                    uniqueItems: true
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties: false
+                  needed:
+                    type: string
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                  provided:
+                    type: string
+                additionalProperties: false
+                description: Schema for error response from conversations.invite method
+              example:
+                error: method_not_supported_for_channel_type
+                ok: false
+      security:
+      - slackAuth:
+        - channels:write
+        - groups:write
+        - im:write
+        - mpim:write
+      summary: Slack Post Conversations Invite
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /conversations.join:
+    post:
+      tags:
+      - Conversations
+      description: Joins an existing conversation.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/conversations.join
+      operationId: postConversationsJoin
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `channels:write`'
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                channel:
+                  type: string
+                  description: ID of conversation to join
+          application/json:
+            schema:
+              type: object
+              properties:
+                channel:
+                  type: string
+                  description: ID of conversation to join
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: conversations.join success schema
+                required:
+                - channel
+                - ok
+                type: object
+                properties:
+                  channel:
+                    $ref: '#/components/schemas/objs_conversation'
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                  response_metadata:
+                    title: Response metadata
+                    type: object
+                    properties:
+                      warnings:
+                        minItems: 1
+                        uniqueItems: true
+                        type: array
+                        items:
+                          type: string
+                  warning:
+                    type: string
+                additionalProperties: false
+                description: Schema for successful response from conversations.join method
+              example:
+                channel:
+                  created: 1449252889
+                  creator: U061F7AUR
+                  id: C061EG9SL
+                  is_archived: false
+                  is_channel: true
+                  is_ext_shared: false
+                  is_general: true
+                  is_group: false
+                  is_im: false
+                  is_member: true
+                  is_mpim: false
+                  is_org_shared: false
+                  is_pending_ext_shared: false
+                  is_private: false
+                  is_shared: false
+                  name: general
+                  name_normalized: general
+                  pending_shared: []
+                  previous_names: []
+                  purpose:
+                    creator: ''
+                    last_set: 0
+                    value: For widget discussion
+                  topic:
+                    creator: ''
+                    last_set: 0
+                    value: Which widget do you worry about?
+                  unlinked: 0
+                ok: true
+                response_metadata:
+                  warnings:
+                  - already_in_channel
+                warning: already_in_channel
+        default:
+          description: Typical error response if the conversation is archived and cannot be joined
+          content:
+            application/json:
+              schema:
+                title: conversations.join error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - method_not_supported_for_channel_type
+                    - missing_scope
+                    - channel_not_found
+                    - is_archived
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - user_is_bot
+                    - user_is_restricted
+                    - user_is_ultra_restricted
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - team_added_to_org
+                    - missing_charset
+                    - superfluous_charset
+                  needed:
+                    type: string
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                  provided:
+                    type: string
+                additionalProperties: false
+                description: Schema for error response from conversations.join method
+              example:
+                error: is_archived
+                ok: false
+      security:
+      - slackAuth:
+        - channels:write
+      summary: Slack Post Conversations Join
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /conversations.kick:
+    post:
+      tags:
+      - Conversations
+      description: Removes a user from a conversation.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/conversations.kick
+      operationId: postConversationsKick
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `conversations:write`'
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                channel:
+                  type: string
+                  description: ID of conversation to remove user from.
+                user:
+                  type: string
+                  description: User ID to be removed.
+          application/json:
+            schema:
+              type: object
+              properties:
+                channel:
+                  type: string
+                  description: ID of conversation to remove user from.
+                user:
+                  type: string
+                  description: User ID to be removed.
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: conversations.kick success schema
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: false
+                description: Schema for successful response conversations.kick method
+              example:
+                ok: true
+        default:
+          description: Typical error response when you attempt to kick yourself from a channel
+          content:
+            application/json:
+              schema:
+                title: conversations.kick error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - method_not_supported_for_channel_type
+                    - missing_scope
+                    - channel_not_found
+                    - user_not_found
+                    - cant_kick_self
+                    - not_in_channel
+                    - cant_kick_from_general
+                    - restricted_action
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - user_is_bot
+                    - user_is_restricted
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                  needed:
+                    type: string
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                  provided:
+                    type: string
+                additionalProperties: false
+                description: Schema for error response conversations.kick method
+              example:
+                error: cant_kick_self
+                ok: false
+      security:
+      - slackAuth:
+        - channels:write
+        - groups:write
+        - im:write
+        - mpim:write
+      summary: Slack Post Conversations Kick
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /conversations.leave:
+    post:
+      tags:
+      - Conversations
+      description: Leaves a conversation.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/conversations.leave
+      operationId: postConversationsLeave
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `conversations:write`'
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                channel:
+                  type: string
+                  description: Conversation to leave
+          application/json:
+            schema:
+              type: object
+              properties:
+                channel:
+                  type: string
+                  description: Conversation to leave
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: conversations.leave success schema
+                required:
+                - ok
+                type: object
+                properties:
+                  not_in_channel:
+                    type: boolean
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: false
+                description: Schema for successful response from conversations.leave method
+              example:
+                ok: true
+        default:
+          description: Typical error response when attempting to leave a workspace's "general" channel
+          content:
+            application/json:
+              schema:
+                title: conversations.leave error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - method_not_supported_for_channel_type
+                    - last_member
+                    - missing_scope
+                    - channel_not_found
+                    - is_archived
+                    - cant_leave_general
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - user_is_bot
+                    - user_is_restricted
+                    - user_is_ultra_restricted
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - team_added_to_org
+                    - missing_charset
+                    - superfluous_charset
+                  needed:
+                    type: string
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                  provided:
+                    type: string
+                additionalProperties: false
+                description: Schema for error response from conversations.leave method
+              example:
+                error: cant_leave_general
+                ok: false
+      security:
+      - slackAuth:
+        - channels:write
+        - groups:write
+        - im:write
+        - mpim:write
+      summary: Slack Post Conversations Leave
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /conversations.list:
+    get:
+      tags:
+      - Conversations
+      description: Lists all channels in a Slack team.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/conversations.list
+      operationId: getConversationsList
+      parameters:
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `conversations:read`'
+        schema:
+          type: string
+      - name: exclude_archived
+        in: query
+        description: Set to `true` to exclude archived channels from the list
+        schema:
+          type: boolean
+      - name: types
+        in: query
+        description: Mix and match channel types by providing a comma-separated list of any combination of `public_channel`, `private_channel`, `mpim`, `im`
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the list hasn't been reached. Must be an integer no larger than 1000.
+        schema:
+          type: integer
+      - name: cursor
+        in: query
+        description: Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute returned by a previous request's `response_metadata`. Default value fetches the first "page" of the collection. See [pagination](/docs/pagination) for more detail.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Typical success response with only public channels
+          content:
+            application/json:
+              schema:
+                title: conversations.list success schema
+                required:
+                - channels
+                - ok
+                type: object
+                properties:
+                  channels:
+                    uniqueItems: true
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/objs_conversation'
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                  response_metadata:
+                    type: object
+                    additionalProperties: false
+                additionalProperties: false
+                description: Schema for successful response from conversations.list method
+              example:
+                channels:
+                - created: 1449252889
+                  creator: U012A3CDE
+                  id: C012AB3CD
+                  is_archived: false
+                  is_channel: true
+                  is_ext_shared: false
+                  is_general: true
+                  is_group: false
+                  is_im: false
+                  is_member: true
+                  is_mpim: false
+                  is_org_shared: false
+                  is_pending_ext_shared: false
+                  is_private: false
+                  is_shared: false
+                  name: general
+                  name_normalized: general
+                  num_members: 4
+                  pending_shared: []
+                  previous_names: []
+                  purpose:
+                    creator: ''
+                    last_set: 0
+                    value: This channel is for team-wide communication and announcements. All team members are in this channel.
+                  topic:
+                    creator: ''
+                    last_set: 0
+                    value: Company-wide announcements and work-based matters
+                  unlinked: 0
+                - created: 1449252889
+                  creator: U061F7AUR
+                  id: C061EG9T2
+                  is_archived: false
+                  is_channel: true
+                  is_ext_shared: false
+                  is_general: false
+                  is_group: false
+                  is_im: false
+                  is_member: true
+                  is_mpim: false
+                  is_org_shared: false
+                  is_pending_ext_shared: false
+                  is_private: false
+                  is_shared: false
+                  name: random
+                  name_normalized: random
+                  num_members: 4
+                  pending_shared: []
+                  previous_names: []
+                  purpose:
+                    creator: ''
+                    last_set: 0
+                    value: A place for non-work-related flimflam, faffing, hodge-podge or jibber-jabber you'd prefer to keep out of more focused work-related channels.
+                  topic:
+                    creator: ''
+                    last_set: 0
+                    value: Non-work banter and water cooler conversation
+                  unlinked: 0
+                ok: true
+                response_metadata:
+                  next_cursor: dGVhbTpDMDYxRkE1UEI=
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: conversations.list error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - missing_scope
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                  needed:
+                    type: string
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                  provided:
+                    type: string
+                additionalProperties: false
+                description: Schema for error response from conversations.list method
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - channels:read
+        - groups:read
+        - im:read
+        - mpim:read
+      summary: Slack Get Conversations List
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /conversations.mark:
+    post:
+      tags:
+      - Conversations
+      description: Sets the read cursor in a channel.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/conversations.mark
+      operationId: postConversationsMark
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `conversations:write`'
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                channel:
+                  type: string
+                  description: Channel or conversation to set the read cursor for.
+                ts:
+                  type: number
+                  description: Unique identifier of message you want marked as most recently seen in this conversation.
+          application/json:
+            schema:
+              type: object
+              properties:
+                channel:
+                  type: string
+                  description: Channel or conversation to set the read cursor for.
+                ts:
+                  type: number
+                  description: Unique identifier of message you want marked as most recently seen in this conversation.
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: conversations.mark success schema
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: false
+                description: Schema for successful response conversations.mark method
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: conversations.mark error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - method_not_supported_for_channel_type
+                    - missing_scope
+                    - channel_not_found
+                    - invalid_timestamp
+                    - not_in_channel
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - not_allowed_token_type
+                  needed:
+                    type: string
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                  provided:
+                    type: string
+                additionalProperties: false
+                description: Schema for error response from conversations.mark method
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - channels:write
+        - groups:write
+        - im:write
+        - mpim:write
+      summary: Slack Post Conversations Mark
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /conversations.members:
+    get:
+      tags:
+      - Conversations
+      description: Retrieve members of a conversation.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/conversations.members
+      operationId: getConversationsMembers
+      parameters:
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `conversations:read`'
+        schema:
+          type: string
+      - name: channel
+        in: query
+        description: ID of the conversation to retrieve members for
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the users list hasn't been reached.
+        schema:
+          type: integer
+      - name: cursor
+        in: query
+        description: Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute returned by a previous request's `response_metadata`. Default value fetches the first "page" of the collection. See [pagination](/docs/pagination) for more detail.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Typical paginated success response
+          content:
+            application/json:
+              schema:
+                title: conversations.members success schema
+                required:
+                - members
+                - ok
+                - response_metadata
+                type: object
+                properties:
+                  members:
+                    minItems: 1
+                    uniqueItems: true
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/defs_user_id'
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                  response_metadata:
+                    type: object
+                    additionalProperties: false
+                additionalProperties: false
+                description: Schema for successful response conversations.members method
+              example:
+                members:
+                - U023BECGF
+                - U061F7AUR
+                - W012A3CDE
+                ok: true
+                response_metadata:
+                  next_cursor: e3VzZXJfaWQ6IFcxMjM0NTY3fQ==
+        default:
+          description: Typical error response when an invalid cursor is provided
+          content:
+            application/json:
+              schema:
+                title: conversations.members error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - channel_not_found
+                    - invalid_limit
+                    - invalid_cursor
+                    - fetch_members_failed
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response conversations.members method
+              example:
+                error: invalid_cursor
+                ok: false
+      security:
+      - slackAuth:
+        - channels:read
+        - groups:read
+        - im:read
+        - mpim:read
+      summary: Slack Get Conversations Members
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /conversations.open:
+    post:
+      tags:
+      - Conversations
+      description: Opens or resumes a direct message or multi-person direct message.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/conversations.open
+      operationId: postConversationsOpen
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `conversations:write`'
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                channel:
+                  type: string
+                  description: Resume a conversation by supplying an `im` or `mpim`'s ID. Or provide the `users` field instead.
+                users:
+                  type: string
+                  description: Comma separated lists of users. If only one user is included, this creates a 1:1 DM.  The ordering of the users is preserved whenever a multi-person direct message is returned. Supply a `channel` when not supplying `users`.
+                return_im:
+                  type: boolean
+                  description: Boolean, indicates you want the full IM channel definition in the response.
+          application/json:
+            schema:
+              type: object
+              properties:
+                channel:
+                  type: string
+                  description: Resume a conversation by supplying an `im` or `mpim`'s ID. Or provide the `users` field instead.
+                users:
+                  type: string
+                  description: Comma separated lists of users. If only one user is included, this creates a 1:1 DM.  The ordering of the users is preserved whenever a multi-person direct message is returned. Supply a `channel` when not supplying `users`.
+                return_im:
+                  type: boolean
+                  description: Boolean, indicates you want the full IM channel definition in the response.
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: conversations.open success schema
+                required:
+                - channel
+                - ok
+                type: object
+                properties:
+                  already_open:
+                    type: boolean
+                  channel:
+                    type: object
+                  no_op:
+                    type: boolean
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: false
+                description: Schema for successful response from conversations.open method when opening channels, ims, mpims
+              example:
+                channel:
+                  id: D069C7QFK
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: conversations.open error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - method_not_supported_for_channel_type
+                    - user_not_found
+                    - user_not_visible
+                    - user_disabled
+                    - users_list_not_supplied
+                    - not_enough_users
+                    - too_many_users
+                    - invalid_user_combination
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - channel_not_found
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from conversations.open method
+              example:
+                error: channel_not_found
+                ok: false
+      security:
+      - slackAuth:
+        - channels:write
+        - groups:write
+        - im:write
+        - mpim:write
+      summary: Slack Post Conversations Open
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /conversations.rename:
+    post:
+      tags:
+      - Conversations
+      description: Renames a conversation.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/conversations.rename
+      operationId: postConversationsRename
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `conversations:write`'
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                channel:
+                  type: string
+                  description: ID of conversation to rename
+                name:
+                  type: string
+                  description: New name for conversation.
+          application/json:
+            schema:
+              type: object
+              properties:
+                channel:
+                  type: string
+                  description: ID of conversation to rename
+                name:
+                  type: string
+                  description: New name for conversation.
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: conversations.rename success schema
+                required:
+                - channel
+                - ok
+                type: object
+                properties:
+                  channel:
+                    $ref: '#/components/schemas/objs_conversation'
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: false
+                description: Schema for successful response from conversations.rename method
+              example:
+                channel:
+                  created: 1449252889
+                  creator: W012A3BCD
+                  id: C012AB3CD
+                  is_archived: false
+                  is_channel: true
+                  is_ext_shared: false
+                  is_general: true
+                  is_group: false
+                  is_im: false
+                  is_member: true
+                  is_mpim: false
+                  is_org_shared: false
+                  is_pending_ext_shared: false
+                  is_private: false
+                  is_read_only: false
+                  is_shared: false
+                  last_read: '1502126650.228446'
+                  locale: en-US
+                  name: general
+                  name_normalized: general
+                  num_members: 23
+                  pending_shared: []
+                  previous_names:
+                  - specifics
+                  - abstractions
+                  - etc
+                  purpose:
+                    creator: W012A3BCD
+                    last_set: 1449709364
+                    value: This part of the workspace is for fun. Make fun here.
+                  topic:
+                    creator: W012A3BCD
+                    last_set: 1449709364
+                    value: For public discussion of generalities
+                  unlinked: 0
+                ok: true
+        default:
+          description: Typical error response when the calling user is not a member of the conversation
+          content:
+            application/json:
+              schema:
+                title: conversations.rename error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - user_is_restricted
+                    - method_not_supported_for_channel_type
+                    - missing_scope
+                    - channel_not_found
+                    - not_in_channel
+                    - not_authorized
+                    - invalid_name
+                    - name_taken
+                    - invalid_name_required
+                    - invalid_name_punctuation
+                    - invalid_name_maxlength
+                    - invalid_name_specials
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                  needed:
+                    type: string
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                  provided:
+                    type: string
+                additionalProperties: false
+                description: Schema for error response from conversations.rename method
+              example:
+                error: not_in_channel
+                ok: false
+      security:
+      - slackAuth:
+        - channels:write
+        - groups:write
+        - im:write
+        - mpim:write
+      summary: Slack Post Conversations Rename
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /conversations.replies:
+    get:
+      tags:
+      - Conversations
+      description: Retrieve a thread of messages posted to a conversation
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/conversations.replies
+      operationId: getConversationsReplies
+      parameters:
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `conversations:history`'
+        schema:
+          type: string
+      - name: channel
+        in: query
+        description: Conversation ID to fetch thread from.
+        schema:
+          type: string
+      - name: ts
+        in: query
+        description: Unique identifier of a thread's parent message. `ts` must be the timestamp of an existing message with 0 or more replies. If there are no replies then just the single message referenced by `ts` will return - it is just an ordinary, unthreaded message.
+        schema:
+          type: number
+      - name: latest
+        in: query
+        description: End of time range of messages to include in results.
+        schema:
+          type: number
+      - name: oldest
+        in: query
+        description: Start of time range of messages to include in results.
+        schema:
+          type: number
+      - name: inclusive
+        in: query
+        description: Include messages with latest or oldest timestamp in results only when either timestamp is specified.
+        schema:
+          type: boolean
+      - name: limit
+        in: query
+        description: The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the users list hasn't been reached.
+        schema:
+          type: integer
+      - name: cursor
+        in: query
+        description: Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute returned by a previous request's `response_metadata`. Default value fetches the first "page" of the collection. See [pagination](/docs/pagination) for more detail.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: conversations.replies success schema
+                required:
+                - messages
+                - ok
+                type: object
+                properties:
+                  has_more:
+                    type: boolean
+                  messages:
+                    type: array
+                    items:
+                      type: object
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: false
+                description: Schema for successful response from conversations.replies method
+              example:
+                has_more: true
+                messages:
+                - last_read: '1484678597.521003'
+                  reply_count: 3
+                  subscribed: true
+                  text: island
+                  thread_ts: '1482960137.003543'
+                  ts: '1482960137.003543'
+                  type: message
+                  unread_count: 0
+                  user: U061F7AUR
+                - parent_user_id: U061F7AUR
+                  text: one island
+                  thread_ts: '1482960137.003543'
+                  ts: '1483037603.017503'
+                  type: message
+                  user: U061F7AUR
+                - parent_user_id: U061F7AUR
+                  text: two island
+                  thread_ts: '1482960137.003543'
+                  ts: '1483051909.018632'
+                  type: message
+                  user: U061F7AUR
+                - parent_user_id: U061F7AUR
+                  text: three for the land
+                  thread_ts: '1482960137.003543'
+                  ts: '1483125339.020269'
+                  type: message
+                  user: U061F7AUR
+                ok: true
+                response_metadata:
+                  next_cursor: bmV4dF90czoxNDg0Njc4MjkwNTE3MDkx
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: conversations.replies error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - missing_scope
+                    - channel_not_found
+                    - thread_not_found
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                  needed:
+                    type: string
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                  provided:
+                    type: string
+                additionalProperties: false
+                description: Schema for error response from conversations.replies method
+              example:
+                error: thread_not_found
+                ok: false
+      security:
+      - slackAuth:
+        - channels:history
+        - groups:history
+        - im:history
+        - mpim:history
+      summary: Slack Get Conversations Replies
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /conversations.setPurpose:
+    post:
+      tags:
+      - Conversations
+      description: Sets the purpose for a conversation.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/conversations.setPurpose
+      operationId: postConversationsSetpurpose
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `conversations:write`'
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                channel:
+                  type: string
+                  description: Conversation to set the purpose of
+                purpose:
+                  type: string
+                  description: A new, specialer purpose
+          application/json:
+            schema:
+              type: object
+              properties:
+                channel:
+                  type: string
+                  description: Conversation to set the purpose of
+                purpose:
+                  type: string
+                  description: A new, specialer purpose
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: conversations.setPurpose success schema
+                required:
+                - channel
+                - ok
+                type: object
+                properties:
+                  channel:
+                    $ref: '#/components/schemas/objs_conversation'
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: false
+                description: Schema for successful response from conversations.setPurpose method
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: conversations.setPurpose error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - method_not_supported_for_channel_type
+                    - missing_scope
+                    - channel_not_found
+                    - not_in_channel
+                    - is_archived
+                    - too_long
+                    - user_is_restricted
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                  needed:
+                    type: string
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                  provided:
+                    type: string
+                additionalProperties: false
+                description: Schema for error response from conversations.setPurpose method
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - channels:write
+        - groups:write
+        - im:write
+        - mpim:write
+      summary: Slack Post Conversations Setpurpose
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /conversations.setTopic:
+    post:
+      tags:
+      - Conversations
+      description: Sets the topic for a conversation.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/conversations.setTopic
+      operationId: postConversationsSettopic
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `conversations:write`'
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                channel:
+                  type: string
+                  description: Conversation to set the topic of
+                topic:
+                  type: string
+                  description: The new topic string. Does not support formatting or linkification.
+          application/json:
+            schema:
+              type: object
+              properties:
+                channel:
+                  type: string
+                  description: Conversation to set the topic of
+                topic:
+                  type: string
+                  description: The new topic string. Does not support formatting or linkification.
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: conversations.setTopic success schema
+                required:
+                - channel
+                - ok
+                type: object
+                properties:
+                  channel:
+                    $ref: '#/components/schemas/objs_conversation'
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: false
+                description: Schema for successful response from conversations.setTopic method
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: conversations.setTopic error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - method_not_supported_for_channel_type
+                    - missing_scope
+                    - channel_not_found
+                    - not_in_channel
+                    - is_archived
+                    - too_long
+                    - user_is_restricted
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                  needed:
+                    type: string
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                  provided:
+                    type: string
+                additionalProperties: false
+                description: Schema for error response from conversations.setTopic method
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - channels:write
+        - groups:write
+        - im:write
+        - mpim:write
+      summary: Slack Post Conversations Settopic
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /conversations.unarchive:
+    post:
+      tags:
+      - Conversations
+      description: Reverses conversation archival.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/conversations.unarchive
+      operationId: postConversationsUnarchive
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `conversations:write`'
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                channel:
+                  type: string
+                  description: ID of conversation to unarchive
+          application/json:
+            schema:
+              type: object
+              properties:
+                channel:
+                  type: string
+                  description: ID of conversation to unarchive
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: conversations.unarchive success schema
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: false
+                description: Schema for successful response from conversations.unarchive method
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: conversations.unarchive error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - method_not_supported_for_channel_type
+                    - missing_scope
+                    - channel_not_found
+                    - not_archived
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - user_is_bot
+                    - user_is_restricted
+                    - user_is_ultra_restricted
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - team_added_to_org
+                    - missing_charset
+                    - superfluous_charset
+                  needed:
+                    type: string
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                  provided:
+                    type: string
+                additionalProperties: false
+                description: Schema for error response from conversations.unarchive method
+              example:
+                error: channel_not_found
+                ok: false
+      security:
+      - slackAuth:
+        - channels:write
+        - groups:write
+        - im:write
+        - mpim:write
+      summary: Slack Post Conversations Unarchive
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /users.conversations:
+    get:
+      tags:
+      - Conversations
+      description: List conversations the calling user may access.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/users.conversations
+      operationId: getUsersConversations
+      parameters:
+      - name: token
+        in: query
+        description: 'Authentication token. Requires scope: `conversations:read`'
+        schema:
+          type: string
+      - name: user
+        in: query
+        description: Browse conversations by a specific user ID's membership. Non-public channels are restricted to those where the calling user shares membership.
+        schema:
+          type: string
+      - name: types
+        in: query
+        description: Mix and match channel types by providing a comma-separated list of any combination of `public_channel`, `private_channel`, `mpim`, `im`
+        schema:
+          type: string
+      - name: exclude_archived
+        in: query
+        description: Set to `true` to exclude archived channels from the list
+        schema:
+          type: boolean
+      - name: limit
+        in: query
+        description: The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the list hasn't been reached. Must be an integer no larger than 1000.
+        schema:
+          type: integer
+      - name: cursor
+        in: query
+        description: Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute returned by a previous request's `response_metadata`. Default value fetches the first "page" of the collection. See [pagination](/docs/pagination) for more detail.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Typical success response with only public channels. Note how `num_members` and `is_member` are not returned like typical `conversations` objects.
+          content:
+            application/json:
+              schema:
+                title: users.conversations success schema
+                required:
+                - channels
+                - ok
+                type: object
+                properties:
+                  channels:
+                    uniqueItems: true
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/objs_conversation'
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                  response_metadata:
+                    type: object
+                    additionalProperties: false
+                additionalProperties: true
+                description: Schema for successful response from users.conversations method. Returned conversation objects do not include `num_members` or `is_member`
+              example:
+                channels:
+                - created: 1449252889
+                  creator: U012A3CDE
+                  id: C012AB3CD
+                  is_archived: false
+                  is_channel: true
+                  is_ext_shared: false
+                  is_general: true
+                  is_group: false
+                  is_im: false
+                  is_mpim: false
+                  is_org_shared: false
+                  is_pending_ext_shared: false
+                  is_private: false
+                  is_shared: false
+                  name: general
+                  name_normalized: general
+                  pending_shared: []
+                  previous_names: []
+                  purpose:
+                    creator: ''
+                    last_set: 0
+                    value: This channel is for team-wide communication and announcements. All team members are in this channel.
+                  topic:
+                    creator: ''
+                    last_set: 0
+                    value: Company-wide announcements and work-based matters
+                  unlinked: 0
+                - created: 1449252889
+                  creator: U061F7AUR
+                  id: C061EG9T2
+                  is_archived: false
+                  is_channel: true
+                  is_ext_shared: false
+                  is_general: false
+                  is_group: false
+                  is_im: false
+                  is_mpim: false
+                  is_org_shared: false
+                  is_pending_ext_shared: false
+                  is_private: false
+                  is_shared: false
+                  name: random
+                  name_normalized: random
+                  pending_shared: []
+                  previous_names: []
+                  purpose:
+                    creator: ''
+                    last_set: 0
+                    value: A place for non-work-related flimflam, faffing, hodge-podge or jibber-jabber you'd prefer to keep out of more focused work-related channels.
+                  topic:
+                    creator: ''
+                    last_set: 0
+                    value: Non-work banter and water cooler conversation
+                  unlinked: 0
+                ok: true
+                response_metadata:
+                  next_cursor: dGVhbTpDMDYxRkE1UEI=
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: users.conversations error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - method_not_supported_for_channel_type
+                    - missing_scope
+                    - invalid_types
+                    - invalid_cursor
+                    - invalid_limit
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - token_revoked
+                    - no_permission
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - fatal_error
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from users.conversations method
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - channels:read
+        - groups:read
+        - im:read
+        - mpim:read
+      summary: Slack Get Users Conversations
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK

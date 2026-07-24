@@ -1,0 +1,773 @@
+openapi: 3.1.0
+info:
+  version: '1.0'
+  title: Slack Admin Access Remove API
+  description: "The Slack Admin API is a set of privileged endpoints\x14primarily under admin.* with related SCIM and Audit Logs APIs\x14that lets Enterprise Grid owners and admins automate organization\x11 wide management and governance. It covers user lifecycle (provision, suspend, assign roles), workspace and channel administration across workspaces (create, move, archive channels; manage membership and settings), app governance (approve/deny or allowlist/ban apps and install them to workspaces), invite request handling, and security/compliance controls such as information barriers, session and authentication policies, and org\x11level analytics exports. These APIs require elevated admin scopes and are commonly used to power automated onboarding/offboarding, centralized channel and app controls, and integrations with identity, ITSM, and compliance systems."
+tags:
+- name: Remove
+paths:
+  /admin.emoji.remove:
+    post:
+      tags:
+      - Remove
+      description: Remove an emoji across an Enterprise Grid organization
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/admin.emoji.remove
+      operationId: postAdminEmojiRemove
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - name
+              - token
+              type: object
+              properties:
+                token:
+                  type: string
+                  description: 'Authentication token. Requires scope: `admin.teams:write`'
+                name:
+                  type: string
+                  description: The name of the emoji to be removed. Colons (`:myemoji:`) around the value are not required, although they may be included.
+        required: true
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: Default success template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: true
+                description: This method either only returns a brief _OK_ response or a verbose schema is not available for this method.
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: Default error template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: true
+                description: This method either only returns a brief _not OK_ response or a verbose schema is not available for this method.
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - admin.teams:write
+      summary: Slack Post Admin Emoji Remove
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /admin.users.remove:
+    post:
+      tags:
+      - Remove
+      description: Remove a user from a workspace.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/admin.users.remove
+      operationId: postAdminUsersRemove
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.users:write`'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - team_id
+              - user_id
+              type: object
+              properties:
+                team_id:
+                  type: string
+                  description: The ID (`T1234`) of the workspace.
+                user_id:
+                  type: string
+                  description: The ID of the user to remove.
+          application/json:
+            schema:
+              required:
+              - team_id
+              - user_id
+              type: object
+              properties:
+                team_id:
+                  type: string
+                  description: The ID (`T1234`) of the workspace.
+                user_id:
+                  type: string
+                  description: The ID of the user to remove.
+        required: true
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: Default success template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: true
+                description: This method either only returns a brief _OK_ response or a verbose schema is not available for this method.
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: Default error template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: true
+                description: This method either only returns a brief _not OK_ response or a verbose schema is not available for this method.
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - admin.users:write
+      summary: Slack Post Admin Users Remove
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /bookmarks.remove:
+    post:
+      tags:
+      - Remove
+      summary: Remove Bookmark
+      description: Removes a bookmark from a channel.
+      operationId: postBookmarksRemove
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `bookmarks:write`'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - channel_id
+              - bookmark_id
+              type: object
+              properties:
+                channel_id:
+                  type: string
+                  description: Channel containing the bookmark.
+                bookmark_id:
+                  type: string
+                  description: ID of the bookmark to remove.
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+              example:
+                ok: true
+        default:
+          description: Error response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  error:
+                    type: string
+              example:
+                ok: false
+                error: invalid_auth
+      security:
+      - slackAuth:
+        - bookmarks:write
+  /calls.participants.remove:
+    post:
+      tags:
+      - Remove
+      description: Registers participants removed from a Call.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/calls.participants.remove
+      operationId: calls_participants_remove
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `calls:write`'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - id
+              - users
+              type: object
+              properties:
+                id:
+                  type: string
+                  description: '`id` returned by the [`calls.add`](/methods/calls.add) method.'
+                users:
+                  type: string
+                  description: The list of users to remove as participants in the Call. [Read more on how to specify users here](/apis/calls#users).
+          application/json:
+            schema:
+              required:
+              - id
+              - users
+              type: object
+              properties:
+                id:
+                  type: string
+                  description: '`id` returned by the [`calls.add`](/methods/calls.add) method.'
+                users:
+                  type: string
+                  description: The list of users to remove as participants in the Call. [Read more on how to specify users here](/apis/calls#users).
+        required: true
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: Default success template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: true
+                description: This method either only returns a brief _OK_ response or a verbose schema is not available for this method.
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: Default error template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: true
+                description: This method either only returns a brief _not OK_ response or a verbose schema is not available for this method.
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - calls:write
+      summary: Slack Post Calls Participants Remove
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        PascalCaseOperationTags: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /files.remote.remove:
+    post:
+      tags:
+      - Remove
+      description: Remove a remote file.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/files.remote.remove
+      operationId: postFilesRemoteRemove
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+                  description: 'Authentication token. Requires scope: `remote_files:write`'
+                file:
+                  type: string
+                  description: Specify a file by providing its ID.
+                external_id:
+                  type: string
+                  description: Creator defined GUID for the file.
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: Default success template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: true
+                description: This method either only returns a brief _OK_ response or a verbose schema is not available for this method.
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: Default error template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: true
+                description: This method either only returns a brief _not OK_ response or a verbose schema is not available for this method.
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - remote_files:write
+      summary: Slack Post Files Remote Remove
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /pins.remove:
+    post:
+      tags:
+      - Remove
+      description: Un-pins an item from a channel.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/pins.remove
+      operationId: postPinsRemove
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `pins:write`'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - channel
+              type: object
+              properties:
+                channel:
+                  type: string
+                  description: Channel where the item is pinned to.
+                timestamp:
+                  type: string
+                  description: Timestamp of the message to un-pin.
+          application/json:
+            schema:
+              required:
+              - channel
+              type: object
+              properties:
+                channel:
+                  type: string
+                  description: Channel where the item is pinned to.
+                timestamp:
+                  type: string
+                  description: Timestamp of the message to un-pin.
+        required: true
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: pins.remove schema
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: false
+                description: Schema for successful response from pins.remove method
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: pins.remove error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - bad_timestamp
+                    - file_not_found
+                    - file_comment_not_found
+                    - message_not_found
+                    - no_item_specified
+                    - not_pinned
+                    - permission_denied
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - no_permission
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_typ
+                    - missing_post_typ
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeou
+                    - upgrade_required
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from pins.remove method
+              example:
+                error: no_pin
+                ok: false
+      security:
+      - slackAuth:
+        - pins:write
+      summary: Slack Post Pins Remove
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /reactions.remove:
+    post:
+      tags:
+      - Remove
+      description: Removes a reaction from an item.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/reactions.remove
+      operationId: postReactionsRemove
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `reactions:write`'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - name
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Reaction (emoji) name.
+                file:
+                  type: string
+                  description: File to remove reaction from.
+                file_comment:
+                  type: string
+                  description: File comment to remove reaction from.
+                channel:
+                  type: string
+                  description: Channel where the message to remove reaction from was posted.
+                timestamp:
+                  type: string
+                  description: Timestamp of the message to remove reaction from.
+          application/json:
+            schema:
+              required:
+              - name
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Reaction (emoji) name.
+                file:
+                  type: string
+                  description: File to remove reaction from.
+                file_comment:
+                  type: string
+                  description: File comment to remove reaction from.
+                channel:
+                  type: string
+                  description: Channel where the message to remove reaction from was posted.
+                timestamp:
+                  type: string
+                  description: Timestamp of the message to remove reaction from.
+        required: true
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: reactions.remove schema
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: false
+                description: Schema for successful response from reactions.remove method
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: reactions.remove error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - bad_timestamp
+                    - file_not_found
+                    - file_comment_not_found
+                    - message_not_found
+                    - no_item_specified
+                    - invalid_name
+                    - no_reaction
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - no_permission
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - fatal_error
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from reactions.remove method
+              example:
+                error: no_reaction
+                ok: false
+      security:
+      - slackAuth:
+        - reactions:write
+      summary: Slack Post Reactions Remove
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /stars.remove:
+    post:
+      tags:
+      - Remove
+      description: Removes a star from an item.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/stars.remove
+      operationId: postStarsRemove
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `stars:write`'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                channel:
+                  type: string
+                  description: Channel to remove star from, or channel where the message to remove star from was posted (used with `timestamp`).
+                file:
+                  type: string
+                  description: File to remove star from.
+                file_comment:
+                  type: string
+                  description: File comment to remove star from.
+                timestamp:
+                  type: string
+                  description: Timestamp of the message to remove star from.
+          application/json:
+            schema:
+              type: object
+              properties:
+                channel:
+                  type: string
+                  description: Channel to remove star from, or channel where the message to remove star from was posted (used with `timestamp`).
+                file:
+                  type: string
+                  description: File to remove star from.
+                file_comment:
+                  type: string
+                  description: File comment to remove star from.
+                timestamp:
+                  type: string
+                  description: Timestamp of the message to remove star from.
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: stars.remove schema
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: false
+                description: Schema for successful response from stars.remove method
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: stars.remove error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - bad_timestamp
+                    - message_not_found
+                    - file_not_found
+                    - file_comment_not_found
+                    - channel_not_found
+                    - no_item_specified
+                    - not_starred
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - token_revoked
+                    - no_permission
+                    - org_login_required
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - fatal_error
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from stars.remove method
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - stars:write
+      summary: Slack Post Stars Remove
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK

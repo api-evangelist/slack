@@ -1,0 +1,419 @@
+openapi: 3.1.0
+info:
+  version: '1.0'
+  title: Slack Admin Access Invites API
+  description: "The Slack Admin API is a set of privileged endpoints\x14primarily under admin.* with related SCIM and Audit Logs APIs\x14that lets Enterprise Grid owners and admins automate organization\x11 wide management and governance. It covers user lifecycle (provision, suspend, assign roles), workspace and channel administration across workspaces (create, move, archive channels; manage membership and settings), app governance (approve/deny or allowlist/ban apps and install them to workspaces), invite request handling, and security/compliance controls such as information barriers, session and authentication policies, and org\x11level analytics exports. These APIs require elevated admin scopes and are commonly used to power automated onboarding/offboarding, centralized channel and app controls, and integrations with identity, ITSM, and compliance systems."
+tags:
+- name: Invites
+paths:
+  /admin.conversations.invite:
+    post:
+      tags:
+      - Invites
+      description: Invite a user to a public or private channel.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/admin.conversations.invite
+      operationId: postAdminConversationsInvite
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.conversations:write`'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - channel_id
+              - user_ids
+              type: object
+              properties:
+                user_ids:
+                  type: string
+                  description: The users to invite.
+                channel_id:
+                  type: string
+                  description: The channel that the users will be invited to.
+          application/json:
+            schema:
+              required:
+              - channel_id
+              - user_ids
+              type: object
+              properties:
+                user_ids:
+                  type: string
+                  description: The users to invite.
+                channel_id:
+                  type: string
+                  description: The channel that the users will be invited to.
+        required: true
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: admin.conversations.invite schema
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: false
+                description: Schema for successful response of admin.conversations.invite
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: admin.conversations.invite error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  error:
+                    type: string
+                    enum:
+                    - feature_not_enabled
+                    - channel_not_found
+                    - channel_type_not_supported
+                    - default_org_wide_channel
+                    - restricted_action
+                    - user_must_be_admin
+                    - failed_for_some_users
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: true
+                description: Schema for error response from admin.conversations.invite
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - admin.conversations:write
+      summary: Slack Post Admin Conversations Invite
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /admin.users.invite:
+    post:
+      tags:
+      - Invites
+      description: Invite a user to a workspace.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/admin.users.invite
+      operationId: postAdminUsersInvite
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `admin.users:write`'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - channel_ids
+              - email
+              - team_id
+              type: object
+              properties:
+                team_id:
+                  type: string
+                  description: The ID (`T1234`) of the workspace.
+                email:
+                  type: string
+                  description: The email address of the person to invite.
+                channel_ids:
+                  type: string
+                  description: A comma-separated list of `channel_id`s for this user to join. At least one channel is required.
+                custom_message:
+                  type: string
+                  description: An optional message to send to the user in the invite email.
+                real_name:
+                  type: string
+                  description: Full name of the user.
+                resend:
+                  type: boolean
+                  description: 'Allow this invite to be resent in the future if a user has not signed up yet. (default: false)'
+                is_restricted:
+                  type: boolean
+                  description: 'Is this user a multi-channel guest user? (default: false)'
+                is_ultra_restricted:
+                  type: boolean
+                  description: 'Is this user a single channel guest user? (default: false)'
+                guest_expiration_ts:
+                  type: string
+                  description: Timestamp when guest account should be disabled. Only include this timestamp if you are inviting a guest user and you want their account to expire on a certain date.
+          application/json:
+            schema:
+              required:
+              - channel_ids
+              - email
+              - team_id
+              type: object
+              properties:
+                team_id:
+                  type: string
+                  description: The ID (`T1234`) of the workspace.
+                email:
+                  type: string
+                  description: The email address of the person to invite.
+                channel_ids:
+                  type: string
+                  description: A comma-separated list of `channel_id`s for this user to join. At least one channel is required.
+                custom_message:
+                  type: string
+                  description: An optional message to send to the user in the invite email.
+                real_name:
+                  type: string
+                  description: Full name of the user.
+                resend:
+                  type: boolean
+                  description: 'Allow this invite to be resent in the future if a user has not signed up yet. (default: false)'
+                is_restricted:
+                  type: boolean
+                  description: 'Is this user a multi-channel guest user? (default: false)'
+                is_ultra_restricted:
+                  type: boolean
+                  description: 'Is this user a single channel guest user? (default: false)'
+                guest_expiration_ts:
+                  type: string
+                  description: Timestamp when guest account should be disabled. Only include this timestamp if you are inviting a guest user and you want their account to expire on a certain date.
+        required: true
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: Default success template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: true
+                description: This method either only returns a brief _OK_ response or a verbose schema is not available for this method.
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: Default error template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: true
+                description: This method either only returns a brief _not OK_ response or a verbose schema is not available for this method.
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - admin.users:write
+      summary: Slack Post Admin Users Invite
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /conversations.invite:
+    post:
+      tags:
+      - Invites
+      description: Invites users to a channel.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/conversations.invite
+      operationId: postConversationsInvite
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `conversations:write`'
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                channel:
+                  type: string
+                  description: The ID of the public or private channel to invite user(s) to.
+                users:
+                  type: string
+                  description: A comma separated list of user IDs. Up to 1000 users may be listed.
+          application/json:
+            schema:
+              type: object
+              properties:
+                channel:
+                  type: string
+                  description: The ID of the public or private channel to invite user(s) to.
+                users:
+                  type: string
+                  description: A comma separated list of user IDs. Up to 1000 users may be listed.
+      responses:
+        '200':
+          description: Typical success response when an invitation is extended
+          content:
+            application/json:
+              schema:
+                title: conversations.invite error schema
+                required:
+                - channel
+                - ok
+                type: object
+                properties:
+                  channel:
+                    $ref: '#/components/schemas/objs_conversation'
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: false
+                description: Schema for successful response from conversations.invite method
+              example:
+                channel:
+                  created: 1449252889
+                  creator: W012A3BCD
+                  id: C012AB3CD
+                  is_archived: false
+                  is_channel: true
+                  is_ext_shared: false
+                  is_general: true
+                  is_group: false
+                  is_im: false
+                  is_member: true
+                  is_mpim: false
+                  is_org_shared: false
+                  is_pending_ext_shared: false
+                  is_private: false
+                  is_read_only: false
+                  is_shared: false
+                  last_read: '1502126650.228446'
+                  locale: en-US
+                  name: general
+                  name_normalized: general
+                  num_members: 23
+                  pending_shared: []
+                  previous_names:
+                  - specifics
+                  - abstractions
+                  - etc
+                  purpose:
+                    creator: W012A3BCD
+                    last_set: 1449709364
+                    value: This part of the workspace is for fun. Make fun here.
+                  topic:
+                    creator: W012A3BCD
+                    last_set: 1449709364
+                    value: For public discussion of generalities
+                  unlinked: 0
+                ok: true
+        default:
+          description: Typical error response when an invite is attempted on a conversation type that does not support it
+          content:
+            application/json:
+              schema:
+                title: conversations.invite error schema
+                required:
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - method_not_supported_for_channel_type
+                    - missing_scope
+                    - channel_not_found
+                    - user_not_found
+                    - no_user
+                    - cant_invite_self
+                    - not_in_channel
+                    - already_in_channel
+                    - is_archived
+                    - cant_invite
+                    - too_many_users
+                    - ura_max_channels
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - user_is_bot
+                    - user_is_restricted
+                    - user_is_ultra_restricted
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - team_added_to_org
+                    - missing_charset
+                    - superfluous_charset
+                  errors:
+                    title: errors is returned when an error associates an user
+                    minItems: 1
+                    uniqueItems: true
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties: false
+                  needed:
+                    type: string
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                  provided:
+                    type: string
+                additionalProperties: false
+                description: Schema for error response from conversations.invite method
+              example:
+                error: method_not_supported_for_channel_type
+                ok: false
+      security:
+      - slackAuth:
+        - channels:write
+        - groups:write
+        - im:write
+        - mpim:write
+      summary: Slack Post Conversations Invite
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK

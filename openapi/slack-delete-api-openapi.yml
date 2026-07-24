@@ -1,0 +1,182 @@
+openapi: 3.1.0
+info:
+  version: '1.0'
+  title: Slack Admin Access Delete API
+  description: "The Slack Admin API is a set of privileged endpoints\x14primarily under admin.* with related SCIM and Audit Logs APIs\x14that lets Enterprise Grid owners and admins automate organization\x11 wide management and governance. It covers user lifecycle (provision, suspend, assign roles), workspace and channel administration across workspaces (create, move, archive channels; manage membership and settings), app governance (approve/deny or allowlist/ban apps and install them to workspaces), invite request handling, and security/compliance controls such as information barriers, session and authentication policies, and org\x11level analytics exports. These APIs require elevated admin scopes and are commonly used to power automated onboarding/offboarding, centralized channel and app controls, and integrations with identity, ITSM, and compliance systems."
+tags:
+- name: Delete
+paths:
+  /canvases.delete:
+    post:
+      tags:
+      - Delete
+      summary: Delete Canvas
+      description: Deletes a Slack Canvas.
+      operationId: postCanvasesDelete
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `canvases:write`'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - canvas_id
+              type: object
+              properties:
+                canvas_id:
+                  type: string
+                  description: ID of the canvas to delete.
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+              example:
+                ok: true
+        default:
+          description: Error response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  error:
+                    type: string
+              example:
+                ok: false
+                error: canvas_not_found
+      security:
+      - slackAuth:
+        - canvases:write
+  /canvases.access.delete:
+    post:
+      tags:
+      - Delete
+      summary: Delete Canvas Access
+      description: Removes access to a canvas for specified users or groups.
+      operationId: postCanvasesAccessDelete
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `canvases:write`'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+              - canvas_id
+              type: object
+              properties:
+                canvas_id:
+                  type: string
+                  description: ID of the canvas.
+                user_ids:
+                  type: array
+                  description: User IDs to remove access for.
+                  items:
+                    type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+              example:
+                ok: true
+        default:
+          description: Error response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  error:
+                    type: string
+              example:
+                ok: false
+                error: canvas_not_found
+      security:
+      - slackAuth:
+        - canvases:write
+  /slackLists.items.delete:
+    post:
+      tags:
+      - Delete
+      summary: Delete List Item
+      description: Deletes a single item (row) from a Slack List.
+      operationId: postSlackListsItemsDelete
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `lists:write`'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - list_id
+              - item_id
+              type: object
+              properties:
+                list_id:
+                  type: string
+                  description: ID of the list.
+                item_id:
+                  type: string
+                  description: ID of the item to delete.
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+              example:
+                ok: true
+        default:
+          description: Error response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  error:
+                    type: string
+              example:
+                ok: false
+                error: item_not_found
+      security:
+      - slackAuth:
+        - lists:write

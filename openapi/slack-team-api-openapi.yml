@@ -1,0 +1,70 @@
+openapi: 3.1.0
+info:
+  version: '1.0'
+  title: Slack Admin Access Team API
+  description: "The Slack Admin API is a set of privileged endpoints\x14primarily under admin.* with related SCIM and Audit Logs APIs\x14that lets Enterprise Grid owners and admins automate organization\x11 wide management and governance. It covers user lifecycle (provision, suspend, assign roles), workspace and channel administration across workspaces (create, move, archive channels; manage membership and settings), app governance (approve/deny or allowlist/ban apps and install them to workspaces), invite request handling, and security/compliance controls such as information barriers, session and authentication policies, and org\x11level analytics exports. These APIs require elevated admin scopes and are commonly used to power automated onboarding/offboarding, centralized channel and app controls, and integrations with identity, ITSM, and compliance systems."
+tags:
+- name: Team
+  description: Access workspace information
+paths:
+  /team.info:
+    get:
+      tags:
+      - Team
+      summary: Slack Get Team Information
+      description: Gets information about the current team. Requires team:read scope.
+      operationId: teamInfo
+      externalDocs:
+        description: API method documentation
+        url: https://docs.slack.dev/reference/methods/team.info
+      parameters:
+      - name: team
+        in: query
+        description: Team to get info about; if omitted, will return information about the current team.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Team info retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  team:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      name:
+                        type: string
+                      domain:
+                        type: string
+                      email_domain:
+                        type: string
+                      icon:
+                        type: object
+                        properties:
+                          image_34:
+                            type: string
+                          image_44:
+                            type: string
+                          image_68:
+                            type: string
+                          image_88:
+                            type: string
+                          image_102:
+                            type: string
+                          image_132:
+                            type: string
+                          image_default:
+                            type: boolean
+                      enterprise_id:
+                        type: string
+                      enterprise_name:
+                        type: string
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK

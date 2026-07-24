@@ -1,0 +1,947 @@
+openapi: 3.1.0
+info:
+  version: '1.0'
+  title: Slack Admin Access Update API
+  description: "The Slack Admin API is a set of privileged endpoints\x14primarily under admin.* with related SCIM and Audit Logs APIs\x14that lets Enterprise Grid owners and admins automate organization\x11 wide management and governance. It covers user lifecycle (provision, suspend, assign roles), workspace and channel administration across workspaces (create, move, archive channels; manage membership and settings), app governance (approve/deny or allowlist/ban apps and install them to workspaces), invite request handling, and security/compliance controls such as information barriers, session and authentication policies, and org\x11level analytics exports. These APIs require elevated admin scopes and are commonly used to power automated onboarding/offboarding, centralized channel and app controls, and integrations with identity, ITSM, and compliance systems."
+tags:
+- name: Update
+paths:
+  /calls.update:
+    post:
+      tags:
+      - Update
+      description: Updates information about a Call.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/calls.update
+      operationId: calls_update
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `calls:write`'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - id
+              type: object
+              properties:
+                id:
+                  type: string
+                  description: '`id` returned by the [`calls.add`](/methods/calls.add) method.'
+                title:
+                  type: string
+                  description: The name of the Call.
+                join_url:
+                  type: string
+                  description: The URL required for a client to join the Call.
+                desktop_app_join_url:
+                  type: string
+                  description: When supplied, available Slack clients will attempt to directly launch the 3rd-party Call with this URL.
+          application/json:
+            schema:
+              required:
+              - id
+              type: object
+              properties:
+                id:
+                  type: string
+                  description: '`id` returned by the [`calls.add`](/methods/calls.add) method.'
+                title:
+                  type: string
+                  description: The name of the Call.
+                join_url:
+                  type: string
+                  description: The URL required for a client to join the Call.
+                desktop_app_join_url:
+                  type: string
+                  description: When supplied, available Slack clients will attempt to directly launch the 3rd-party Call with this URL.
+        required: true
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: Default success template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: true
+                description: This method either only returns a brief _OK_ response or a verbose schema is not available for this method.
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: Default error template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: true
+                description: This method either only returns a brief _not OK_ response or a verbose schema is not available for this method.
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - calls:write
+      summary: Slack Post Calls Update
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        PascalCaseOperationTags: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /chat.update:
+    post:
+      tags:
+      - Update
+      description: Updates a message.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/chat.update
+      operationId: postChatUpdate
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `chat:write`'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - channel
+              - ts
+              type: object
+              properties:
+                as_user:
+                  type: string
+                  description: Pass true to update the message as the authed user. [Bot users](/bot-users) in this context are considered authed users.
+                attachments:
+                  type: string
+                  description: A JSON-based array of structured attachments, presented as a URL-encoded string. This field is required when not presenting `text`. If you don't include this field, the message's previous `attachments` will be retained. To remove previous `attachments`, include an empty array for this field.
+                blocks:
+                  type: string
+                  description: A JSON-based array of [structured blocks](/block-kit/building), presented as a URL-encoded string. If you don't include this field, the message's previous `blocks` will be retained. To remove previous `blocks`, include an empty array for this field.
+                channel:
+                  type: string
+                  description: Channel containing the message to be updated.
+                link_names:
+                  type: string
+                  description: Find and link channel names and usernames. Defaults to `none`. If you do not specify a value for this field, the original value set for the message will be overwritten with the default, `none`.
+                parse:
+                  type: string
+                  description: Change how messages are treated. Defaults to `client`, unlike `chat.postMessage`. Accepts either `none` or `full`. If you do not specify a value for this field, the original value set for the message will be overwritten with the default, `client`.
+                text:
+                  type: string
+                  description: New text for the message, using the [default formatting rules](/reference/surfaces/formatting). It's not required when presenting `blocks` or `attachments`.
+                ts:
+                  type: string
+                  description: Timestamp of the message to be updated.
+          application/json:
+            schema:
+              required:
+              - channel
+              - ts
+              type: object
+              properties:
+                as_user:
+                  type: string
+                  description: Pass true to update the message as the authed user. [Bot users](/bot-users) in this context are considered authed users.
+                attachments:
+                  type: string
+                  description: A JSON-based array of structured attachments, presented as a URL-encoded string. This field is required when not presenting `text`. If you don't include this field, the message's previous `attachments` will be retained. To remove previous `attachments`, include an empty array for this field.
+                blocks:
+                  type: string
+                  description: A JSON-based array of [structured blocks](/block-kit/building), presented as a URL-encoded string. If you don't include this field, the message's previous `blocks` will be retained. To remove previous `blocks`, include an empty array for this field.
+                channel:
+                  type: string
+                  description: Channel containing the message to be updated.
+                link_names:
+                  type: string
+                  description: Find and link channel names and usernames. Defaults to `none`. If you do not specify a value for this field, the original value set for the message will be overwritten with the default, `none`.
+                parse:
+                  type: string
+                  description: Change how messages are treated. Defaults to `client`, unlike `chat.postMessage`. Accepts either `none` or `full`. If you do not specify a value for this field, the original value set for the message will be overwritten with the default, `client`.
+                text:
+                  type: string
+                  description: New text for the message, using the [default formatting rules](/reference/surfaces/formatting). It's not required when presenting `blocks` or `attachments`.
+                ts:
+                  type: string
+                  description: Timestamp of the message to be updated.
+        required: true
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: chat.update success schema
+                required:
+                - channel
+                - message
+                - ok
+                - text
+                - ts
+                type: object
+                properties:
+                  channel:
+                    type: string
+                  message:
+                    title: Message object
+                    required:
+                    - text
+                    type: object
+                    properties:
+                      attachments:
+                        type: array
+                        items:
+                          type: object
+                          properties: {}
+                      blocks:
+                        type: object
+                        properties: {}
+                      text:
+                        type: string
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                  text:
+                    type: string
+                  ts:
+                    type: string
+                additionalProperties: false
+                description: Schema for successful response of chat.update method
+              example:
+                channel: C024BE91L
+                message:
+                  text: Updated text you carefully authored
+                  user: U34567890
+                ok: true
+                text: Updated text you carefully authored
+                ts: '1401383885.000061'
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: chat.update error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - message_not_found
+                    - cant_update_message
+                    - channel_not_found
+                    - edit_window_closed
+                    - msg_too_long
+                    - too_many_attachments
+                    - rate_limited
+                    - no_text
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - token_revoked
+                    - no_permission
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - request_timeout
+                    - invalid_json
+                    - json_not_object
+                    - upgrade_required
+                    - fatal_error
+                    - is_inactive
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response chat.update method
+              example:
+                error: cant_update_message
+                ok: false
+      security:
+      - slackAuth:
+        - chat:write:user
+        - chat:write:bot
+      summary: Slack Post Chat Update
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /files.remote.update:
+    post:
+      tags:
+      - Update
+      description: Updates an existing remote file.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/files.remote.update
+      operationId: postFilesRemoteUpdate
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+                  description: 'Authentication token. Requires scope: `remote_files:write`'
+                file:
+                  type: string
+                  description: Specify a file by providing its ID.
+                external_id:
+                  type: string
+                  description: Creator defined GUID for the file.
+                title:
+                  type: string
+                  description: Title of the file being shared.
+                filetype:
+                  type: string
+                  description: type of file
+                external_url:
+                  type: string
+                  description: URL of the remote file.
+                preview_image:
+                  type: string
+                  description: Preview of the document via `multipart/form-data`.
+                indexable_file_contents:
+                  type: string
+                  description: File containing contents that can be used to improve searchability for the remote file.
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: Default success template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: true
+                description: This method either only returns a brief _OK_ response or a verbose schema is not available for this method.
+              example:
+                ok: true
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: Default error template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: true
+                description: This method either only returns a brief _not OK_ response or a verbose schema is not available for this method.
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - remote_files:write
+      summary: Slack Post Files Remote Update
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /slackLists.update:
+    post:
+      tags:
+      - Update
+      summary: Update List
+      description: Updates an existing Slack List's title or column configuration.
+      operationId: postSlackListsUpdate
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `lists:write`'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+              - list_id
+              type: object
+              properties:
+                list_id:
+                  type: string
+                  description: ID of the list to update.
+                title:
+                  type: string
+                  description: New title of the list.
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+              example:
+                ok: true
+        default:
+          description: Error response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  error:
+                    type: string
+              example:
+                ok: false
+                error: list_not_found
+      security:
+      - slackAuth:
+        - lists:write
+  /slackLists.items.update:
+    post:
+      tags:
+      - Update
+      summary: Update List Item
+      description: Updates an existing item (row) in a Slack List.
+      operationId: postSlackListsItemsUpdate
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `lists:write`'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+              - list_id
+              - item_id
+              - column_values
+              type: object
+              properties:
+                list_id:
+                  type: string
+                  description: ID of the list.
+                item_id:
+                  type: string
+                  description: ID of the item to update.
+                column_values:
+                  type: object
+                  description: Map of column IDs to their new values.
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+              example:
+                ok: true
+        default:
+          description: Error response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  error:
+                    type: string
+              example:
+                ok: false
+                error: item_not_found
+      security:
+      - slackAuth:
+        - lists:write
+  /usergroups.update:
+    post:
+      tags:
+      - Update
+      description: Update an existing User Group
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/usergroups.update
+      operationId: postUsergroupsUpdate
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `usergroups:write`'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - usergroup
+              type: object
+              properties:
+                handle:
+                  type: string
+                  description: A mention handle. Must be unique among channels, users and User Groups.
+                description:
+                  type: string
+                  description: A short description of the User Group.
+                channels:
+                  type: string
+                  description: A comma separated string of encoded channel IDs for which the User Group uses as a default.
+                include_count:
+                  type: boolean
+                  description: Include the number of users in the User Group.
+                usergroup:
+                  type: string
+                  description: The encoded ID of the User Group to update.
+                name:
+                  type: string
+                  description: A name for the User Group. Must be unique among User Groups.
+          application/json:
+            schema:
+              required:
+              - usergroup
+              type: object
+              properties:
+                handle:
+                  type: string
+                  description: A mention handle. Must be unique among channels, users and User Groups.
+                description:
+                  type: string
+                  description: A short description of the User Group.
+                channels:
+                  type: string
+                  description: A comma separated string of encoded channel IDs for which the User Group uses as a default.
+                include_count:
+                  type: boolean
+                  description: Include the number of users in the User Group.
+                usergroup:
+                  type: string
+                  description: The encoded ID of the User Group to update.
+                name:
+                  type: string
+                  description: A name for the User Group. Must be unique among User Groups.
+        required: true
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: usergroups.update schema
+                required:
+                - ok
+                - usergroup
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                  usergroup:
+                    $ref: '#/components/schemas/objs_subteam'
+                additionalProperties: false
+                description: Schema for successful response from usergroups.update method
+              example:
+                ok: true
+                usergroup:
+                  auto_type: null
+                  created_by: U060R4BJ4
+                  date_create: 1447096577
+                  date_delete: 0
+                  date_update: 1447102109
+                  deleted_by: null
+                  description: Marketing gurus, PR experts and product advocates.
+                  handle: marketing-team
+                  id: S0616NG6M
+                  is_external: false
+                  is_usergroup: true
+                  name: Marketing Team
+                  prefs:
+                    channels: []
+                    groups: []
+                  team_id: T060R4BHN
+                  updated_by: U060R4BJ4
+                  user_count: 1
+                  users:
+                  - U060R4BJ4
+                  - U060RNRCZ
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: usergroups.update error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - permission_denied
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - token_revoked
+                    - no_permission
+                    - org_login_required
+                    - user_is_bot
+                    - user_is_restricted
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_require
+                    - fatal_error
+                    - missing_charset
+                    - superfluous_charset
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from usergroups.update method
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - usergroups:write
+      summary: Slack Post User Groups Update
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /usergroups.users.update:
+    post:
+      tags:
+      - Update
+      description: Update the list of users for a User Group
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/usergroups.users.update
+      operationId: postUsergroupsUsersUpdate
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `usergroups:write`'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - usergroup
+              - users
+              type: object
+              properties:
+                include_count:
+                  type: boolean
+                  description: Include the number of users in the User Group.
+                usergroup:
+                  type: string
+                  description: The encoded ID of the User Group to update.
+                users:
+                  type: string
+                  description: A comma separated string of encoded user IDs that represent the entire list of users for the User Group.
+          application/json:
+            schema:
+              required:
+              - usergroup
+              - users
+              type: object
+              properties:
+                include_count:
+                  type: boolean
+                  description: Include the number of users in the User Group.
+                usergroup:
+                  type: string
+                  description: The encoded ID of the User Group to update.
+                users:
+                  type: string
+                  description: A comma separated string of encoded user IDs that represent the entire list of users for the User Group.
+        required: true
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: usergroups.users.update schema
+                required:
+                - ok
+                - usergroup
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                  usergroup:
+                    $ref: '#/components/schemas/objs_subteam'
+                additionalProperties: false
+                description: Schema for successful response from usergroups.users.update method
+              example:
+                ok: true
+                usergroup:
+                  auto_type: null
+                  created_by: U060R4BJ4
+                  date_create: 1447096577
+                  date_delete: 0
+                  date_update: 1447102109
+                  deleted_by: null
+                  description: Marketing gurus, PR experts and product advocates.
+                  handle: marketing-team
+                  id: S0616NG6M
+                  is_external: false
+                  is_usergroup: true
+                  name: Marketing Team
+                  prefs:
+                    channels: []
+                    groups: []
+                  team_id: T060R4BHN
+                  updated_by: U060R4BJ4
+                  user_count: 1
+                  users:
+                  - U060R4BJ4
+                  - U060RNRCZ
+        default:
+          description: Typical error response
+          content:
+            application/json:
+              schema:
+                title: usergroups.users.update error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - permission_denied
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - token_revoked
+                    - no_permission
+                    - org_login_required
+                    - user_is_bot
+                    - user_is_restricted
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - team_added_to_org
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_require
+                    - fatal_error
+                    - missing_charset
+                    - superfluous_charset
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: false
+                description: Schema for error response from usergroups.users.update method
+              example:
+                error: invalid_auth
+                ok: false
+      security:
+      - slackAuth:
+        - usergroups:write
+      summary: Slack Post User Groups Users Update
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /views.update:
+    get:
+      tags:
+      - Update
+      description: Update an existing view.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/views.update
+      operationId: getViewsUpdate
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `none`'
+        required: true
+        schema:
+          type: string
+      - name: view_id
+        in: query
+        description: A unique identifier of the view to be updated. Either `view_id` or `external_id` is required.
+        schema:
+          type: string
+      - name: external_id
+        in: query
+        description: A unique identifier of the view set by the developer. Must be unique for all views on a team. Max length of 255 characters. Either `view_id` or `external_id` is required.
+        schema:
+          type: string
+      - name: view
+        in: query
+        description: A [view object](/reference/surfaces/views). This must be a JSON-encoded string.
+        schema:
+          type: string
+      - name: hash
+        in: query
+        description: A string that represents view state to protect against possible race conditions.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Typical success response includes the updated view payload.
+          content:
+            application/json:
+              schema:
+                title: Default success template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                additionalProperties: true
+                description: This method either only returns a brief _OK_ response or a verbose schema is not available for this method.
+              example:
+                ok: true
+                view:
+                  app_id: AAD3351BQ
+                  blocks:
+                  - accessory:
+                      action_id: button_4
+                      text:
+                        text: Click me
+                        type: plain_text
+                      type: button
+                    block_id: s_block
+                    text:
+                      emoji: true
+                      text: I am but an updated modal
+                      type: plain_text
+                    type: section
+                  bot_id: BADF7A34H
+                  callback_id: view_2
+                  clear_on_close: true
+                  close:
+                    emoji: true
+                    text: Close
+                    type: plain_text
+                  external_id: ''
+                  hash: 1569262015.55b5e41b
+                  id: VNM522E2U
+                  notify_on_close: false
+                  previous_view_id: null
+                  private_metadata: ''
+                  root_view_id: VNN729E3U
+                  state:
+                    values: {}
+                  submit: null
+                  team_id: T9M4RL1JM
+                  title:
+                    emoji: true
+                    text: Updated Modal
+                    type: plain_text
+                  type: modal
+        default:
+          description: Typical error response.
+          content:
+            application/json:
+              schema:
+                title: Default error template
+                required:
+                - ok
+                type: object
+                properties:
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                additionalProperties: true
+                description: This method either only returns a brief _not OK_ response or a verbose schema is not available for this method.
+              example:
+                error: not_found
+                ok: false
+      security:
+      - slackAuth:
+        - none
+      summary: Slack Get Views Update
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK

@@ -1,0 +1,167 @@
+openapi: 3.1.0
+info:
+  version: '1.0'
+  title: Slack Admin Access Join API
+  description: "The Slack Admin API is a set of privileged endpoints\x14primarily under admin.* with related SCIM and Audit Logs APIs\x14that lets Enterprise Grid owners and admins automate organization\x11 wide management and governance. It covers user lifecycle (provision, suspend, assign roles), workspace and channel administration across workspaces (create, move, archive channels; manage membership and settings), app governance (approve/deny or allowlist/ban apps and install them to workspaces), invite request handling, and security/compliance controls such as information barriers, session and authentication policies, and org\x11level analytics exports. These APIs require elevated admin scopes and are commonly used to power automated onboarding/offboarding, centralized channel and app controls, and integrations with identity, ITSM, and compliance systems."
+tags:
+- name: Join
+paths:
+  /conversations.join:
+    post:
+      tags:
+      - Join
+      description: Joins an existing conversation.
+      externalDocs:
+        description: API method documentation
+        url: https://api.slack.com/methods/conversations.join
+      operationId: postConversationsJoin
+      parameters:
+      - name: token
+        in: header
+        description: 'Authentication token. Requires scope: `channels:write`'
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                channel:
+                  type: string
+                  description: ID of conversation to join
+          application/json:
+            schema:
+              type: object
+              properties:
+                channel:
+                  type: string
+                  description: ID of conversation to join
+      responses:
+        '200':
+          description: Typical success response
+          content:
+            application/json:
+              schema:
+                title: conversations.join success schema
+                required:
+                - channel
+                - ok
+                type: object
+                properties:
+                  channel:
+                    $ref: '#/components/schemas/objs_conversation'
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_true'
+                  response_metadata:
+                    title: Response metadata
+                    type: object
+                    properties:
+                      warnings:
+                        minItems: 1
+                        uniqueItems: true
+                        type: array
+                        items:
+                          type: string
+                  warning:
+                    type: string
+                additionalProperties: false
+                description: Schema for successful response from conversations.join method
+              example:
+                channel:
+                  created: 1449252889
+                  creator: U061F7AUR
+                  id: C061EG9SL
+                  is_archived: false
+                  is_channel: true
+                  is_ext_shared: false
+                  is_general: true
+                  is_group: false
+                  is_im: false
+                  is_member: true
+                  is_mpim: false
+                  is_org_shared: false
+                  is_pending_ext_shared: false
+                  is_private: false
+                  is_shared: false
+                  name: general
+                  name_normalized: general
+                  pending_shared: []
+                  previous_names: []
+                  purpose:
+                    creator: ''
+                    last_set: 0
+                    value: For widget discussion
+                  topic:
+                    creator: ''
+                    last_set: 0
+                    value: Which widget do you worry about?
+                  unlinked: 0
+                ok: true
+                response_metadata:
+                  warnings:
+                  - already_in_channel
+                warning: already_in_channel
+        default:
+          description: Typical error response if the conversation is archived and cannot be joined
+          content:
+            application/json:
+              schema:
+                title: conversations.join error schema
+                required:
+                - error
+                - ok
+                type: object
+                properties:
+                  callstack:
+                    type: string
+                    description: 'Note: PHP callstack is only visible in dev/qa'
+                  error:
+                    type: string
+                    enum:
+                    - method_not_supported_for_channel_type
+                    - missing_scope
+                    - channel_not_found
+                    - is_archived
+                    - not_authed
+                    - invalid_auth
+                    - account_inactive
+                    - user_is_bot
+                    - user_is_restricted
+                    - user_is_ultra_restricted
+                    - invalid_arg_name
+                    - invalid_array_arg
+                    - invalid_charset
+                    - invalid_form_data
+                    - invalid_post_type
+                    - missing_post_type
+                    - invalid_json
+                    - json_not_object
+                    - request_timeout
+                    - upgrade_required
+                    - team_added_to_org
+                    - missing_charset
+                    - superfluous_charset
+                  needed:
+                    type: string
+                  ok:
+                    $ref: '#/components/schemas/defs_ok_false'
+                  provided:
+                    type: string
+                additionalProperties: false
+                description: Schema for error response from conversations.join method
+              example:
+                error: is_archived
+                ok: false
+      security:
+      - slackAuth:
+        - channels:write
+      summary: Slack Post Conversations Join
+      x-api-evangelist-processing:
+        GenerateOperationSummariesFromPath: true
+        PascalCaseOperationSummaries: true
+        CaselCaseOperationIds: true
+        ChooseTags: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
