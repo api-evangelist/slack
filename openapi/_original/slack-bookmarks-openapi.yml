@@ -1,0 +1,301 @@
+openapi: 3.1.0
+info:
+  title: Slack Bookmarks API
+  description: >-
+    The Slack Bookmarks API provides the ability to add, remove, edit, or list curated
+    resources directly in public channels, private channels, direct messages, multi-person
+    direct messages, and shared channels. Bookmarks can contain external resources
+    such as websites, spreadsheets, dashboards, wikis, and news articles, as well
+    as internal resources such as messages, files, or other channels within Slack.
+  version: 1.0.0
+  contact:
+    name: Slack Developer Relations
+    url: https://docs.slack.dev
+servers:
+  - url: https://slack.com/api
+paths:
+  /bookmarks.add:
+    post:
+      tags:
+        - Bookmarks
+        - Add
+      summary: Add Bookmark
+      description: Adds a bookmark to a channel.
+      operationId: postBookmarksAdd
+      parameters:
+        - name: token
+          in: header
+          description: 'Authentication token. Requires scope: `bookmarks:write`'
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+                - channel_id
+                - title
+                - type
+              type: object
+              properties:
+                channel_id:
+                  type: string
+                  description: Channel to add the bookmark to.
+                title:
+                  type: string
+                  description: Title of the bookmark.
+                type:
+                  type: string
+                  description: Type of bookmark (e.g., link).
+                  enum:
+                    - link
+                link:
+                  type: string
+                  description: URL of the bookmark.
+                emoji:
+                  type: string
+                  description: Emoji tag for the bookmark.
+                entity_id:
+                  type: string
+                  description: ID of the entity being bookmarked.
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  bookmark:
+                    type: object
+              example:
+                ok: true
+        default:
+          description: Error response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  error:
+                    type: string
+              example:
+                ok: false
+                error: invalid_auth
+      security:
+        - slackAuth:
+            - bookmarks:write
+  /bookmarks.edit:
+    post:
+      tags:
+        - Bookmarks
+        - Edit
+      summary: Edit Bookmark
+      description: Edits an existing bookmark in a channel.
+      operationId: postBookmarksEdit
+      parameters:
+        - name: token
+          in: header
+          description: 'Authentication token. Requires scope: `bookmarks:write`'
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+                - channel_id
+                - bookmark_id
+              type: object
+              properties:
+                channel_id:
+                  type: string
+                  description: Channel containing the bookmark.
+                bookmark_id:
+                  type: string
+                  description: ID of the bookmark to edit.
+                title:
+                  type: string
+                  description: New title of the bookmark.
+                link:
+                  type: string
+                  description: New URL of the bookmark.
+                emoji:
+                  type: string
+                  description: New emoji tag for the bookmark.
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  bookmark:
+                    type: object
+              example:
+                ok: true
+        default:
+          description: Error response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  error:
+                    type: string
+              example:
+                ok: false
+                error: invalid_auth
+      security:
+        - slackAuth:
+            - bookmarks:write
+  /bookmarks.list:
+    get:
+      tags:
+        - Bookmarks
+        - Lists
+      summary: List Bookmarks
+      description: Lists bookmarks for a channel.
+      operationId: getBookmarksList
+      parameters:
+        - name: token
+          in: query
+          description: 'Authentication token. Requires scope: `bookmarks:read`'
+          required: true
+          schema:
+            type: string
+        - name: channel_id
+          in: query
+          description: Channel to list bookmarks for.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  bookmarks:
+                    type: array
+                    items:
+                      type: object
+              example:
+                ok: true
+                bookmarks:
+                  - id: Bk123
+                    channel_id: C123
+                    title: Example
+                    type: link
+                    link: https://example.com
+        default:
+          description: Error response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  error:
+                    type: string
+              example:
+                ok: false
+                error: invalid_auth
+      security:
+        - slackAuth:
+            - bookmarks:read
+  /bookmarks.remove:
+    post:
+      tags:
+        - Bookmarks
+        - Remove
+      summary: Remove Bookmark
+      description: Removes a bookmark from a channel.
+      operationId: postBookmarksRemove
+      parameters:
+        - name: token
+          in: header
+          description: 'Authentication token. Requires scope: `bookmarks:write`'
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+                - channel_id
+                - bookmark_id
+              type: object
+              properties:
+                channel_id:
+                  type: string
+                  description: Channel containing the bookmark.
+                bookmark_id:
+                  type: string
+                  description: ID of the bookmark to remove.
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+              example:
+                ok: true
+        default:
+          description: Error response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  error:
+                    type: string
+              example:
+                ok: false
+                error: invalid_auth
+      security:
+        - slackAuth:
+            - bookmarks:write
+components:
+  securitySchemes:
+    slackAuth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://slack.com/oauth/v2/authorize
+          tokenUrl: https://slack.com/api/oauth.v2.access
+          scopes:
+            bookmarks:read: Read bookmarks
+            bookmarks:write: Write bookmarks
+tags:
+  - name: Add
+  - name: Bookmarks
+  - name: Edit
+  - name: Lists
+  - name: Remove

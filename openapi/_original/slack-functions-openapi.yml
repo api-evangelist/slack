@@ -1,0 +1,339 @@
+openapi: 3.1.0
+info:
+  title: Slack Functions API
+  description: >-
+    The Slack Functions API provides methods for managing custom functions that
+    run as steps within Slack workflows. The key methods are functions.completeSuccess,
+    which marks a custom function as having completed successfully and passes output
+    data conforming to the function's defined output schema, and functions.completeError,
+    which marks a custom function as having failed and passes an error message that
+    surfaces to the end user via Slackbot.
+  version: 1.0.0
+  contact:
+    name: Slack Developer Relations
+    url: https://docs.slack.dev
+servers:
+  - url: https://slack.com/api
+paths:
+  /functions.completeSuccess:
+    post:
+      tags:
+        - Automation
+        - Functions
+        - Workflows
+      summary: Complete Function Success
+      description: Indicates that a custom function step in a workflow completed successfully.
+      operationId: postFunctionsCompleteSuccess
+      parameters:
+        - name: token
+          in: header
+          description: 'Authentication token. Requires scope: `functions:write`'
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+                - function_execution_id
+                - outputs
+              type: object
+              properties:
+                function_execution_id:
+                  type: string
+                  description: The execution ID of the function step being completed.
+                outputs:
+                  type: string
+                  description: JSON-encoded map of output values conforming to the function's output schema.
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+              example:
+                ok: true
+        default:
+          description: Error response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  error:
+                    type: string
+              example:
+                ok: false
+                error: invalid_function_execution_id
+      security:
+        - slackAuth:
+            - functions:write
+  /functions.completeError:
+    post:
+      tags:
+        - Automation
+        - Functions
+        - Workflows
+      summary: Complete Function Error
+      description: Indicates that a custom function step in a workflow completed with an error.
+      operationId: postFunctionsCompleteError
+      parameters:
+        - name: token
+          in: header
+          description: 'Authentication token. Requires scope: `functions:write`'
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+                - function_execution_id
+                - error
+              type: object
+              properties:
+                function_execution_id:
+                  type: string
+                  description: The execution ID of the function step that failed.
+                error:
+                  type: string
+                  description: Error message that will be surfaced to the user via Slackbot.
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+              example:
+                ok: true
+        default:
+          description: Error response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  error:
+                    type: string
+              example:
+                ok: false
+                error: invalid_function_execution_id
+      security:
+        - slackAuth:
+            - functions:write
+  /functions.distributions.permissions.add:
+    post:
+      tags:
+        - Automation
+        - Functions
+        - Permissions
+      summary: Add Function Distribution Permissions
+      description: Adds permissions for distributing a custom function to additional users or workspaces.
+      operationId: postFunctionsDistributionsPermissionsAdd
+      parameters:
+        - name: token
+          in: header
+          description: 'Authentication token. Requires scope: `functions:write`'
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+                - function_app_id
+                - permission_type
+              type: object
+              properties:
+                function_app_id:
+                  type: string
+                  description: ID of the function app.
+                permission_type:
+                  type: string
+                  description: Type of permission to grant (named_entities, everyone).
+                user_ids:
+                  type: string
+                  description: Comma-separated list of user IDs to grant access to.
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+              example:
+                ok: true
+        default:
+          description: Error response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  error:
+                    type: string
+              example:
+                ok: false
+                error: invalid_auth
+      security:
+        - slackAuth:
+            - functions:write
+  /functions.distributions.permissions.list:
+    get:
+      tags:
+        - Automation
+        - Functions
+        - Permissions
+      summary: List Function Distribution Permissions
+      description: Lists the distribution permissions for a custom function.
+      operationId: getFunctionsDistributionsPermissionsList
+      parameters:
+        - name: token
+          in: query
+          description: 'Authentication token. Requires scope: `functions:read`'
+          required: true
+          schema:
+            type: string
+        - name: function_app_id
+          in: query
+          description: ID of the function app.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  permission_type:
+                    type: string
+                  user_ids:
+                    type: array
+                    items:
+                      type: string
+              example:
+                ok: true
+                permission_type: named_entities
+                user_ids:
+                  - U123ABC
+        default:
+          description: Error response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  error:
+                    type: string
+              example:
+                ok: false
+                error: invalid_auth
+      security:
+        - slackAuth:
+            - functions:read
+  /functions.distributions.permissions.remove:
+    post:
+      tags:
+        - Automation
+        - Functions
+        - Permissions
+      summary: Remove Function Distribution Permissions
+      description: Removes distribution permissions for a custom function from users or workspaces.
+      operationId: postFunctionsDistributionsPermissionsRemove
+      parameters:
+        - name: token
+          in: header
+          description: 'Authentication token. Requires scope: `functions:write`'
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+                - function_app_id
+              type: object
+              properties:
+                function_app_id:
+                  type: string
+                  description: ID of the function app.
+                user_ids:
+                  type: string
+                  description: Comma-separated list of user IDs to remove access from.
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+              example:
+                ok: true
+        default:
+          description: Error response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  error:
+                    type: string
+              example:
+                ok: false
+                error: invalid_auth
+      security:
+        - slackAuth:
+            - functions:write
+components:
+  securitySchemes:
+    slackAuth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://slack.com/oauth/v2/authorize
+          tokenUrl: https://slack.com/api/oauth.v2.access
+          scopes:
+            functions:read: Read function data
+            functions:write: Write function data
+tags:
+  - name: Automation
+  - name: Functions
+  - name: Permissions
+  - name: Workflows
