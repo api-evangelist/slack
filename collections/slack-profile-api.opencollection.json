@@ -1,0 +1,95 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Slack Admin Access Profile API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Profile",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Slack Get Team Profile Get",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/team.profile.get",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Authentication token. Requires scope: `users.profile:read`"
+              },
+              {
+                "name": "visibility",
+                "value": "",
+                "type": "query",
+                "description": "Filter by visibility."
+              }
+            ]
+          },
+          "docs": "Retrieve a team's profile."
+        },
+        {
+          "info": {
+            "name": "Slack Get Users Profile Get",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/users.profile.get",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Authentication token. Requires scope: `users.profile:read`"
+              },
+              {
+                "name": "include_labels",
+                "value": "",
+                "type": "query",
+                "description": "Include labels for each ID in custom profile fields"
+              },
+              {
+                "name": "user",
+                "value": "",
+                "type": "query",
+                "description": "User to retrieve profile info for"
+              }
+            ]
+          },
+          "docs": "Retrieves a user's profile information."
+        },
+        {
+          "info": {
+            "name": "Slack Post Users Profile Set",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/users.profile.set",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Set the profile information for a user."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

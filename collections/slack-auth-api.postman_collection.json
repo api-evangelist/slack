@@ -1,0 +1,184 @@
+{
+  "item": [
+    {
+      "id": "01212e8b-dd4a-4be7-9d42-a579ef3a827b",
+      "name": "Auth",
+      "description": {
+        "content": "Authentication and authorization methods",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "893a1db3-58a0-4bf9-9b73-94f9aa8441dc",
+          "name": "Slack Test Authentication",
+          "request": {
+            "name": "Slack Test Authentication",
+            "description": {
+              "content": "Checks authentication and tells the caller who they are. Returns information about the token holder including user ID, team ID, and team name.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "auth.test"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1198461e-ed72-4b0a-8a3b-d1cb53d9251f",
+              "name": "Successful authentication test",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "auth.test"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": false,\n  \"url\": \"string\",\n  \"team\": \"string\",\n  \"user\": \"string\",\n  \"team_id\": \"string\",\n  \"user_id\": \"string\",\n  \"bot_id\": \"string\",\n  \"is_enterprise_install\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f7065c2f-0274-40a8-a30e-43de12675622",
+          "name": "Slack Revoke an Access Token",
+          "request": {
+            "name": "Slack Revoke an Access Token",
+            "description": {
+              "content": "Revokes the access token that is used to call this method.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "auth.revoke"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "test",
+                  "value": "<boolean>",
+                  "description": "Setting this parameter to true triggers a testing mode."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "12a0bf75-31f3-4586-a6e7-fbc21f42cc26",
+              "name": "Token revoked",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "auth.revoke"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "test",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": false,\n  \"revoked\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "4b1a7fd3-7691-45a9-80a8-018e1c04e3d5",
+    "name": "Slack Admin Access Auth API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Slack Admin API is a set of privileged endpoints\u0014primarily under admin.* with related SCIM and Audit Logs APIs\u0014that lets Enterprise Grid owners and admins automate organization\u0011 wide management and governance. It covers user lifecycle (provision, suspend, assign roles), workspace and channel administration across workspaces (create, move, archive channels; manage membership and settings), app governance (approve/deny or allowlist/ban apps and install them to workspaces), invite request handling, and security/compliance controls such as information barriers, session and authentication policies, and org\u0011level analytics exports. These APIs require elevated admin scopes and are commonly used to power automated onboarding/offboarding, centralized channel and app controls, and integrations with identity, ITSM, and compliance systems.",
+      "type": "text/plain"
+    }
+  }
+}

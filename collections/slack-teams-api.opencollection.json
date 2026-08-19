@@ -1,0 +1,473 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Slack Admin Access Teams API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Teams",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Slack Get Admin Teams Admins List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/admin.teams.admins.list",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Authentication token. Requires scope: `admin.teams:read`"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items to return."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Set `cursor` to `next_cursor` returned by the previous call to list items in the next page."
+              },
+              {
+                "name": "team_id",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List all of the admins on a given workspace."
+        },
+        {
+          "info": {
+            "name": "Slack Post Admin Teams Create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/admin.teams.create",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create an Enterprise team."
+        },
+        {
+          "info": {
+            "name": "Slack Get Admin Teams List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/admin.teams.list",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items to return. Must be between 1 - 100 both inclusive."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Set `cursor` to `next_cursor` returned by the previous call to list items in the next page."
+              }
+            ]
+          },
+          "docs": "List all teams on an Enterprise organization"
+        },
+        {
+          "info": {
+            "name": "Slack Get Admin Teams Owners List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/admin.teams.owners.list",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Authentication token. Requires scope: `admin.teams:read`"
+              },
+              {
+                "name": "team_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items to return. Must be between 1 - 1000 both inclusive."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Set `cursor` to `next_cursor` returned by the previous call to list items in the next page."
+              }
+            ]
+          },
+          "docs": "List all of the owners on a given workspace."
+        },
+        {
+          "info": {
+            "name": "Slack Get Admin Teams Settings Info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/admin.teams.settings.info",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "team_id",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Fetch information about settings in a workspace"
+        },
+        {
+          "info": {
+            "name": "Slack Post Admin Teams Settings Setdefaultchannels",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/admin.teams.settings.setDefaultChannels",
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "token",
+                  "value": ""
+                },
+                {
+                  "name": "team_id",
+                  "value": ""
+                },
+                {
+                  "name": "channel_ids",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Set the default channels of a workspace."
+        },
+        {
+          "info": {
+            "name": "Slack Post Admin Teams Settings Setdescription",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/admin.teams.settings.setDescription",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Set the description of a given workspace."
+        },
+        {
+          "info": {
+            "name": "Slack Post Admin Teams Settings Setdiscoverability",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/admin.teams.settings.setDiscoverability",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "An API method that allows admins to set the discoverability of a given workspace"
+        },
+        {
+          "info": {
+            "name": "Slack Post Admin Teams Settings Seticon",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/admin.teams.settings.setIcon",
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "token",
+                  "value": ""
+                },
+                {
+                  "name": "image_url",
+                  "value": ""
+                },
+                {
+                  "name": "team_id",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Sets the icon of a workspace."
+        },
+        {
+          "info": {
+            "name": "Slack Post Admin Teams Settings Setname",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/admin.teams.settings.setName",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Set the name of a given workspace."
+        },
+        {
+          "info": {
+            "name": "Slack Get Do Not Disturb Team Information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/dnd.teamInfo",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Authentication token. Requires scope: `dnd:read`"
+              },
+              {
+                "name": "users",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of users to fetch Do Not Disturb status for"
+              }
+            ]
+          },
+          "docs": "Retrieves the Do Not Disturb status for up to 50 users on a team."
+        },
+        {
+          "info": {
+            "name": "Slack Get Team Accesslogs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/team.accessLogs",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Authentication token. Requires scope: `admin`"
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "End of time range of logs to include in results (inclusive)."
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Gets the access logs for the current team."
+        },
+        {
+          "info": {
+            "name": "Slack Get Team Billableinfo",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/team.billableInfo",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Authentication token. Requires scope: `admin`"
+              },
+              {
+                "name": "user",
+                "value": "",
+                "type": "query",
+                "description": "A user to retrieve the billable information for. Defaults to all users."
+              }
+            ]
+          },
+          "docs": "Gets billable users information for the current team."
+        },
+        {
+          "info": {
+            "name": "Slack Get Team Info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/team.info",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Authentication token. Requires scope: `team:read`"
+              },
+              {
+                "name": "team",
+                "value": "",
+                "type": "query",
+                "description": "Team to get info on, if omitted, will return information about the current team. Will only return team that the authenticated token is allowed to see through external shared channels"
+              }
+            ]
+          },
+          "docs": "Gets information about the current team."
+        },
+        {
+          "info": {
+            "name": "Slack Get Team Integrationlogs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/team.integrationLogs",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Authentication token. Requires scope: `admin`"
+              },
+              {
+                "name": "app_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter logs to this Slack app. Defaults to all logs."
+              },
+              {
+                "name": "change_type",
+                "value": "",
+                "type": "query",
+                "description": "Filter logs with this change type. Defaults to all logs."
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter logs to this service. Defaults to all logs."
+              },
+              {
+                "name": "user",
+                "value": "",
+                "type": "query",
+                "description": "Filter logs generated by this users actions. Defaults to all logs."
+              }
+            ]
+          },
+          "docs": "Gets the integration logs for the current team."
+        },
+        {
+          "info": {
+            "name": "Slack Get Team Profile Get",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/team.profile.get",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Authentication token. Requires scope: `users.profile:read`"
+              },
+              {
+                "name": "visibility",
+                "value": "",
+                "type": "query",
+                "description": "Filter by visibility."
+              }
+            ]
+          },
+          "docs": "Retrieve a team's profile."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

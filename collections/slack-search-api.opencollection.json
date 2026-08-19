@@ -1,0 +1,176 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Slack Admin Access Search API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Search",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Slack Get Admin Conversations Search",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/admin.conversations.search",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "team_ids",
+                "value": "",
+                "type": "query",
+                "description": "Comma separated string of team IDs, signifying the workspaces to search through."
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "Name of the the channel to query by."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to be returned. Must be between 1 - 20 both inclusive. Default is 10."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Set `cursor` to `next_cursor` returned by the previous call to list items in the next page."
+              },
+              {
+                "name": "search_channel_types",
+                "value": "",
+                "type": "query",
+                "description": "The type of channel to include or exclude in the search. For example `private` will search private channels, while `private_exclude` will exclude them. For a full list of types, check the [Types section](#types)."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Possible values are `relevant` (search ranking based on what we think is closest), `name` (alphabetical), `member_count` (number of users in the channel), and `created` (date channel was created). You can optionally pair this with the `sort_dir` arg to change how it is sorted "
+              },
+              {
+                "name": "sort_dir",
+                "value": "",
+                "type": "query",
+                "description": "Sort direction. Possible values are `asc` for ascending order like (1, 2, 3) or (a, b, c), and `desc` for descending order like (3, 2, 1) or (c, b, a)"
+              }
+            ]
+          },
+          "docs": "Search for public or private channels in an Enterprise organization."
+        },
+        {
+          "info": {
+            "name": "Slack Get Search Messages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/search.messages",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Authentication token. Requires scope: `search:read`"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "Pass the number of results you want per \"page\". Maximum of `100`."
+              },
+              {
+                "name": "highlight",
+                "value": "",
+                "type": "query",
+                "description": "Pass a value of `true` to enable query highlight markers (see below)."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "Search query."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Return matches sorted by either `score` or `timestamp`."
+              },
+              {
+                "name": "sort_dir",
+                "value": "",
+                "type": "query",
+                "description": "Change sort direction to ascending (`asc`) or descending (`desc`)."
+              }
+            ]
+          },
+          "docs": "Searches for messages matching a query."
+        },
+        {
+          "info": {
+            "name": "Slack Search for Files",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/search.files",
+            "params": [
+              {
+                "name": "query",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "highlight",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_dir",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Searches for files matching a query."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

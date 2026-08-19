@@ -1,0 +1,374 @@
+{
+  "item": [
+    {
+      "id": "bb310d53-0dbc-4905-b108-2dc13fe47085",
+      "name": "Approved",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f9782987-894f-4fe3-864a-ef2feecc0952",
+          "name": "Slack Get Admin Apps Approved List",
+          "request": {
+            "name": "Slack Get Admin Apps Approved List",
+            "description": {
+              "content": "List approved apps for an org or workspace.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "admin.apps.approved.list"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "(Required) Authentication token. Requires scope: `admin.apps:read`"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The maximum number of items to return. Must be between 1 - 1000 both inclusive."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Set `cursor` to `next_cursor` returned by the previous call to list items in the next page"
+                },
+                {
+                  "disabled": false,
+                  "key": "team_id",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "enterprise_id",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "da37ec5b-c19d-40cd-81a4-767b62a84210",
+              "name": "Typical success response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin.apps.approved.list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "team_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "enterprise_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"approved_apps\": [\n    {\n      \"app\": {\n        \"additional_info\": \"\",\n        \"app_directory_url\": \"https://myteam.enterprise.slack.com/apps/A0W7UKG8E-my-test-app\",\n        \"app_homepage_url\": \"https://www.slack.com\",\n        \"description\": \"test app\",\n        \"help_url\": \"https://www.slack.com\",\n        \"icons\": {\n          \"image_1024\": \"https://3026743124446w96_2bd4ea1ad1f89a23c242_1024.png\",\n          \"image_128\": \"https://30267341249446w6_2bd4ea1ad1f89a23c242_128.png\",\n          \"image_192\": \"https://30267431249446w6_2bd4ea1ad1f89a23c242_192.png\",\n          \"image_32\": \"https://302674312496446w_2bd4ea1ad1f89a23c242_32.png\",\n          \"image_36\": \"https://302674312496446w_2bd4ea1ad1f89a23c242_36.png\",\n          \"image_48\": \"https://302674312496446w_2bd4ea1ad1f89a23c242_48.png\",\n          \"image_512\": \"https://30267431249446w6_2bd4ea1ad1f89a23c242_512.png\",\n          \"image_64\": \"https://302674312496446w_2bd4ea1ad1f89a23c242_64.png\",\n          \"image_72\": \"https://302674312496446w_2bd4ea1ad1f89a23c242_72.png\",\n          \"image_96\": \"https://302674312496446w_2bd4ea1ad1f89a23c242_96.png\",\n          \"image_original\": \"https://302674446w12496_2bd4ea1ad1f89a23c242_original.png\"\n        },\n        \"id\": \"A0W7UKG8E\",\n        \"is_app_directory_approved\": false,\n        \"is_internal\": false,\n        \"name\": \"My Test App\",\n        \"privacy_policy_url\": \"https://www.slack.com\"\n      },\n      \"date_updated\": 1574296707,\n      \"last_resolved_by\": {\n        \"actor_id\": \"W0G82F4FD\",\n        \"actor_type\": \"user\"\n      },\n      \"scopes\": [\n        {\n          \"description\": \"Add the ability for people to direct message or mention @my_test_app\",\n          \"is_sensitive\": true,\n          \"name\": \"bot\",\n          \"token_type\": \"bot\"\n        }\n      ]\n    }\n  ],\n  \"ok\": true,\n  \"response_metadata\": {\n    \"next_cursor\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "96c35bc8-0fb1-4504-bbd8-63aeb05f363c",
+              "name": "Typical error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin.apps.approved.list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "team_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "enterprise_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"invalid_auth\",\n  \"ok\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "eeb73056-41e3-4159-9712-33bc9e70bfb6",
+          "name": "Slack Get Admin Inviterequests Approved List",
+          "request": {
+            "name": "Slack Get Admin Inviterequests Approved List",
+            "description": {
+              "content": "List all approved workspace invite requests.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "admin.inviteRequests.approved.list"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "team_id",
+                  "value": "<string>",
+                  "description": "ID for the workspace where the invite requests were made."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Value of the `next_cursor` field sent as part of the previous API response"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The number of results that will be returned by the API on each invocation. Must be between 1 - 1000, both inclusive"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Authentication token. Requires scope: `admin.invites:read`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "0d7ed6ae-7d5e-40c8-9bc7-1229bed23ca9",
+              "name": "Typical success response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin.inviteRequests.approved.list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "team_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `admin.invites:read`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f63b561f-b931-4ccf-9989-e1032142cfda",
+              "name": "Typical error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin.inviteRequests.approved.list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "team_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `admin.invites:read`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"invalid_auth\",\n  \"ok\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "e357121e-358d-47a0-becb-fd66491aa8df",
+    "name": "Slack Admin Access Approved API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Slack Admin API is a set of privileged endpoints\u0014primarily under admin.* with related SCIM and Audit Logs APIs\u0014that lets Enterprise Grid owners and admins automate organization\u0011 wide management and governance. It covers user lifecycle (provision, suspend, assign roles), workspace and channel administration across workspaces (create, move, archive channels; manage membership and settings), app governance (approve/deny or allowlist/ban apps and install them to workspaces), invite request handling, and security/compliance controls such as information barriers, session and authentication policies, and org\u0011level analytics exports. These APIs require elevated admin scopes and are commonly used to power automated onboarding/offboarding, centralized channel and app controls, and integrations with identity, ITSM, and compliance systems.",
+      "type": "text/plain"
+    }
+  }
+}

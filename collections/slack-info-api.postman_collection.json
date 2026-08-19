@@ -1,0 +1,1621 @@
+{
+  "item": [
+    {
+      "id": "27b7824e-8e08-489f-8c8a-786ad86f0ffb",
+      "name": "Info",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "68420eec-9eca-49da-a98e-531905c69a00",
+          "name": "Slack Get Admin Teams Settings Info",
+          "request": {
+            "name": "Slack Get Admin Teams Settings Info",
+            "description": {
+              "content": "Fetch information about settings in a workspace",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "admin.teams.settings.info"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "team_id",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Authentication token. Requires scope: `admin.teams:read`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "8919c72c-820b-4da8-ad52-ec57278d9c45",
+              "name": "Typical success response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin.teams.settings.info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "team_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `admin.teams:read`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": true,\n  \"team\": {\n    \"default_channels\": \"array\",\n    \"domain\": \"string\",\n    \"email_domain\": \"string\",\n    \"enterprise_id\": \"string\",\n    \"enterprise_name\": \"string\",\n    \"icon\": \"array\",\n    \"id\": \"string\",\n    \"name\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b67d29de-fe75-4859-b4a5-3c8bcb3fe5d0",
+              "name": "Typical error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin.teams.settings.info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "team_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `admin.teams:read`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"invalid_auth\",\n  \"ok\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "317df11b-268b-4435-9dc2-514a33341abb",
+          "name": "Slack Get Apps Permissions Info",
+          "request": {
+            "name": "Slack Get Apps Permissions Info",
+            "description": {
+              "content": "Returns list of permissions this app has on a team.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "apps.permissions.info"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "Authentication token. Requires scope: `none`"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "11b1c212-f2fb-4ead-90b4-154860e4e0d6",
+              "name": "Standard success response when used with a user token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apps.permissions.info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"info\": {\n    \"app_home\": {\n      \"resources\": {\n        \"ids\": [\n          \"D0C0NU1Q8\",\n          \"D0BH95DLH\"\n        ]\n      },\n      \"scopes\": [\n        \"chat:write\",\n        \"im:history\",\n        \"im:read\"\n      ]\n    },\n    \"channel\": {\n      \"resources\": {\n        \"excluded_ids\": [],\n        \"ids\": [\n          \"C061FA5PB\"\n        ],\n        \"wildcard\": false\n      },\n      \"scopes\": [\n        \"channels:read\"\n      ]\n    },\n    \"group\": {\n      \"resources\": {\n        \"ids\": []\n      },\n      \"scopes\": []\n    },\n    \"im\": {\n      \"resources\": {\n        \"ids\": []\n      },\n      \"scopes\": []\n    },\n    \"mpim\": {\n      \"resources\": {\n        \"ids\": []\n      },\n      \"scopes\": []\n    },\n    \"team\": {\n      \"resources\": {\n        \"ids\": []\n      },\n      \"scopes\": []\n    }\n  },\n  \"ok\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e8fee407-7d88-4650-9d87-d132ed22c1f0",
+              "name": "Standard failure response when used with an invalid token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apps.permissions.info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"invalid_auth\",\n  \"ok\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5da7ca04-2a5a-49b3-9a53-d4785adac57e",
+          "name": "Slack Get Bots Info",
+          "request": {
+            "name": "Slack Get Bots Info",
+            "description": {
+              "content": "Gets information about a bot user.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "bots.info"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "(Required) Authentication token. Requires scope: `users:read`"
+                },
+                {
+                  "disabled": false,
+                  "key": "bot",
+                  "value": "<string>",
+                  "description": "Bot user to get info on"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "83712006-6173-41bb-a5eb-74af6290a6ba",
+              "name": "When successful, returns bot info by bot ID.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bots.info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "bot",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"bot\": {\n    \"app_id\": \"A161CLERW\",\n    \"deleted\": false,\n    \"icons\": {\n      \"image_36\": \"https://...\",\n      \"image_48\": \"https://...\",\n      \"image_72\": \"https://...\"\n    },\n    \"id\": \"B061F7JD2\",\n    \"name\": \"beforebot\",\n    \"updated\": 1449272004,\n    \"user_id\": \"U012ABCDEF\"\n  },\n  \"ok\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "500fb8cb-ff41-4bc1-b748-00aa31339fc8",
+              "name": "When no bot can be found, it returns an error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bots.info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "bot",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"bot_not_found\",\n  \"ok\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f8853be8-fc18-44e6-b224-1c564766899d",
+          "name": "Slack Get Calls Info",
+          "request": {
+            "name": "Slack Get Calls Info",
+            "description": {
+              "content": "Returns information about a Call.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "calls.info"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "id",
+                  "value": "<string>",
+                  "description": "(Required) `id` of the Call returned by the [`calls.add`](/methods/calls.add) method."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Authentication token. Requires scope: `calls:read`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "1908be33-4e06-454a-b3a5-5f9bb09926ad",
+              "name": "Typical success response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "calls.info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `calls:read`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "05f4cf70-106f-4ed5-b945-3e3d6ce02546",
+              "name": "Typical error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "calls.info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `calls:read`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"invalid_auth\",\n  \"ok\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "018f7814-f78e-4f53-b250-322bb8bcd7f2",
+          "name": "Slack Get Conversations Info",
+          "request": {
+            "name": "Slack Get Conversations Info",
+            "description": {
+              "content": "Retrieve information about a conversation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "conversations.info"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "Authentication token. Requires scope: `conversations:read`"
+                },
+                {
+                  "disabled": false,
+                  "key": "channel",
+                  "value": "<string>",
+                  "description": "Conversation ID to learn more about"
+                },
+                {
+                  "disabled": false,
+                  "key": "include_locale",
+                  "value": "<boolean>",
+                  "description": "Set this to `true` to receive the locale for this conversation. Defaults to `false`"
+                },
+                {
+                  "disabled": false,
+                  "key": "include_num_members",
+                  "value": "<boolean>",
+                  "description": "Set to `true` to include the member count for the specified conversation. Defaults to `false`"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "6f740bc1-8794-4553-8db1-77223e6e102e",
+              "name": "Typical success response for a public channel. (Also, a response from a private channel and a multi-party IM is very similar to this example.)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversations.info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "channel",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include_locale",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "include_num_members",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"channel\": {\n    \"created\": 1449252889,\n    \"creator\": \"W012A3BCD\",\n    \"id\": \"C012AB3CD\",\n    \"is_archived\": false,\n    \"is_channel\": true,\n    \"is_ext_shared\": false,\n    \"is_general\": true,\n    \"is_group\": false,\n    \"is_im\": false,\n    \"is_member\": true,\n    \"is_mpim\": false,\n    \"is_org_shared\": false,\n    \"is_pending_ext_shared\": false,\n    \"is_private\": false,\n    \"is_read_only\": false,\n    \"is_shared\": false,\n    \"last_read\": \"1502126650.228446\",\n    \"locale\": \"en-US\",\n    \"name\": \"general\",\n    \"name_normalized\": \"general\",\n    \"parent_conversation\": null,\n    \"pending_shared\": [],\n    \"previous_names\": [\n      \"specifics\",\n      \"abstractions\",\n      \"etc\"\n    ],\n    \"purpose\": {\n      \"creator\": \"W012A3BCD\",\n      \"last_set\": 1449709364,\n      \"value\": \"This part of the workspace is for fun. Make fun here.\"\n    },\n    \"topic\": {\n      \"creator\": \"W012A3BCD\",\n      \"last_set\": 1449709364,\n      \"value\": \"For public discussion of generalities\"\n    },\n    \"unlinked\": 0\n  },\n  \"ok\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e56f01ca-0db1-4fa3-b284-d02e990d51f3",
+              "name": "Typical error response when a channel cannot be found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversations.info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "channel",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include_locale",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "include_num_members",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"channel_not_found\",\n  \"ok\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b8f288aa-c83d-474d-8b01-bc3c46088c6e",
+          "name": "Slack Get Do Not Disturb Info",
+          "request": {
+            "name": "Slack Get Do Not Disturb Info",
+            "description": {
+              "content": "Retrieves a user's current Do Not Disturb status.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "dnd.info"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "Authentication token. Requires scope: `dnd:read`"
+                },
+                {
+                  "disabled": false,
+                  "key": "user",
+                  "value": "<string>",
+                  "description": "User to fetch status for (defaults to current user)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "918da3e5-2b69-4cdc-8612-6b48d157dc95",
+              "name": "Typical success response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dnd.info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "user",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3ed348e2-9be3-475e-ac72-0b55c1459eb3",
+              "name": "Typical error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dnd.info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "user",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"invalid_auth\",\n  \"ok\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3a167a0d-222f-468e-8df4-ff477991b71c",
+          "name": "Slack Get Files Info",
+          "request": {
+            "name": "Slack Get Files Info",
+            "description": {
+              "content": "Gets information about a file.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "files.info"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "Authentication token. Requires scope: `files:read`"
+                },
+                {
+                  "disabled": false,
+                  "key": "file",
+                  "value": "<string>",
+                  "description": "Specify a file by providing its ID."
+                },
+                {
+                  "disabled": false,
+                  "key": "count",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the list hasn't been reached."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Parameter for pagination. File comments are paginated for a single file. Set `cursor` equal to the `next_cursor` attribute returned by the previous request's `response_metadata`. This parameter is optional, but pagination is mandatory: the default value simply fetches the first \"page\" of the collection of comments. See [pagination](/docs/pagination) for more details."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "f98b1829-bff6-4d85-9946-59a75d1334e9",
+              "name": "Typical success response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "files.info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "file",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "count",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"comments\": [],\n  \"file\": {\n    \"channels\": [\n      \"C0T8SE4AU\"\n    ],\n    \"comments_count\": 0,\n    \"created\": 1531763342,\n    \"deanimate_gif\": \"https://.../tedair_deanimate_gif.png\",\n    \"display_as_bot\": false,\n    \"editable\": false,\n    \"external_type\": \"\",\n    \"filetype\": \"gif\",\n    \"groups\": [],\n    \"has_rich_preview\": false,\n    \"id\": \"F0S43PZDF\",\n    \"image_exif_rotation\": 1,\n    \"ims\": [],\n    \"is_external\": false,\n    \"is_public\": true,\n    \"is_starred\": false,\n    \"mimetype\": \"image/gif\",\n    \"mode\": \"hosted\",\n    \"name\": \"tedair.gif\",\n    \"original_h\": 226,\n    \"original_w\": 176,\n    \"permalink\": \"https://.../tedair.gif\",\n    \"permalink_public\": \"https://.../...\",\n    \"pjpeg\": \"https://.../tedair_pjpeg.jpg\",\n    \"pretty_type\": \"GIF\",\n    \"public_url_shared\": false,\n    \"shares\": {\n      \"public\": {\n        \"C0T8SE4AU\": [\n          {\n            \"channel_name\": \"file-under\",\n            \"latest_reply\": \"1531763348.000001\",\n            \"reply_count\": 1,\n            \"reply_users\": [\n              \"U061F7AUR\"\n            ],\n            \"reply_users_count\": 1,\n            \"team_id\": \"T061EG9R6\",\n            \"thread_ts\": \"1531763273.000015\",\n            \"ts\": \"1531763348.000001\"\n          }\n        ]\n      }\n    },\n    \"size\": 137531,\n    \"thumb_160\": \"https://.../tedair_=_160.png\",\n    \"thumb_360\": \"https://.../tedair_360.png\",\n    \"thumb_360_gif\": \"https://.../tedair_360.gif\",\n    \"thumb_360_h\": 226,\n    \"thumb_360_w\": 176,\n    \"thumb_64\": \"https://.../tedair_64.png\",\n    \"thumb_80\": \"https://.../tedair_80.png\",\n    \"timestamp\": 1531763342,\n    \"title\": \"tedair.gif\",\n    \"url_private\": \"https://.../tedair.gif\",\n    \"url_private_download\": \"https://.../tedair.gif\",\n    \"user\": \"U061F7AUR\",\n    \"username\": \"\"\n  },\n  \"ok\": true,\n  \"response_metadata\": {\n    \"next_cursor\": \"dGVhbTpDMUg5UkVTR0w=\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c6c0cb65-0a6c-4104-89ee-f18a42fcff6f",
+              "name": "Typical error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "files.info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "file",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "count",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"invalid_auth\",\n  \"ok\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "53118a9b-85ea-4f8b-9fdb-3d1b73e3d479",
+          "name": "Slack Get Files Remote Info",
+          "request": {
+            "name": "Slack Get Files Remote Info",
+            "description": {
+              "content": "Retrieve information about a remote file added to Slack",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "files.remote.info"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "Authentication token. Requires scope: `remote_files:read`"
+                },
+                {
+                  "disabled": false,
+                  "key": "file",
+                  "value": "<string>",
+                  "description": "Specify a file by providing its ID."
+                },
+                {
+                  "disabled": false,
+                  "key": "external_id",
+                  "value": "<string>",
+                  "description": "Creator defined GUID for the file."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "7c7e0738-4a90-4aaa-99f4-3dae569a500b",
+              "name": "Typical success response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "files.remote.info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "file",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "external_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "aad24513-4052-4a25-aa07-4cc5dbe2ecee",
+              "name": "Typical error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "files.remote.info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "file",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "external_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"invalid_auth\",\n  \"ok\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f341bb09-20da-4695-a054-e9c1549e6584",
+          "name": "Slack Get Reminders Info",
+          "request": {
+            "name": "Slack Get Reminders Info",
+            "description": {
+              "content": "Gets information about a reminder.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "reminders.info"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "Authentication token. Requires scope: `reminders:read`"
+                },
+                {
+                  "disabled": false,
+                  "key": "reminder",
+                  "value": "<string>",
+                  "description": "The ID of the reminder"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "136794c5-e982-40fc-929f-be126680037c",
+              "name": "Typical success response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reminders.info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "reminder",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fc986449-7e0b-4edc-908c-ea736825fd94",
+              "name": "Typical error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reminders.info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "reminder",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"invalid_auth\",\n  \"ok\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "81afb90e-fc2b-43a5-ab6e-158138223e85",
+          "name": "Slack Get Team Info",
+          "request": {
+            "name": "Slack Get Team Info",
+            "description": {
+              "content": "Gets information about the current team.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "team.info"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "(Required) Authentication token. Requires scope: `team:read`"
+                },
+                {
+                  "disabled": false,
+                  "key": "team",
+                  "value": "<string>",
+                  "description": "Team to get info on, if omitted, will return information about the current team. Will only return team that the authenticated token is allowed to see through external shared channels"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "dcb243ed-e208-400b-826f-dabf4cc74bff",
+              "name": "Typical success response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "team.info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "team",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": true,\n  \"team\": {\n    \"domain\": \"example\",\n    \"email_domain\": \"example.com\",\n    \"enterprise_id\": \"E1234A12AB\",\n    \"enterprise_name\": \"Umbrella Corporation\",\n    \"icon\": {\n      \"image_102\": \"https://...\",\n      \"image_132\": \"https://...\",\n      \"image_34\": \"https://...\",\n      \"image_44\": \"https://...\",\n      \"image_68\": \"https://...\",\n      \"image_88\": \"https://...\",\n      \"image_default\": true\n    },\n    \"id\": \"T12345\",\n    \"name\": \"My Team\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "21492935-6f2a-409e-9844-ad5fbc1effef",
+              "name": "Typical error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "team.info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "team",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"invalid_auth\",\n  \"ok\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "704a62bc-a759-47c6-852c-c3895fda3682",
+          "name": "Slack Get Users Info",
+          "request": {
+            "name": "Slack Get Users Info",
+            "description": {
+              "content": "Gets information about a user.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users.info"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "(Required) Authentication token. Requires scope: `users:read`"
+                },
+                {
+                  "disabled": false,
+                  "key": "include_locale",
+                  "value": "<boolean>",
+                  "description": "Set this to `true` to receive the locale for this user. Defaults to `false`"
+                },
+                {
+                  "disabled": false,
+                  "key": "user",
+                  "value": "<string>",
+                  "description": "User to get info on"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "abf660db-fbd0-4ebd-bf39-e39938153fe3",
+              "name": "Typical success response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users.info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include_locale",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "user",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": true,\n  \"user\": {\n    \"color\": \"9f69e7\",\n    \"deleted\": false,\n    \"has_2fa\": false,\n    \"id\": \"W012A3CDE\",\n    \"is_admin\": true,\n    \"is_app_user\": false,\n    \"is_bot\": false,\n    \"is_owner\": false,\n    \"is_primary_owner\": false,\n    \"is_restricted\": false,\n    \"is_ultra_restricted\": false,\n    \"name\": \"spengler\",\n    \"profile\": {\n      \"avatar_hash\": \"ge3b51ca72de\",\n      \"display_name\": \"spengler\",\n      \"display_name_normalized\": \"spengler\",\n      \"email\": \"spengler@ghostbusters.example.com\",\n      \"image_192\": \"https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg\",\n      \"image_24\": \"https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg\",\n      \"image_32\": \"https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg\",\n      \"image_48\": \"https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg\",\n      \"image_512\": \"https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg\",\n      \"image_72\": \"https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg\",\n      \"image_original\": \"https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg\",\n      \"real_name\": \"Egon Spengler\",\n      \"real_name_normalized\": \"Egon Spengler\",\n      \"status_emoji\": \":books:\",\n      \"status_text\": \"Print is dead\",\n      \"team\": \"T012AB3C4\"\n    },\n    \"real_name\": \"Egon Spengler\",\n    \"team_id\": \"T012AB3C4\",\n    \"tz\": \"America/Los_Angeles\",\n    \"tz_label\": \"Pacific Daylight Time\",\n    \"tz_offset\": -25200,\n    \"updated\": 1502138686\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "155783b7-4b6e-49b6-8c66-c489c46e08e1",
+              "name": "Typical error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users.info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include_locale",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "user",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"user_not_found\",\n  \"ok\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "963d607c-ce2e-411d-91e8-27fd8bb73492",
+    "name": "Slack Admin Access Info API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Slack Admin API is a set of privileged endpoints\u0014primarily under admin.* with related SCIM and Audit Logs APIs\u0014that lets Enterprise Grid owners and admins automate organization\u0011 wide management and governance. It covers user lifecycle (provision, suspend, assign roles), workspace and channel administration across workspaces (create, move, archive channels; manage membership and settings), app governance (approve/deny or allowlist/ban apps and install them to workspaces), invite request handling, and security/compliance controls such as information barriers, session and authentication policies, and org\u0011level analytics exports. These APIs require elevated admin scopes and are commonly used to power automated onboarding/offboarding, centralized channel and app controls, and integrations with identity, ITSM, and compliance systems.",
+      "type": "text/plain"
+    }
+  }
+}

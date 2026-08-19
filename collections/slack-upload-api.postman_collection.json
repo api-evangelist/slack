@@ -1,0 +1,369 @@
+{
+  "item": [
+    {
+      "id": "28c1d7f7-0797-4b3e-bbc2-2a0e94ba4a22",
+      "name": "Upload",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "fd3b1c9d-80f0-465b-80d6-0f96abf9af31",
+          "name": "Slack Post Files Upload",
+          "request": {
+            "name": "Slack Post Files Upload",
+            "description": {
+              "content": "Uploads or creates a file.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "files.upload"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "Authentication token. Requires scope: `files:write:user`"
+                },
+                {
+                  "disabled": false,
+                  "key": "file",
+                  "value": "<string>",
+                  "description": "File contents via `multipart/form-data`. If omitting this parameter, you must submit `content`."
+                },
+                {
+                  "disabled": false,
+                  "key": "content",
+                  "value": "<string>",
+                  "description": "File contents via a POST variable. If omitting this parameter, you must provide a `file`."
+                },
+                {
+                  "disabled": false,
+                  "key": "filetype",
+                  "value": "<string>",
+                  "description": "A [file type](/types/file#file_types) identifier."
+                },
+                {
+                  "disabled": false,
+                  "key": "filename",
+                  "value": "<string>",
+                  "description": "Filename of file."
+                },
+                {
+                  "disabled": false,
+                  "key": "title",
+                  "value": "<string>",
+                  "description": "Title of file."
+                },
+                {
+                  "disabled": false,
+                  "key": "initial_comment",
+                  "value": "<string>",
+                  "description": "The message text introducing the file in specified `channels`."
+                },
+                {
+                  "disabled": false,
+                  "key": "channels",
+                  "value": "<string>",
+                  "description": "Comma-separated list of channel names or IDs where the file will be shared."
+                },
+                {
+                  "disabled": false,
+                  "key": "thread_ts",
+                  "value": "<number>",
+                  "description": "Provide another message's `ts` value to upload this file as a reply. Never use a reply's `ts` value; use its parent instead."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7be238bf-7b1f-4472-9d04-4b7cf06b7fc7",
+              "name": "Success response after uploading a file to a channel with an initial message",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "files.upload"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Authentication token. Requires scope: `files:write:user`",
+                        "type": "text/plain"
+                      },
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "File contents via `multipart/form-data`. If omitting this parameter, you must submit `content`.",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "File contents via a POST variable. If omitting this parameter, you must provide a `file`.",
+                        "type": "text/plain"
+                      },
+                      "key": "content",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A [file type](/types/file#file_types) identifier.",
+                        "type": "text/plain"
+                      },
+                      "key": "filetype",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Filename of file.",
+                        "type": "text/plain"
+                      },
+                      "key": "filename",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Title of file.",
+                        "type": "text/plain"
+                      },
+                      "key": "title",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The message text introducing the file in specified `channels`.",
+                        "type": "text/plain"
+                      },
+                      "key": "initial_comment",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Comma-separated list of channel names or IDs where the file will be shared.",
+                        "type": "text/plain"
+                      },
+                      "key": "channels",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Provide another message's `ts` value to upload this file as a reply. Never use a reply's `ts` value; use its parent instead.",
+                        "type": "text/plain"
+                      },
+                      "key": "thread_ts",
+                      "value": "<number>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"file\": {\n    \"channels\": [],\n    \"comments_count\": 0,\n    \"created\": 1532293501,\n    \"display_as_bot\": false,\n    \"editable\": false,\n    \"external_type\": \"\",\n    \"filetype\": \"gif\",\n    \"groups\": [],\n    \"has_rich_preview\": false,\n    \"id\": \"F0TD00400\",\n    \"image_exif_rotation\": 1,\n    \"ims\": [\n      \"D0L4B9P0Q\"\n    ],\n    \"is_external\": false,\n    \"is_public\": false,\n    \"is_starred\": false,\n    \"mimetype\": \"image/jpeg\",\n    \"mode\": \"hosted\",\n    \"name\": \"dramacat.gif\",\n    \"original_h\": 366,\n    \"original_w\": 526,\n    \"permalink\": \"https://.../dramacat.gif\",\n    \"permalink_public\": \"https://.../More-Path-Components\",\n    \"pretty_type\": \"JPEG\",\n    \"public_url_shared\": false,\n    \"shares\": {\n      \"private\": {\n        \"D0L4B9P0Q\": [\n          {\n            \"reply_count\": 0,\n            \"reply_users\": [],\n            \"reply_users_count\": 0,\n            \"ts\": \"1532293503.000001\"\n          }\n        ]\n      }\n    },\n    \"size\": 43518,\n    \"thumb_160\": \"https://.../dramacat_160.gif\",\n    \"thumb_360\": \"https://.../dramacat_360.gif\",\n    \"thumb_360_h\": 250,\n    \"thumb_360_w\": 360,\n    \"thumb_480\": \"https://.../dramacat_480.gif\",\n    \"thumb_480_h\": 334,\n    \"thumb_480_w\": 480,\n    \"thumb_64\": \"https://.../dramacat_64.gif\",\n    \"thumb_80\": \"https://.../dramacat_80.gif\",\n    \"timestamp\": 1532293501,\n    \"title\": \"dramacat\",\n    \"url_private\": \"https://.../dramacat.gif\",\n    \"url_private_download\": \"https://.../dramacat.gif\",\n    \"user\": \"U0L4B9NSU\",\n    \"username\": \"\"\n  },\n  \"ok\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a644c81d-ece1-4fa4-bc65-74147b6c6c04",
+              "name": "Typical error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "files.upload"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Authentication token. Requires scope: `files:write:user`",
+                        "type": "text/plain"
+                      },
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "File contents via `multipart/form-data`. If omitting this parameter, you must submit `content`.",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "File contents via a POST variable. If omitting this parameter, you must provide a `file`.",
+                        "type": "text/plain"
+                      },
+                      "key": "content",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A [file type](/types/file#file_types) identifier.",
+                        "type": "text/plain"
+                      },
+                      "key": "filetype",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Filename of file.",
+                        "type": "text/plain"
+                      },
+                      "key": "filename",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Title of file.",
+                        "type": "text/plain"
+                      },
+                      "key": "title",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The message text introducing the file in specified `channels`.",
+                        "type": "text/plain"
+                      },
+                      "key": "initial_comment",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Comma-separated list of channel names or IDs where the file will be shared.",
+                        "type": "text/plain"
+                      },
+                      "key": "channels",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Provide another message's `ts` value to upload this file as a reply. Never use a reply's `ts` value; use its parent instead.",
+                        "type": "text/plain"
+                      },
+                      "key": "thread_ts",
+                      "value": "<number>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"invalid_auth\",\n  \"ok\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "6c48b53f-07e0-4efc-991b-8caab0fa3ed9",
+    "name": "Slack Admin Access Upload API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Slack Admin API is a set of privileged endpoints\u0014primarily under admin.* with related SCIM and Audit Logs APIs\u0014that lets Enterprise Grid owners and admins automate organization\u0011 wide management and governance. It covers user lifecycle (provision, suspend, assign roles), workspace and channel administration across workspaces (create, move, archive channels; manage membership and settings), app governance (approve/deny or allowlist/ban apps and install them to workspaces), invite request handling, and security/compliance controls such as information barriers, session and authentication policies, and org\u0011level analytics exports. These APIs require elevated admin scopes and are commonly used to power automated onboarding/offboarding, centralized channel and app controls, and integrations with identity, ITSM, and compliance systems.",
+      "type": "text/plain"
+    }
+  }
+}

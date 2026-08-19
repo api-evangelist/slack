@@ -1,0 +1,161 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Slack Admin Access Bookmarks API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Bookmarks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Add Bookmark",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/bookmarks.add",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "channel_id",
+                  "value": ""
+                },
+                {
+                  "name": "title",
+                  "value": ""
+                },
+                {
+                  "name": "type",
+                  "value": ""
+                },
+                {
+                  "name": "link",
+                  "value": ""
+                },
+                {
+                  "name": "emoji",
+                  "value": ""
+                },
+                {
+                  "name": "entity_id",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Adds a bookmark to a channel."
+        },
+        {
+          "info": {
+            "name": "Edit Bookmark",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/bookmarks.edit",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "channel_id",
+                  "value": ""
+                },
+                {
+                  "name": "bookmark_id",
+                  "value": ""
+                },
+                {
+                  "name": "title",
+                  "value": ""
+                },
+                {
+                  "name": "link",
+                  "value": ""
+                },
+                {
+                  "name": "emoji",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Edits an existing bookmark in a channel."
+        },
+        {
+          "info": {
+            "name": "List Bookmarks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/bookmarks.list",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Authentication token. Requires scope: `bookmarks:read`"
+              },
+              {
+                "name": "channel_id",
+                "value": "",
+                "type": "query",
+                "description": "Channel to list bookmarks for."
+              }
+            ]
+          },
+          "docs": "Lists bookmarks for a channel."
+        },
+        {
+          "info": {
+            "name": "Remove Bookmark",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/bookmarks.remove",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "channel_id",
+                  "value": ""
+                },
+                {
+                  "name": "bookmark_id",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Removes a bookmark from a channel."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

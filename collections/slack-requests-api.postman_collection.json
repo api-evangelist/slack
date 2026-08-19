@@ -1,0 +1,506 @@
+{
+  "item": [
+    {
+      "id": "0d36146e-8e41-40ad-a54b-d1a1812e47e8",
+      "name": "Requests",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0821010e-429a-4137-8846-bca2389a5566",
+          "name": "Slack Get Admin Apps Requests List",
+          "request": {
+            "name": "Slack Get Admin Apps Requests List",
+            "description": {
+              "content": "List app requests for a team/workspace.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "admin.apps.requests.list"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "(Required) Authentication token. Requires scope: `admin.apps:read`"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The maximum number of items to return. Must be between 1 - 1000 both inclusive."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Set `cursor` to `next_cursor` returned by the previous call to list items in the next page"
+                },
+                {
+                  "disabled": false,
+                  "key": "team_id",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "3036ba63-475e-4a11-84d3-6af0c89378c8",
+              "name": "Typical success response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin.apps.requests.list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "team_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"app_requests\": [\n    {\n      \"app\": {\n        \"additional_info\": \"\",\n        \"app_directory_url\": \"https://acmecorp.slack.com/apps/A061BL8RQ0-test-app\",\n        \"app_homepage_url\": \"\",\n        \"description\": \"\",\n        \"help_url\": \"\",\n        \"icons\": {\n          \"image_1024\": \"/cdn/15258203/img/testapp/service_1024.png\",\n          \"image_128\": \"/cdn/157258203/img/testapp/service_128.png\",\n          \"image_192\": \"/cdn/157258203/img/testapp/service_192.png\",\n          \"image_32\": \"/cdn/157658203/img/testapp/service_32.png\",\n          \"image_36\": \"/cdn/157658203/img/testapp/service_36.png\",\n          \"image_48\": \"/cdn/157658203/img/testapp/service_48.png\",\n          \"image_512\": \"/cdn/15758203/img/testapp/service_512.png\",\n          \"image_64\": \"/cdn/157658203/img/testapp/service_64.png\",\n          \"image_72\": \"/cdn/157658203/img/testapp/service_72.png\",\n          \"image_96\": \"/cdn/157658203/img/testapp/service_96.png\"\n        },\n        \"id\": \"A061BL8RQ0\",\n        \"is_app_directory_approved\": true,\n        \"is_internal\": false,\n        \"name\": \"Test App\",\n        \"privacy_policy_url\": \"https://testapp.com/privacy\"\n      },\n      \"date_created\": 1578956327,\n      \"id\": \"Ar0XJGFLMLS\",\n      \"message\": \"test test again\",\n      \"previous_resolution\": null,\n      \"scopes\": [\n        {\n          \"description\": \"Post messages to specific channels in Slack\",\n          \"is_sensitive\": false,\n          \"name\": \"incoming-webhook\",\n          \"token_type\": \"user\"\n        }\n      ],\n      \"team\": {\n        \"domain\": \"acmecorp\",\n        \"id\": \"T0M94LNUCR\",\n        \"name\": \"Acme Corp\"\n      },\n      \"user\": {\n        \"email\": \"janedoe@example.com\",\n        \"id\": \"W08RA9G5HR\",\n        \"name\": \"Jane Doe\"\n      }\n    }\n  ],\n  \"ok\": true,\n  \"response_metadata\": {\n    \"next_cursor\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "921b7bcd-5cb5-47c7-848b-c7821ab7075c",
+              "name": "Typical error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin.apps.requests.list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "team_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"missing_scope\",\n  \"needed\": \"admin.apps:read\",\n  \"ok\": false,\n  \"provided\": \"read,client,admin,identify,post,apps\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c94adb87-273f-4170-91f3-858a7c0c8f00",
+          "name": "Slack Get Apps Permissions Request",
+          "request": {
+            "name": "Slack Get Apps Permissions Request",
+            "description": {
+              "content": "Allows an app to request additional scopes",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "apps.permissions.request"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "(Required) Authentication token. Requires scope: `none`"
+                },
+                {
+                  "disabled": false,
+                  "key": "scopes",
+                  "value": "<string>",
+                  "description": "(Required) A comma separated list of scopes to request for"
+                },
+                {
+                  "disabled": false,
+                  "key": "trigger_id",
+                  "value": "<string>",
+                  "description": "(Required) Token used to trigger the permissions API"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "913c9273-27d6-4596-a4fc-daefd1862060",
+              "name": "Standard success response when used with a user token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apps.permissions.request"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "scopes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "trigger_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "af9a9ab6-a1a5-4e8a-847f-3cb5d8c8002e",
+              "name": "Standard failure response when trigger_id is invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apps.permissions.request"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "scopes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "trigger_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"invalid_trigger_id\",\n  \"ok\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b160c3f2-01f4-4f4a-87d8-bba31f0744ea",
+          "name": "Slack Get Apps Permissions Users Request",
+          "request": {
+            "name": "Slack Get Apps Permissions Users Request",
+            "description": {
+              "content": "Enables an app to trigger a permissions modal to grant an app access to a user access scope.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "apps.permissions.users.request"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "(Required) Authentication token. Requires scope: `none`"
+                },
+                {
+                  "disabled": false,
+                  "key": "scopes",
+                  "value": "<string>",
+                  "description": "(Required) A comma separated list of user scopes to request for"
+                },
+                {
+                  "disabled": false,
+                  "key": "trigger_id",
+                  "value": "<string>",
+                  "description": "(Required) Token used to trigger the request"
+                },
+                {
+                  "disabled": false,
+                  "key": "user",
+                  "value": "<string>",
+                  "description": "(Required) The user this scope is being requested for"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "be81959c-5bef-4e28-a7ad-310a0c0e2234",
+              "name": "Standard success response when used with a user token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apps.permissions.users.request"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "scopes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "trigger_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "user",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ddee603a-41f2-4b18-a0ca-9f5dc1329824",
+              "name": "Standard failure response when trigger_id is invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apps.permissions.users.request"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "scopes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "trigger_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "user",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"invalid_trigger_id\",\n  \"ok\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "31eefcf4-6980-4e94-8bfb-899cab3af24f",
+    "name": "Slack Admin Access Requests API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Slack Admin API is a set of privileged endpoints\u0014primarily under admin.* with related SCIM and Audit Logs APIs\u0014that lets Enterprise Grid owners and admins automate organization\u0011 wide management and governance. It covers user lifecycle (provision, suspend, assign roles), workspace and channel administration across workspaces (create, move, archive channels; manage membership and settings), app governance (approve/deny or allowlist/ban apps and install them to workspaces), invite request handling, and security/compliance controls such as information barriers, session and authentication policies, and org\u0011level analytics exports. These APIs require elevated admin scopes and are commonly used to power automated onboarding/offboarding, centralized channel and app controls, and integrations with identity, ITSM, and compliance systems.",
+      "type": "text/plain"
+    }
+  }
+}

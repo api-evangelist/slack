@@ -1,0 +1,205 @@
+{
+  "item": [
+    {
+      "id": "07978498-73d9-4d20-be79-b7c34a1a15dc",
+      "name": "Dnd",
+      "description": {
+        "content": "Do Not Disturb management",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "75cedab7-15a8-434b-9757-14d3beec0b97",
+          "name": "Slack Set Snooze Duration",
+          "request": {
+            "name": "Slack Set Snooze Duration",
+            "description": {
+              "content": "Turns on Do Not Disturb mode for the current user for the specified number of minutes.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "dnd.setSnooze"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"num_minutes\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4d1eec90-e0d9-4cfd-94e6-c14769d7a013",
+              "name": "Snooze set",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dnd.setSnooze"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"num_minutes\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": false,\n  \"snooze_enabled\": false,\n  \"snooze_endtime\": 767,\n  \"snooze_remaining\": 2116\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "855a852c-e4bb-4c3c-8c22-940204186052",
+          "name": "Slack Get Dnd Status for a User",
+          "request": {
+            "name": "Slack Get Dnd Status for a User",
+            "description": {
+              "content": "Retrieves a user's current Do Not Disturb status.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "dnd.info"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "user",
+                  "value": "<string>",
+                  "description": "User to fetch status for."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1117fccc-cf9c-4c7c-98a8-e210006f6884",
+              "name": "DND info retrieved",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dnd.info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "user",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": false,\n  \"dnd_enabled\": true,\n  \"next_dnd_start_ts\": 7861,\n  \"next_dnd_end_ts\": 8041,\n  \"snooze_enabled\": true,\n  \"snooze_endtime\": 4879,\n  \"snooze_remaining\": 1189\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "08e51248-3e45-4499-a662-d412ea2e63a0",
+    "name": "Slack Admin Access Dnd API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Slack Admin API is a set of privileged endpoints\u0014primarily under admin.* with related SCIM and Audit Logs APIs\u0014that lets Enterprise Grid owners and admins automate organization\u0011 wide management and governance. It covers user lifecycle (provision, suspend, assign roles), workspace and channel administration across workspaces (create, move, archive channels; manage membership and settings), app governance (approve/deny or allowlist/ban apps and install them to workspaces), invite request handling, and security/compliance controls such as information barriers, session and authentication policies, and org\u0011level analytics exports. These APIs require elevated admin scopes and are commonly used to power automated onboarding/offboarding, centralized channel and app controls, and integrations with identity, ITSM, and compliance systems.",
+      "type": "text/plain"
+    }
+  }
+}

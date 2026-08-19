@@ -1,0 +1,101 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Slack Admin Access Open API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Open",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Slack Post Conversations Open",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/conversations.open",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Opens or resumes a direct message or multi-person direct message."
+        },
+        {
+          "info": {
+            "name": "Slack Get Dialog Open",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/dialog.open",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "dialog",
+                "value": "",
+                "type": "query",
+                "description": "The dialog definition. This must be a JSON-encoded string."
+              },
+              {
+                "name": "trigger_id",
+                "value": "",
+                "type": "query",
+                "description": "Exchange a trigger to post to the user."
+              }
+            ]
+          },
+          "docs": "Open a dialog with a user"
+        },
+        {
+          "info": {
+            "name": "Slack Get Views Open",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/views.open",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "trigger_id",
+                "value": "",
+                "type": "query",
+                "description": "Exchange a trigger to post to the user."
+              },
+              {
+                "name": "view",
+                "value": "",
+                "type": "query",
+                "description": "A [view payload](/reference/surfaces/views). This must be a JSON-encoded string."
+              }
+            ]
+          },
+          "docs": "Open a view for a user."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

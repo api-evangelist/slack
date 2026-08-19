@@ -1,0 +1,185 @@
+{
+  "item": [
+    {
+      "id": "98644b47-363c-49d8-9735-afd537c12dfd",
+      "name": "Push",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e0f285f4-b2ae-4a1e-af87-6a7a34b7309d",
+          "name": "Slack Get Views Push",
+          "request": {
+            "name": "Slack Get Views Push",
+            "description": {
+              "content": "Push a view onto the stack of a root view.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "views.push"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "trigger_id",
+                  "value": "<string>",
+                  "description": "(Required) Exchange a trigger to post to the user."
+                },
+                {
+                  "disabled": false,
+                  "key": "view",
+                  "value": "<string>",
+                  "description": "(Required) A [view payload](/reference/surfaces/views). This must be a JSON-encoded string."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Authentication token. Requires scope: `none`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "223a9d98-a573-45c8-9004-a99d1fabbd27",
+              "name": "Typical success response includes the pushed view payload.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "views.push"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "trigger_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "view",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `none`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": true,\n  \"view\": {\n    \"app_id\": \"AAD3351BQ\",\n    \"blocks\": [\n      {\n        \"block_id\": \"edit_details\",\n        \"element\": {\n          \"action_id\": \"detail_input\",\n          \"type\": \"plain_text_input\"\n        },\n        \"label\": {\n          \"text\": \"Edit details\",\n          \"type\": \"plain_text\"\n        },\n        \"type\": \"input\"\n      }\n    ],\n    \"bot_id\": \"BADF7A34H\",\n    \"callback_id\": \"view_4\",\n    \"clear_on_close\": true,\n    \"close\": {\n      \"emoji\": true,\n      \"text\": \"Back\",\n      \"type\": \"plain_text\"\n    },\n    \"external_id\": \"\",\n    \"hash\": \"1569362015.55b5e41b\",\n    \"id\": \"VNM522E2U\",\n    \"notify_on_close\": false,\n    \"previous_view_id\": null,\n    \"private_metadata\": \"\",\n    \"root_view_id\": \"VNN729E3U\",\n    \"state\": {\n      \"values\": {}\n    },\n    \"submit\": {\n      \"emoji\": true,\n      \"text\": \"Save\",\n      \"type\": \"plain_text\"\n    },\n    \"team_id\": \"T9M4RL1JM\",\n    \"title\": {\n      \"emoji\": true,\n      \"text\": \"Pushed Modal\",\n      \"type\": \"plain_text\"\n    },\n    \"type\": \"modal\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "31fe5784-30fc-4872-a4df-f2d7ec001817",
+              "name": "Typical error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "views.push"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "trigger_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "view",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `none`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"invalid_arguments\",\n  \"ok\": false,\n  \"response_metadata\": {\n    \"messages\": [\n      \"missing required field: title\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "a5beb168-2ea4-460b-a8a5-cc1c6e6ac62e",
+    "name": "Slack Admin Access Push API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Slack Admin API is a set of privileged endpoints\u0014primarily under admin.* with related SCIM and Audit Logs APIs\u0014that lets Enterprise Grid owners and admins automate organization\u0011 wide management and governance. It covers user lifecycle (provision, suspend, assign roles), workspace and channel administration across workspaces (create, move, archive channels; manage membership and settings), app governance (approve/deny or allowlist/ban apps and install them to workspaces), invite request handling, and security/compliance controls such as information barriers, session and authentication policies, and org\u0011level analytics exports. These APIs require elevated admin scopes and are commonly used to power automated onboarding/offboarding, centralized channel and app controls, and integrations with identity, ITSM, and compliance systems.",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Slack Admin Access Dnd API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Dnd",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Slack Set Snooze Duration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/dnd.setSnooze",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Turns on Do Not Disturb mode for the current user for the specified number of minutes."
+        },
+        {
+          "info": {
+            "name": "Slack Get Dnd Status for a User",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/dnd.info",
+            "params": [
+              {
+                "name": "user",
+                "value": "",
+                "type": "query",
+                "description": "User to fetch status for."
+              }
+            ]
+          },
+          "docs": "Retrieves a user's current Do Not Disturb status."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

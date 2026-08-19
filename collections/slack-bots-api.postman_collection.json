@@ -1,0 +1,167 @@
+{
+  "item": [
+    {
+      "id": "068a6a77-533a-4593-b1be-fe2af43db93f",
+      "name": "Bots",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7c1fd144-e4c2-4e55-a364-7b6520087f51",
+          "name": "Slack Get Bots Info",
+          "request": {
+            "name": "Slack Get Bots Info",
+            "description": {
+              "content": "Gets information about a bot user.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "bots.info"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "(Required) Authentication token. Requires scope: `users:read`"
+                },
+                {
+                  "disabled": false,
+                  "key": "bot",
+                  "value": "<string>",
+                  "description": "Bot user to get info on"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "fd4f6b0b-ee52-42ab-982d-19137d59c950",
+              "name": "When successful, returns bot info by bot ID.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bots.info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "bot",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"bot\": {\n    \"app_id\": \"A161CLERW\",\n    \"deleted\": false,\n    \"icons\": {\n      \"image_36\": \"https://...\",\n      \"image_48\": \"https://...\",\n      \"image_72\": \"https://...\"\n    },\n    \"id\": \"B061F7JD2\",\n    \"name\": \"beforebot\",\n    \"updated\": 1449272004,\n    \"user_id\": \"U012ABCDEF\"\n  },\n  \"ok\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1bebbce0-6a6b-42c2-84e1-b21d36121931",
+              "name": "When no bot can be found, it returns an error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bots.info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "bot",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"bot_not_found\",\n  \"ok\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "9c923220-ee9d-498c-8309-312d308e438e",
+    "name": "Slack Admin Access Bots API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Slack Admin API is a set of privileged endpoints\u0014primarily under admin.* with related SCIM and Audit Logs APIs\u0014that lets Enterprise Grid owners and admins automate organization\u0011 wide management and governance. It covers user lifecycle (provision, suspend, assign roles), workspace and channel administration across workspaces (create, move, archive channels; manage membership and settings), app governance (approve/deny or allowlist/ban apps and install them to workspaces), invite request handling, and security/compliance controls such as information barriers, session and authentication policies, and org\u0011level analytics exports. These APIs require elevated admin scopes and are commonly used to power automated onboarding/offboarding, centralized channel and app controls, and integrations with identity, ITSM, and compliance systems.",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,207 @@
+{
+  "item": [
+    {
+      "id": "62627294-0bdd-4b69-82c4-458b3c72b2d2",
+      "name": "Restricted",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "03da1255-4d7f-4d7c-8c4e-217031693a9d",
+          "name": "Slack Get Admin Apps Restricted List",
+          "request": {
+            "name": "Slack Get Admin Apps Restricted List",
+            "description": {
+              "content": "List restricted apps for an org or workspace.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "admin.apps.restricted.list"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "(Required) Authentication token. Requires scope: `admin.apps:read`"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The maximum number of items to return. Must be between 1 - 1000 both inclusive."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Set `cursor` to `next_cursor` returned by the previous call to list items in the next page"
+                },
+                {
+                  "disabled": false,
+                  "key": "team_id",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "enterprise_id",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "115f2ecd-d247-4469-a489-df26ecb01d67",
+              "name": "Typical success response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin.apps.restricted.list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "team_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "enterprise_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": true,\n  \"response_metadata\": {\n    \"next_cursor\": \"\"\n  },\n  \"restricted_apps\": [\n    {\n      \"app\": {\n        \"additional_info\": \"\",\n        \"app_directory_url\": \"https://myteam.enterprise.slack.com/apps/A0FDLP8M2L-my-test-app\",\n        \"app_homepage_url\": \"https://example.com\",\n        \"description\": \"A fun test app for Slack\",\n        \"help_url\": \"https://example.com\",\n        \"icons\": {\n          \"image_1024\": \"https://1433265338rl878408_eb57dbc818daa4ba15d6_1024.png\",\n          \"image_128\": \"https://4332653438rl87808_eb57dbc818daa4ba15d6_128.png\",\n          \"image_192\": \"https://4332653438rl87808_eb57dbc818daa4ba15d6_192.png\",\n          \"image_32\": \"https://143326534038rl8788_eb57dbc818daa4ba15d6_32.png\",\n          \"image_36\": \"https://143326534038rl8788_eb57dbc818daa4ba15d6_36.png\",\n          \"image_48\": \"https://143326534038rl8788_eb57dbc818daa4ba15d6_48.png\",\n          \"image_512\": \"https://4332653438rl87808_eb57dbc818daa4ba15d6_512.png\",\n          \"image_64\": \"https://143326534038rl8788_eb57dbc818daa4ba15d6_64.png\",\n          \"image_72\": \"https://143326534038rl8788_eb57dbc818daa4ba15d6_72.png\",\n          \"image_96\": \"https://143326534038rl8788_eb57dbc818daa4ba15d6_96.png\",\n          \"image_original\": \"https://143338rl8782653408_eb57dbc818daa4ba15d6_original.png\"\n        },\n        \"id\": \"A0FDLP8M2L\",\n        \"is_app_directory_approved\": true,\n        \"is_internal\": false,\n        \"name\": \"My Test App\",\n        \"privacy_policy_url\": \"https://example.com\"\n      },\n      \"date_updated\": 1574296721,\n      \"last_resolved_by\": {\n        \"actor_id\": \"W0G82LMFD\",\n        \"actor_type\": \"user\"\n      },\n      \"scopes\": [\n        {\n          \"description\": \"Upload, edit, and delete files on the user's behalf\",\n          \"is_sensitive\": true,\n          \"name\": \"files:write:user\",\n          \"token_type\": \"user\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2d72f61a-d9de-425d-8791-51e5772f911f",
+              "name": "Typical error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin.apps.restricted.list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "team_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "enterprise_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"invalid_auth\",\n  \"ok\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "b9972312-8c6d-448c-8976-8d788e74f857",
+    "name": "Slack Admin Access Restricted API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Slack Admin API is a set of privileged endpoints\u0014primarily under admin.* with related SCIM and Audit Logs APIs\u0014that lets Enterprise Grid owners and admins automate organization\u0011 wide management and governance. It covers user lifecycle (provision, suspend, assign roles), workspace and channel administration across workspaces (create, move, archive channels; manage membership and settings), app governance (approve/deny or allowlist/ban apps and install them to workspaces), invite request handling, and security/compliance controls such as information barriers, session and authentication policies, and org\u0011level analytics exports. These APIs require elevated admin scopes and are commonly used to power automated onboarding/offboarding, centralized channel and app controls, and integrations with identity, ITSM, and compliance systems.",
+      "type": "text/plain"
+    }
+  }
+}

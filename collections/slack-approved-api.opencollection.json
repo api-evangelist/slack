@@ -1,0 +1,96 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Slack Admin Access Approved API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Approved",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Slack Get Admin Apps Approved List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/admin.apps.approved.list",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Authentication token. Requires scope: `admin.apps:read`"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items to return. Must be between 1 - 1000 both inclusive."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Set `cursor` to `next_cursor` returned by the previous call to list items in the next page"
+              },
+              {
+                "name": "team_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "enterprise_id",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List approved apps for an org or workspace."
+        },
+        {
+          "info": {
+            "name": "Slack Get Admin Inviterequests Approved List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/admin.inviteRequests.approved.list",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "team_id",
+                "value": "",
+                "type": "query",
+                "description": "ID for the workspace where the invite requests were made."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Value of the `next_cursor` field sent as part of the previous API response"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The number of results that will be returned by the API on each invocation. Must be between 1 - 1000, both inclusive"
+              }
+            ]
+          },
+          "docs": "List all approved workspace invite requests."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

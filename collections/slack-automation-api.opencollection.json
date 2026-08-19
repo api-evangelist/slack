@@ -1,0 +1,167 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Slack Admin Access Automation API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Automation",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Complete Function Success",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/functions.completeSuccess",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "function_execution_id",
+                  "value": ""
+                },
+                {
+                  "name": "outputs",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Indicates that a custom function step in a workflow completed successfully."
+        },
+        {
+          "info": {
+            "name": "Complete Function Error",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/functions.completeError",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "function_execution_id",
+                  "value": ""
+                },
+                {
+                  "name": "error",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Indicates that a custom function step in a workflow completed with an error."
+        },
+        {
+          "info": {
+            "name": "Add Function Distribution Permissions",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/functions.distributions.permissions.add",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "function_app_id",
+                  "value": ""
+                },
+                {
+                  "name": "permission_type",
+                  "value": ""
+                },
+                {
+                  "name": "user_ids",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Adds permissions for distributing a custom function to additional users or workspaces."
+        },
+        {
+          "info": {
+            "name": "List Function Distribution Permissions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/functions.distributions.permissions.list",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Authentication token. Requires scope: `functions:read`"
+              },
+              {
+                "name": "function_app_id",
+                "value": "",
+                "type": "query",
+                "description": "ID of the function app."
+              }
+            ]
+          },
+          "docs": "Lists the distribution permissions for a custom function."
+        },
+        {
+          "info": {
+            "name": "Remove Function Distribution Permissions",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/functions.distributions.permissions.remove",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "function_app_id",
+                  "value": ""
+                },
+                {
+                  "name": "user_ids",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Removes distribution permissions for a custom function from users or workspaces."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

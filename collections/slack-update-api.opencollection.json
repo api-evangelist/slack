@@ -1,0 +1,235 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Slack Admin Access Update API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Update",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Slack Post Calls Update",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/calls.update",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates information about a Call."
+        },
+        {
+          "info": {
+            "name": "Slack Post Chat Update",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/chat.update",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a message."
+        },
+        {
+          "info": {
+            "name": "Slack Post Files Remote Update",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/files.remote.update",
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "token",
+                  "value": ""
+                },
+                {
+                  "name": "file",
+                  "value": ""
+                },
+                {
+                  "name": "external_id",
+                  "value": ""
+                },
+                {
+                  "name": "title",
+                  "value": ""
+                },
+                {
+                  "name": "filetype",
+                  "value": ""
+                },
+                {
+                  "name": "external_url",
+                  "value": ""
+                },
+                {
+                  "name": "preview_image",
+                  "value": ""
+                },
+                {
+                  "name": "indexable_file_contents",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Updates an existing remote file."
+        },
+        {
+          "info": {
+            "name": "Update List",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/slackLists.update",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing Slack List's title or column configuration."
+        },
+        {
+          "info": {
+            "name": "Update List Item",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/slackLists.items.update",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing item (row) in a Slack List."
+        },
+        {
+          "info": {
+            "name": "Slack Post User Groups Update",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/usergroups.update",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing User Group"
+        },
+        {
+          "info": {
+            "name": "Slack Post User Groups Users Update",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/usergroups.users.update",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update the list of users for a User Group"
+        },
+        {
+          "info": {
+            "name": "Slack Get Views Update",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/views.update",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "view_id",
+                "value": "",
+                "type": "query",
+                "description": "A unique identifier of the view to be updated. Either `view_id` or `external_id` is required."
+              },
+              {
+                "name": "external_id",
+                "value": "",
+                "type": "query",
+                "description": "A unique identifier of the view set by the developer. Must be unique for all views on a team. Max length of 255 characters. Either `view_id` or `external_id` is required."
+              },
+              {
+                "name": "view",
+                "value": "",
+                "type": "query",
+                "description": "A [view object](/reference/surfaces/views). This must be a JSON-encoded string."
+              },
+              {
+                "name": "hash",
+                "value": "",
+                "type": "query",
+                "description": "A string that represents view state to protect against possible race conditions."
+              }
+            ]
+          },
+          "docs": "Update an existing view."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

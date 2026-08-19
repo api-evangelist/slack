@@ -1,0 +1,114 @@
+{
+  "item": [
+    {
+      "id": "3c35cb50-77d1-4917-be87-c91049211d9e",
+      "name": "Team",
+      "description": {
+        "content": "Access workspace information",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d20556a0-4ccc-44bd-bb67-8a5068023b78",
+          "name": "Slack Get Team Information",
+          "request": {
+            "name": "Slack Get Team Information",
+            "description": {
+              "content": "Gets information about the current team. Requires team:read scope.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "team.info"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "team",
+                  "value": "<string>",
+                  "description": "Team to get info about; if omitted, will return information about the current team."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6e105f51-15a9-4e59-b327-e75b47928740",
+              "name": "Team info retrieved",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "team.info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "team",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": true,\n  \"team\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"domain\": \"string\",\n    \"email_domain\": \"string\",\n    \"icon\": {\n      \"image_34\": \"string\",\n      \"image_44\": \"string\",\n      \"image_68\": \"string\",\n      \"image_88\": \"string\",\n      \"image_102\": \"string\",\n      \"image_132\": \"string\",\n      \"image_default\": false\n    },\n    \"enterprise_id\": \"string\",\n    \"enterprise_name\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "4bca94e9-246f-4166-874b-e14521f8cb4c",
+    "name": "Slack Admin Access Team API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Slack Admin API is a set of privileged endpoints\u0014primarily under admin.* with related SCIM and Audit Logs APIs\u0014that lets Enterprise Grid owners and admins automate organization\u0011 wide management and governance. It covers user lifecycle (provision, suspend, assign roles), workspace and channel administration across workspaces (create, move, archive channels; manage membership and settings), app governance (approve/deny or allowlist/ban apps and install them to workspaces), invite request handling, and security/compliance controls such as information barriers, session and authentication policies, and org\u0011level analytics exports. These APIs require elevated admin scopes and are commonly used to power automated onboarding/offboarding, centralized channel and app controls, and integrations with identity, ITSM, and compliance systems.",
+      "type": "text/plain"
+    }
+  }
+}

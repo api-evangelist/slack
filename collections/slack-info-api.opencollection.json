@@ -1,0 +1,332 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Slack Admin Access Info API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Info",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Slack Get Admin Teams Settings Info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/admin.teams.settings.info",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "team_id",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Fetch information about settings in a workspace"
+        },
+        {
+          "info": {
+            "name": "Slack Get Apps Permissions Info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/apps.permissions.info",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Authentication token. Requires scope: `none`"
+              }
+            ]
+          },
+          "docs": "Returns list of permissions this app has on a team."
+        },
+        {
+          "info": {
+            "name": "Slack Get Bots Info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/bots.info",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Authentication token. Requires scope: `users:read`"
+              },
+              {
+                "name": "bot",
+                "value": "",
+                "type": "query",
+                "description": "Bot user to get info on"
+              }
+            ]
+          },
+          "docs": "Gets information about a bot user."
+        },
+        {
+          "info": {
+            "name": "Slack Get Calls Info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/calls.info",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "`id` of the Call returned by the [`calls.add`](/methods/calls.add) method."
+              }
+            ]
+          },
+          "docs": "Returns information about a Call."
+        },
+        {
+          "info": {
+            "name": "Slack Get Conversations Info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/conversations.info",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Authentication token. Requires scope: `conversations:read`"
+              },
+              {
+                "name": "channel",
+                "value": "",
+                "type": "query",
+                "description": "Conversation ID to learn more about"
+              },
+              {
+                "name": "include_locale",
+                "value": "",
+                "type": "query",
+                "description": "Set this to `true` to receive the locale for this conversation. Defaults to `false`"
+              },
+              {
+                "name": "include_num_members",
+                "value": "",
+                "type": "query",
+                "description": "Set to `true` to include the member count for the specified conversation. Defaults to `false`"
+              }
+            ]
+          },
+          "docs": "Retrieve information about a conversation."
+        },
+        {
+          "info": {
+            "name": "Slack Get Do Not Disturb Info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/dnd.info",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Authentication token. Requires scope: `dnd:read`"
+              },
+              {
+                "name": "user",
+                "value": "",
+                "type": "query",
+                "description": "User to fetch status for (defaults to current user)"
+              }
+            ]
+          },
+          "docs": "Retrieves a user's current Do Not Disturb status."
+        },
+        {
+          "info": {
+            "name": "Slack Get Files Info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/files.info",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Authentication token. Requires scope: `files:read`"
+              },
+              {
+                "name": "file",
+                "value": "",
+                "type": "query",
+                "description": "Specify a file by providing its ID."
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the list hasn't been reached."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Parameter for pagination. File comments are paginated for a single file. Set `cursor` equal to the `next_cursor` attribute returned by the previous request's `response_metadata`. This parameter is optional, but pagination is mandatory: the default value simply fetches the first \"page\" of the collection of comments. See [pagination](/docs/pagination) for more details."
+              }
+            ]
+          },
+          "docs": "Gets information about a file."
+        },
+        {
+          "info": {
+            "name": "Slack Get Files Remote Info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/files.remote.info",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Authentication token. Requires scope: `remote_files:read`"
+              },
+              {
+                "name": "file",
+                "value": "",
+                "type": "query",
+                "description": "Specify a file by providing its ID."
+              },
+              {
+                "name": "external_id",
+                "value": "",
+                "type": "query",
+                "description": "Creator defined GUID for the file."
+              }
+            ]
+          },
+          "docs": "Retrieve information about a remote file added to Slack"
+        },
+        {
+          "info": {
+            "name": "Slack Get Reminders Info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/reminders.info",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Authentication token. Requires scope: `reminders:read`"
+              },
+              {
+                "name": "reminder",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the reminder"
+              }
+            ]
+          },
+          "docs": "Gets information about a reminder."
+        },
+        {
+          "info": {
+            "name": "Slack Get Team Info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/team.info",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Authentication token. Requires scope: `team:read`"
+              },
+              {
+                "name": "team",
+                "value": "",
+                "type": "query",
+                "description": "Team to get info on, if omitted, will return information about the current team. Will only return team that the authenticated token is allowed to see through external shared channels"
+              }
+            ]
+          },
+          "docs": "Gets information about the current team."
+        },
+        {
+          "info": {
+            "name": "Slack Get Users Info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/users.info",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Authentication token. Requires scope: `users:read`"
+              },
+              {
+                "name": "include_locale",
+                "value": "",
+                "type": "query",
+                "description": "Set this to `true` to receive the locale for this user. Defaults to `false`"
+              },
+              {
+                "name": "user",
+                "value": "",
+                "type": "query",
+                "description": "User to get info on"
+              }
+            ]
+          },
+          "docs": "Gets information about a user."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

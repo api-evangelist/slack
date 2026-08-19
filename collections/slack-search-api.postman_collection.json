@@ -1,0 +1,586 @@
+{
+  "item": [
+    {
+      "id": "f8c9cbb6-a93b-49e3-8db9-7f08e4525410",
+      "name": "Search",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "68973e63-a2a0-4c9f-b7e8-5057e992598b",
+          "name": "Slack Get Admin Conversations Search",
+          "request": {
+            "name": "Slack Get Admin Conversations Search",
+            "description": {
+              "content": "Search for public or private channels in an Enterprise organization.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "admin.conversations.search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "team_ids",
+                  "value": "<string>",
+                  "description": "Comma separated string of team IDs, signifying the workspaces to search through."
+                },
+                {
+                  "disabled": false,
+                  "key": "query",
+                  "value": "<string>",
+                  "description": "Name of the the channel to query by."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Maximum number of items to be returned. Must be between 1 - 20 both inclusive. Default is 10."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Set `cursor` to `next_cursor` returned by the previous call to list items in the next page."
+                },
+                {
+                  "disabled": false,
+                  "key": "search_channel_types",
+                  "value": "<string>",
+                  "description": "The type of channel to include or exclude in the search. For example `private` will search private channels, while `private_exclude` will exclude them. For a full list of types, check the [Types section](#types)."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Possible values are `relevant` (search ranking based on what we think is closest), `name` (alphabetical), `member_count` (number of users in the channel), and `created` (date channel was created). You can optionally pair this with the `sort_dir` arg to change how it is sorted "
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_dir",
+                  "value": "<string>",
+                  "description": "Sort direction. Possible values are `asc` for ascending order like (1, 2, 3) or (a, b, c), and `desc` for descending order like (3, 2, 1) or (c, b, a)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Authentication token. Requires scope: `admin.conversations:read`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "4851cb38-782c-40fb-8512-9d7f979bd582",
+              "name": "Typical success response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin.conversations.search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "team_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "search_channel_types",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_dir",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `admin.conversations:read`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"channels\": [\n    {\n      \"created\": 1449252889,\n      \"creator\": \"U012A3CDE\",\n      \"id\": \"C012AB3CD\",\n      \"is_archived\": false,\n      \"is_channel\": true,\n      \"is_ext_shared\": false,\n      \"is_general\": true,\n      \"is_group\": false,\n      \"is_im\": false,\n      \"is_member\": true,\n      \"is_mpim\": false,\n      \"is_org_shared\": false,\n      \"is_pending_ext_shared\": false,\n      \"is_private\": false,\n      \"is_shared\": false,\n      \"name\": \"general\",\n      \"name_normalized\": \"general\",\n      \"num_members\": 4,\n      \"pending_shared\": [],\n      \"previous_names\": [],\n      \"purpose\": {\n        \"creator\": \"\",\n        \"last_set\": 0,\n        \"value\": \"This channel is for team-wide communication and announcements. All team members are in this channel.\"\n      },\n      \"topic\": {\n        \"creator\": \"\",\n        \"last_set\": 0,\n        \"value\": \"Company-wide announcements and work-based matters\"\n      },\n      \"unlinked\": 0\n    }\n  ],\n  \"ok\": true,\n  \"response_metadata\": {\n    \"next_cursor\": \"dGVhbTpDMDYxRkE1UEI=\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "99587178-7e3e-4148-a854-cf02fa7a3cdb",
+              "name": "Typical error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin.conversations.search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "team_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "search_channel_types",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_dir",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `admin.conversations:read`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"not_an_enterprise\",\n  \"ok\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "86a1a6e9-fbd2-4123-9b0f-273b5ae6f914",
+          "name": "Slack Get Search Messages",
+          "request": {
+            "name": "Slack Get Search Messages",
+            "description": {
+              "content": "Searches for messages matching a query.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "search.messages"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "(Required) Authentication token. Requires scope: `search:read`"
+                },
+                {
+                  "disabled": false,
+                  "key": "count",
+                  "value": "<integer>",
+                  "description": "Pass the number of results you want per \"page\". Maximum of `100`."
+                },
+                {
+                  "disabled": false,
+                  "key": "highlight",
+                  "value": "<boolean>",
+                  "description": "Pass a value of `true` to enable query highlight markers (see below)."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "query",
+                  "value": "<string>",
+                  "description": "(Required) Search query."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Return matches sorted by either `score` or `timestamp`."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_dir",
+                  "value": "<string>",
+                  "description": "Change sort direction to ascending (`asc`) or descending (`desc`)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "662ad6d5-3ae7-403d-ab61-817d8e74dc7d",
+              "name": "Typical success response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search.messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "count",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "highlight",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_dir",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"messages\": {\n    \"matches\": [\n      {\n        \"channel\": {\n          \"id\": \"C12345678\",\n          \"is_ext_shared\": false,\n          \"is_mpim\": false,\n          \"is_org_shared\": false,\n          \"is_pending_ext_shared\": false,\n          \"is_private\": false,\n          \"is_shared\": false,\n          \"name\": \"general\",\n          \"pending_shared\": []\n        },\n        \"iid\": \"cb64bdaa-c1e8-4631-8a91-0f78080113e9\",\n        \"permalink\": \"https://hitchhikers.slack.com/archives/C12345678/p1508284197000015\",\n        \"team\": \"T12345678\",\n        \"text\": \"The meaning of life the universe and everything is 42.\",\n        \"ts\": \"1508284197.000015\",\n        \"type\": \"message\",\n        \"user\": \"U2U85N1RV\",\n        \"username\": \"roach\"\n      },\n      {\n        \"channel\": {\n          \"id\": \"C12345678\",\n          \"is_ext_shared\": false,\n          \"is_mpim\": false,\n          \"is_org_shared\": false,\n          \"is_pending_ext_shared\": false,\n          \"is_private\": false,\n          \"is_shared\": false,\n          \"name\": \"random\",\n          \"pending_shared\": []\n        },\n        \"iid\": \"9a00d3c9-bd2d-45b0-988b-6cff99ae2a90\",\n        \"permalink\": \"https://hitchhikers.slack.com/archives/C12345678/p1508795665000236\",\n        \"team\": \"T12345678\",\n        \"text\": \"The meaning of life the universe and everything is 101010\",\n        \"ts\": \"1508795665.000236\",\n        \"type\": \"message\",\n        \"user\": \"\",\n        \"username\": \"robot overlord\"\n      }\n    ],\n    \"pagination\": {\n      \"first\": 1,\n      \"last\": 2,\n      \"page\": 1,\n      \"page_count\": 1,\n      \"per_page\": 20,\n      \"total_count\": 2\n    },\n    \"paging\": {\n      \"count\": 20,\n      \"page\": 1,\n      \"pages\": 1,\n      \"total\": 2\n    },\n    \"total\": 2\n  },\n  \"ok\": true,\n  \"query\": \"The meaning of life the universe and everything\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b5160f21-6d7c-4015-bb83-3b2f20b962a3",
+              "name": "Typical error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search.messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "count",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "highlight",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_dir",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"No query passed\",\n  \"ok\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "435c7e51-4630-4740-bf34-1fa2b39aec58",
+          "name": "Slack Search for Files",
+          "request": {
+            "name": "Slack Search for Files",
+            "description": {
+              "content": "Searches for files matching a query.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "search.files"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "query",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "count",
+                  "value": "20"
+                },
+                {
+                  "disabled": false,
+                  "key": "highlight",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_dir",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "09355ca8-ad6c-447b-9076-5a034592bd40",
+              "name": "Search results returned",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search.files"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "count",
+                      "value": "20"
+                    },
+                    {
+                      "key": "highlight",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_dir",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": true,\n  \"query\": \"string\",\n  \"files\": {\n    \"total\": 6642,\n    \"matches\": [\n      {\n        \"id\": \"abc123\",\n        \"created\": 10,\n        \"timestamp\": 10,\n        \"name\": \"Example Title\",\n        \"title\": \"Example Title\",\n        \"mimetype\": \"example_value\",\n        \"filetype\": \"example_value\",\n        \"pretty_type\": \"example_value\",\n        \"user\": \"example_value\",\n        \"user_team\": \"example_value\",\n        \"editable\": true,\n        \"size\": 10,\n        \"mode\": \"example_value\",\n        \"is_external\": true,\n        \"external_type\": \"example_value\",\n        \"is_public\": true,\n        \"public_url_shared\": true,\n        \"display_as_bot\": true,\n        \"username\": \"example_value\",\n        \"url_private\": \"https://www.example.com\",\n        \"url_private_download\": \"https://www.example.com\",\n        \"permalink\": \"https://www.example.com\",\n        \"permalink_public\": \"https://www.example.com\",\n        \"shares\": {},\n        \"comments_count\": 10\n      },\n      {\n        \"id\": \"abc123\",\n        \"created\": 10,\n        \"timestamp\": 10,\n        \"name\": \"Example Title\",\n        \"title\": \"Example Title\",\n        \"mimetype\": \"example_value\",\n        \"filetype\": \"example_value\",\n        \"pretty_type\": \"example_value\",\n        \"user\": \"example_value\",\n        \"user_team\": \"example_value\",\n        \"editable\": true,\n        \"size\": 10,\n        \"mode\": \"example_value\",\n        \"is_external\": true,\n        \"external_type\": \"example_value\",\n        \"is_public\": true,\n        \"public_url_shared\": false,\n        \"display_as_bot\": true,\n        \"username\": \"example_value\",\n        \"url_private\": \"https://www.example.com\",\n        \"url_private_download\": \"https://www.example.com\",\n        \"permalink\": \"https://www.example.com\",\n        \"permalink_public\": \"https://www.example.com\",\n        \"shares\": {},\n        \"comments_count\": 10\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "09360550-1630-4e94-913e-ed27ff406363",
+    "name": "Slack Admin Access Search API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Slack Admin API is a set of privileged endpoints\u0014primarily under admin.* with related SCIM and Audit Logs APIs\u0014that lets Enterprise Grid owners and admins automate organization\u0011 wide management and governance. It covers user lifecycle (provision, suspend, assign roles), workspace and channel administration across workspaces (create, move, archive channels; manage membership and settings), app governance (approve/deny or allowlist/ban apps and install them to workspaces), invite request handling, and security/compliance controls such as information barriers, session and authentication policies, and org\u0011level analytics exports. These APIs require elevated admin scopes and are commonly used to power automated onboarding/offboarding, centralized channel and app controls, and integrations with identity, ITSM, and compliance systems.",
+      "type": "text/plain"
+    }
+  }
+}

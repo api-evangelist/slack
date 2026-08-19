@@ -1,0 +1,2952 @@
+{
+  "item": [
+    {
+      "id": "dc16ec55-2226-4ba7-81b7-ea4249568381",
+      "name": "Chat",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "480fbdc8-4d7d-473e-8c8d-693a29824462",
+          "name": "Slack Post Chat Delete",
+          "request": {
+            "name": "Slack Post Chat Delete",
+            "description": {
+              "content": "Deletes a message.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "chat.delete"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Authentication token. Requires scope: `chat:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "ts",
+                  "value": "<number>",
+                  "description": "Timestamp of the message to be deleted."
+                },
+                {
+                  "disabled": false,
+                  "key": "channel",
+                  "value": "<string>",
+                  "description": "Channel containing the message to be deleted."
+                },
+                {
+                  "disabled": false,
+                  "key": "as_user",
+                  "value": "<boolean>",
+                  "description": "Pass true to delete the message as the authed user with `chat:write:user` scope. [Bot users](/bot-users) in this context are considered authed users. If unused or false, the message will be deleted with `chat:write:bot` scope."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "89204936-81a8-4ae4-8f5f-8850ab57666f",
+              "name": "Typical success response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "chat.delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "Authentication token. Requires scope: `chat:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Timestamp of the message to be deleted.",
+                        "type": "text/plain"
+                      },
+                      "key": "ts",
+                      "value": "<number>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Channel containing the message to be deleted.",
+                        "type": "text/plain"
+                      },
+                      "key": "channel",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Pass true to delete the message as the authed user with `chat:write:user` scope. [Bot users](/bot-users) in this context are considered authed users. If unused or false, the message will be deleted with `chat:write:bot` scope.",
+                        "type": "text/plain"
+                      },
+                      "key": "as_user",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"channel\": \"C024BE91L\",\n  \"ok\": true,\n  \"ts\": \"1401383885.000061\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d05db84e-fac7-47c5-baa6-aeb432869eee",
+              "name": "Typical error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "chat.delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "Authentication token. Requires scope: `chat:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Timestamp of the message to be deleted.",
+                        "type": "text/plain"
+                      },
+                      "key": "ts",
+                      "value": "<number>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Channel containing the message to be deleted.",
+                        "type": "text/plain"
+                      },
+                      "key": "channel",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Pass true to delete the message as the authed user with `chat:write:user` scope. [Bot users](/bot-users) in this context are considered authed users. If unused or false, the message will be deleted with `chat:write:bot` scope.",
+                        "type": "text/plain"
+                      },
+                      "key": "as_user",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"message_not_found\",\n  \"ok\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6635af4a-049a-44eb-92d3-6db95e0518b6",
+          "name": "Slack Post Chat Deletescheduledmessage",
+          "request": {
+            "name": "Slack Post Chat Deletescheduledmessage",
+            "description": {
+              "content": "Deletes a pending scheduled message from the queue.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "chat.deleteScheduledMessage"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Authentication token. Requires scope: `chat:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "channel",
+                  "value": "<string>",
+                  "description": "(Required) The channel the scheduled_message is posting to"
+                },
+                {
+                  "disabled": false,
+                  "key": "scheduled_message_id",
+                  "value": "<string>",
+                  "description": "(Required) `scheduled_message_id` returned from call to chat.scheduleMessage"
+                },
+                {
+                  "disabled": false,
+                  "key": "as_user",
+                  "value": "<boolean>",
+                  "description": "Pass true to delete the message as the authed user with `chat:write:user` scope. [Bot users](/bot-users) in this context are considered authed users. If unused or false, the message will be deleted with `chat:write:bot` scope."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a45c6383-aeb5-4503-a635-b0713044ee03",
+              "name": "Typical success response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "chat.deleteScheduledMessage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `chat:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The channel the scheduled_message is posting to",
+                        "type": "text/plain"
+                      },
+                      "key": "channel",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) `scheduled_message_id` returned from call to chat.scheduleMessage",
+                        "type": "text/plain"
+                      },
+                      "key": "scheduled_message_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Pass true to delete the message as the authed user with `chat:write:user` scope. [Bot users](/bot-users) in this context are considered authed users. If unused or false, the message will be deleted with `chat:write:bot` scope.",
+                        "type": "text/plain"
+                      },
+                      "key": "as_user",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "36298654-50b8-4f9f-a1e0-4ab96f0e274c",
+              "name": "Typical error response if no message is found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "chat.deleteScheduledMessage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `chat:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The channel the scheduled_message is posting to",
+                        "type": "text/plain"
+                      },
+                      "key": "channel",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) `scheduled_message_id` returned from call to chat.scheduleMessage",
+                        "type": "text/plain"
+                      },
+                      "key": "scheduled_message_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Pass true to delete the message as the authed user with `chat:write:user` scope. [Bot users](/bot-users) in this context are considered authed users. If unused or false, the message will be deleted with `chat:write:bot` scope.",
+                        "type": "text/plain"
+                      },
+                      "key": "as_user",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"invalid_scheduled_message_id\",\n  \"ok\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cc095d14-aef9-4cd6-a049-14ca8d07ec3d",
+          "name": "Slack Get Chat Getpermalink",
+          "request": {
+            "name": "Slack Get Chat Getpermalink",
+            "description": {
+              "content": "Retrieve a permalink URL for a specific extant message",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "chat.getPermalink"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "(Required) Authentication token. Requires scope: `none`"
+                },
+                {
+                  "disabled": false,
+                  "key": "channel",
+                  "value": "<string>",
+                  "description": "(Required) The ID of the conversation or channel containing the message"
+                },
+                {
+                  "disabled": false,
+                  "key": "message_ts",
+                  "value": "<string>",
+                  "description": "(Required) A message's `ts` value, uniquely identifying it within a channel"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "94b0cdf4-0313-4487-bbdf-bc71abe7cd1b",
+              "name": "Standard success response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "chat.getPermalink"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "channel",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "message_ts",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"channel\": \"C1H9RESGA\",\n  \"ok\": true,\n  \"permalink\": \"https://ghostbusters.slack.com/archives/C1H9RESGA/p135854651500008\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "63e457ab-7082-4111-9f1a-44c06646ebca",
+              "name": "Error response when channel cannot be found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "chat.getPermalink"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "channel",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "message_ts",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"channel_not_found\",\n  \"ok\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1dab3ca9-a55d-4022-aac0-bd1f80d71039",
+          "name": "Slack Post Chat Memessage",
+          "request": {
+            "name": "Slack Post Chat Memessage",
+            "description": {
+              "content": "Share a me message into a channel.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "chat.meMessage"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Authentication token. Requires scope: `chat:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "channel",
+                  "value": "<string>",
+                  "description": "Channel to send message to. Can be a public channel, private group or IM channel. Can be an encoded ID, or a name."
+                },
+                {
+                  "disabled": false,
+                  "key": "text",
+                  "value": "<string>",
+                  "description": "Text of the message to send."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e099ebbc-37cb-44be-9c47-181e31df6ee4",
+              "name": "Typical success response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "chat.meMessage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "Authentication token. Requires scope: `chat:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Channel to send message to. Can be a public channel, private group or IM channel. Can be an encoded ID, or a name.",
+                        "type": "text/plain"
+                      },
+                      "key": "channel",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Text of the message to send.",
+                        "type": "text/plain"
+                      },
+                      "key": "text",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"channel\": \"C024BE7LR\",\n  \"ok\": true,\n  \"ts\": \"1417671948.000006\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1337f71c-c859-4ac5-ae99-83c4c0f7f74d",
+              "name": "Typical error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "chat.meMessage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "Authentication token. Requires scope: `chat:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Channel to send message to. Can be a public channel, private group or IM channel. Can be an encoded ID, or a name.",
+                        "type": "text/plain"
+                      },
+                      "key": "channel",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Text of the message to send.",
+                        "type": "text/plain"
+                      },
+                      "key": "text",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"invalid_auth\",\n  \"ok\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "70f32d21-67ea-4498-8c1b-d7a802dbc814",
+          "name": "Slack Post Chat Postephemeral",
+          "request": {
+            "name": "Slack Post Chat Postephemeral",
+            "description": {
+              "content": "Sends an ephemeral message to a user in a channel.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "chat.postEphemeral"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Authentication token. Requires scope: `chat:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "channel",
+                  "value": "<string>",
+                  "description": "(Required) Channel, private group, or IM channel to send message to. Can be an encoded ID, or a name."
+                },
+                {
+                  "disabled": false,
+                  "key": "user",
+                  "value": "<string>",
+                  "description": "(Required) `id` of the user who will receive the ephemeral message. The user should be in the channel specified by the `channel` argument."
+                },
+                {
+                  "disabled": false,
+                  "key": "as_user",
+                  "value": "<boolean>",
+                  "description": "Pass true to post the message as the authed user. Defaults to true if the chat:write:bot scope is not included. Otherwise, defaults to false."
+                },
+                {
+                  "disabled": false,
+                  "key": "attachments",
+                  "value": "<string>",
+                  "description": "A JSON-based array of structured attachments, presented as a URL-encoded string."
+                },
+                {
+                  "disabled": false,
+                  "key": "blocks",
+                  "value": "<string>",
+                  "description": "A JSON-based array of structured blocks, presented as a URL-encoded string."
+                },
+                {
+                  "disabled": false,
+                  "key": "icon_emoji",
+                  "value": "<string>",
+                  "description": "Emoji to use as the icon for this message. Overrides `icon_url`. Must be used in conjunction with `as_user` set to `false`, otherwise ignored. See [authorship](#authorship) below."
+                },
+                {
+                  "disabled": false,
+                  "key": "icon_url",
+                  "value": "<string>",
+                  "description": "URL to an image to use as the icon for this message. Must be used in conjunction with `as_user` set to false, otherwise ignored. See [authorship](#authorship) below."
+                },
+                {
+                  "disabled": false,
+                  "key": "link_names",
+                  "value": "<boolean>",
+                  "description": "Find and link channel names and usernames."
+                },
+                {
+                  "disabled": false,
+                  "key": "parse",
+                  "value": "<string>",
+                  "description": "Change how messages are treated. Defaults to `none`. See [below](#formatting)."
+                },
+                {
+                  "disabled": false,
+                  "key": "text",
+                  "value": "<string>",
+                  "description": "How this field works and whether it is required depends on other fields you use in your API call. [See below](#text_usage) for more detail."
+                },
+                {
+                  "disabled": false,
+                  "key": "thread_ts",
+                  "value": "<string>",
+                  "description": "Provide another message's `ts` value to post this message in a thread. Avoid using a reply's `ts` value; use its parent's value instead. Ephemeral messages in threads are only shown if there is already an active thread."
+                },
+                {
+                  "disabled": false,
+                  "key": "username",
+                  "value": "<string>",
+                  "description": "Set your bot's user name. Must be used in conjunction with `as_user` set to false, otherwise ignored. See [authorship](#authorship) below."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "2bf85269-5a6c-4fd1-9cd7-0b6a5ef0cc11",
+              "name": "Typical success response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "chat.postEphemeral"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `chat:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Channel, private group, or IM channel to send message to. Can be an encoded ID, or a name.",
+                        "type": "text/plain"
+                      },
+                      "key": "channel",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) `id` of the user who will receive the ephemeral message. The user should be in the channel specified by the `channel` argument.",
+                        "type": "text/plain"
+                      },
+                      "key": "user",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Pass true to post the message as the authed user. Defaults to true if the chat:write:bot scope is not included. Otherwise, defaults to false.",
+                        "type": "text/plain"
+                      },
+                      "key": "as_user",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A JSON-based array of structured attachments, presented as a URL-encoded string.",
+                        "type": "text/plain"
+                      },
+                      "key": "attachments",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A JSON-based array of structured blocks, presented as a URL-encoded string.",
+                        "type": "text/plain"
+                      },
+                      "key": "blocks",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Emoji to use as the icon for this message. Overrides `icon_url`. Must be used in conjunction with `as_user` set to `false`, otherwise ignored. See [authorship](#authorship) below.",
+                        "type": "text/plain"
+                      },
+                      "key": "icon_emoji",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "URL to an image to use as the icon for this message. Must be used in conjunction with `as_user` set to false, otherwise ignored. See [authorship](#authorship) below.",
+                        "type": "text/plain"
+                      },
+                      "key": "icon_url",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Find and link channel names and usernames.",
+                        "type": "text/plain"
+                      },
+                      "key": "link_names",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Change how messages are treated. Defaults to `none`. See [below](#formatting).",
+                        "type": "text/plain"
+                      },
+                      "key": "parse",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "How this field works and whether it is required depends on other fields you use in your API call. [See below](#text_usage) for more detail.",
+                        "type": "text/plain"
+                      },
+                      "key": "text",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Provide another message's `ts` value to post this message in a thread. Avoid using a reply's `ts` value; use its parent's value instead. Ephemeral messages in threads are only shown if there is already an active thread.",
+                        "type": "text/plain"
+                      },
+                      "key": "thread_ts",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Set your bot's user name. Must be used in conjunction with `as_user` set to false, otherwise ignored. See [authorship](#authorship) below.",
+                        "type": "text/plain"
+                      },
+                      "key": "username",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message_ts\": \"1502210682.580145\",\n  \"ok\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "20ee91f3-5a24-44e8-9fcb-93be313f310f",
+              "name": "Typical error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "chat.postEphemeral"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `chat:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Channel, private group, or IM channel to send message to. Can be an encoded ID, or a name.",
+                        "type": "text/plain"
+                      },
+                      "key": "channel",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) `id` of the user who will receive the ephemeral message. The user should be in the channel specified by the `channel` argument.",
+                        "type": "text/plain"
+                      },
+                      "key": "user",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Pass true to post the message as the authed user. Defaults to true if the chat:write:bot scope is not included. Otherwise, defaults to false.",
+                        "type": "text/plain"
+                      },
+                      "key": "as_user",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A JSON-based array of structured attachments, presented as a URL-encoded string.",
+                        "type": "text/plain"
+                      },
+                      "key": "attachments",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A JSON-based array of structured blocks, presented as a URL-encoded string.",
+                        "type": "text/plain"
+                      },
+                      "key": "blocks",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Emoji to use as the icon for this message. Overrides `icon_url`. Must be used in conjunction with `as_user` set to `false`, otherwise ignored. See [authorship](#authorship) below.",
+                        "type": "text/plain"
+                      },
+                      "key": "icon_emoji",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "URL to an image to use as the icon for this message. Must be used in conjunction with `as_user` set to false, otherwise ignored. See [authorship](#authorship) below.",
+                        "type": "text/plain"
+                      },
+                      "key": "icon_url",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Find and link channel names and usernames.",
+                        "type": "text/plain"
+                      },
+                      "key": "link_names",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Change how messages are treated. Defaults to `none`. See [below](#formatting).",
+                        "type": "text/plain"
+                      },
+                      "key": "parse",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "How this field works and whether it is required depends on other fields you use in your API call. [See below](#text_usage) for more detail.",
+                        "type": "text/plain"
+                      },
+                      "key": "text",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Provide another message's `ts` value to post this message in a thread. Avoid using a reply's `ts` value; use its parent's value instead. Ephemeral messages in threads are only shown if there is already an active thread.",
+                        "type": "text/plain"
+                      },
+                      "key": "thread_ts",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Set your bot's user name. Must be used in conjunction with `as_user` set to false, otherwise ignored. See [authorship](#authorship) below.",
+                        "type": "text/plain"
+                      },
+                      "key": "username",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"user_not_in_channel\",\n  \"ok\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7435ce56-09a2-4022-91d2-5bf6ff255edd",
+          "name": "Slack Post Chat Postmessage",
+          "request": {
+            "name": "Slack Post Chat Postmessage",
+            "description": {
+              "content": "Sends a message to a channel.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "chat.postMessage"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Authentication token. Requires scope: `chat:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "channel",
+                  "value": "<string>",
+                  "description": "(Required) Channel, private group, or IM channel to send message to. Can be an encoded ID, or a name. See [below](#channels) for more details."
+                },
+                {
+                  "disabled": false,
+                  "key": "as_user",
+                  "value": "<string>",
+                  "description": "Pass true to post the message as the authed user, instead of as a bot. Defaults to false. See [authorship](#authorship) below."
+                },
+                {
+                  "disabled": false,
+                  "key": "attachments",
+                  "value": "<string>",
+                  "description": "A JSON-based array of structured attachments, presented as a URL-encoded string."
+                },
+                {
+                  "disabled": false,
+                  "key": "blocks",
+                  "value": "<string>",
+                  "description": "A JSON-based array of structured blocks, presented as a URL-encoded string."
+                },
+                {
+                  "disabled": false,
+                  "key": "icon_emoji",
+                  "value": "<string>",
+                  "description": "Emoji to use as the icon for this message. Overrides `icon_url`. Must be used in conjunction with `as_user` set to `false`, otherwise ignored. See [authorship](#authorship) below."
+                },
+                {
+                  "disabled": false,
+                  "key": "icon_url",
+                  "value": "<string>",
+                  "description": "URL to an image to use as the icon for this message. Must be used in conjunction with `as_user` set to false, otherwise ignored. See [authorship](#authorship) below."
+                },
+                {
+                  "disabled": false,
+                  "key": "link_names",
+                  "value": "<boolean>",
+                  "description": "Find and link channel names and usernames."
+                },
+                {
+                  "disabled": false,
+                  "key": "mrkdwn",
+                  "value": "<boolean>",
+                  "description": "Disable Slack markup parsing by setting to `false`. Enabled by default."
+                },
+                {
+                  "disabled": false,
+                  "key": "parse",
+                  "value": "<string>",
+                  "description": "Change how messages are treated. Defaults to `none`. See [below](#formatting)."
+                },
+                {
+                  "disabled": false,
+                  "key": "reply_broadcast",
+                  "value": "<boolean>",
+                  "description": "Used in conjunction with `thread_ts` and indicates whether reply should be made visible to everyone in the channel or conversation. Defaults to `false`."
+                },
+                {
+                  "disabled": false,
+                  "key": "text",
+                  "value": "<string>",
+                  "description": "How this field works and whether it is required depends on other fields you use in your API call. [See below](#text_usage) for more detail."
+                },
+                {
+                  "disabled": false,
+                  "key": "thread_ts",
+                  "value": "<string>",
+                  "description": "Provide another message's `ts` value to make this message a reply. Avoid using a reply's `ts` value; use its parent instead."
+                },
+                {
+                  "disabled": false,
+                  "key": "unfurl_links",
+                  "value": "<boolean>",
+                  "description": "Pass true to enable unfurling of primarily text-based content."
+                },
+                {
+                  "disabled": false,
+                  "key": "unfurl_media",
+                  "value": "<boolean>",
+                  "description": "Pass false to disable unfurling of media content."
+                },
+                {
+                  "disabled": false,
+                  "key": "username",
+                  "value": "<string>",
+                  "description": "Set your bot's user name. Must be used in conjunction with `as_user` set to false, otherwise ignored. See [authorship](#authorship) below."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e115256f-3201-4af2-80dc-6ae82a184f0c",
+              "name": "Typical success response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "chat.postMessage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `chat:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Channel, private group, or IM channel to send message to. Can be an encoded ID, or a name. See [below](#channels) for more details.",
+                        "type": "text/plain"
+                      },
+                      "key": "channel",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Pass true to post the message as the authed user, instead of as a bot. Defaults to false. See [authorship](#authorship) below.",
+                        "type": "text/plain"
+                      },
+                      "key": "as_user",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A JSON-based array of structured attachments, presented as a URL-encoded string.",
+                        "type": "text/plain"
+                      },
+                      "key": "attachments",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A JSON-based array of structured blocks, presented as a URL-encoded string.",
+                        "type": "text/plain"
+                      },
+                      "key": "blocks",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Emoji to use as the icon for this message. Overrides `icon_url`. Must be used in conjunction with `as_user` set to `false`, otherwise ignored. See [authorship](#authorship) below.",
+                        "type": "text/plain"
+                      },
+                      "key": "icon_emoji",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "URL to an image to use as the icon for this message. Must be used in conjunction with `as_user` set to false, otherwise ignored. See [authorship](#authorship) below.",
+                        "type": "text/plain"
+                      },
+                      "key": "icon_url",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Find and link channel names and usernames.",
+                        "type": "text/plain"
+                      },
+                      "key": "link_names",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Disable Slack markup parsing by setting to `false`. Enabled by default.",
+                        "type": "text/plain"
+                      },
+                      "key": "mrkdwn",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Change how messages are treated. Defaults to `none`. See [below](#formatting).",
+                        "type": "text/plain"
+                      },
+                      "key": "parse",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Used in conjunction with `thread_ts` and indicates whether reply should be made visible to everyone in the channel or conversation. Defaults to `false`.",
+                        "type": "text/plain"
+                      },
+                      "key": "reply_broadcast",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "How this field works and whether it is required depends on other fields you use in your API call. [See below](#text_usage) for more detail.",
+                        "type": "text/plain"
+                      },
+                      "key": "text",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Provide another message's `ts` value to make this message a reply. Avoid using a reply's `ts` value; use its parent instead.",
+                        "type": "text/plain"
+                      },
+                      "key": "thread_ts",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Pass true to enable unfurling of primarily text-based content.",
+                        "type": "text/plain"
+                      },
+                      "key": "unfurl_links",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Pass false to disable unfurling of media content.",
+                        "type": "text/plain"
+                      },
+                      "key": "unfurl_media",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Set your bot's user name. Must be used in conjunction with `as_user` set to false, otherwise ignored. See [authorship](#authorship) below.",
+                        "type": "text/plain"
+                      },
+                      "key": "username",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"channel\": \"C1H9RESGL\",\n  \"message\": {\n    \"attachments\": [\n      {\n        \"fallback\": \"This is an attachment's fallback\",\n        \"id\": 1,\n        \"text\": \"This is an attachment\"\n      }\n    ],\n    \"bot_id\": \"B19LU7CSY\",\n    \"subtype\": \"bot_message\",\n    \"text\": \"Here's a message for you\",\n    \"ts\": \"1503435956.000247\",\n    \"type\": \"message\",\n    \"username\": \"ecto1\"\n  },\n  \"ok\": true,\n  \"ts\": \"1503435956.000247\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9c2f1f94-7b46-4882-b0ed-f5bcb9d10b54",
+              "name": "Typical error response if too many attachments are included",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "chat.postMessage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `chat:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Channel, private group, or IM channel to send message to. Can be an encoded ID, or a name. See [below](#channels) for more details.",
+                        "type": "text/plain"
+                      },
+                      "key": "channel",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Pass true to post the message as the authed user, instead of as a bot. Defaults to false. See [authorship](#authorship) below.",
+                        "type": "text/plain"
+                      },
+                      "key": "as_user",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A JSON-based array of structured attachments, presented as a URL-encoded string.",
+                        "type": "text/plain"
+                      },
+                      "key": "attachments",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A JSON-based array of structured blocks, presented as a URL-encoded string.",
+                        "type": "text/plain"
+                      },
+                      "key": "blocks",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Emoji to use as the icon for this message. Overrides `icon_url`. Must be used in conjunction with `as_user` set to `false`, otherwise ignored. See [authorship](#authorship) below.",
+                        "type": "text/plain"
+                      },
+                      "key": "icon_emoji",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "URL to an image to use as the icon for this message. Must be used in conjunction with `as_user` set to false, otherwise ignored. See [authorship](#authorship) below.",
+                        "type": "text/plain"
+                      },
+                      "key": "icon_url",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Find and link channel names and usernames.",
+                        "type": "text/plain"
+                      },
+                      "key": "link_names",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Disable Slack markup parsing by setting to `false`. Enabled by default.",
+                        "type": "text/plain"
+                      },
+                      "key": "mrkdwn",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Change how messages are treated. Defaults to `none`. See [below](#formatting).",
+                        "type": "text/plain"
+                      },
+                      "key": "parse",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Used in conjunction with `thread_ts` and indicates whether reply should be made visible to everyone in the channel or conversation. Defaults to `false`.",
+                        "type": "text/plain"
+                      },
+                      "key": "reply_broadcast",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "How this field works and whether it is required depends on other fields you use in your API call. [See below](#text_usage) for more detail.",
+                        "type": "text/plain"
+                      },
+                      "key": "text",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Provide another message's `ts` value to make this message a reply. Avoid using a reply's `ts` value; use its parent instead.",
+                        "type": "text/plain"
+                      },
+                      "key": "thread_ts",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Pass true to enable unfurling of primarily text-based content.",
+                        "type": "text/plain"
+                      },
+                      "key": "unfurl_links",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Pass false to disable unfurling of media content.",
+                        "type": "text/plain"
+                      },
+                      "key": "unfurl_media",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Set your bot's user name. Must be used in conjunction with `as_user` set to false, otherwise ignored. See [authorship](#authorship) below.",
+                        "type": "text/plain"
+                      },
+                      "key": "username",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"too_many_attachments\",\n  \"ok\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7f5f859e-6e85-4937-b601-d45ff271fdf1",
+          "name": "Slack Post Chat Schedulemessage",
+          "request": {
+            "name": "Slack Post Chat Schedulemessage",
+            "description": {
+              "content": "Schedules a message to be sent to a channel.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "chat.scheduleMessage"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Authentication token. Requires scope: `chat:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "channel",
+                  "value": "<string>",
+                  "description": "Channel, private group, or DM channel to send message to. Can be an encoded ID, or a name. See [below](#channels) for more details."
+                },
+                {
+                  "disabled": false,
+                  "key": "text",
+                  "value": "<string>",
+                  "description": "How this field works and whether it is required depends on other fields you use in your API call. [See below](#text_usage) for more detail."
+                },
+                {
+                  "disabled": false,
+                  "key": "post_at",
+                  "value": "<string>",
+                  "description": "Unix EPOCH timestamp of time in future to send the message."
+                },
+                {
+                  "disabled": false,
+                  "key": "parse",
+                  "value": "<string>",
+                  "description": "Change how messages are treated. Defaults to `none`. See [chat.postMessage](chat.postMessage#formatting)."
+                },
+                {
+                  "disabled": false,
+                  "key": "as_user",
+                  "value": "<boolean>",
+                  "description": "Pass true to post the message as the authed user, instead of as a bot. Defaults to false. See [chat.postMessage](chat.postMessage#authorship)."
+                },
+                {
+                  "disabled": false,
+                  "key": "link_names",
+                  "value": "<boolean>",
+                  "description": "Find and link channel names and usernames."
+                },
+                {
+                  "disabled": false,
+                  "key": "attachments",
+                  "value": "<string>",
+                  "description": "A JSON-based array of structured attachments, presented as a URL-encoded string."
+                },
+                {
+                  "disabled": false,
+                  "key": "blocks",
+                  "value": "<string>",
+                  "description": "A JSON-based array of structured blocks, presented as a URL-encoded string."
+                },
+                {
+                  "disabled": false,
+                  "key": "unfurl_links",
+                  "value": "<boolean>",
+                  "description": "Pass true to enable unfurling of primarily text-based content."
+                },
+                {
+                  "disabled": false,
+                  "key": "unfurl_media",
+                  "value": "<boolean>",
+                  "description": "Pass false to disable unfurling of media content."
+                },
+                {
+                  "disabled": false,
+                  "key": "thread_ts",
+                  "value": "<number>",
+                  "description": "Provide another message's `ts` value to make this message a reply. Avoid using a reply's `ts` value; use its parent instead."
+                },
+                {
+                  "disabled": false,
+                  "key": "reply_broadcast",
+                  "value": "<boolean>",
+                  "description": "Used in conjunction with `thread_ts` and indicates whether reply should be made visible to everyone in the channel or conversation. Defaults to `false`."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "76724b9d-a494-4e40-b473-692382ec7b09",
+              "name": "Typical success response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "chat.scheduleMessage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "Authentication token. Requires scope: `chat:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Channel, private group, or DM channel to send message to. Can be an encoded ID, or a name. See [below](#channels) for more details.",
+                        "type": "text/plain"
+                      },
+                      "key": "channel",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "How this field works and whether it is required depends on other fields you use in your API call. [See below](#text_usage) for more detail.",
+                        "type": "text/plain"
+                      },
+                      "key": "text",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Unix EPOCH timestamp of time in future to send the message.",
+                        "type": "text/plain"
+                      },
+                      "key": "post_at",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Change how messages are treated. Defaults to `none`. See [chat.postMessage](chat.postMessage#formatting).",
+                        "type": "text/plain"
+                      },
+                      "key": "parse",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Pass true to post the message as the authed user, instead of as a bot. Defaults to false. See [chat.postMessage](chat.postMessage#authorship).",
+                        "type": "text/plain"
+                      },
+                      "key": "as_user",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Find and link channel names and usernames.",
+                        "type": "text/plain"
+                      },
+                      "key": "link_names",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A JSON-based array of structured attachments, presented as a URL-encoded string.",
+                        "type": "text/plain"
+                      },
+                      "key": "attachments",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A JSON-based array of structured blocks, presented as a URL-encoded string.",
+                        "type": "text/plain"
+                      },
+                      "key": "blocks",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Pass true to enable unfurling of primarily text-based content.",
+                        "type": "text/plain"
+                      },
+                      "key": "unfurl_links",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Pass false to disable unfurling of media content.",
+                        "type": "text/plain"
+                      },
+                      "key": "unfurl_media",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Provide another message's `ts` value to make this message a reply. Avoid using a reply's `ts` value; use its parent instead.",
+                        "type": "text/plain"
+                      },
+                      "key": "thread_ts",
+                      "value": "<number>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Used in conjunction with `thread_ts` and indicates whether reply should be made visible to everyone in the channel or conversation. Defaults to `false`.",
+                        "type": "text/plain"
+                      },
+                      "key": "reply_broadcast",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"channel\": \"C1H9RESGL\",\n  \"message\": {\n    \"attachments\": [\n      {\n        \"fallback\": \"This is an attachment's fallback\",\n        \"id\": 1,\n        \"text\": \"This is an attachment\"\n      }\n    ],\n    \"bot_id\": \"B19LU7CSY\",\n    \"subtype\": \"bot_message\",\n    \"text\": \"Here's a message for you in the future\",\n    \"type\": \"delayed_message\",\n    \"username\": \"ecto1\"\n  },\n  \"ok\": true,\n  \"post_at\": \"1562180400\",\n  \"scheduled_message_id\": \"Q1298393284\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3a206d96-d54c-4aa8-b0a8-0a1ecfa0f6ec",
+              "name": "Typical error response if the `post_at` is invalid (ex. in the past or too far into the future)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "chat.scheduleMessage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "Authentication token. Requires scope: `chat:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Channel, private group, or DM channel to send message to. Can be an encoded ID, or a name. See [below](#channels) for more details.",
+                        "type": "text/plain"
+                      },
+                      "key": "channel",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "How this field works and whether it is required depends on other fields you use in your API call. [See below](#text_usage) for more detail.",
+                        "type": "text/plain"
+                      },
+                      "key": "text",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Unix EPOCH timestamp of time in future to send the message.",
+                        "type": "text/plain"
+                      },
+                      "key": "post_at",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Change how messages are treated. Defaults to `none`. See [chat.postMessage](chat.postMessage#formatting).",
+                        "type": "text/plain"
+                      },
+                      "key": "parse",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Pass true to post the message as the authed user, instead of as a bot. Defaults to false. See [chat.postMessage](chat.postMessage#authorship).",
+                        "type": "text/plain"
+                      },
+                      "key": "as_user",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Find and link channel names and usernames.",
+                        "type": "text/plain"
+                      },
+                      "key": "link_names",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A JSON-based array of structured attachments, presented as a URL-encoded string.",
+                        "type": "text/plain"
+                      },
+                      "key": "attachments",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A JSON-based array of structured blocks, presented as a URL-encoded string.",
+                        "type": "text/plain"
+                      },
+                      "key": "blocks",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Pass true to enable unfurling of primarily text-based content.",
+                        "type": "text/plain"
+                      },
+                      "key": "unfurl_links",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Pass false to disable unfurling of media content.",
+                        "type": "text/plain"
+                      },
+                      "key": "unfurl_media",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Provide another message's `ts` value to make this message a reply. Avoid using a reply's `ts` value; use its parent instead.",
+                        "type": "text/plain"
+                      },
+                      "key": "thread_ts",
+                      "value": "<number>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Used in conjunction with `thread_ts` and indicates whether reply should be made visible to everyone in the channel or conversation. Defaults to `false`.",
+                        "type": "text/plain"
+                      },
+                      "key": "reply_broadcast",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"time_in_past\",\n  \"ok\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0cdd2b81-301e-493e-ac05-3f515cf8f0bf",
+          "name": "Slack Get Chat Scheduledmessages List",
+          "request": {
+            "name": "Slack Get Chat Scheduledmessages List",
+            "description": {
+              "content": "Returns a list of scheduled messages.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "chat.scheduledMessages.list"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "channel",
+                  "value": "<string>",
+                  "description": "The channel of the scheduled messages"
+                },
+                {
+                  "disabled": false,
+                  "key": "latest",
+                  "value": "<number>",
+                  "description": "A UNIX timestamp of the latest value in the time range"
+                },
+                {
+                  "disabled": false,
+                  "key": "oldest",
+                  "value": "<number>",
+                  "description": "A UNIX timestamp of the oldest value in the time range"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Maximum number of original entries to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "For pagination purposes, this is the `cursor` value returned from a previous call to `chat.scheduledmessages.list` indicating where you want to start this call from."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Authentication token. Requires scope: `none`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "e2b056ae-3e76-4f48-a99e-468a4b02f04d",
+              "name": "Typical success response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "chat.scheduledMessages.list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "channel",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "latest",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "oldest",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "Authentication token. Requires scope: `none`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": true,\n  \"response_metadata\": {\n    \"next_cursor\": \"\"\n  },\n  \"scheduled_messages\": [\n    {\n      \"channel_id\": \"C1H9RESGL\",\n      \"date_created\": 1551891734,\n      \"id\": 1298393284,\n      \"post_at\": 1551991428,\n      \"text\": \"Here's a message for you in the future\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5117546b-5c11-4f53-a377-dec50d05169c",
+              "name": "Typical error response if the channel passed is invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "chat.scheduledMessages.list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "channel",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "latest",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "oldest",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "Authentication token. Requires scope: `none`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"invalid_channel\",\n  \"ok\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "28fd6e3e-cdf2-455f-a849-341617d406a6",
+          "name": "Slack Post Chat Unfurl",
+          "request": {
+            "name": "Slack Post Chat Unfurl",
+            "description": {
+              "content": "Provide custom unfurl behavior for user-posted URLs",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "chat.unfurl"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Authentication token. Requires scope: `links:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "channel",
+                  "value": "<string>",
+                  "description": "(Required) Channel ID of the message"
+                },
+                {
+                  "disabled": false,
+                  "key": "ts",
+                  "value": "<string>",
+                  "description": "(Required) Timestamp of the message to add unfurl behavior to."
+                },
+                {
+                  "disabled": false,
+                  "key": "unfurls",
+                  "value": "<string>",
+                  "description": "URL-encoded JSON map with keys set to URLs featured in the the message, pointing to their unfurl blocks or message attachments."
+                },
+                {
+                  "disabled": false,
+                  "key": "user_auth_message",
+                  "value": "<string>",
+                  "description": "Provide a simply-formatted string to send as an ephemeral message to the user as invitation to authenticate further and enable full unfurling behavior"
+                },
+                {
+                  "disabled": false,
+                  "key": "user_auth_required",
+                  "value": "<boolean>",
+                  "description": "Set to `true` or `1` to indicate the user must install your Slack app to trigger unfurls for this domain"
+                },
+                {
+                  "disabled": false,
+                  "key": "user_auth_url",
+                  "value": "<string>",
+                  "description": "Send users to this custom URL where they will complete authentication in your app to fully trigger unfurling. Value should be properly URL-encoded."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a8167693-9941-49e0-9982-ed05234f4bdb",
+              "name": "Typical, minimal success response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "chat.unfurl"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `links:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Channel ID of the message",
+                        "type": "text/plain"
+                      },
+                      "key": "channel",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Timestamp of the message to add unfurl behavior to.",
+                        "type": "text/plain"
+                      },
+                      "key": "ts",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "URL-encoded JSON map with keys set to URLs featured in the the message, pointing to their unfurl blocks or message attachments.",
+                        "type": "text/plain"
+                      },
+                      "key": "unfurls",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Provide a simply-formatted string to send as an ephemeral message to the user as invitation to authenticate further and enable full unfurling behavior",
+                        "type": "text/plain"
+                      },
+                      "key": "user_auth_message",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Set to `true` or `1` to indicate the user must install your Slack app to trigger unfurls for this domain",
+                        "type": "text/plain"
+                      },
+                      "key": "user_auth_required",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Send users to this custom URL where they will complete authentication in your app to fully trigger unfurling. Value should be properly URL-encoded.",
+                        "type": "text/plain"
+                      },
+                      "key": "user_auth_url",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "db878ed5-c4c9-4179-9904-1158f7082b3c",
+              "name": "Typical error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "chat.unfurl"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `links:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Channel ID of the message",
+                        "type": "text/plain"
+                      },
+                      "key": "channel",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Timestamp of the message to add unfurl behavior to.",
+                        "type": "text/plain"
+                      },
+                      "key": "ts",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "URL-encoded JSON map with keys set to URLs featured in the the message, pointing to their unfurl blocks or message attachments.",
+                        "type": "text/plain"
+                      },
+                      "key": "unfurls",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Provide a simply-formatted string to send as an ephemeral message to the user as invitation to authenticate further and enable full unfurling behavior",
+                        "type": "text/plain"
+                      },
+                      "key": "user_auth_message",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Set to `true` or `1` to indicate the user must install your Slack app to trigger unfurls for this domain",
+                        "type": "text/plain"
+                      },
+                      "key": "user_auth_required",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Send users to this custom URL where they will complete authentication in your app to fully trigger unfurling. Value should be properly URL-encoded.",
+                        "type": "text/plain"
+                      },
+                      "key": "user_auth_url",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"cannot_unfurl_url\",\n  \"ok\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2080f38d-c130-429a-92ef-15e8f50f0ade",
+          "name": "Slack Post Chat Update",
+          "request": {
+            "name": "Slack Post Chat Update",
+            "description": {
+              "content": "Updates a message.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "chat.update"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Authentication token. Requires scope: `chat:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "channel",
+                  "value": "<string>",
+                  "description": "(Required) Channel containing the message to be updated."
+                },
+                {
+                  "disabled": false,
+                  "key": "ts",
+                  "value": "<string>",
+                  "description": "(Required) Timestamp of the message to be updated."
+                },
+                {
+                  "disabled": false,
+                  "key": "as_user",
+                  "value": "<string>",
+                  "description": "Pass true to update the message as the authed user. [Bot users](/bot-users) in this context are considered authed users."
+                },
+                {
+                  "disabled": false,
+                  "key": "attachments",
+                  "value": "<string>",
+                  "description": "A JSON-based array of structured attachments, presented as a URL-encoded string. This field is required when not presenting `text`. If you don't include this field, the message's previous `attachments` will be retained. To remove previous `attachments`, include an empty array for this field."
+                },
+                {
+                  "disabled": false,
+                  "key": "blocks",
+                  "value": "<string>",
+                  "description": "A JSON-based array of [structured blocks](/block-kit/building), presented as a URL-encoded string. If you don't include this field, the message's previous `blocks` will be retained. To remove previous `blocks`, include an empty array for this field."
+                },
+                {
+                  "disabled": false,
+                  "key": "link_names",
+                  "value": "<string>",
+                  "description": "Find and link channel names and usernames. Defaults to `none`. If you do not specify a value for this field, the original value set for the message will be overwritten with the default, `none`."
+                },
+                {
+                  "disabled": false,
+                  "key": "parse",
+                  "value": "<string>",
+                  "description": "Change how messages are treated. Defaults to `client`, unlike `chat.postMessage`. Accepts either `none` or `full`. If you do not specify a value for this field, the original value set for the message will be overwritten with the default, `client`."
+                },
+                {
+                  "disabled": false,
+                  "key": "text",
+                  "value": "<string>",
+                  "description": "New text for the message, using the [default formatting rules](/reference/surfaces/formatting). It's not required when presenting `blocks` or `attachments`."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e92702e2-5d00-43f2-be7b-86088377f1e0",
+              "name": "Typical success response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "chat.update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `chat:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Channel containing the message to be updated.",
+                        "type": "text/plain"
+                      },
+                      "key": "channel",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Timestamp of the message to be updated.",
+                        "type": "text/plain"
+                      },
+                      "key": "ts",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Pass true to update the message as the authed user. [Bot users](/bot-users) in this context are considered authed users.",
+                        "type": "text/plain"
+                      },
+                      "key": "as_user",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A JSON-based array of structured attachments, presented as a URL-encoded string. This field is required when not presenting `text`. If you don't include this field, the message's previous `attachments` will be retained. To remove previous `attachments`, include an empty array for this field.",
+                        "type": "text/plain"
+                      },
+                      "key": "attachments",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A JSON-based array of [structured blocks](/block-kit/building), presented as a URL-encoded string. If you don't include this field, the message's previous `blocks` will be retained. To remove previous `blocks`, include an empty array for this field.",
+                        "type": "text/plain"
+                      },
+                      "key": "blocks",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Find and link channel names and usernames. Defaults to `none`. If you do not specify a value for this field, the original value set for the message will be overwritten with the default, `none`.",
+                        "type": "text/plain"
+                      },
+                      "key": "link_names",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Change how messages are treated. Defaults to `client`, unlike `chat.postMessage`. Accepts either `none` or `full`. If you do not specify a value for this field, the original value set for the message will be overwritten with the default, `client`.",
+                        "type": "text/plain"
+                      },
+                      "key": "parse",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "New text for the message, using the [default formatting rules](/reference/surfaces/formatting). It's not required when presenting `blocks` or `attachments`.",
+                        "type": "text/plain"
+                      },
+                      "key": "text",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"channel\": \"C024BE91L\",\n  \"message\": {\n    \"text\": \"Updated text you carefully authored\",\n    \"user\": \"U34567890\"\n  },\n  \"ok\": true,\n  \"text\": \"Updated text you carefully authored\",\n  \"ts\": \"1401383885.000061\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "49aa9e73-a133-485b-a809-9b6a2322ff08",
+              "name": "Typical error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "chat.update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `chat:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Channel containing the message to be updated.",
+                        "type": "text/plain"
+                      },
+                      "key": "channel",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Timestamp of the message to be updated.",
+                        "type": "text/plain"
+                      },
+                      "key": "ts",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Pass true to update the message as the authed user. [Bot users](/bot-users) in this context are considered authed users.",
+                        "type": "text/plain"
+                      },
+                      "key": "as_user",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A JSON-based array of structured attachments, presented as a URL-encoded string. This field is required when not presenting `text`. If you don't include this field, the message's previous `attachments` will be retained. To remove previous `attachments`, include an empty array for this field.",
+                        "type": "text/plain"
+                      },
+                      "key": "attachments",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A JSON-based array of [structured blocks](/block-kit/building), presented as a URL-encoded string. If you don't include this field, the message's previous `blocks` will be retained. To remove previous `blocks`, include an empty array for this field.",
+                        "type": "text/plain"
+                      },
+                      "key": "blocks",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Find and link channel names and usernames. Defaults to `none`. If you do not specify a value for this field, the original value set for the message will be overwritten with the default, `none`.",
+                        "type": "text/plain"
+                      },
+                      "key": "link_names",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Change how messages are treated. Defaults to `client`, unlike `chat.postMessage`. Accepts either `none` or `full`. If you do not specify a value for this field, the original value set for the message will be overwritten with the default, `client`.",
+                        "type": "text/plain"
+                      },
+                      "key": "parse",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "New text for the message, using the [default formatting rules](/reference/surfaces/formatting). It's not required when presenting `blocks` or `attachments`.",
+                        "type": "text/plain"
+                      },
+                      "key": "text",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"cant_update_message\",\n  \"ok\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "916b190d-b366-460f-b955-fcaf6b7e1409",
+    "name": "Slack Admin Access Chat API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Slack Admin API is a set of privileged endpoints\u0014primarily under admin.* with related SCIM and Audit Logs APIs\u0014that lets Enterprise Grid owners and admins automate organization\u0011 wide management and governance. It covers user lifecycle (provision, suspend, assign roles), workspace and channel administration across workspaces (create, move, archive channels; manage membership and settings), app governance (approve/deny or allowlist/ban apps and install them to workspaces), invite request handling, and security/compliance controls such as information barriers, session and authentication policies, and org\u0011level analytics exports. These APIs require elevated admin scopes and are commonly used to power automated onboarding/offboarding, centralized channel and app controls, and integrations with identity, ITSM, and compliance systems.",
+      "type": "text/plain"
+    }
+  }
+}

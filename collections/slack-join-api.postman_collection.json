@@ -1,0 +1,195 @@
+{
+  "item": [
+    {
+      "id": "283dd584-3459-4aef-af1f-6cd7f905d3ed",
+      "name": "Join",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "72e83ff9-2697-4026-a2fc-f33352b75080",
+          "name": "Slack Post Conversations Join",
+          "request": {
+            "name": "Slack Post Conversations Join",
+            "description": {
+              "content": "Joins an existing conversation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "conversations.join"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Authentication token. Requires scope: `channels:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "channel",
+                  "value": "<string>",
+                  "description": "ID of conversation to join"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "fac7870f-5d2b-48e5-9b09-1d259500a721",
+              "name": "Typical success response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversations.join"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "Authentication token. Requires scope: `channels:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "ID of conversation to join",
+                        "type": "text/plain"
+                      },
+                      "key": "channel",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"channel\": {\n    \"created\": 1449252889,\n    \"creator\": \"U061F7AUR\",\n    \"id\": \"C061EG9SL\",\n    \"is_archived\": false,\n    \"is_channel\": true,\n    \"is_ext_shared\": false,\n    \"is_general\": true,\n    \"is_group\": false,\n    \"is_im\": false,\n    \"is_member\": true,\n    \"is_mpim\": false,\n    \"is_org_shared\": false,\n    \"is_pending_ext_shared\": false,\n    \"is_private\": false,\n    \"is_shared\": false,\n    \"name\": \"general\",\n    \"name_normalized\": \"general\",\n    \"pending_shared\": [],\n    \"previous_names\": [],\n    \"purpose\": {\n      \"creator\": \"\",\n      \"last_set\": 0,\n      \"value\": \"For widget discussion\"\n    },\n    \"topic\": {\n      \"creator\": \"\",\n      \"last_set\": 0,\n      \"value\": \"Which widget do you worry about?\"\n    },\n    \"unlinked\": 0\n  },\n  \"ok\": true,\n  \"response_metadata\": {\n    \"warnings\": [\n      \"already_in_channel\"\n    ]\n  },\n  \"warning\": \"already_in_channel\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "224d85f4-34b3-4c2a-9839-4e5a43be035e",
+              "name": "Typical error response if the conversation is archived and cannot be joined",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversations.join"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "Authentication token. Requires scope: `channels:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "ID of conversation to join",
+                        "type": "text/plain"
+                      },
+                      "key": "channel",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"is_archived\",\n  \"ok\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "87beff98-6a84-4c9f-9dc6-3bc9f8f29f8f",
+    "name": "Slack Admin Access Join API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Slack Admin API is a set of privileged endpoints\u0014primarily under admin.* with related SCIM and Audit Logs APIs\u0014that lets Enterprise Grid owners and admins automate organization\u0011 wide management and governance. It covers user lifecycle (provision, suspend, assign roles), workspace and channel administration across workspaces (create, move, archive channels; manage membership and settings), app governance (approve/deny or allowlist/ban apps and install them to workspaces), invite request handling, and security/compliance controls such as information barriers, session and authentication policies, and org\u0011level analytics exports. These APIs require elevated admin scopes and are commonly used to power automated onboarding/offboarding, centralized channel and app controls, and integrations with identity, ITSM, and compliance systems.",
+      "type": "text/plain"
+    }
+  }
+}

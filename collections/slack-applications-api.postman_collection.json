@@ -1,0 +1,2114 @@
+{
+  "item": [
+    {
+      "id": "d1415b9b-5eae-4fd2-9c1b-d73f92e8a1a2",
+      "name": "Applications",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "366cbe2c-801f-4d5d-8f72-6fccc33ec5fd",
+          "name": "Slack Post Admin Apps Approve",
+          "request": {
+            "name": "Slack Post Admin Apps Approve",
+            "description": {
+              "content": "Approve an app for installation on a workspace.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "admin.apps.approve"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Authentication token. Requires scope: `admin.apps:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "app_id",
+                  "value": "<string>",
+                  "description": "The id of the app to approve."
+                },
+                {
+                  "disabled": false,
+                  "key": "request_id",
+                  "value": "<string>",
+                  "description": "The id of the request to approve."
+                },
+                {
+                  "disabled": false,
+                  "key": "team_id",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "903a5a42-8c5c-42d4-8b3c-ea332fb25e73",
+              "name": "Typical success response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin.apps.approve"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `admin.apps:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The id of the app to approve.",
+                        "type": "text/plain"
+                      },
+                      "key": "app_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The id of the request to approve.",
+                        "type": "text/plain"
+                      },
+                      "key": "request_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "team_id",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0043a546-cad3-4c57-8ab3-b0e59a696e09",
+              "name": "Typical error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin.apps.approve"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `admin.apps:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The id of the app to approve.",
+                        "type": "text/plain"
+                      },
+                      "key": "app_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The id of the request to approve.",
+                        "type": "text/plain"
+                      },
+                      "key": "request_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "team_id",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"invalid_auth\",\n  \"ok\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "838038a0-f9e3-40d4-a4cc-cfcb5992f504",
+          "name": "Slack Get Admin Apps Approved List",
+          "request": {
+            "name": "Slack Get Admin Apps Approved List",
+            "description": {
+              "content": "List approved apps for an org or workspace.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "admin.apps.approved.list"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "(Required) Authentication token. Requires scope: `admin.apps:read`"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The maximum number of items to return. Must be between 1 - 1000 both inclusive."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Set `cursor` to `next_cursor` returned by the previous call to list items in the next page"
+                },
+                {
+                  "disabled": false,
+                  "key": "team_id",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "enterprise_id",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "3b4c027d-c0ea-4423-9661-703786bf585c",
+              "name": "Typical success response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin.apps.approved.list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "team_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "enterprise_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"approved_apps\": [\n    {\n      \"app\": {\n        \"additional_info\": \"\",\n        \"app_directory_url\": \"https://myteam.enterprise.slack.com/apps/A0W7UKG8E-my-test-app\",\n        \"app_homepage_url\": \"https://www.slack.com\",\n        \"description\": \"test app\",\n        \"help_url\": \"https://www.slack.com\",\n        \"icons\": {\n          \"image_1024\": \"https://3026743124446w96_2bd4ea1ad1f89a23c242_1024.png\",\n          \"image_128\": \"https://30267341249446w6_2bd4ea1ad1f89a23c242_128.png\",\n          \"image_192\": \"https://30267431249446w6_2bd4ea1ad1f89a23c242_192.png\",\n          \"image_32\": \"https://302674312496446w_2bd4ea1ad1f89a23c242_32.png\",\n          \"image_36\": \"https://302674312496446w_2bd4ea1ad1f89a23c242_36.png\",\n          \"image_48\": \"https://302674312496446w_2bd4ea1ad1f89a23c242_48.png\",\n          \"image_512\": \"https://30267431249446w6_2bd4ea1ad1f89a23c242_512.png\",\n          \"image_64\": \"https://302674312496446w_2bd4ea1ad1f89a23c242_64.png\",\n          \"image_72\": \"https://302674312496446w_2bd4ea1ad1f89a23c242_72.png\",\n          \"image_96\": \"https://302674312496446w_2bd4ea1ad1f89a23c242_96.png\",\n          \"image_original\": \"https://302674446w12496_2bd4ea1ad1f89a23c242_original.png\"\n        },\n        \"id\": \"A0W7UKG8E\",\n        \"is_app_directory_approved\": false,\n        \"is_internal\": false,\n        \"name\": \"My Test App\",\n        \"privacy_policy_url\": \"https://www.slack.com\"\n      },\n      \"date_updated\": 1574296707,\n      \"last_resolved_by\": {\n        \"actor_id\": \"W0G82F4FD\",\n        \"actor_type\": \"user\"\n      },\n      \"scopes\": [\n        {\n          \"description\": \"Add the ability for people to direct message or mention @my_test_app\",\n          \"is_sensitive\": true,\n          \"name\": \"bot\",\n          \"token_type\": \"bot\"\n        }\n      ]\n    }\n  ],\n  \"ok\": true,\n  \"response_metadata\": {\n    \"next_cursor\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4b366b60-a048-4629-9629-211be71ebdcb",
+              "name": "Typical error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin.apps.approved.list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "team_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "enterprise_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"invalid_auth\",\n  \"ok\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2b98a221-8736-449f-95e3-8cbbbb95200f",
+          "name": "Slack Get Admin Apps Requests List",
+          "request": {
+            "name": "Slack Get Admin Apps Requests List",
+            "description": {
+              "content": "List app requests for a team/workspace.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "admin.apps.requests.list"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "(Required) Authentication token. Requires scope: `admin.apps:read`"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The maximum number of items to return. Must be between 1 - 1000 both inclusive."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Set `cursor` to `next_cursor` returned by the previous call to list items in the next page"
+                },
+                {
+                  "disabled": false,
+                  "key": "team_id",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "760c7085-7e82-42da-8432-ebb10f69b3d3",
+              "name": "Typical success response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin.apps.requests.list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "team_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"app_requests\": [\n    {\n      \"app\": {\n        \"additional_info\": \"\",\n        \"app_directory_url\": \"https://acmecorp.slack.com/apps/A061BL8RQ0-test-app\",\n        \"app_homepage_url\": \"\",\n        \"description\": \"\",\n        \"help_url\": \"\",\n        \"icons\": {\n          \"image_1024\": \"/cdn/15258203/img/testapp/service_1024.png\",\n          \"image_128\": \"/cdn/157258203/img/testapp/service_128.png\",\n          \"image_192\": \"/cdn/157258203/img/testapp/service_192.png\",\n          \"image_32\": \"/cdn/157658203/img/testapp/service_32.png\",\n          \"image_36\": \"/cdn/157658203/img/testapp/service_36.png\",\n          \"image_48\": \"/cdn/157658203/img/testapp/service_48.png\",\n          \"image_512\": \"/cdn/15758203/img/testapp/service_512.png\",\n          \"image_64\": \"/cdn/157658203/img/testapp/service_64.png\",\n          \"image_72\": \"/cdn/157658203/img/testapp/service_72.png\",\n          \"image_96\": \"/cdn/157658203/img/testapp/service_96.png\"\n        },\n        \"id\": \"A061BL8RQ0\",\n        \"is_app_directory_approved\": true,\n        \"is_internal\": false,\n        \"name\": \"Test App\",\n        \"privacy_policy_url\": \"https://testapp.com/privacy\"\n      },\n      \"date_created\": 1578956327,\n      \"id\": \"Ar0XJGFLMLS\",\n      \"message\": \"test test again\",\n      \"previous_resolution\": null,\n      \"scopes\": [\n        {\n          \"description\": \"Post messages to specific channels in Slack\",\n          \"is_sensitive\": false,\n          \"name\": \"incoming-webhook\",\n          \"token_type\": \"user\"\n        }\n      ],\n      \"team\": {\n        \"domain\": \"acmecorp\",\n        \"id\": \"T0M94LNUCR\",\n        \"name\": \"Acme Corp\"\n      },\n      \"user\": {\n        \"email\": \"janedoe@example.com\",\n        \"id\": \"W08RA9G5HR\",\n        \"name\": \"Jane Doe\"\n      }\n    }\n  ],\n  \"ok\": true,\n  \"response_metadata\": {\n    \"next_cursor\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "80877e56-492e-4c21-9a3d-a17a04ecac6c",
+              "name": "Typical error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin.apps.requests.list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "team_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"missing_scope\",\n  \"needed\": \"admin.apps:read\",\n  \"ok\": false,\n  \"provided\": \"read,client,admin,identify,post,apps\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4f13e102-5e9c-458f-9e2a-10c44cea106e",
+          "name": "Slack Post Admin Apps Restrict",
+          "request": {
+            "name": "Slack Post Admin Apps Restrict",
+            "description": {
+              "content": "Restrict an app for installation on a workspace.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "admin.apps.restrict"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Authentication token. Requires scope: `admin.apps:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "app_id",
+                  "value": "<string>",
+                  "description": "The id of the app to restrict."
+                },
+                {
+                  "disabled": false,
+                  "key": "request_id",
+                  "value": "<string>",
+                  "description": "The id of the request to restrict."
+                },
+                {
+                  "disabled": false,
+                  "key": "team_id",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "252f6c1e-1ec7-4532-85c7-8aea608146ad",
+              "name": "Typical success response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin.apps.restrict"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `admin.apps:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The id of the app to restrict.",
+                        "type": "text/plain"
+                      },
+                      "key": "app_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The id of the request to restrict.",
+                        "type": "text/plain"
+                      },
+                      "key": "request_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "team_id",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1f131c8e-5d63-486f-8fe8-1b64893baa2e",
+              "name": "Typical error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin.apps.restrict"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `admin.apps:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The id of the app to restrict.",
+                        "type": "text/plain"
+                      },
+                      "key": "app_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The id of the request to restrict.",
+                        "type": "text/plain"
+                      },
+                      "key": "request_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "team_id",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"invalid_auth\",\n  \"ok\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c9378a95-5833-463f-ad8c-fd575884acd2",
+          "name": "Slack Get Admin Apps Restricted List",
+          "request": {
+            "name": "Slack Get Admin Apps Restricted List",
+            "description": {
+              "content": "List restricted apps for an org or workspace.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "admin.apps.restricted.list"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "(Required) Authentication token. Requires scope: `admin.apps:read`"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The maximum number of items to return. Must be between 1 - 1000 both inclusive."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Set `cursor` to `next_cursor` returned by the previous call to list items in the next page"
+                },
+                {
+                  "disabled": false,
+                  "key": "team_id",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "enterprise_id",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "01f695fc-5ac2-4bbd-988a-536a34469610",
+              "name": "Typical success response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin.apps.restricted.list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "team_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "enterprise_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": true,\n  \"response_metadata\": {\n    \"next_cursor\": \"\"\n  },\n  \"restricted_apps\": [\n    {\n      \"app\": {\n        \"additional_info\": \"\",\n        \"app_directory_url\": \"https://myteam.enterprise.slack.com/apps/A0FDLP8M2L-my-test-app\",\n        \"app_homepage_url\": \"https://example.com\",\n        \"description\": \"A fun test app for Slack\",\n        \"help_url\": \"https://example.com\",\n        \"icons\": {\n          \"image_1024\": \"https://1433265338rl878408_eb57dbc818daa4ba15d6_1024.png\",\n          \"image_128\": \"https://4332653438rl87808_eb57dbc818daa4ba15d6_128.png\",\n          \"image_192\": \"https://4332653438rl87808_eb57dbc818daa4ba15d6_192.png\",\n          \"image_32\": \"https://143326534038rl8788_eb57dbc818daa4ba15d6_32.png\",\n          \"image_36\": \"https://143326534038rl8788_eb57dbc818daa4ba15d6_36.png\",\n          \"image_48\": \"https://143326534038rl8788_eb57dbc818daa4ba15d6_48.png\",\n          \"image_512\": \"https://4332653438rl87808_eb57dbc818daa4ba15d6_512.png\",\n          \"image_64\": \"https://143326534038rl8788_eb57dbc818daa4ba15d6_64.png\",\n          \"image_72\": \"https://143326534038rl8788_eb57dbc818daa4ba15d6_72.png\",\n          \"image_96\": \"https://143326534038rl8788_eb57dbc818daa4ba15d6_96.png\",\n          \"image_original\": \"https://143338rl8782653408_eb57dbc818daa4ba15d6_original.png\"\n        },\n        \"id\": \"A0FDLP8M2L\",\n        \"is_app_directory_approved\": true,\n        \"is_internal\": false,\n        \"name\": \"My Test App\",\n        \"privacy_policy_url\": \"https://example.com\"\n      },\n      \"date_updated\": 1574296721,\n      \"last_resolved_by\": {\n        \"actor_id\": \"W0G82LMFD\",\n        \"actor_type\": \"user\"\n      },\n      \"scopes\": [\n        {\n          \"description\": \"Upload, edit, and delete files on the user's behalf\",\n          \"is_sensitive\": true,\n          \"name\": \"files:write:user\",\n          \"token_type\": \"user\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4df0ca9b-a1f4-4012-9981-97e754f9e408",
+              "name": "Typical error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin.apps.restricted.list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "team_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "enterprise_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"invalid_auth\",\n  \"ok\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1334968e-08d1-4115-87fb-bf3e8455d3d7",
+          "name": "Slack Get Apps Event Authorizations List",
+          "request": {
+            "name": "Slack Get Apps Event Authorizations List",
+            "description": {
+              "content": "Get a list of authorizations for the given event context. Each authorization represents an app installation that the event is visible to.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "apps.event.authorizations.list"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "event_context",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Authentication token. Requires scope: `authorizations:read`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "0311e2c8-8d39-447e-b7e9-8ab23e366fb5",
+              "name": "Typical success response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apps.event.authorizations.list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "event_context",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `authorizations:read`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"authorizations\": {\n    \"enterprise_id\": \"string\",\n    \"is_bot\": \"string\",\n    \"team_id\": \"string\",\n    \"user_id\": \"string\"\n  },\n  \"ok\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3660cefc-6aa0-4ec7-ae5a-e784127663bc",
+              "name": "Typical error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apps.event.authorizations.list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "event_context",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `authorizations:read`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"invalid_auth\",\n  \"ok\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f8262f9a-9694-416e-b9d0-42d0b2a60961",
+          "name": "Slack Get Apps Permissions Info",
+          "request": {
+            "name": "Slack Get Apps Permissions Info",
+            "description": {
+              "content": "Returns list of permissions this app has on a team.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "apps.permissions.info"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "Authentication token. Requires scope: `none`"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "7d31c8b0-0562-49d5-9371-625828132d21",
+              "name": "Standard success response when used with a user token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apps.permissions.info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"info\": {\n    \"app_home\": {\n      \"resources\": {\n        \"ids\": [\n          \"D0C0NU1Q8\",\n          \"D0BH95DLH\"\n        ]\n      },\n      \"scopes\": [\n        \"chat:write\",\n        \"im:history\",\n        \"im:read\"\n      ]\n    },\n    \"channel\": {\n      \"resources\": {\n        \"excluded_ids\": [],\n        \"ids\": [\n          \"C061FA5PB\"\n        ],\n        \"wildcard\": false\n      },\n      \"scopes\": [\n        \"channels:read\"\n      ]\n    },\n    \"group\": {\n      \"resources\": {\n        \"ids\": []\n      },\n      \"scopes\": []\n    },\n    \"im\": {\n      \"resources\": {\n        \"ids\": []\n      },\n      \"scopes\": []\n    },\n    \"mpim\": {\n      \"resources\": {\n        \"ids\": []\n      },\n      \"scopes\": []\n    },\n    \"team\": {\n      \"resources\": {\n        \"ids\": []\n      },\n      \"scopes\": []\n    }\n  },\n  \"ok\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8905c62b-082b-45d5-915d-a723356b99f5",
+              "name": "Standard failure response when used with an invalid token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apps.permissions.info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"invalid_auth\",\n  \"ok\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "026ba15c-772e-4e2e-a98c-2886696b16d0",
+          "name": "Slack Get Apps Permissions Request",
+          "request": {
+            "name": "Slack Get Apps Permissions Request",
+            "description": {
+              "content": "Allows an app to request additional scopes",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "apps.permissions.request"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "(Required) Authentication token. Requires scope: `none`"
+                },
+                {
+                  "disabled": false,
+                  "key": "scopes",
+                  "value": "<string>",
+                  "description": "(Required) A comma separated list of scopes to request for"
+                },
+                {
+                  "disabled": false,
+                  "key": "trigger_id",
+                  "value": "<string>",
+                  "description": "(Required) Token used to trigger the permissions API"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "6477aa73-5f3b-42cf-a3e3-04e6d200db31",
+              "name": "Standard success response when used with a user token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apps.permissions.request"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "scopes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "trigger_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "65b59278-7aeb-43d8-a82a-abc9ac19bfcd",
+              "name": "Standard failure response when trigger_id is invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apps.permissions.request"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "scopes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "trigger_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"invalid_trigger_id\",\n  \"ok\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bc4a0d9e-444e-470e-882b-3383c7fc1237",
+          "name": "Slack Get Apps Permissions Resources List",
+          "request": {
+            "name": "Slack Get Apps Permissions Resources List",
+            "description": {
+              "content": "Returns list of resource grants this app has on a team.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "apps.permissions.resources.list"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "(Required) Authentication token. Requires scope: `none`"
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute returned by a previous request's `response_metadata`. Default value fetches the first \"page\" of the collection. See [pagination](/docs/pagination) for more detail."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The maximum number of items to return."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "1873ea9f-4933-46c7-8c8f-b4daa024df4d",
+              "name": "Typical successful paginated response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apps.permissions.resources.list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": true,\n  \"resources\": [\n    {\n      \"id\": \"T0DES3UAN\",\n      \"type\": \"team\"\n    },\n    {\n      \"id\": \"D024BFF1M\",\n      \"type\": \"app_home\"\n    },\n    {\n      \"id\": \"C024BE91L\",\n      \"type\": \"channel\"\n    }\n  ],\n  \"response_metadata\": {\n    \"next_cursor\": \"dGVhbTpDMUg5UkVTR0w=\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d2ea16fc-8cc4-41a1-a3d1-48cbfb2dc38e",
+              "name": "Typical error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apps.permissions.resources.list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"invalid_cursor\",\n  \"ok\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "100b58a7-b0bf-4ecf-a8d0-8838b52f5ee3",
+          "name": "Slack Get Apps Permissions Scopes List",
+          "request": {
+            "name": "Slack Get Apps Permissions Scopes List",
+            "description": {
+              "content": "Returns list of scopes this app has on a team.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "apps.permissions.scopes.list"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "(Required) Authentication token. Requires scope: `none`"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "bd85b402-798a-43d0-8f82-8d083eb6c500",
+              "name": "Typical successful paginated response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apps.permissions.scopes.list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": true,\n  \"scopes\": {\n    \"app_home\": [\n      \"chat:write\",\n      \"im:history\",\n      \"im:read\"\n    ],\n    \"channel\": [\n      \"channels:history\",\n      \"chat:write\"\n    ],\n    \"group\": [\n      \"chat:write\"\n    ],\n    \"im\": [\n      \"chat:write\"\n    ],\n    \"mpim\": [\n      \"chat:write\"\n    ],\n    \"team\": [\n      \"users:read\"\n    ],\n    \"user\": []\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ff410c18-921c-49d2-9159-f677e1f0ebbf",
+              "name": "Typical error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apps.permissions.scopes.list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"invalid_auth\",\n  \"ok\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ac2ee02f-8317-47eb-8e39-3645ccddb738",
+          "name": "Slack Get Apps Permissions Users List",
+          "request": {
+            "name": "Slack Get Apps Permissions Users List",
+            "description": {
+              "content": "Returns list of user grants and corresponding scopes this app has on a team.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "apps.permissions.users.list"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "(Required) Authentication token. Requires scope: `none`"
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute returned by a previous request's `response_metadata`. Default value fetches the first \"page\" of the collection. See [pagination](/docs/pagination) for more detail."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The maximum number of items to return."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "79749329-d3d0-4c12-bc3d-825e803fd482",
+              "name": "Typical successful paginated response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apps.permissions.users.list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": true,\n  \"resources\": [\n    {\n      \"id\": \"U0DES3UAN\",\n      \"scopes\": [\n        \"dnd:write:user\",\n        \"reminders:write:user\"\n      ]\n    },\n    {\n      \"id\": \"U024BFF1M\",\n      \"scopes\": [\n        \"reminders:write:user\"\n      ]\n    }\n  ],\n  \"response_metadata\": {\n    \"next_cursor\": \"dGVhbTdPMUg5UkFTT0w=\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e1c9f84e-d9c9-4823-b324-26af82e7815c",
+              "name": "Typical error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apps.permissions.users.list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"invalid_cursor\",\n  \"ok\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a22c1972-d931-4430-831a-12d041d02971",
+          "name": "Slack Get Apps Permissions Users Request",
+          "request": {
+            "name": "Slack Get Apps Permissions Users Request",
+            "description": {
+              "content": "Enables an app to trigger a permissions modal to grant an app access to a user access scope.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "apps.permissions.users.request"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "(Required) Authentication token. Requires scope: `none`"
+                },
+                {
+                  "disabled": false,
+                  "key": "scopes",
+                  "value": "<string>",
+                  "description": "(Required) A comma separated list of user scopes to request for"
+                },
+                {
+                  "disabled": false,
+                  "key": "trigger_id",
+                  "value": "<string>",
+                  "description": "(Required) Token used to trigger the request"
+                },
+                {
+                  "disabled": false,
+                  "key": "user",
+                  "value": "<string>",
+                  "description": "(Required) The user this scope is being requested for"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "93632be1-a8e8-4498-bc7d-b4e9b439426c",
+              "name": "Standard success response when used with a user token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apps.permissions.users.request"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "scopes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "trigger_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "user",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "239a1f0f-1d28-4939-a58e-29c05a5dd985",
+              "name": "Standard failure response when trigger_id is invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apps.permissions.users.request"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "scopes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "trigger_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "user",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"invalid_trigger_id\",\n  \"ok\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "45f3fe1a-e30c-4d44-83cf-ff8034696eb9",
+          "name": "Slack Get Apps Uninstall",
+          "request": {
+            "name": "Slack Get Apps Uninstall",
+            "description": {
+              "content": "Uninstalls your app from a workspace.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "apps.uninstall"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "Authentication token. Requires scope: `none`"
+                },
+                {
+                  "disabled": false,
+                  "key": "client_id",
+                  "value": "<string>",
+                  "description": "Issued when you created your application."
+                },
+                {
+                  "disabled": false,
+                  "key": "client_secret",
+                  "value": "<string>",
+                  "description": "Issued when you created your application."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "49ff23a7-5445-4246-8139-d81051796384",
+              "name": "Typical success response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apps.uninstall"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "client_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "client_secret",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "26286476-ca9e-446b-ae2a-2ad94c73bf6c",
+              "name": "Typical error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apps.uninstall"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "client_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "client_secret",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"invalid_auth\",\n  \"ok\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "490689f9-f9ba-4618-8f74-d0fb79d56313",
+    "name": "Slack Admin Access Applications API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Slack Admin API is a set of privileged endpoints\u0014primarily under admin.* with related SCIM and Audit Logs APIs\u0014that lets Enterprise Grid owners and admins automate organization\u0011 wide management and governance. It covers user lifecycle (provision, suspend, assign roles), workspace and channel administration across workspaces (create, move, archive channels; manage membership and settings), app governance (approve/deny or allowlist/ban apps and install them to workspaces), invite request handling, and security/compliance controls such as information barriers, session and authentication policies, and org\u0011level analytics exports. These APIs require elevated admin scopes and are commonly used to power automated onboarding/offboarding, centralized channel and app controls, and integrations with identity, ITSM, and compliance systems.",
+      "type": "text/plain"
+    }
+  }
+}

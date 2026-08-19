@@ -1,0 +1,896 @@
+{
+  "item": [
+    {
+      "id": "b49abe0e-5bc6-4ceb-b248-3047d0b6ae09",
+      "name": "Reactions",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d52db4ab-1af5-4b73-8b64-73ff5e36f755",
+          "name": "Slack Post Reactions Add",
+          "request": {
+            "name": "Slack Post Reactions Add",
+            "description": {
+              "content": "Adds a reaction to an item.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "reactions.add"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Authentication token. Requires scope: `reactions:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "channel",
+                  "value": "<string>",
+                  "description": "(Required) Channel where the message to add reaction to was posted."
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "(Required) Reaction (emoji) name."
+                },
+                {
+                  "disabled": false,
+                  "key": "timestamp",
+                  "value": "<string>",
+                  "description": "(Required) Timestamp of the message to add reaction to."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "66be6c98-b74e-4d98-977e-a0cc9afb5bb0",
+              "name": "Typical success response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reactions.add"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `reactions:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Channel where the message to add reaction to was posted.",
+                        "type": "text/plain"
+                      },
+                      "key": "channel",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Reaction (emoji) name.",
+                        "type": "text/plain"
+                      },
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Timestamp of the message to add reaction to.",
+                        "type": "text/plain"
+                      },
+                      "key": "timestamp",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ae05e293-7f8a-4d07-a6f8-16b85b47307f",
+              "name": "Typical error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reactions.add"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `reactions:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Channel where the message to add reaction to was posted.",
+                        "type": "text/plain"
+                      },
+                      "key": "channel",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Reaction (emoji) name.",
+                        "type": "text/plain"
+                      },
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Timestamp of the message to add reaction to.",
+                        "type": "text/plain"
+                      },
+                      "key": "timestamp",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"already_reacted\",\n  \"ok\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d0011d16-88c6-43cf-a395-ecb96dc6a03a",
+          "name": "Slack Get Reactions Get",
+          "request": {
+            "name": "Slack Get Reactions Get",
+            "description": {
+              "content": "Gets reactions for an item.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "reactions.get"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "(Required) Authentication token. Requires scope: `reactions:read`"
+                },
+                {
+                  "disabled": false,
+                  "key": "channel",
+                  "value": "<string>",
+                  "description": "Channel where the message to get reactions for was posted."
+                },
+                {
+                  "disabled": false,
+                  "key": "file",
+                  "value": "<string>",
+                  "description": "File to get reactions for."
+                },
+                {
+                  "disabled": false,
+                  "key": "file_comment",
+                  "value": "<string>",
+                  "description": "File comment to get reactions for."
+                },
+                {
+                  "disabled": false,
+                  "key": "full",
+                  "value": "<boolean>",
+                  "description": "If true always return the complete reaction list."
+                },
+                {
+                  "disabled": false,
+                  "key": "timestamp",
+                  "value": "<string>",
+                  "description": "Timestamp of the message to get reactions for."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "5835e085-54bc-4df5-8f15-d7efe5d59337",
+              "name": "Typical success response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reactions.get"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "channel",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "file",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "file_comment",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "full",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "timestamp",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"file\": {\n    \"channels\": [\n      \"C2U7V2YA2\"\n    ],\n    \"comments_count\": 1,\n    \"created\": 1507850315,\n    \"groups\": [],\n    \"id\": \"F7H0D7ZA4\",\n    \"ims\": [],\n    \"name\": \"computer.gif\",\n    \"reactions\": [\n      {\n        \"count\": 1,\n        \"name\": \"stuck_out_tongue_winking_eye\",\n        \"users\": [\n          \"U2U85N1RV\"\n        ]\n      }\n    ],\n    \"timestamp\": 1507850315,\n    \"title\": \"computer.gif\",\n    \"user\": \"U2U85N1RV\"\n  },\n  \"ok\": true,\n  \"type\": \"file\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bc51fba9-4671-4e36-8bd8-78fb97b16e79",
+              "name": "Typical error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reactions.get"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "channel",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "file",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "file_comment",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "full",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "timestamp",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"invalid_auth\",\n  \"ok\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "96030929-44bf-477c-90ff-527b2ebfd1c6",
+          "name": "Slack Get Reactions List",
+          "request": {
+            "name": "Slack Get Reactions List",
+            "description": {
+              "content": "Lists reactions made by a user.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "reactions.list"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "(Required) Authentication token. Requires scope: `reactions:read`"
+                },
+                {
+                  "disabled": false,
+                  "key": "user",
+                  "value": "<string>",
+                  "description": "Show reactions made by this user. Defaults to the authed user."
+                },
+                {
+                  "disabled": false,
+                  "key": "full",
+                  "value": "<boolean>",
+                  "description": "If true always return the complete reaction list."
+                },
+                {
+                  "disabled": false,
+                  "key": "count",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Parameter for pagination. Set `cursor` equal to the `next_cursor` attribute returned by the previous request's `response_metadata`. This parameter is optional, but pagination is mandatory: the default value simply fetches the first \"page\" of the collection. See [pagination](/docs/pagination) for more details."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the list hasn't been reached."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "92f0ed47-b0ff-45ce-a02d-4947cdd6855e",
+              "name": "Typical success response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reactions.list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "user",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "full",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "count",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"channel\": \"C3UKJTQAC\",\n      \"message\": {\n        \"bot_id\": \"B4VLRLMKJ\",\n        \"reactions\": [\n          {\n            \"count\": 1,\n            \"name\": \"robot_face\",\n            \"users\": [\n              \"U2U85N1RV\"\n            ]\n          }\n        ],\n        \"subtype\": \"bot_message\",\n        \"text\": \"Hello from Python! :tada:\",\n        \"ts\": \"1507849573.000090\",\n        \"username\": \"Shipit Notifications\"\n      },\n      \"type\": \"message\"\n    },\n    {\n      \"comment\": {\n        \"comment\": \"This is a file comment\",\n        \"created\": 1508286096,\n        \"id\": \"Fc7LP08P1U\",\n        \"reactions\": [\n          {\n            \"count\": 1,\n            \"name\": \"white_check_mark\",\n            \"users\": [\n              \"U2U85N1RV\"\n            ]\n          }\n        ],\n        \"timestamp\": 1508286096,\n        \"type\": \"file_comment\",\n        \"user\": \"U2U85N1RV\"\n      },\n      \"file\": {\n        \"channels\": [\n          \"C2U7V2YA2\"\n        ],\n        \"comments_count\": 1,\n        \"created\": 1507850315,\n        \"reactions\": [\n          {\n            \"count\": 1,\n            \"name\": \"stuck_out_tongue_winking_eye\",\n            \"users\": [\n              \"U2U85N1RV\"\n            ]\n          }\n        ],\n        \"title\": \"computer.gif\",\n        \"user\": \"U2U85N1RV\",\n        \"username\": \"\"\n      }\n    },\n    {\n      \"file\": {\n        \"channels\": [\n          \"C2U7V2YA2\"\n        ],\n        \"comments_count\": 1,\n        \"created\": 1507850315,\n        \"id\": \"F7H0D7ZA4\",\n        \"name\": \"computer.gif\",\n        \"reactions\": [\n          {\n            \"count\": 1,\n            \"name\": \"stuck_out_tongue_winking_eye\",\n            \"users\": [\n              \"U2U85N1RV\"\n            ]\n          }\n        ],\n        \"size\": 1639034,\n        \"title\": \"computer.gif\",\n        \"user\": \"U2U85N1RV\",\n        \"username\": \"\"\n      },\n      \"type\": \"file\"\n    }\n  ],\n  \"ok\": true,\n  \"response_metadata\": {\n    \"next_cursor\": \"dGVhbTpDMUg5UkVTR0w=\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "14317c83-b912-4831-b9f4-a46770af16b1",
+              "name": "Typical error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reactions.list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "user",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "full",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "count",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"invalid_auth\",\n  \"ok\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1644a469-1f1c-4750-8c5c-003e7a2c6a6f",
+          "name": "Slack Post Reactions Remove",
+          "request": {
+            "name": "Slack Post Reactions Remove",
+            "description": {
+              "content": "Removes a reaction from an item.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "reactions.remove"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Authentication token. Requires scope: `reactions:write`",
+                "key": "token",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "(Required) Reaction (emoji) name."
+                },
+                {
+                  "disabled": false,
+                  "key": "file",
+                  "value": "<string>",
+                  "description": "File to remove reaction from."
+                },
+                {
+                  "disabled": false,
+                  "key": "file_comment",
+                  "value": "<string>",
+                  "description": "File comment to remove reaction from."
+                },
+                {
+                  "disabled": false,
+                  "key": "channel",
+                  "value": "<string>",
+                  "description": "Channel where the message to remove reaction from was posted."
+                },
+                {
+                  "disabled": false,
+                  "key": "timestamp",
+                  "value": "<string>",
+                  "description": "Timestamp of the message to remove reaction from."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "10227418-93bd-4d9e-b551-9165b242ac9e",
+              "name": "Typical success response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reactions.remove"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `reactions:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Reaction (emoji) name.",
+                        "type": "text/plain"
+                      },
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "File to remove reaction from.",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "File comment to remove reaction from.",
+                        "type": "text/plain"
+                      },
+                      "key": "file_comment",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Channel where the message to remove reaction from was posted.",
+                        "type": "text/plain"
+                      },
+                      "key": "channel",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Timestamp of the message to remove reaction from.",
+                        "type": "text/plain"
+                      },
+                      "key": "timestamp",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e1ce50da-44ec-417d-958a-1be91c4ca5a9",
+              "name": "Typical error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reactions.remove"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token. Requires scope: `reactions:write`",
+                    "key": "token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Reaction (emoji) name.",
+                        "type": "text/plain"
+                      },
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "File to remove reaction from.",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "File comment to remove reaction from.",
+                        "type": "text/plain"
+                      },
+                      "key": "file_comment",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Channel where the message to remove reaction from was posted.",
+                        "type": "text/plain"
+                      },
+                      "key": "channel",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Timestamp of the message to remove reaction from.",
+                        "type": "text/plain"
+                      },
+                      "key": "timestamp",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"no_reaction\",\n  \"ok\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "291fb4c4-2a18-4d6d-b713-cffa7108d25d",
+    "name": "Slack Admin Access Reactions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Slack Admin API is a set of privileged endpoints\u0014primarily under admin.* with related SCIM and Audit Logs APIs\u0014that lets Enterprise Grid owners and admins automate organization\u0011 wide management and governance. It covers user lifecycle (provision, suspend, assign roles), workspace and channel administration across workspaces (create, move, archive channels; manage membership and settings), app governance (approve/deny or allowlist/ban apps and install them to workspaces), invite request handling, and security/compliance controls such as information barriers, session and authentication policies, and org\u0011level analytics exports. These APIs require elevated admin scopes and are commonly used to power automated onboarding/offboarding, centralized channel and app controls, and integrations with identity, ITSM, and compliance systems.",
+      "type": "text/plain"
+    }
+  }
+}

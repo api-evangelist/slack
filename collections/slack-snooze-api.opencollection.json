@@ -1,0 +1,59 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Slack Admin Access Snooze API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Snooze",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Slack Post End Do Not Disturb Snooze",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/dnd.endSnooze",
+            "headers": [
+              {
+                "name": "token",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Ends the current user's snooze mode immediately."
+        },
+        {
+          "info": {
+            "name": "Slack Post Do Not Disturb Snooze",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/dnd.setSnooze",
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "token",
+                  "value": ""
+                },
+                {
+                  "name": "num_minutes",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Turns on Do Not Disturb mode for the current user, or changes its duration."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

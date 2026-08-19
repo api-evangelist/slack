@@ -1,0 +1,48 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Slack Admin Access Auth API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Auth",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Slack Test Authentication",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/auth.test"
+          },
+          "docs": "Checks authentication and tells the caller who they are. Returns information about the token holder including user ID, team ID, and team name."
+        },
+        {
+          "info": {
+            "name": "Slack Revoke an Access Token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/auth.revoke",
+            "params": [
+              {
+                "name": "test",
+                "value": "",
+                "type": "query",
+                "description": "Setting this parameter to true triggers a testing mode."
+              }
+            ]
+          },
+          "docs": "Revokes the access token that is used to call this method."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

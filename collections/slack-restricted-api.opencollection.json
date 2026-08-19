@@ -1,0 +1,59 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Slack Admin Access Restricted API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Restricted",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Slack Get Admin Apps Restricted List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/admin.apps.restricted.list",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Authentication token. Requires scope: `admin.apps:read`"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items to return. Must be between 1 - 1000 both inclusive."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Set `cursor` to `next_cursor` returned by the previous call to list items in the next page"
+              },
+              {
+                "name": "team_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "enterprise_id",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List restricted apps for an org or workspace."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

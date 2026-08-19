@@ -1,0 +1,122 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Slack Admin Access Requests API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Requests",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Slack Get Admin Apps Requests List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/admin.apps.requests.list",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Authentication token. Requires scope: `admin.apps:read`"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items to return. Must be between 1 - 1000 both inclusive."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Set `cursor` to `next_cursor` returned by the previous call to list items in the next page"
+              },
+              {
+                "name": "team_id",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List app requests for a team/workspace."
+        },
+        {
+          "info": {
+            "name": "Slack Get Apps Permissions Request",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/apps.permissions.request",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Authentication token. Requires scope: `none`"
+              },
+              {
+                "name": "scopes",
+                "value": "",
+                "type": "query",
+                "description": "A comma separated list of scopes to request for"
+              },
+              {
+                "name": "trigger_id",
+                "value": "",
+                "type": "query",
+                "description": "Token used to trigger the permissions API"
+              }
+            ]
+          },
+          "docs": "Allows an app to request additional scopes"
+        },
+        {
+          "info": {
+            "name": "Slack Get Apps Permissions Users Request",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/apps.permissions.users.request",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Authentication token. Requires scope: `none`"
+              },
+              {
+                "name": "scopes",
+                "value": "",
+                "type": "query",
+                "description": "A comma separated list of user scopes to request for"
+              },
+              {
+                "name": "trigger_id",
+                "value": "",
+                "type": "query",
+                "description": "Token used to trigger the request"
+              },
+              {
+                "name": "user",
+                "value": "",
+                "type": "query",
+                "description": "The user this scope is being requested for"
+              }
+            ]
+          },
+          "docs": "Enables an app to trigger a permissions modal to grant an app access to a user access scope."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
