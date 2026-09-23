@@ -1,219 +1,14 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
+  title: Slack Files API
   version: '1.0'
-  title: Slack Admin Access Files API
-  description: "The Slack Admin API is a set of privileged endpoints\x14primarily under admin.* with related SCIM and Audit Logs APIs\x14that lets Enterprise Grid owners and admins automate organization\x11 wide management and governance. It covers user lifecycle (provision, suspend, assign roles), workspace and channel administration across workspaces (create, move, archive channels; manage membership and settings), app governance (approve/deny or allowlist/ban apps and install them to workspaces), invite request handling, and security/compliance controls such as information barriers, session and authentication policies, and org\x11level analytics exports. These APIs require elevated admin scopes and are commonly used to power automated onboarding/offboarding, centralized channel and app controls, and integrations with identity, ITSM, and compliance systems."
+  description: 'Operations tagged Files across 2 of this provider''s published API definitions: slack-files-openapi.yml, slack-web-api-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://slack.com/api
+  description: Slack Web API production server
 tags:
 - name: Files
 paths:
-  /files.comments.delete:
-    post:
-      tags:
-      - Files
-      description: Deletes an existing comment on a file.
-      externalDocs:
-        description: API method documentation
-        url: https://api.slack.com/methods/files.comments.delete
-      operationId: postFilesCommentsDelete
-      parameters:
-      - name: token
-        in: header
-        description: 'Authentication token. Requires scope: `files:write:user`'
-        schema:
-          type: string
-      requestBody:
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              type: object
-              properties:
-                file:
-                  type: string
-                  description: File to delete a comment from.
-                id:
-                  type: string
-                  description: The comment to delete.
-          application/json:
-            schema:
-              type: object
-              properties:
-                file:
-                  type: string
-                  description: File to delete a comment from.
-                id:
-                  type: string
-                  description: The comment to delete.
-      responses:
-        '200':
-          description: Standard success response is very simple
-          content:
-            application/json:
-              schema:
-                title: files.comments.delete schema
-                required:
-                - ok
-                type: object
-                properties:
-                  ok:
-                    $ref: '#/components/schemas/defs_ok_true'
-                additionalProperties: false
-                description: Schema for successful response files.comments.delete method
-              example:
-                ok: true
-        default:
-          description: Standard failure response when used with an invalid token
-          content:
-            application/json:
-              schema:
-                title: files.comments.delete error schema
-                required:
-                - error
-                - ok
-                type: object
-                properties:
-                  callstack:
-                    type: string
-                    description: 'Note: PHP callstack is only visible in dev/qa'
-                  error:
-                    type: string
-                    enum:
-                    - cant_delete
-                    - comment_not_found
-                    - not_authed
-                    - invalid_auth
-                    - account_inactive
-                    - no_permission
-                    - invalid_arg_name
-                    - invalid_array_arg
-                    - invalid_charset
-                    - invalid_form_data
-                    - invalid_post_type
-                    - missing_post_type
-                    - invalid_json
-                    - json_not_object
-                    - request_timeout
-                    - upgrade_required
-                  ok:
-                    $ref: '#/components/schemas/defs_ok_false'
-                additionalProperties: false
-                description: Schema for error response files.comments.delete method
-              example:
-                error: file_not_found
-                ok: false
-      security:
-      - slackAuth:
-        - files:write:user
-      summary: Slack Post Files Comments Delete
-      x-api-evangelist-processing:
-        GenerateOperationSummariesFromPath: true
-        PascalCaseOperationSummaries: true
-        CaselCaseOperationIds: true
-        ChooseTags: true
-      x-microcks-operation:
-        delay: 0
-        dispatcher: FALLBACK
-  /files.delete:
-    post:
-      tags:
-      - Files
-      description: Deletes a file.
-      externalDocs:
-        description: API method documentation
-        url: https://api.slack.com/methods/files.delete
-      operationId: postFilesDelete
-      parameters:
-      - name: token
-        in: header
-        description: 'Authentication token. Requires scope: `files:write:user`'
-        schema:
-          type: string
-      requestBody:
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              type: object
-              properties:
-                file:
-                  type: string
-                  description: ID of file to delete.
-          application/json:
-            schema:
-              type: object
-              properties:
-                file:
-                  type: string
-                  description: ID of file to delete.
-      responses:
-        '200':
-          description: Typical success response
-          content:
-            application/json:
-              schema:
-                title: files.delete schema
-                required:
-                - ok
-                type: object
-                properties:
-                  ok:
-                    $ref: '#/components/schemas/defs_ok_true'
-                additionalProperties: false
-                description: Schema for successful response files.delete method
-              example:
-                ok: true
-        default:
-          description: Typical error response
-          content:
-            application/json:
-              schema:
-                title: files.delete error schema
-                required:
-                - error
-                - ok
-                type: object
-                properties:
-                  callstack:
-                    type: string
-                    description: 'Note: PHP callstack is only visible in dev/qa'
-                  error:
-                    type: string
-                    enum:
-                    - file_not_found
-                    - file_deleted
-                    - cant_delete_file
-                    - not_authed
-                    - invalid_auth
-                    - account_inactive
-                    - no_permission
-                    - invalid_arg_name
-                    - invalid_array_arg
-                    - invalid_charset
-                    - invalid_form_data
-                    - invalid_post_type
-                    - missing_post_type
-                    - team_added_to_org
-                    - invalid_json
-                    - json_not_object
-                    - request_timeout
-                    - upgrade_required
-                  ok:
-                    $ref: '#/components/schemas/defs_ok_false'
-                additionalProperties: false
-                description: Schema for error response files.delete method
-              example:
-                error: invalid_auth
-                ok: false
-      security:
-      - slackAuth:
-        - files:write:user
-      summary: Slack Post Files Delete
-      x-api-evangelist-processing:
-        GenerateOperationSummariesFromPath: true
-        PascalCaseOperationSummaries: true
-        CaselCaseOperationIds: true
-        ChooseTags: true
-      x-microcks-operation:
-        delay: 0
-        dispatcher: FALLBACK
   /files.info:
     get:
       tags:
@@ -602,88 +397,6 @@ paths:
       - slackAuth:
         - files:read
       summary: Slack Get Files List
-      x-api-evangelist-processing:
-        GenerateOperationSummariesFromPath: true
-        PascalCaseOperationSummaries: true
-        CaselCaseOperationIds: true
-        ChooseTags: true
-      x-microcks-operation:
-        delay: 0
-        dispatcher: FALLBACK
-  /files.remote.add:
-    post:
-      tags:
-      - Files
-      description: Adds a file from a remote service
-      externalDocs:
-        description: API method documentation
-        url: https://api.slack.com/methods/files.remote.add
-      operationId: postFilesRemoteAdd
-      requestBody:
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              type: object
-              properties:
-                token:
-                  type: string
-                  description: 'Authentication token. Requires scope: `remote_files:write`'
-                external_id:
-                  type: string
-                  description: Creator defined GUID for the file.
-                title:
-                  type: string
-                  description: Title of the file being shared.
-                filetype:
-                  type: string
-                  description: type of file
-                external_url:
-                  type: string
-                  description: URL of the remote file.
-                preview_image:
-                  type: string
-                  description: Preview of the document via `multipart/form-data`.
-                indexable_file_contents:
-                  type: string
-                  description: A text file (txt, pdf, doc, etc.) containing textual search terms that are used to improve discovery of the remote file.
-      responses:
-        '200':
-          description: Typical success response
-          content:
-            application/json:
-              schema:
-                title: Default success template
-                required:
-                - ok
-                type: object
-                properties:
-                  ok:
-                    $ref: '#/components/schemas/defs_ok_true'
-                additionalProperties: true
-                description: This method either only returns a brief _OK_ response or a verbose schema is not available for this method.
-              example:
-                ok: true
-        default:
-          description: Typical error response
-          content:
-            application/json:
-              schema:
-                title: Default error template
-                required:
-                - ok
-                type: object
-                properties:
-                  ok:
-                    $ref: '#/components/schemas/defs_ok_false'
-                additionalProperties: true
-                description: This method either only returns a brief _not OK_ response or a verbose schema is not available for this method.
-              example:
-                error: invalid_auth
-                ok: false
-      security:
-      - slackAuth:
-        - remote_files:write
-      summary: Slack Post Files Remote Add
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true
@@ -1464,3 +1177,176 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+  /files.delete:
+    post:
+      tags:
+      - Files
+      summary: Slack Delete a File
+      description: Deletes a file.
+      operationId: filesDelete
+      externalDocs:
+        description: API method documentation
+        url: https://docs.slack.dev/reference/methods/files.delete
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - file
+              properties:
+                file:
+                  type: string
+                  description: ID of file to delete.
+      responses:
+        '200':
+          description: File deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+      security:
+      - bearerAuth: []
+    servers:
+    - url: https://slack.com/api
+      description: Slack Web API production server
+components:
+  schemas:
+    File:
+      type: object
+      description: A Slack file object representing an uploaded file with its metadata and sharing information.
+      properties:
+        id:
+          type: string
+          description: Unique file identifier.
+          example: abc123
+        created:
+          type: integer
+          description: Unix timestamp of when the file was created.
+          example: 10
+        timestamp:
+          type: integer
+          description: Unix timestamp.
+          example: 10
+        name:
+          type: string
+          description: The file name.
+          example: Example Title
+        title:
+          type: string
+          description: Title of the file.
+          example: Example Title
+        mimetype:
+          type: string
+          description: MIME type of the file.
+          example: example_value
+        filetype:
+          type: string
+          description: Slack file type identifier (e.g., "png", "pdf", "snippet").
+          example: example_value
+        pretty_type:
+          type: string
+          description: Human-readable file type.
+          example: example_value
+        user:
+          type: string
+          description: User ID of the user who uploaded the file.
+          example: example_value
+        user_team:
+          type: string
+          description: Team ID of the user who uploaded the file.
+          example: example_value
+        editable:
+          type: boolean
+          description: Whether the file content is editable.
+          example: true
+        size:
+          type: integer
+          description: File size in bytes.
+          example: 10
+        mode:
+          type: string
+          description: File mode (e.g., "hosted", "external", "snippet", "post").
+          example: example_value
+        is_external:
+          type: boolean
+          description: Whether the file is externally hosted.
+          example: true
+        external_type:
+          type: string
+          description: Type of external file.
+          example: example_value
+        is_public:
+          type: boolean
+          description: Whether the file is public.
+          example: true
+        public_url_shared:
+          type: boolean
+          example: https://www.example.com
+        display_as_bot:
+          type: boolean
+          example: true
+        username:
+          type: string
+          example: example_value
+        url_private:
+          type: string
+          format: uri
+          description: URL to access the file. Requires authentication.
+          example: https://www.example.com
+        url_private_download:
+          type: string
+          format: uri
+          description: URL to download the file. Requires authentication.
+          example: https://www.example.com
+        permalink:
+          type: string
+          format: uri
+          description: Permalink URL for the file.
+          example: https://www.example.com
+        permalink_public:
+          type: string
+          format: uri
+          description: Public permalink URL for the file (if shared publicly).
+          example: https://www.example.com
+        channels:
+          type: array
+          description: Array of channel IDs where the file is shared.
+          items:
+            type: string
+          example: []
+        groups:
+          type: array
+          description: Array of private channel IDs where the file is shared.
+          items:
+            type: string
+          example: []
+        ims:
+          type: array
+          description: Array of DM IDs where the file is shared.
+          items:
+            type: string
+          example: []
+        shares:
+          type: object
+          description: Sharing information broken down by type.
+          example: example_value
+        comments_count:
+          type: integer
+          description: Number of comments on the file.
+          example: 10
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Slack API uses Bearer token authentication. Pass a bot token or user token in the Authorization header.
+x-refined-from:
+- slack-files-openapi.yml
+- slack-web-api-openapi.yml

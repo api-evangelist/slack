@@ -1,8 +1,8 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   version: '1.0'
-  title: Slack Admin Access Administrative API
-  description: "The Slack Admin API is a set of privileged endpoints\x14primarily under admin.* with related SCIM and Audit Logs APIs\x14that lets Enterprise Grid owners and admins automate organization\x11 wide management and governance. It covers user lifecycle (provision, suspend, assign roles), workspace and channel administration across workspaces (create, move, archive channels; manage membership and settings), app governance (approve/deny or allowlist/ban apps and install them to workspaces), invite request handling, and security/compliance controls such as information barriers, session and authentication policies, and org\x11level analytics exports. These APIs require elevated admin scopes and are commonly used to power automated onboarding/offboarding, centralized channel and app controls, and integrations with identity, ITSM, and compliance systems."
+  title: Slack Admin Administrative API
+  description: The Slack Admin API is a set of privileged endpointsprimarily under admin.* with related SCIM and Audit Logs APIsthat lets Enterprise Grid owners and admins automate organization wide management and governance.
 tags:
 - name: Administrative
 paths:
@@ -2213,81 +2213,6 @@ paths:
       - slackAuth:
         - admin.conversations:write
       summary: Slack Post Admin Conversations Unarchive
-      x-api-evangelist-processing:
-        GenerateOperationSummariesFromPath: true
-        PascalCaseOperationSummaries: true
-        CaselCaseOperationIds: true
-        ChooseTags: true
-      x-microcks-operation:
-        delay: 0
-        dispatcher: FALLBACK
-  /admin.emoji.add:
-    post:
-      tags:
-      - Administrative
-      description: Add an emoji.
-      externalDocs:
-        description: API method documentation
-        url: https://api.slack.com/methods/admin.emoji.add
-      operationId: postAdminEmojiAdd
-      requestBody:
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              required:
-              - name
-              - token
-              - url
-              type: object
-              properties:
-                token:
-                  type: string
-                  description: 'Authentication token. Requires scope: `admin.teams:write`'
-                name:
-                  type: string
-                  description: The name of the emoji to be removed. Colons (`:myemoji:`) around the value are not required, although they may be included.
-                url:
-                  type: string
-                  description: The URL of a file to use as an image for the emoji. Square images under 128KB and with transparent backgrounds work best.
-        required: true
-      responses:
-        '200':
-          description: Typical success response
-          content:
-            application/json:
-              schema:
-                title: Default success template
-                required:
-                - ok
-                type: object
-                properties:
-                  ok:
-                    $ref: '#/components/schemas/defs_ok_true'
-                additionalProperties: true
-                description: This method either only returns a brief _OK_ response or a verbose schema is not available for this method.
-              example:
-                ok: true
-        default:
-          description: Typical error response
-          content:
-            application/json:
-              schema:
-                title: Default error template
-                required:
-                - ok
-                type: object
-                properties:
-                  ok:
-                    $ref: '#/components/schemas/defs_ok_false'
-                additionalProperties: true
-                description: This method either only returns a brief _not OK_ response or a verbose schema is not available for this method.
-              example:
-                error: invalid_auth
-                ok: false
-      security:
-      - slackAuth:
-        - admin.teams:write
-      summary: Slack Post Admin Emoji Add
       x-api-evangelist-processing:
         GenerateOperationSummariesFromPath: true
         PascalCaseOperationSummaries: true

@@ -1,8 +1,20 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  version: '1.0'
-  title: Slack Admin Access Dnd API
-  description: "The Slack Admin API is a set of privileged endpoints\x14primarily under admin.* with related SCIM and Audit Logs APIs\x14that lets Enterprise Grid owners and admins automate organization\x11 wide management and governance. It covers user lifecycle (provision, suspend, assign roles), workspace and channel administration across workspaces (create, move, archive channels; manage membership and settings), app governance (approve/deny or allowlist/ban apps and install them to workspaces), invite request handling, and security/compliance controls such as information barriers, session and authentication policies, and org\x11level analytics exports. These APIs require elevated admin scopes and are commonly used to power automated onboarding/offboarding, centralized channel and app controls, and integrations with identity, ITSM, and compliance systems."
+  title: Slack Web Dnd API
+  description: The Slack Web API is an HTTP-based interface that provides access to all of Slack's platform features.
+  version: 1.0.0
+  termsOfService: https://slack.com/terms-of-service/api
+  contact:
+    name: Slack Developer Support
+    url: https://docs.slack.dev
+  license:
+    name: Slack API Terms of Service
+    url: https://slack.com/terms-of-service/api
+servers:
+- url: https://slack.com/api
+  description: Slack Web API production server
+security:
+- bearerAuth: []
 tags:
 - name: Dnd
   description: Do Not Disturb management
@@ -89,3 +101,9 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Slack API uses Bearer token authentication. Pass a bot token or user token in the Authorization header.

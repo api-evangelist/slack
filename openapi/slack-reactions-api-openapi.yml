@@ -1,136 +1,107 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  version: '1.0'
-  title: Slack Admin Access Reactions API
-  description: "The Slack Admin API is a set of privileged endpoints\x14primarily under admin.* with related SCIM and Audit Logs APIs\x14that lets Enterprise Grid owners and admins automate organization\x11 wide management and governance. It covers user lifecycle (provision, suspend, assign roles), workspace and channel administration across workspaces (create, move, archive channels; manage membership and settings), app governance (approve/deny or allowlist/ban apps and install them to workspaces), invite request handling, and security/compliance controls such as information barriers, session and authentication policies, and org\x11level analytics exports. These APIs require elevated admin scopes and are commonly used to power automated onboarding/offboarding, centralized channel and app controls, and integrations with identity, ITSM, and compliance systems."
+  title: Slack Web Reactions API
+  description: The Slack Web API is an HTTP-based interface that provides access to all of Slack's platform features.
+  version: 1.0.0
+  termsOfService: https://slack.com/terms-of-service/api
+  contact:
+    name: Slack Developer Support
+    url: https://docs.slack.dev
+  license:
+    name: Slack API Terms of Service
+    url: https://slack.com/terms-of-service/api
+servers:
+- url: https://slack.com/api
+  description: Slack Web API production server
+security:
+- bearerAuth: []
 tags:
 - name: Reactions
+  description: Add and manage emoji reactions
 paths:
   /reactions.add:
     post:
       tags:
       - Reactions
-      description: Adds a reaction to an item.
+      summary: Slack Add an Emoji Reaction
+      description: Adds a reaction (emoji) to a message, file, or file comment. Requires reactions:write scope.
+      operationId: reactionsAdd
       externalDocs:
         description: API method documentation
-        url: https://api.slack.com/methods/reactions.add
-      operationId: postReactionsAdd
-      parameters:
-      - name: token
-        in: header
-        description: 'Authentication token. Requires scope: `reactions:write`'
-        required: true
-        schema:
-          type: string
+        url: https://docs.slack.dev/reference/methods/reactions.add
       requestBody:
+        required: true
         content:
-          application/x-www-form-urlencoded:
-            schema:
-              required:
-              - channel
-              - name
-              - timestamp
-              type: object
-              properties:
-                channel:
-                  type: string
-                  description: Channel where the message to add reaction to was posted.
-                name:
-                  type: string
-                  description: Reaction (emoji) name.
-                timestamp:
-                  type: string
-                  description: Timestamp of the message to add reaction to.
           application/json:
             schema:
+              type: object
               required:
               - channel
               - name
               - timestamp
-              type: object
               properties:
                 channel:
                   type: string
                   description: Channel where the message to add reaction to was posted.
                 name:
                   type: string
-                  description: Reaction (emoji) name.
+                  description: Reaction (emoji) name without colons.
                 timestamp:
                   type: string
                   description: Timestamp of the message to add reaction to.
-        required: true
       responses:
         '200':
-          description: Typical success response
+          description: Reaction added
           content:
             application/json:
               schema:
-                title: reactions.add schema
-                required:
-                - ok
                 type: object
                 properties:
                   ok:
-                    $ref: '#/components/schemas/defs_ok_true'
-                additionalProperties: false
-                description: Schema for successful response from reactions.add method
-              example:
-                ok: true
-        default:
-          description: Typical error response
+                    type: boolean
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /reactions.remove:
+    post:
+      tags:
+      - Reactions
+      summary: Slack Remove an Emoji Reaction
+      description: Removes a reaction (emoji) from an item.
+      operationId: reactionsRemove
+      externalDocs:
+        description: API method documentation
+        url: https://docs.slack.dev/reference/methods/reactions.remove
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - name
+              properties:
+                channel:
+                  type: string
+                name:
+                  type: string
+                  description: Reaction (emoji) name without colons.
+                timestamp:
+                  type: string
+                file:
+                  type: string
+                file_comment:
+                  type: string
+      responses:
+        '200':
+          description: Reaction removed
           content:
             application/json:
               schema:
-                title: reactions.add error schema
-                required:
-                - error
-                - ok
                 type: object
                 properties:
-                  callstack:
-                    type: string
-                    description: 'Note: PHP callstack is only visible in dev/qa'
-                  error:
-                    type: string
-                    enum:
-                    - bad_timestamp
-                    - message_not_found
-                    - no_item_specified
-                    - invalid_name
-                    - already_reacted
-                    - too_many_emoji
-                    - too_many_reactions
-                    - not_authed
-                    - invalid_auth
-                    - account_inactive
-                    - no_permission
-                    - invalid_arg_name
-                    - invalid_array_arg
-                    - invalid_charset
-                    - invalid_form_data
-                    - invalid_post_type
-                    - missing_post_type
-                    - team_added_to_org
-                    - invalid_json
-                    - json_not_object
-                    - request_timeout
-                    - upgrade_required
                   ok:
-                    $ref: '#/components/schemas/defs_ok_false'
-                additionalProperties: false
-                description: Schema for error response from reactions.add method
-              example:
-                error: already_reacted
-                ok: false
-      security:
-      - slackAuth:
-        - reactions:write
-      summary: Slack Post Reactions Add
-      x-api-evangelist-processing:
-        GenerateOperationSummariesFromPath: true
-        PascalCaseOperationSummaries: true
-        CaselCaseOperationIds: true
-        ChooseTags: true
+                    type: boolean
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
@@ -138,18 +109,13 @@ paths:
     get:
       tags:
       - Reactions
-      description: Gets reactions for an item.
+      summary: Slack Get Reactions for an Item
+      description: Gets reactions for an item (message, file, or file comment).
+      operationId: reactionsGet
       externalDocs:
         description: API method documentation
-        url: https://api.slack.com/methods/reactions.get
-      operationId: getReactionsGet
+        url: https://docs.slack.dev/reference/methods/reactions.get
       parameters:
-      - name: token
-        in: query
-        description: 'Authentication token. Requires scope: `reactions:read`'
-        required: true
-        schema:
-          type: string
       - name: channel
         in: query
         description: Channel where the message to get reactions for was posted.
@@ -167,7 +133,7 @@ paths:
           type: string
       - name: full
         in: query
-        description: If true always return the complete reaction list.
+        description: If true, return complete reaction list.
         schema:
           type: boolean
       - name: timestamp
@@ -177,85 +143,18 @@ paths:
           type: string
       responses:
         '200':
-          description: Typical success response
+          description: Reactions retrieved
           content:
             application/json:
               schema:
-                title: reactions.get success schema
-                type: array
-                description: Schema for successful response from reactions.get method
-              example:
-                file:
-                  channels:
-                  - C2U7V2YA2
-                  comments_count: 1
-                  created: 1507850315
-                  groups: []
-                  id: F7H0D7ZA4
-                  ims: []
-                  name: computer.gif
-                  reactions:
-                  - count: 1
-                    name: stuck_out_tongue_winking_eye
-                    users:
-                    - U2U85N1RV
-                  timestamp: 1507850315
-                  title: computer.gif
-                  user: U2U85N1RV
-                ok: true
-                type: file
-        default:
-          description: Typical error response
-          content:
-            application/json:
-              schema:
-                title: reactions.get error schema
-                required:
-                - error
-                - ok
                 type: object
                 properties:
-                  callstack:
-                    type: string
-                    description: 'Note: PHP callstack is only visible in dev/qa'
-                  error:
-                    type: string
-                    enum:
-                    - bad_timestamp
-                    - file_not_found
-                    - file_comment_not_found
-                    - message_not_found
-                    - no_item_specified
-                    - not_authed
-                    - invalid_auth
-                    - account_inactive
-                    - no_permission
-                    - invalid_array_arg
-                    - invalid_charset
-                    - invalid_form_data
-                    - invalid_post_type
-                    - missing_post_type
-                    - team_added_to_org
-                    - invalid_json
-                    - json_not_object
-                    - request_timeout
-                    - upgrade_required
                   ok:
-                    $ref: '#/components/schemas/defs_ok_false'
-                additionalProperties: false
-                description: Schema for error response from reactions.get method
-              example:
-                error: invalid_auth
-                ok: false
-      security:
-      - slackAuth:
-        - reactions:read
-      summary: Slack Get Reactions Get
-      x-api-evangelist-processing:
-        GenerateOperationSummariesFromPath: true
-        PascalCaseOperationSummaries: true
-        CaselCaseOperationIds: true
-        ChooseTags: true
+                    type: boolean
+                  type:
+                    type: string
+                  message:
+                    $ref: '#/components/schemas/Message'
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
@@ -263,317 +162,368 @@ paths:
     get:
       tags:
       - Reactions
-      description: Lists reactions made by a user.
+      summary: Slack List Reactions Made by a User
+      description: Lists reactions made by a user. Paginated with cursor-based pagination.
+      operationId: reactionsList
       externalDocs:
         description: API method documentation
-        url: https://api.slack.com/methods/reactions.list
-      operationId: getReactionsList
+        url: https://docs.slack.dev/reference/methods/reactions.list
       parameters:
-      - name: token
-        in: query
-        description: 'Authentication token. Requires scope: `reactions:read`'
-        required: true
-        schema:
-          type: string
-      - name: user
-        in: query
-        description: Show reactions made by this user. Defaults to the authed user.
-        schema:
-          type: string
-      - name: full
-        in: query
-        description: If true always return the complete reaction list.
-        schema:
-          type: boolean
       - name: count
         in: query
         schema:
           type: integer
+          default: 100
+      - name: cursor
+        in: query
+        schema:
+          type: string
+      - name: full
+        in: query
+        schema:
+          type: boolean
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          default: 100
       - name: page
         in: query
         schema:
           type: integer
-      - name: cursor
+          default: 1
+      - name: user
         in: query
-        description: 'Parameter for pagination. Set `cursor` equal to the `next_cursor` attribute returned by the previous request''s `response_metadata`. This parameter is optional, but pagination is mandatory: the default value simply fetches the first "page" of the collection. See [pagination](/docs/pagination) for more details.'
+        description: Show reactions made by this user.
         schema:
           type: string
-      - name: limit
-        in: query
-        description: The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the list hasn't been reached.
-        schema:
-          type: integer
       responses:
         '200':
-          description: Typical success response
+          description: Reactions listed
           content:
             application/json:
               schema:
-                title: reactions.list schema
-                required:
-                - items
-                - ok
                 type: object
                 properties:
+                  ok:
+                    type: boolean
                   items:
                     type: array
                     items:
                       type: object
-                  ok:
-                    $ref: '#/components/schemas/defs_ok_true'
-                  paging:
-                    $ref: '#/components/schemas/objs_paging'
                   response_metadata:
-                    $ref: '#/components/schemas/objs_response_metadata'
-                additionalProperties: false
-                description: Schema for successful response from reactions.list method
-              example:
-                items:
-                - channel: C3UKJTQAC
-                  message:
-                    bot_id: B4VLRLMKJ
-                    reactions:
-                    - count: 1
-                      name: robot_face
-                      users:
-                      - U2U85N1RV
-                    subtype: bot_message
-                    text: 'Hello from Python! :tada:'
-                    ts: '1507849573.000090'
-                    username: Shipit Notifications
-                  type: message
-                - comment:
-                    comment: This is a file comment
-                    created: 1508286096
-                    id: Fc7LP08P1U
-                    reactions:
-                    - count: 1
-                      name: white_check_mark
-                      users:
-                      - U2U85N1RV
-                    timestamp: 1508286096
-                    type: file_comment
-                    user: U2U85N1RV
-                  file:
-                    channels:
-                    - C2U7V2YA2
-                    comments_count: 1
-                    created: 1507850315
-                    reactions:
-                    - count: 1
-                      name: stuck_out_tongue_winking_eye
-                      users:
-                      - U2U85N1RV
-                    title: computer.gif
-                    user: U2U85N1RV
-                    username: ''
-                - file:
-                    channels:
-                    - C2U7V2YA2
-                    comments_count: 1
-                    created: 1507850315
-                    id: F7H0D7ZA4
-                    name: computer.gif
-                    reactions:
-                    - count: 1
-                      name: stuck_out_tongue_winking_eye
-                      users:
-                      - U2U85N1RV
-                    size: 1639034
-                    title: computer.gif
-                    user: U2U85N1RV
-                    username: ''
-                  type: file
-                ok: true
-                response_metadata:
-                  next_cursor: dGVhbTpDMUg5UkVTR0w=
-        default:
-          description: Typical error response
-          content:
-            application/json:
-              schema:
-                title: reactions.list error schema
-                required:
-                - error
-                - ok
-                type: object
-                properties:
-                  callstack:
-                    type: string
-                    description: 'Note: PHP callstack is only visible in dev/qa'
-                  error:
-                    type: string
-                    enum:
-                    - user_not_found
-                    - not_authed
-                    - invalid_auth
-                    - account_inactiv
-                    - no_permission
-                    - invalid_arg_name
-                    - invalid_array_arg
-                    - invalid_charset
-                    - invalid_form_data
-                    - invalid_post_type
-                    - missing_post_type
-                    - team_added_to_org
-                    - invalid_json
-                    - json_not_object
-                    - request_timeout
-                    - upgrade_required
-                    - fatal_error
-                  ok:
-                    $ref: '#/components/schemas/defs_ok_false'
-                additionalProperties: false
-                description: Schema for error response from reactions.list method
-              example:
-                error: invalid_auth
-                ok: false
-      security:
-      - slackAuth:
-        - reactions:read
-      summary: Slack Get Reactions List
-      x-api-evangelist-processing:
-        GenerateOperationSummariesFromPath: true
-        PascalCaseOperationSummaries: true
-        CaselCaseOperationIds: true
-        ChooseTags: true
+                    $ref: '#/components/schemas/ResponseMetadata'
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
-  /reactions.remove:
-    post:
-      tags:
-      - Reactions
-      description: Removes a reaction from an item.
-      externalDocs:
-        description: API method documentation
-        url: https://api.slack.com/methods/reactions.remove
-      operationId: postReactionsRemove
-      parameters:
-      - name: token
-        in: header
-        description: 'Authentication token. Requires scope: `reactions:write`'
-        required: true
-        schema:
+components:
+  schemas:
+    File:
+      type: object
+      description: A Slack file object representing an uploaded file with its metadata and sharing information.
+      properties:
+        id:
           type: string
-      requestBody:
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              required:
-              - name
+          description: Unique file identifier.
+          example: abc123
+        created:
+          type: integer
+          description: Unix timestamp of when the file was created.
+          example: 10
+        timestamp:
+          type: integer
+          description: Unix timestamp.
+          example: 10
+        name:
+          type: string
+          description: The file name.
+          example: Example Title
+        title:
+          type: string
+          description: Title of the file.
+          example: Example Title
+        mimetype:
+          type: string
+          description: MIME type of the file.
+          example: example_value
+        filetype:
+          type: string
+          description: Slack file type identifier (e.g., "png", "pdf", "snippet").
+          example: example_value
+        pretty_type:
+          type: string
+          description: Human-readable file type.
+          example: example_value
+        user:
+          type: string
+          description: User ID of the user who uploaded the file.
+          example: example_value
+        user_team:
+          type: string
+          description: Team ID of the user who uploaded the file.
+          example: example_value
+        editable:
+          type: boolean
+          description: Whether the file content is editable.
+          example: true
+        size:
+          type: integer
+          description: File size in bytes.
+          example: 10
+        mode:
+          type: string
+          description: File mode (e.g., "hosted", "external", "snippet", "post").
+          example: example_value
+        is_external:
+          type: boolean
+          description: Whether the file is externally hosted.
+          example: true
+        external_type:
+          type: string
+          description: Type of external file.
+          example: example_value
+        is_public:
+          type: boolean
+          description: Whether the file is public.
+          example: true
+        public_url_shared:
+          type: boolean
+          example: https://www.example.com
+        display_as_bot:
+          type: boolean
+          example: true
+        username:
+          type: string
+          example: example_value
+        url_private:
+          type: string
+          format: uri
+          description: URL to access the file. Requires authentication.
+          example: https://www.example.com
+        url_private_download:
+          type: string
+          format: uri
+          description: URL to download the file. Requires authentication.
+          example: https://www.example.com
+        permalink:
+          type: string
+          format: uri
+          description: Permalink URL for the file.
+          example: https://www.example.com
+        permalink_public:
+          type: string
+          format: uri
+          description: Public permalink URL for the file (if shared publicly).
+          example: https://www.example.com
+        channels:
+          type: array
+          description: Array of channel IDs where the file is shared.
+          items:
+            type: string
+          example: []
+        groups:
+          type: array
+          description: Array of private channel IDs where the file is shared.
+          items:
+            type: string
+          example: []
+        ims:
+          type: array
+          description: Array of DM IDs where the file is shared.
+          items:
+            type: string
+          example: []
+        shares:
+          type: object
+          description: Sharing information broken down by type.
+          example: example_value
+        comments_count:
+          type: integer
+          description: Number of comments on the file.
+          example: 10
+    Message:
+      type: object
+      description: A Slack message object representing a single message in a conversation. Messages can contain text, blocks, attachments, files, and reactions.
+      properties:
+        type:
+          type: string
+          description: Always "message" for messages.
+          const: message
+          example: example_value
+        subtype:
+          type: string
+          description: Optional subtype indicating a specialized message type such as bot_message, channel_join, channel_leave, etc.
+          example: example_value
+        channel:
+          type: string
+          description: The channel ID where the message was posted.
+          example: example_value
+        user:
+          type: string
+          description: The user ID of the message author.
+          example: example_value
+        text:
+          type: string
+          description: The text content of the message.
+          example: example_value
+        ts:
+          type: string
+          description: Unique timestamp identifier for the message, also serves as the message ID. Format is Unix epoch with microseconds (e.g., "1503435956.000247").
+          example: example_value
+        thread_ts:
+          type: string
+          description: The timestamp of the parent message in a thread. Present only for threaded replies.
+          example: example_value
+        reply_count:
+          type: integer
+          description: Number of replies in the thread.
+          example: 10
+        reply_users_count:
+          type: integer
+          description: Number of unique users who have replied in the thread.
+          example: 10
+        latest_reply:
+          type: string
+          description: Timestamp of the most recent reply in the thread.
+          example: example_value
+        reply_users:
+          type: array
+          description: Array of user IDs who have replied in the thread.
+          items:
+            type: string
+          example: []
+        blocks:
+          type: array
+          description: An array of Block Kit layout blocks used for rich message formatting.
+          items:
+            type: object
+          example: []
+        attachments:
+          type: array
+          description: An array of message attachments.
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              color:
+                type: string
+              fallback:
+                type: string
+              text:
+                type: string
+              pretext:
+                type: string
+              author_name:
+                type: string
+              author_link:
+                type: string
+                format: uri
+              author_icon:
+                type: string
+                format: uri
+              title:
+                type: string
+              title_link:
+                type: string
+                format: uri
+              fields:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    title:
+                      type: string
+                    value:
+                      type: string
+                    short:
+                      type: boolean
+              footer:
+                type: string
+              footer_icon:
+                type: string
+                format: uri
+              ts:
+                type: integer
+          example: []
+        files:
+          type: array
+          description: An array of file objects attached to the message.
+          items:
+            $ref: '#/components/schemas/File'
+          example: []
+        reactions:
+          type: array
+          description: An array of emoji reactions on this message.
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: Emoji name without colons.
+              count:
+                type: integer
+                description: Number of users who added this reaction.
+              users:
+                type: array
+                description: User IDs of users who added this reaction.
+                items:
+                  type: string
+          example: []
+        edited:
+          type: object
+          description: Edit information if the message was edited.
+          properties:
+            user:
+              type: string
+            ts:
+              type: string
+          example: example_value
+        bot_id:
+          type: string
+          description: Bot ID if the message was posted by a bot.
+          example: '500123'
+        bot_profile:
+          type: object
+          description: Bot profile information if posted by a bot.
+          properties:
+            id:
+              type: string
+            deleted:
+              type: boolean
+            name:
+              type: string
+            updated:
+              type: integer
+            app_id:
+              type: string
+            icons:
               type: object
-              properties:
-                name:
-                  type: string
-                  description: Reaction (emoji) name.
-                file:
-                  type: string
-                  description: File to remove reaction from.
-                file_comment:
-                  type: string
-                  description: File comment to remove reaction from.
-                channel:
-                  type: string
-                  description: Channel where the message to remove reaction from was posted.
-                timestamp:
-                  type: string
-                  description: Timestamp of the message to remove reaction from.
-          application/json:
-            schema:
-              required:
-              - name
+          example: example_value
+        metadata:
+          type: object
+          description: Custom metadata attached to the message by an application.
+          properties:
+            event_type:
+              type: string
+            event_payload:
               type: object
-              properties:
-                name:
-                  type: string
-                  description: Reaction (emoji) name.
-                file:
-                  type: string
-                  description: File to remove reaction from.
-                file_comment:
-                  type: string
-                  description: File comment to remove reaction from.
-                channel:
-                  type: string
-                  description: Channel where the message to remove reaction from was posted.
-                timestamp:
-                  type: string
-                  description: Timestamp of the message to remove reaction from.
-        required: true
-      responses:
-        '200':
-          description: Typical success response
-          content:
-            application/json:
-              schema:
-                title: reactions.remove schema
-                required:
-                - ok
-                type: object
-                properties:
-                  ok:
-                    $ref: '#/components/schemas/defs_ok_true'
-                additionalProperties: false
-                description: Schema for successful response from reactions.remove method
-              example:
-                ok: true
-        default:
-          description: Typical error response
-          content:
-            application/json:
-              schema:
-                title: reactions.remove error schema
-                required:
-                - error
-                - ok
-                type: object
-                properties:
-                  callstack:
-                    type: string
-                    description: 'Note: PHP callstack is only visible in dev/qa'
-                  error:
-                    type: string
-                    enum:
-                    - bad_timestamp
-                    - file_not_found
-                    - file_comment_not_found
-                    - message_not_found
-                    - no_item_specified
-                    - invalid_name
-                    - no_reaction
-                    - not_authed
-                    - invalid_auth
-                    - account_inactive
-                    - no_permission
-                    - invalid_arg_name
-                    - invalid_array_arg
-                    - invalid_charset
-                    - invalid_form_data
-                    - invalid_post_type
-                    - missing_post_type
-                    - team_added_to_org
-                    - invalid_json
-                    - json_not_object
-                    - request_timeout
-                    - upgrade_required
-                    - fatal_error
-                  ok:
-                    $ref: '#/components/schemas/defs_ok_false'
-                additionalProperties: false
-                description: Schema for error response from reactions.remove method
-              example:
-                error: no_reaction
-                ok: false
-      security:
-      - slackAuth:
-        - reactions:write
-      summary: Slack Post Reactions Remove
-      x-api-evangelist-processing:
-        GenerateOperationSummariesFromPath: true
-        PascalCaseOperationSummaries: true
-        CaselCaseOperationIds: true
-        ChooseTags: true
-      x-microcks-operation:
-        delay: 0
-        dispatcher: FALLBACK
+          example: example_value
+        permalink:
+          type: string
+          format: uri
+          description: Permalink URL for the message.
+          example: https://www.example.com
+    ResponseMetadata:
+      type: object
+      description: Metadata for paginated responses containing cursor information.
+      properties:
+        next_cursor:
+          type: string
+          description: An opaque cursor to use in the next request to get the next page of results. Empty string indicates no more results.
+          example: example_value
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Slack API uses Bearer token authentication. Pass a bot token or user token in the Authorization header.
