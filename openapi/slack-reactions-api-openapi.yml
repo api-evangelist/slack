@@ -341,6 +341,14 @@ components:
           type: integer
           description: Number of comments on the file.
           example: 10
+    ResponseMetadata:
+      type: object
+      description: Metadata for paginated responses containing cursor information.
+      properties:
+        next_cursor:
+          type: string
+          description: An opaque cursor to use in the next request to get the next page of results. Empty string indicates no more results.
+          example: example_value
     Message:
       type: object
       description: A Slack message object representing a single message in a conversation. Messages can contain text, blocks, attachments, files, and reactions.
@@ -514,14 +522,6 @@ components:
           format: uri
           description: Permalink URL for the message.
           example: https://www.example.com
-    ResponseMetadata:
-      type: object
-      description: Metadata for paginated responses containing cursor information.
-      properties:
-        next_cursor:
-          type: string
-          description: An opaque cursor to use in the next request to get the next page of results. Empty string indicates no more results.
-          example: example_value
   securitySchemes:
     bearerAuth:
       type: http
