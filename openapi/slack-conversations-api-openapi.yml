@@ -2496,129 +2496,165 @@ paths:
       description: Slack Web API production server
 components:
   schemas:
-    File:
+    Channel:
       type: object
-      description: A Slack file object representing an uploaded file with its metadata and sharing information.
+      description: A Slack conversation object representing a channel, direct message, multi-person DM, or group conversation.
       properties:
         id:
           type: string
-          description: Unique file identifier.
+          description: The unique identifier for this conversation.
           example: abc123
-        created:
-          type: integer
-          description: Unix timestamp of when the file was created.
-          example: 10
-        timestamp:
-          type: integer
-          description: Unix timestamp.
-          example: 10
         name:
           type: string
-          description: The file name.
+          description: 'The name of the channel (without the leading # sign).'
           example: Example Title
-        title:
+        name_normalized:
           type: string
-          description: Title of the file.
-          example: Example Title
-        mimetype:
-          type: string
-          description: MIME type of the file.
+          description: Normalized version of the channel name.
           example: example_value
-        filetype:
+        is_channel:
+          type: boolean
+          description: Whether this is a public channel.
+          example: true
+        is_group:
+          type: boolean
+          description: Whether this is a private channel (formerly a group).
+          example: true
+        is_im:
+          type: boolean
+          description: Whether this is a direct message.
+          example: true
+        is_mpim:
+          type: boolean
+          description: Whether this is a multi-person direct message.
+          example: true
+        is_private:
+          type: boolean
+          description: Whether this is a private conversation.
+          example: true
+        is_archived:
+          type: boolean
+          description: Whether the channel is archived.
+          example: true
+        is_general:
+          type: boolean
+          description: Whether this is the
+          example: true
+        is_shared:
+          type: boolean
+          description: Whether the channel is shared with another workspace.
+          example: true
+        is_ext_shared:
+          type: boolean
+          description: Whether the channel is shared with an external organization via Slack Connect.
+          example: true
+        is_org_shared:
+          type: boolean
+          description: Whether the channel is shared across an Enterprise Grid org.
+          example: true
+        is_pending_ext_shared:
+          type: boolean
+          description: Whether there is a pending external share invitation.
+          example: true
+        is_member:
+          type: boolean
+          description: Whether the calling user is a member of this conversation.
+          example: true
+        is_open:
+          type: boolean
+          description: Whether the DM is open.
+          example: true
+        is_frozen:
+          type: boolean
+          description: Whether the channel is frozen.
+          example: true
+        created:
+          type: integer
+          description: Unix timestamp of when the conversation was created.
+          example: 10
+        creator:
           type: string
-          description: Slack file type identifier (e.g., "png", "pdf", "snippet").
+          description: User ID of the member who created this channel.
           example: example_value
-        pretty_type:
+        updated:
+          type: integer
+          description: Unix timestamp of the last update to the conversation.
+          example: 10
+        unlinked:
+          type: integer
+          description: Number of times the channel has been unlinked.
+          example: 10
+        topic:
+          type: object
+          description: The channel topic.
+          properties:
+            value:
+              type: string
+            creator:
+              type: string
+            last_set:
+              type: integer
+          example: example_value
+        purpose:
+          type: object
+          description: The channel purpose.
+          properties:
+            value:
+              type: string
+            creator:
+              type: string
+            last_set:
+              type: integer
+          example: example_value
+        previous_names:
+          type: array
+          description: A list of previous names the channel had.
+          items:
+            type: string
+          example: []
+        num_members:
+          type: integer
+          description: The number of members in the channel. Only included when specifically requested.
+          example: 10
+        locale:
           type: string
-          description: Human-readable file type.
+          description: IETF language code for the channel locale. Only included when specifically requested.
           example: example_value
         user:
           type: string
-          description: User ID of the user who uploaded the file.
+          description: For direct messages, the user ID of the other participant.
           example: example_value
-        user_team:
-          type: string
-          description: Team ID of the user who uploaded the file.
-          example: example_value
-        editable:
-          type: boolean
-          description: Whether the file content is editable.
-          example: true
-        size:
-          type: integer
-          description: File size in bytes.
-          example: 10
-        mode:
-          type: string
-          description: File mode (e.g., "hosted", "external", "snippet", "post").
-          example: example_value
-        is_external:
-          type: boolean
-          description: Whether the file is externally hosted.
-          example: true
-        external_type:
-          type: string
-          description: Type of external file.
-          example: example_value
-        is_public:
-          type: boolean
-          description: Whether the file is public.
-          example: true
-        public_url_shared:
-          type: boolean
-          example: https://www.example.com
-        display_as_bot:
-          type: boolean
-          example: true
-        username:
-          type: string
-          example: example_value
-        url_private:
-          type: string
-          format: uri
-          description: URL to access the file. Requires authentication.
-          example: https://www.example.com
-        url_private_download:
-          type: string
-          format: uri
-          description: URL to download the file. Requires authentication.
-          example: https://www.example.com
-        permalink:
-          type: string
-          format: uri
-          description: Permalink URL for the file.
-          example: https://www.example.com
-        permalink_public:
-          type: string
-          format: uri
-          description: Public permalink URL for the file (if shared publicly).
-          example: https://www.example.com
-        channels:
+        shared_team_ids:
           type: array
-          description: Array of channel IDs where the file is shared.
+          description: Array of team IDs that share this channel (for shared channels).
           items:
             type: string
           example: []
-        groups:
-          type: array
-          description: Array of private channel IDs where the file is shared.
-          items:
-            type: string
-          example: []
-        ims:
-          type: array
-          description: Array of DM IDs where the file is shared.
-          items:
-            type: string
-          example: []
-        shares:
+        parent_conversation:
+          type: string
+          description: Parent conversation ID for thread-only channels.
+          example: example_value
+        context_team_id:
+          type: string
+          description: The workspace team ID.
+          example: '500123'
+        properties:
           type: object
-          description: Sharing information broken down by type.
+          description: Additional channel properties.
+          properties:
+            tabs:
+              type: array
+              items:
+                type: object
           example: example_value
-        comments_count:
-          type: integer
-          description: Number of comments on the file.
-          example: 10
+    ResponseMetadata:
+      type: object
+      description: Metadata for paginated responses containing cursor information.
+      properties:
+        next_cursor:
+          type: string
+          description: An opaque cursor to use in the next request to get the next page of results. Empty string indicates no more results.
+          example: example_value
     Message:
       type: object
       description: A Slack message object representing a single message in a conversation. Messages can contain text, blocks, attachments, files, and reactions.
@@ -2792,165 +2828,129 @@ components:
           format: uri
           description: Permalink URL for the message.
           example: https://www.example.com
-    ResponseMetadata:
+    File:
       type: object
-      description: Metadata for paginated responses containing cursor information.
-      properties:
-        next_cursor:
-          type: string
-          description: An opaque cursor to use in the next request to get the next page of results. Empty string indicates no more results.
-          example: example_value
-    Channel:
-      type: object
-      description: A Slack conversation object representing a channel, direct message, multi-person DM, or group conversation.
+      description: A Slack file object representing an uploaded file with its metadata and sharing information.
       properties:
         id:
           type: string
-          description: The unique identifier for this conversation.
+          description: Unique file identifier.
           example: abc123
-        name:
-          type: string
-          description: 'The name of the channel (without the leading # sign).'
-          example: Example Title
-        name_normalized:
-          type: string
-          description: Normalized version of the channel name.
-          example: example_value
-        is_channel:
-          type: boolean
-          description: Whether this is a public channel.
-          example: true
-        is_group:
-          type: boolean
-          description: Whether this is a private channel (formerly a group).
-          example: true
-        is_im:
-          type: boolean
-          description: Whether this is a direct message.
-          example: true
-        is_mpim:
-          type: boolean
-          description: Whether this is a multi-person direct message.
-          example: true
-        is_private:
-          type: boolean
-          description: Whether this is a private conversation.
-          example: true
-        is_archived:
-          type: boolean
-          description: Whether the channel is archived.
-          example: true
-        is_general:
-          type: boolean
-          description: Whether this is the
-          example: true
-        is_shared:
-          type: boolean
-          description: Whether the channel is shared with another workspace.
-          example: true
-        is_ext_shared:
-          type: boolean
-          description: Whether the channel is shared with an external organization via Slack Connect.
-          example: true
-        is_org_shared:
-          type: boolean
-          description: Whether the channel is shared across an Enterprise Grid org.
-          example: true
-        is_pending_ext_shared:
-          type: boolean
-          description: Whether there is a pending external share invitation.
-          example: true
-        is_member:
-          type: boolean
-          description: Whether the calling user is a member of this conversation.
-          example: true
-        is_open:
-          type: boolean
-          description: Whether the DM is open.
-          example: true
-        is_frozen:
-          type: boolean
-          description: Whether the channel is frozen.
-          example: true
         created:
           type: integer
-          description: Unix timestamp of when the conversation was created.
+          description: Unix timestamp of when the file was created.
           example: 10
-        creator:
+        timestamp:
+          type: integer
+          description: Unix timestamp.
+          example: 10
+        name:
           type: string
-          description: User ID of the member who created this channel.
-          example: example_value
-        updated:
-          type: integer
-          description: Unix timestamp of the last update to the conversation.
-          example: 10
-        unlinked:
-          type: integer
-          description: Number of times the channel has been unlinked.
-          example: 10
-        topic:
-          type: object
-          description: The channel topic.
-          properties:
-            value:
-              type: string
-            creator:
-              type: string
-            last_set:
-              type: integer
-          example: example_value
-        purpose:
-          type: object
-          description: The channel purpose.
-          properties:
-            value:
-              type: string
-            creator:
-              type: string
-            last_set:
-              type: integer
-          example: example_value
-        previous_names:
-          type: array
-          description: A list of previous names the channel had.
-          items:
-            type: string
-          example: []
-        num_members:
-          type: integer
-          description: The number of members in the channel. Only included when specifically requested.
-          example: 10
-        locale:
+          description: The file name.
+          example: Example Title
+        title:
           type: string
-          description: IETF language code for the channel locale. Only included when specifically requested.
+          description: Title of the file.
+          example: Example Title
+        mimetype:
+          type: string
+          description: MIME type of the file.
+          example: example_value
+        filetype:
+          type: string
+          description: Slack file type identifier (e.g., "png", "pdf", "snippet").
+          example: example_value
+        pretty_type:
+          type: string
+          description: Human-readable file type.
           example: example_value
         user:
           type: string
-          description: For direct messages, the user ID of the other participant.
+          description: User ID of the user who uploaded the file.
           example: example_value
-        shared_team_ids:
+        user_team:
+          type: string
+          description: Team ID of the user who uploaded the file.
+          example: example_value
+        editable:
+          type: boolean
+          description: Whether the file content is editable.
+          example: true
+        size:
+          type: integer
+          description: File size in bytes.
+          example: 10
+        mode:
+          type: string
+          description: File mode (e.g., "hosted", "external", "snippet", "post").
+          example: example_value
+        is_external:
+          type: boolean
+          description: Whether the file is externally hosted.
+          example: true
+        external_type:
+          type: string
+          description: Type of external file.
+          example: example_value
+        is_public:
+          type: boolean
+          description: Whether the file is public.
+          example: true
+        public_url_shared:
+          type: boolean
+          example: https://www.example.com
+        display_as_bot:
+          type: boolean
+          example: true
+        username:
+          type: string
+          example: example_value
+        url_private:
+          type: string
+          format: uri
+          description: URL to access the file. Requires authentication.
+          example: https://www.example.com
+        url_private_download:
+          type: string
+          format: uri
+          description: URL to download the file. Requires authentication.
+          example: https://www.example.com
+        permalink:
+          type: string
+          format: uri
+          description: Permalink URL for the file.
+          example: https://www.example.com
+        permalink_public:
+          type: string
+          format: uri
+          description: Public permalink URL for the file (if shared publicly).
+          example: https://www.example.com
+        channels:
           type: array
-          description: Array of team IDs that share this channel (for shared channels).
+          description: Array of channel IDs where the file is shared.
           items:
             type: string
           example: []
-        parent_conversation:
-          type: string
-          description: Parent conversation ID for thread-only channels.
-          example: example_value
-        context_team_id:
-          type: string
-          description: The workspace team ID.
-          example: '500123'
-        properties:
+        groups:
+          type: array
+          description: Array of private channel IDs where the file is shared.
+          items:
+            type: string
+          example: []
+        ims:
+          type: array
+          description: Array of DM IDs where the file is shared.
+          items:
+            type: string
+          example: []
+        shares:
           type: object
-          description: Additional channel properties.
-          properties:
-            tabs:
-              type: array
-              items:
-                type: object
+          description: Sharing information broken down by type.
           example: example_value
+        comments_count:
+          type: integer
+          description: Number of comments on the file.
+          example: 10
   securitySchemes:
     bearerAuth:
       type: http
