@@ -2496,6 +2496,14 @@ paths:
       description: Slack Web API production server
 components:
   schemas:
+    ResponseMetadata:
+      type: object
+      description: Metadata for paginated responses containing cursor information.
+      properties:
+        next_cursor:
+          type: string
+          description: An opaque cursor to use in the next request to get the next page of results. Empty string indicates no more results.
+          example: example_value
     Channel:
       type: object
       description: A Slack conversation object representing a channel, direct message, multi-person DM, or group conversation.
@@ -2646,14 +2654,6 @@ components:
               type: array
               items:
                 type: object
-          example: example_value
-    ResponseMetadata:
-      type: object
-      description: Metadata for paginated responses containing cursor information.
-      properties:
-        next_cursor:
-          type: string
-          description: An opaque cursor to use in the next request to get the next page of results. Empty string indicates no more results.
           example: example_value
     Message:
       type: object
